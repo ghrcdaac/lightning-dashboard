@@ -23,7 +23,7 @@ const MetaTags = ({ title, description, children }) => {
       {description ? (
         <meta name='twitter:description' content={description} />
       ) : null}
-      <meta name='twitter:image:src' content={`${baseUrl}/assets/graphics/meta/default-meta-image.png`} />
+      {/* <meta name='twitter:image:src' content={`${baseUrl}/assets/graphics/meta/default-meta-image.png`} /> */}
 
       {/* Open Graph */}
       <meta property='og:type' content='website' />
@@ -32,7 +32,7 @@ const MetaTags = ({ title, description, children }) => {
       <meta property='og:title' content={title} />
       <meta
         property='og:image'
-        content={`${baseUrl}/assets/graphics/meta/default-meta-image.png`}
+        // content={`${baseUrl}/assets/graphics/meta/default-meta-image.png`}
       />
       {description ? (
         <meta property='og:description' content={description} />
