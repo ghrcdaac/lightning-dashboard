@@ -1,3 +1,6 @@
+// map won't show up without this file.
+// utilizes all of the map-popover files
+
 import React from 'react';
 import { PropTypes as T } from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';

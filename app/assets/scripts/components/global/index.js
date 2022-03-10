@@ -19,7 +19,6 @@ import {
 } from '../../styles/inpage';
 import MbMap from '../common/mb-map-explore/mb-map';
 import Timeline from '../common/timeline';
-// import MapMessage from '../common/map-message';
 
 import { showGlobalLoading, hideGlobalLoading } from '../common/global-loading';
 import { themeVal } from '../../styles/utils/general';
@@ -440,16 +439,6 @@ class GlobalExplore extends React.Component {
                 spotlightList={spotlightList}
               />
               <ExploreCarto>
-                {/* <MapMessage active={this.state.aoi.drawing}>
-                  <p>Draw an AOI on the map</p>
-                </MapMessage>
-                <MapMessage
-                  active={
-                    !this.state.aoi.drawing && isComparing && !!compareMessage
-                  }
-                >
-                  <p>{compareMessage}</p>
-                </MapMessage> */}
                 <MbMap
                   ref={this.mbMapRef}
                   position={this.state.mapPos}

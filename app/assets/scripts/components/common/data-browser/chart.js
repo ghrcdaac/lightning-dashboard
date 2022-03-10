@@ -1,3 +1,6 @@
+// Needed for timeline
+// Uses all the files in data-brower
+
 import React from 'react';
 import { createPortal } from 'react-dom';
 import { PropTypes as T } from 'prop-types';

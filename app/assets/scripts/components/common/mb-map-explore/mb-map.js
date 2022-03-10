@@ -11,17 +11,12 @@ import { fetchSpotlightSingle as fetchSpotlightSingleAction } from '../../../red
 import { wrapApiResult } from '../../../redux/reduxeed';
 import { layerTypes } from '../layers/types';
 import { glsp } from '../../../styles/utils/theme-values';
-// import mbAoiDraw from './mb-aoi-draw';
 import { round } from '../../../utils/format';
-// import { createMbMarker } from './mb-popover/utils';
-// import { getSpotlightLayers } from '../layers';
-import MapboxControl from '../mapbox-react-control';
+// import MapboxControl from '../mapbox-react-control';
 
 import ReactPopoverGl from './mb-popover';
-// import Button from '../../../styles/button/button';
-// import Prose from '../../../styles/type/prose';
 import Dl from '../../../styles/type/definition-list';
-import LayerControlDropdown from './map-layer-control';
+// import LayerControlDropdown from './map-layer-control';
 
 const { center, zoom: defaultZoom, minZoom, maxZoom, styleUrl } = config.map;
 
@@ -210,19 +205,6 @@ class MbMap extends React.Component {
       });
     }
 
-    // Update mapLayers if changed
-    // const { spotlightMarkers } = this.state.overlayState;
-    // if (prevState.overlayState.spotlightMarkers !== spotlightMarkers) {
-    //   if (spotlightMarkers) {
-    //     this.updateSpotlights();
-    //   } else {
-    //     console.log(spotlightMarkersList)
-    //     this.spotlightMarkersList.forEach(m => m.remove());
-    //     this.spotlightMarkersList = [];
-    //     this.setState({ popover: {} });
-    //   }
-    // }
-
     // Update all active layers.
     this.updateActiveLayers(prevProps);
 
@@ -231,14 +213,6 @@ class MbMap extends React.Component {
       this.mbDraw.update(prevProps.aoiState, this.props.aoiState);
     }
 
-    // If spotlightList is active and was made available, add it to the map
-    // if (
-    //   spotlightList &&
-    //   spotlightList.isReady() &&
-    //   !prevProps.spotlightList.isReady()
-    // ) {
-    //   this.updateSpotlights();
-    // }
   }
 
   handleOverlayChange (id) {
@@ -249,47 +223,6 @@ class MbMap extends React.Component {
       })
     }));
   }
-
-  /**
-   * Adds spotlight markers to mbMap and mbMapComparing. This functions uses
-   * component state to control spotlights loading state, because maps will
-   * finish loading at different times.
-   */
-  // updateSpotlights () {
-  //   // Check if spotlights are available
-  //   const { spotlightList } = this.props;
-  //   if (!spotlightList || !spotlightList.isReady()) return;
-
-  //   // Get spotlights from API data
-  //   const spotlights = spotlightList.getData();
-
-  //   // Define a common function to add markers
-  //   const addMarker = (spotlight, map) => {
-  //     return createMbMarker(map, { color: this.props.theme.color.primary })
-  //       .setLngLat(spotlight.center)
-  //       .addTo(map)
-  //       .onClick((coords) => {
-  //         this.props.fetchSpotlightSingle(spotlight.id);
-  //         this.setState({ popover: { coords, spotlightId: spotlight.id } });
-  //       });
-  //   };
-
-  //   // Add markers to mbMap, if not done yet
-  //   if (this.mbMap) {
-  //     spotlights.forEach((s) => {
-  //       const m = addMarker(s, this.mbMap);
-  //       this.spotlightMarkersList.push(m);
-  //     });
-  //   }
-
-  //   // Add markers to mbMapComparing, if not done yet
-  //   if (this.mbMapComparing) {
-  //     spotlights.forEach((s) => {
-  //       const m = addMarker(s, this.mbMapComparing);
-  //       this.spotlightMarkersList.push(m);
-  //     });
-  //   }
-  // }
 
   enableCompare (prevProps) {
     this.mbMap.resize();
@@ -327,15 +260,15 @@ class MbMap extends React.Component {
       );
     }
 
-    if (this.props.enableOverlayControls) {
-      this.overlayDropdownControlCompare = new MapboxControl(
-        (props, state) => this.renderOverlayDropdown(props, state)
-      );
+    // if (this.props.enableOverlayControls) {
+    //   this.overlayDropdownControlCompare = new MapboxControl(
+    //     (props, state) => this.renderOverlayDropdown(props, state)
+    //   );
 
-      this.mbMapComparing.addControl(this.overlayDropdownControlCompare, 'top-left');
-      // Initial rendering.
-      this.overlayDropdownControlCompare.render(this.props, this.state);
-    }
+    //   this.mbMapComparing.addControl(this.overlayDropdownControlCompare, 'top-left');
+    //   // Initial rendering.
+    //   this.overlayDropdownControlCompare.render(this.props, this.state);
+    // }
 
     // Style attribution.
     this.mbMapComparing.addControl(
@@ -411,34 +344,23 @@ class MbMap extends React.Component {
         );
       }
 
-      if (this.props.enableOverlayControls) {
-        this.overlayDropdownControl = new MapboxControl(
-          (props, state) => this.renderOverlayDropdown(props, state)
-        );
+      // if (this.props.enableOverlayControls) {
+      //   this.overlayDropdownControl = new MapboxControl(
+      //     (props, state) => this.renderOverlayDropdown(props, state)
+      //   );
 
-        this.mbMap.addControl(this.overlayDropdownControl, 'top-left');
-        // Initial rendering.
-        this.overlayDropdownControl.render(this.props, this.state);
-      }
+      //   this.mbMap.addControl(this.overlayDropdownControl, 'top-left');
+      //   // Initial rendering.
+      //   this.overlayDropdownControl.render(this.props, this.state);
+      // }
     }
 
     // Style attribution
     this.mbMap.addControl(new mapboxgl.AttributionControl({ compact: true }));
 
-    // Setup the AIO drawing functions.
-    // if (this.props.aoiState) {
-    //   this.mbDraw = mbAoiDraw(this.mbMap);
-    //   const { feature } = this.props.aoiState;
-    //   this.mbDraw.setup(
-    //     this.props.onAction,
-    //     feature ? [feature] : null,
-    //     this.props.theme
-    //   );
-    // }
-
     this.mbMap.on('load', () => {
       const allProps = this.props;
-      const { spotlightList, comparing, onAction } = allProps;
+      const {comparing, onAction } = allProps;
       onAction('map.loaded');
 
       if (comparing) {
@@ -448,11 +370,6 @@ class MbMap extends React.Component {
           comparing: false
         });
       }
-
-      // If spotlight list is available on map mount, add it to the map
-      // if (spotlightList && spotlightList.isReady()) {
-      //   this.updateSpotlights(spotlightList.getData());
-      // }
     });
 
     this.mbMap.on('moveend', (e) => {
@@ -470,10 +387,10 @@ class MbMap extends React.Component {
   renderOverlayDropdown (props, state) {
     return (
       <ThemeProvider theme={props.theme}>
-        <LayerControlDropdown
+        {/* <LayerControlDropdown
           overlayState={state.overlayState}
           handleOverlayChange={this.handleOverlayChange}
-        />
+        /> */}
       </ThemeProvider>
     );
   }
@@ -481,32 +398,24 @@ class MbMap extends React.Component {
   renderPopover () {
     const { spotlightId } = this.state.popover;
 
-    let spotlight = {};
-
     if (spotlightId) {
       const { getData, isReady } = this.props.spotlight[spotlightId];
       spotlight = isReady() ? getData() : {};
     }
 
-    const truncateArray = (arr, count) => {
-      if (!arr) return [];
-      if (arr.length <= count) return arr;
-      return [
-        // We always want to have count items. If there are more show, count - 1
-        // and "more".
-        ...arr.slice(0, count - 1),
-        {
-          id: 'other',
-          name: <em>and {arr.length - (count - 1)} more</em>
-        }
-      ];
-    };
-
-    // const { indicators } = spotlight;
-    // const spotlightLayers = getSpotlightLayers(spotlightId);
-
-    // const indicatorsToShow = truncateArray(indicators, 3);
-    // const layersToShow = truncateArray(spotlightLayers, 3);
+    // const truncateArray = (arr, count) => {
+    //   if (!arr) return [];
+    //   if (arr.length <= count) return arr;
+    //   return [
+    //     // We always want to have count items. If there are more show, count - 1
+    //     // and "more".
+    //     ...arr.slice(0, count - 1),
+    //     {
+    //       id: 'other',
+    //       name: <em>and {arr.length - (count - 1)} more</em>
+    //     }
+    //   ];
+    // };
 
     return (
       <ReactPopoverGl

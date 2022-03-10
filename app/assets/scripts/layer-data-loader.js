@@ -1,3 +1,5 @@
+// mainly used to getch the layer-loder (agriculture, no2, co2) --> in our case will be NALMA and ISSLIS
+
 import '@babel/polyfill';
 import React from 'react';
 import T from 'prop-types';
@@ -29,31 +31,6 @@ class LayerDataLoader extends React.Component {
     showGlobalLoadingMessage('Loading datasets');
     this.requestData();
   }
-
-  // componentDidUpdate (prevProps) {
-  //   console.log('im here in componnetDidUpdate')
-  //   const { spotlightList } = this.props;
-  //   if (spotlightList.isReady() && !prevProps.spotlightList.isReady()) {
-  //     this.requestData(spotlightList.getData());
-  //   }
-  // }
-
-  // async requestData (spotlightList) {
-  //   const ids = [...spotlightList.map((s) => s.id), 'global'];
-  //   await Promise.all(
-  //     ids.map(async (spotlightId) => {
-  //       console.log(spotlightId)
-  //       const { body } = await fetchJSON(
-  //         `${config.api}/datasets/${spotlightId}`
-  //       );
-  //       console.log(body)
-  //       storeSpotlightLayers(spotlightId, body.datasets);
-  //     })
-  //   );
-
-  //   hideGlobalLoading();
-  //   this.props.onReady();
-  // }
 
   async requestData () {
     const ids = ['global'];

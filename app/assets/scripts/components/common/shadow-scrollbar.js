@@ -1,3 +1,5 @@
+// helps with the date scrolling option in the timeline
+
 import React from 'react';
 import { PropTypes as T } from 'prop-types';
 import styled, { css } from 'styled-components';

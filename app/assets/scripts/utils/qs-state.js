@@ -1,3 +1,5 @@
+// again, used by global/index.js
+
 'use strict';
 import qs from 'qs';
 import set from 'lodash.set';
@@ -130,49 +132,3 @@ export default class QsState {
   }
 }
 
-// Example in the wild.
-// class Cmp extends Component {
-//   constructor (props) {
-//     super(props);
-
-//     this.qsState = new QsState({
-//       province: {
-//         accessor: 'province',
-//         default: null
-//       },
-//       district: {
-//         accessor: 'district',
-//         default: null
-//       },
-//       round: {
-//         accessor: 'round',
-//         default: null
-//       }
-//     });
-
-//     this.state = {
-//       ...this.qsState.getState(this.props.location.search.substr(1))
-//     };
-
-//     this.onNavValueChange = this.onNavValueChange.bind(this);
-//   }
-
-//   async onNavValueChange (what, id) {
-//     await this.setState({ [what]: id });
-//     // Update the url
-//     const qString = this.qsState.getQs(this.state);
-//     this.props.history.push({ search: qString });
-//   }
-
-//   render () {
-//     const {
-//       province,
-//       district,
-//       round
-//     } = this.state;
-
-//     return (
-//      ...
-//     );
-//   }
-// }

@@ -1,3 +1,5 @@
+// used for styling the left nav bar layers -- imported by layer.js
+
 import React from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';

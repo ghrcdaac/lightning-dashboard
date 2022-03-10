@@ -1,3 +1,5 @@
+// used by layer, and data-layers -> used for left nav bar
+
 import React, { useState } from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';

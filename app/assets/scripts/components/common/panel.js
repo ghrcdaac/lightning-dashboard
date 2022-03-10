@@ -1,3 +1,5 @@
+// helps with collapsing/uncollapsing the left nav bar
+
 import React from 'react';
 import T from 'prop-types';
 import styled, { css } from 'styled-components';

@@ -1,3 +1,6 @@
+// used by layer-legend which is used for formatting the left nav bar layers
+// uses all components of gradient-legend-chart
+
 import React from 'react';
 import styled from 'styled-components';
 import T from 'prop-types';

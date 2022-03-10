@@ -1,3 +1,5 @@
+// used by layer-legend
+
 import React from 'react';
 
 /**

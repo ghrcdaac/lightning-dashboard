@@ -1,3 +1,5 @@
+//Needed by chart.js -> which is needed for timeline
+
 import * as d3 from 'd3';
 import { css } from 'styled-components';
 import {

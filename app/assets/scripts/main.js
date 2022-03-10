@@ -11,7 +11,6 @@ import theme from './styles/theme/theme';
 import store from './utils/store';
 import history from './utils/history';
 import config from './config';
-//import { fetchSpotlightList } from './redux/spotlight';
 
 import GlobalStyles from './styles/global';
 import ErrorBoundary from './fatal-error-boundary';
@@ -20,16 +19,7 @@ import LayerDataLoader from './layer-data-loader';
 
 // Views
 import GlobalExplore from './components/global';
-// import GetStartedHub from './components/getstarted/hub';
-// import SpotlightHub from './components/spotlight/hub';
-// import SpotlightSingle from './components/spotlight/single';
-// import Sandbox from './components/sandbox';
 import UhOh from './components/uhoh';
-// import Development from './components/development';
-
-// Load the spotlight areas list.
-//store.dispatch(fetchSpotlightList());
-//store.dispatch(fetchIndicatorGroups());
 
 const { gaTrackingCode } = config;
 
@@ -48,7 +38,6 @@ class Root extends React.Component {
       windowHeight: window.innerHeight,
       dataReady: false
     };
-    //this.state.dataReady = true;
     window.addEventListener('resize', () => {
       // Store the height to set the page min height. This is needed for mobile
       // devices to account for the address bar, since 100vh does not work.

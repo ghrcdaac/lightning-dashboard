@@ -1,3 +1,5 @@
+// used by multiple files
+
 'use strict';
 import React from 'react';
 import { PropTypes as T } from 'prop-types';

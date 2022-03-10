@@ -3,9 +3,9 @@ import T from 'prop-types';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 
-import MetaTags from './meta-tags';
+// import MetaTags from './meta-tags'; --> not sure of its functionality 
 import PageHeader from './page-header';
-import PageFooter from './page-footer';
+// import PageFooter from './page-footer'; --> again not used
 import { reveal } from '../../styles/animation';
 
 import config from '../../config';
@@ -67,10 +67,10 @@ class App extends Component {
         onChange={this.resizeListener}
         hideFooter={hideFooter}
       >
-        <MetaTags title={`${title}${appTitle}`} description={appDescription} />
+        {/* <MetaTags title={`${title}${appTitle}`} description={appDescription} /> */}
         <PageHeader isMediumDown={this.state.isMediumDown} />
         <PageBody role='main'>{children}</PageBody>
-        <PageFooter />
+        {/* <PageFooter /> */}
       </SizeAwareElement>
     );
   }

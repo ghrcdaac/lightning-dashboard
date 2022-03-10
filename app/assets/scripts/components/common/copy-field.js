@@ -1,3 +1,5 @@
+// form copy filed at the very top right -- when you click share button
+
 import React from 'react';
 import { PropTypes as T } from 'prop-types';
 import styled from 'styled-components';

@@ -1,3 +1,5 @@
+// rendered when you have an error/prints out what/where the error is
+
 import React from 'react';
 import styled from 'styled-components';
 

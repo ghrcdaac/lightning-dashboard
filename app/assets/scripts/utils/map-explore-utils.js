@@ -1,3 +1,5 @@
+// used by globalexplore index.js
+
 import get from 'lodash.get';
 import { isWithinInterval, isEqual, format } from 'date-fns';
 

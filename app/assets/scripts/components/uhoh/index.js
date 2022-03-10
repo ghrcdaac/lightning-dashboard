@@ -1,3 +1,5 @@
+// if there's  any error this file is shown to the users
+
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';

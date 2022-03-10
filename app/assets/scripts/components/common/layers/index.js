@@ -1,3 +1,5 @@
+// needed to store spotlightlayers -> agriculture, co2, no2 for global or in our case NALMA and ISSLIS
+
 import defaultsDeep from 'lodash.defaultsdeep';
 
 const layerOverrides = [
@@ -5,10 +7,6 @@ const layerOverrides = [
 
 // Store the layer data.
 const layersDataBySpotlight = {};
-
-// export function getSpotlightLayers (spotlightId) {
-//   return layersDataBySpotlight[spotlightId];
-// }
 
 export function getGlobalLayers () {
   return layersDataBySpotlight.global;
