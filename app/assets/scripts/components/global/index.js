@@ -1,3 +1,5 @@
+// this is the main initial page shown
+
 import React from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';
@@ -6,6 +8,14 @@ import bbox from '@turf/bbox';
 import { sub } from 'date-fns';
 import get from 'lodash.get';
 import find from 'lodash.find';
+
+import Popups from '../../utils/Popup';
+import { headingAlt } from '../../styles/type/heading';
+import { glsp } from '../../styles/utils/theme-values';
+import Prose from '../../styles/type/prose';
+
+import {toast} from 'react-toastify';
+//import 'react-toastify/dist/ReactToastify.css'
 
 import App from '../common/app';
 import ExpMapPrimePanel from './prime-panel';
@@ -128,6 +138,54 @@ const cogLayers = {
   // }
 };
 
+const IntroWelcomeTitle = styled.h1`
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  margin: 0;
+
+
+  ${media.mediumUp`
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  `}
+
+  small {
+    ${headingAlt()}
+    display: block;
+
+    ${media.mediumUp`
+      font-size: 1rem;
+      line-height: 1;
+    `}
+  }
+
+  strong {
+    display: block;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    letter-spacing: -0.016em;
+  }
+`;
+
+const IntroWelcome = styled.section`
+  display: grid;
+  grid-gap: ${glsp()};
+  padding: ${glsp()};
+  box-shadow: 0 1px 0 0 ${themeVal('color.baseAlphaB')};
+
+  ${Prose} {
+    a {
+      font-weight: ${themeVal('type.base.bold')};
+    }
+  }
+
+  ${media.mediumUp`
+    grid-gap: ${glsp()} 0;
+    padding: ${glsp(1.25, 2)};
+  `}
+`;
+
+//toast.configure();
 class GlobalExplore extends React.Component {
   constructor (props) {
     super(props);
@@ -281,12 +339,13 @@ class GlobalExplore extends React.Component {
   onPanelAction (action, payload) {
     // Returns true if the action was handled.
     handlePanelAction.call(this, action, payload);
-
+    console.log(action)
     switch (action) {
       case 'aoi.draw-click':
         // There can only be one selection (feature) on the map
         // If there's a feature toggle the selection.
         // If there's no feature toggle the drawing.
+        console.log('1')
         this.setState((state) => {
           const selected = !!state.aoi.feature && !state.aoi.selected;
           return {
@@ -300,6 +359,7 @@ class GlobalExplore extends React.Component {
         });
         break;
       case 'aoi.set-bounds':
+        console.log('2')
         this.setState(
           (state) => ({
             aoi: {
@@ -315,6 +375,7 @@ class GlobalExplore extends React.Component {
         );
         break;
       case 'aoi.clear':
+        console.log('3')
         this.setState(
           {
             aoi: {
@@ -331,6 +392,7 @@ class GlobalExplore extends React.Component {
         );
         break;
       case 'cog.date-range':
+        console.log('4')
         this.setState(state => ({
           cogDateRanges: {
             ...state.cogDateRanges,
@@ -436,7 +498,7 @@ class GlobalExplore extends React.Component {
                   this.resizeMap();
                   this.onPanelChange('panelPrime', revealed);
                 }}
-                spotlightList={spotlightList}
+                //spotlightList={spotlightList}
               />
               <ExploreCarto>
                 <MbMap
@@ -450,8 +512,11 @@ class GlobalExplore extends React.Component {
                   comparing={isComparing}
                   enableLocateUser
                   enableOverlayControls
-                  spotlightList={spotlightList}
-                />
+                  //spotlightList={spotlightList}
+                />             
+                <Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={5000}/>
+                <Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={10000}/>
+                {activeTimeseriesLayers.length && <Popups value={['This is Timeline. Scroll to render layers based on different dates. Sometimes nothing is rendered due to fetch error.']} place={'bottom-left'} timer={15000}/>}
                 <Timeline
                   isActive={!!activeTimeseriesLayers.length}
                   layers={activeTimeseriesLayers}

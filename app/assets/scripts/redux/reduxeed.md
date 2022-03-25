@@ -111,6 +111,7 @@ Following our example, a thunk made from scratch would be:
         const result = await response.json();
         return dispatch(exampleActions.receive(result));
       } catch (error) {
+        console.log('errorrrrrrrrr')
         return dispatch(exampleActions.receive(null, error));
       }
     };

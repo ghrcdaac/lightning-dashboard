@@ -36,6 +36,7 @@ const prepSource = (layerInfo, source, date, knobPos) => {
     source = prepGammaSource(source, knobPos);
   }
   source = prepDateSource(source, date, layerInfo.timeUnit);
+  //console.log(source, date, layerInfo.timeUnit)
   return source;
 };
 
@@ -44,7 +45,6 @@ const replaceRasterTiles = (theMap, sourceId, tiles) => {
   // Set the tile url to a cache-busting url (to circumvent browser caching behaviour):
   theMap.getSource(sourceId).tiles = tiles;
   // Remove the tiles for a particular source
-  console.log(theMap.style)
   theMap.style.sourceCaches[sourceId].clearTiles();
   // Load the new tiles for the current viewport (theMap.transform -> viewport)
   theMap.style.sourceCaches[sourceId].update(theMap.transform);
@@ -102,7 +102,7 @@ export const layerTypes = {
         comparing === prevProps.comparing
       ) { return; }
       // The source we're updating is not present.
-      console.log(mbMap.getSource(id))
+      //console.log(mbMap.getSource(id))
       if (!mbMap.getSource(id)) return;
 
       // If we're comparing, and the compare map is not loaded.
@@ -112,7 +112,7 @@ export const layerTypes = {
 
       // Update layer tiles.
       const tiles = prepSource(layerInfo, source, date, knobPos).tiles;
-      console.log(tiles)
+      //console.log(tiles, id)
       replaceRasterTiles(mbMap, id, tiles);
 
       // Update/init compare layer tiles.
@@ -280,7 +280,8 @@ export const layerTypes = {
           mbMap.fitBounds(bbox(geo));
         })
         .catch((err) => {
-          console.log(err); // eslint-disable-line no-console
+          console.log('errorrrrrrrrrrrrrrrrrrr')
+          //console.log(err); // eslint-disable-line no-console
         });
 
       replaceVectorData(mbMap, vecId, vectorData);
@@ -340,7 +341,8 @@ export const layerTypes = {
           mbMap.fitBounds(bbox(geo));
         })
         .catch((err) => {
-          console.log(err); // eslint-disable-line no-console
+          console.log('errrrrrrrorrrrrrrrrrrrrr')
+          //console.log(err); // eslint-disable-line no-console
         });
     }
   }

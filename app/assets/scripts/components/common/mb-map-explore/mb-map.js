@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import config from '../../../config';
-import { fetchSpotlightSingle as fetchSpotlightSingleAction } from '../../../redux/spotlight';
+//import { fetchSpotlightSingle as fetchSpotlightSingleAction } from '../../../redux/spotlight';
 import { wrapApiResult } from '../../../redux/reduxeed';
 import { layerTypes } from '../layers/types';
 import { glsp } from '../../../styles/utils/theme-values';
@@ -16,7 +16,10 @@ import { round } from '../../../utils/format';
 
 import ReactPopoverGl from './mb-popover';
 import Dl from '../../../styles/type/definition-list';
+import spotlight from '../../../redux/spotlight';
 // import LayerControlDropdown from './map-layer-control';
+
+import {toast} from 'react-toastify';
 
 const { center, zoom: defaultZoom, minZoom, maxZoom, styleUrl } = config.map;
 
@@ -191,7 +194,10 @@ class MbMap extends React.Component {
 
       toAdd.forEach(async (layerId) => {
         const layerInfo = this.props.layers.find((l) => l.id === layerId);
-        if (!layerInfo) return;
+        if (!layerInfo){
+          //console.log('no layer info')
+         return;
+        }
         const fns = layerTypes[layerInfo.type];
         if (fns) {
           fns.show(this, layerInfo, prevProps);
@@ -260,16 +266,6 @@ class MbMap extends React.Component {
       );
     }
 
-    // if (this.props.enableOverlayControls) {
-    //   this.overlayDropdownControlCompare = new MapboxControl(
-    //     (props, state) => this.renderOverlayDropdown(props, state)
-    //   );
-
-    //   this.mbMapComparing.addControl(this.overlayDropdownControlCompare, 'top-left');
-    //   // Initial rendering.
-    //   this.overlayDropdownControlCompare.render(this.props, this.state);
-    // }
-
     // Style attribution.
     this.mbMapComparing.addControl(
       new mapboxgl.AttributionControl({ compact: true })
@@ -289,11 +285,19 @@ class MbMap extends React.Component {
   }
 
   updateActiveLayers (prevProps) {
+    //console.log(prevProps)
     this.props.activeLayers.forEach((layerId) => {
+      //console.log(this.props.activeLayers)
       const layerInfo = this.props.layers.find((l) => l.id === layerId);
-      if (!layerInfo) return;
+      //console.log(layerInfo)
+      if (!layerInfo){
+        //console.log('no layer info') 
+        return;
+      }
       const fns = layerTypes[layerInfo.type];
+      //console.log(fns);
       if (fns && fns.update) {
+        //console.log('fns')
         return fns.update(this, layerInfo, prevProps);
       }
     });
@@ -403,20 +407,6 @@ class MbMap extends React.Component {
       spotlight = isReady() ? getData() : {};
     }
 
-    // const truncateArray = (arr, count) => {
-    //   if (!arr) return [];
-    //   if (arr.length <= count) return arr;
-    //   return [
-    //     // We always want to have count items. If there are more show, count - 1
-    //     // and "more".
-    //     ...arr.slice(0, count - 1),
-    //     {
-    //       id: 'other',
-    //       name: <em>and {arr.length - (count - 1)} more</em>
-    //     }
-    //   ];
-    // };
-
     return (
       <ReactPopoverGl
         mbMap={this.mbMap}
@@ -431,7 +421,7 @@ class MbMap extends React.Component {
   render () {
     return (
       <>
-        {this.mbMap && this.renderPopover()}
+        {/* {this.mbMap && this.renderPopover()} */}
         <MapsContainer id='container'>
           <SingleMapContainer
             ref={(el) => {
@@ -471,10 +461,10 @@ function mapStateToProps (state) {
   };
 }
 
-const mapDispatchToProps = {
-  fetchSpotlightSingle: fetchSpotlightSingleAction
-};
+// const mapDispatchToProps = {
+//   fetchSpotlightSingle: fetchSpotlightSingleAction
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {
+export default connect(mapStateToProps, {}, null, {
   forwardRef: true
 })(withTheme(MbMap));

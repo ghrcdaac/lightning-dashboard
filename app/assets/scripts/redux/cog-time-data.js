@@ -45,6 +45,7 @@ export function fetchCogTimeData (id, timeframe, area) {
           value: v
         };
       } catch (e) {
+        console.log('errrrrrrrorrrrrrrrrrrrrrrr')
         return {
           date: date.toISOString(),
           value: null
