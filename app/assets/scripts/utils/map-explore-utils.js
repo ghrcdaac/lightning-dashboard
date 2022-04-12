@@ -179,6 +179,7 @@ export function resizeMap () {
  * @param {object} payload Action data
  */
 export function handlePanelAction (action, payload) {
+  console.log(action, payload)
   switch (action) {
     case 'layer.toggle':
       this.toggleLayer(payload);

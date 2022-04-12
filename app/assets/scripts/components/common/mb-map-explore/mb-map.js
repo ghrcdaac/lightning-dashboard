@@ -19,8 +19,6 @@ import Dl from '../../../styles/type/definition-list';
 import spotlight from '../../../redux/spotlight';
 // import LayerControlDropdown from './map-layer-control';
 
-import {toast} from 'react-toastify';
-
 const { center, zoom: defaultZoom, minZoom, maxZoom, styleUrl } = config.map;
 
 // Set mapbox token.
@@ -68,31 +66,31 @@ const SingleMapContainer = styled.div`
   bottom: 0;
 `;
 
-const PopoverDetails = styled(Dl)`
-  dt {
-    font-size: 0.75rem;
-    line-height: 1;
-    margin: 0;
-    margin-bottom: ${glsp(0.25)};
+// const PopoverDetails = styled(Dl)`
+//   dt {
+//     font-size: 0.75rem;
+//     line-height: 1;
+//     margin: 0;
+//     margin-bottom: ${glsp(0.25)};
 
-    &:not(:first-child) {
-      margin-top: ${glsp(0.75)};
-    }
-  }
-  dd {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    margin: 0;
-    padding-left: ${glsp(0.25)};
-  }
-`;
+//     &:not(:first-child) {
+//       margin-top: ${glsp(0.75)};
+//     }
+//   }
+//   dd {
+//     font-size: 0.875rem;
+//     line-height: 1.25rem;
+//     margin: 0;
+//     padding-left: ${glsp(0.25)};
+//   }
+// `;
 
-const SpotlightNavLink = styled(NavLink)`
-  &,
-  &:visited {
-    color: inherit;
-  }
-`;
+// const SpotlightNavLink = styled(NavLink)`
+//   &,
+//   &:visited {
+//     color: inherit;
+//   }
+// `;
 
 class MbMap extends React.Component {
   constructor (props) {

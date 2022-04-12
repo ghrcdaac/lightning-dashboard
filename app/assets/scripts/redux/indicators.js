@@ -9,15 +9,15 @@ import { makeActions, makeFetchThunk, makeAPIReducer } from './reduxeed';
 
 const indicatorGroupsActions = makeActions('INDICATOR_GROUPS');
 
-export function fetchIndicatorGroups () {
-  return makeFetchThunk({
-    url: `${config.api}/indicator_groups`,
-    cache: true,
-    requestFn: indicatorGroupsActions.request,
-    receiveFn: indicatorGroupsActions.receive,
-    mutator: d => d.groups
-  });
-}
+// export function fetchIndicatorGroups () {
+//   return makeFetchThunk({
+//     url: `${config.api}/indicator_groups`,
+//     cache: true,
+//     requestFn: indicatorGroupsActions.request,
+//     receiveFn: indicatorGroupsActions.receive,
+//     mutator: d => d.groups
+//   });
+// }
 
 const indicatorGroupsReducer = makeAPIReducer('INDICATOR_GROUPS');
 

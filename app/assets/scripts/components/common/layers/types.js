@@ -10,6 +10,7 @@ const dateFormats = {
 };
 
 const prepDateSource = (source, date, timeUnit = 'month') => {
+  console.log("hello world im in {date} fomat at types.js", format(date, dateFormats[timeUnit]))
   return {
     ...source,
     tiles: source.tiles.map((t) =>
@@ -52,32 +53,32 @@ const replaceRasterTiles = (theMap, sourceId, tiles) => {
   theMap.triggerRepaint();
 };
 
-const replaceVectorData = (theMap, sourceId, data) => {
-  const empty = {
-    type: 'FeatureCollection',
-    features: []
-  };
-  theMap.getSource(sourceId).setData(empty);
-  theMap.getSource(sourceId).setData(data);
-};
+// const replaceVectorData = (theMap, sourceId, data) => {
+//   const empty = {
+//     type: 'FeatureCollection',
+//     features: []
+//   };
+//   theMap.getSource(sourceId).setData(empty);
+//   theMap.getSource(sourceId).setData(data);
+// };
 
-const toggleOrAddLayer = (mbMap, id, source, type, paint, beforeId) => {
-  if (mbMap.getSource(id)) {
-    mbMap.setLayoutProperty(id, 'visibility', 'visible');
-  } else {
-    mbMap.addSource(id, source);
-    mbMap.addLayer(
-      {
-        id: id,
-        type: type,
-        source: id,
-        layout: {},
-        paint
-      },
-      beforeId
-    );
-  }
-};
+// const toggleOrAddLayer = (mbMap, id, source, type, paint, beforeId) => {
+//   if (mbMap.getSource(id)) {
+//     mbMap.setLayoutProperty(id, 'visibility', 'visible');
+//   } else {
+//     mbMap.addSource(id, source);
+//     mbMap.addLayer(
+//       {
+//         id: id,
+//         type: type,
+//         source: id,
+//         layout: {},
+//         paint
+//       },
+//       beforeId
+//     );
+//   }
+// };
 
 export const layerTypes = {
   'raster-timeseries': {
@@ -112,7 +113,7 @@ export const layerTypes = {
 
       // Update layer tiles.
       const tiles = prepSource(layerInfo, source, date, knobPos).tiles;
-      //console.log(tiles, id)
+      console.log(tiles)
       replaceRasterTiles(mbMap, id, tiles);
 
       // Update/init compare layer tiles.
@@ -177,173 +178,173 @@ export const layerTypes = {
       }
     }
   },
-  raster: {
-    update: (ctx, layerInfo, prevProps) => {
-      const { mbMap, mbMapComparing, mbMapComparingLoaded, props } = ctx;
-      const { id, compare, paint, source } = layerInfo;
-      const { comparing } = props;
+  // raster: {
+  //   update: (ctx, layerInfo, prevProps) => {
+  //     const { mbMap, mbMapComparing, mbMapComparingLoaded, props } = ctx;
+  //     const { id, compare, paint, source } = layerInfo;
+  //     const { comparing } = props;
 
-      // Check if the source tiles have changed and need to be replaced. This
-      // may happen in the stories when maintaining the layer and changing the
-      // spotlight. One example is the slowdown raster layer on la and sf.
-      const sourceTiles = mbMap.getSource(id).tiles;
-      const newSourceTiles = source.tiles;
-      // Quick compare
-      if (sourceTiles && sourceTiles.join('-') !== newSourceTiles.join('-')) {
-        replaceRasterTiles(mbMap, id, newSourceTiles);
-      }
+  //     // Check if the source tiles have changed and need to be replaced. This
+  //     // may happen in the stories when maintaining the layer and changing the
+  //     // spotlight. One example is the slowdown raster layer on la and sf.
+  //     const sourceTiles = mbMap.getSource(id).tiles;
+  //     const newSourceTiles = source.tiles;
+  //     // Quick compare
+  //     if (sourceTiles && sourceTiles.join('-') !== newSourceTiles.join('-')) {
+  //       replaceRasterTiles(mbMap, id, newSourceTiles);
+  //     }
 
-      // Do not update if:
-      if (
-        // Compare didn't change.
-        comparing === prevProps.comparing ||
-        // There's no comparing map.
-        !mbMapComparing
-      ) { return; }
+  //     // Do not update if:
+  //     if (
+  //       // Compare didn't change.
+  //       comparing === prevProps.comparing ||
+  //       // There's no comparing map.
+  //       !mbMapComparing
+  //     ) { return; }
 
-      // If we're comparing, and the compare map is not loaded.
-      if (comparing && !mbMapComparingLoaded) return;
+  //     // If we're comparing, and the compare map is not loaded.
+  //     if (comparing && !mbMapComparingLoaded) return;
 
-      // END update checks.
+  //     // END update checks.
 
-      if (mbMapComparing.getSource(id)) {
-        mbMapComparing.setLayoutProperty(id, 'visibility', 'visible');
-      } else {
-        mbMapComparing.addSource(id, compare.source);
-        mbMapComparing.addLayer(
-          {
-            id: id,
-            type: 'raster',
-            source: id,
-            paint: paint || {}
-          },
-          'admin-0-boundary-bg'
-        );
-      }
-    },
-    hide: (ctx, layerInfo) => {
-      const { mbMap } = ctx;
-      const { id } = layerInfo;
-      if (mbMap.getSource(id)) {
-        mbMap.setLayoutProperty(id, 'visibility', 'none');
-      }
-    },
-    show: (ctx, layerInfo) => {
-      const { mbMap } = ctx;
-      const { id, source, paint } = layerInfo;
+  //     if (mbMapComparing.getSource(id)) {
+  //       mbMapComparing.setLayoutProperty(id, 'visibility', 'visible');
+  //     } else {
+  //       mbMapComparing.addSource(id, compare.source);
+  //       mbMapComparing.addLayer(
+  //         {
+  //           id: id,
+  //           type: 'raster',
+  //           source: id,
+  //           paint: paint || {}
+  //         },
+  //         'admin-0-boundary-bg'
+  //       );
+  //     }
+  //   },
+  //   hide: (ctx, layerInfo) => {
+  //     const { mbMap } = ctx;
+  //     const { id } = layerInfo;
+  //     if (mbMap.getSource(id)) {
+  //       mbMap.setLayoutProperty(id, 'visibility', 'none');
+  //     }
+  //   },
+  //   show: (ctx, layerInfo) => {
+  //     const { mbMap } = ctx;
+  //     const { id, source, paint } = layerInfo;
 
-      if (mbMap.getSource(id)) {
-        mbMap.setLayoutProperty(id, 'visibility', 'visible');
-      } else {
-        mbMap.addSource(id, source);
-        mbMap.addLayer(
-          {
-            id: id,
-            type: 'raster',
-            source: id,
-            paint: paint || {}
-          },
-          'admin-0-boundary-bg'
-        );
-      }
-    }
-  },
-  'inference-timeseries': {
-    update: (ctx, layerInfo, prevProps) => {
-      const { props, mbMap } = ctx;
-      const { date } = props;
-      const { id, source, backgroundSource } = layerInfo;
-      const vecId = `${id}-vector`;
-      const rastId = `${id}-raster`;
+  //     if (mbMap.getSource(id)) {
+  //       mbMap.setLayoutProperty(id, 'visibility', 'visible');
+  //     } else {
+  //       mbMap.addSource(id, source);
+  //       mbMap.addLayer(
+  //         {
+  //           id: id,
+  //           type: 'raster',
+  //           source: id,
+  //           paint: paint || {}
+  //         },
+  //         'admin-0-boundary-bg'
+  //       );
+  //     }
+  //   }
+  // },
+  // 'inference-timeseries': {
+  //   update: (ctx, layerInfo, prevProps) => {
+  //     const { props, mbMap } = ctx;
+  //     const { date } = props;
+  //     const { id, source, backgroundSource } = layerInfo;
+  //     const vecId = `${id}-vector`;
+  //     const rastId = `${id}-raster`;
 
-      // Do not update if:
-      if (
-        // There's no date defined.
-        prevProps.date &&
-        date &&
-        // Dates are the same
-        date.getTime() === prevProps.date.getTime()
-      ) { return; }
+  //     // Do not update if:
+  //     if (
+  //       // There's no date defined.
+  //       prevProps.date &&
+  //       date &&
+  //       // Dates are the same
+  //       date.getTime() === prevProps.date.getTime()
+  //     ) { return; }
 
-      // The source we're updating is not present.
-      if (!mbMap.getSource(vecId) || !mbMap.getSource(rastId)) return;
-      const formatDate = format(date, dateFormats[layerInfo.timeUnit]);
-      const vectorData = source.data.replace('{date}', formatDate);
-      const rasterTiles = backgroundSource.tiles.map((tile) =>
-        tile.replace('{date}', formatDate)
-      );
+  //     // The source we're updating is not present.
+  //     if (!mbMap.getSource(vecId) || !mbMap.getSource(rastId)) return;
+  //     const formatDate = format(date, dateFormats[layerInfo.timeUnit]);
+  //     const vectorData = source.data.replace('{date}', formatDate);
+  //     const rasterTiles = backgroundSource.tiles.map((tile) =>
+  //       tile.replace('{date}', formatDate)
+  //     );
 
-      // inference data moves around, recenter on each update
-      fetch(vectorData)
-        .then((res) => res.json())
-        .then((geo) => {
-          mbMap.fitBounds(bbox(geo));
-        })
-        .catch((err) => {
-          console.log('errorrrrrrrrrrrrrrrrrrr')
-          //console.log(err); // eslint-disable-line no-console
-        });
+  //     // inference data moves around, recenter on each update
+  //     fetch(vectorData)
+  //       .then((res) => res.json())
+  //       .then((geo) => {
+  //         mbMap.fitBounds(bbox(geo));
+  //       })
+  //       .catch((err) => {
+  //         console.log('errorrrrrrrrrrrrrrrrrrr')
+  //         //console.log(err); // eslint-disable-line no-console
+  //       });
 
-      replaceVectorData(mbMap, vecId, vectorData);
-      replaceRasterTiles(mbMap, rastId, rasterTiles);
-    },
-    hide: (ctx, layerInfo) => {
-      const { mbMap } = ctx;
-      const { id } = layerInfo;
+  //     replaceVectorData(mbMap, vecId, vectorData);
+  //     replaceRasterTiles(mbMap, rastId, rasterTiles);
+  //   },
+  //   hide: (ctx, layerInfo) => {
+  //     const { mbMap } = ctx;
+  //     const { id } = layerInfo;
 
-      const vecId = `${id}-vector`;
+  //     const vecId = `${id}-vector`;
 
-      const rastId = `${id}-raster`;
-      if (mbMap.getSource(vecId)) {
-        mbMap.setLayoutProperty(vecId, 'visibility', 'none');
-      }
-      if (mbMap.getSource(rastId)) {
-        mbMap.setLayoutProperty(rastId, 'visibility', 'none');
-      }
-    },
-    show: (ctx, layerInfo) => {
-      const { props, mbMap } = ctx;
-      const { date } = props;
-      const { id, source, backgroundSource } = layerInfo;
-      const vecId = `${id}-vector`;
-      const rastId = `${id}-raster`;
-      if (!date) return;
+  //     const rastId = `${id}-raster`;
+  //     if (mbMap.getSource(vecId)) {
+  //       mbMap.setLayoutProperty(vecId, 'visibility', 'none');
+  //     }
+  //     if (mbMap.getSource(rastId)) {
+  //       mbMap.setLayoutProperty(rastId, 'visibility', 'none');
+  //     }
+  //   },
+  //   show: (ctx, layerInfo) => {
+  //     const { props, mbMap } = ctx;
+  //     const { date } = props;
+  //     const { id, source, backgroundSource } = layerInfo;
+  //     const vecId = `${id}-vector`;
+  //     const rastId = `${id}-raster`;
+  //     if (!date) return;
 
-      const inferPaint = {
-        'line-color': '#f2a73a',
-        'line-opacity': 0.8,
-        'line-width': 2
-      };
-      const formatDate = format(date, dateFormats[layerInfo.timeUnit]);
-      const vectorL = {
-        ...source,
-        data: source.data.replace('{date}', formatDate)
-      };
-      const rasterL = {
-        ...backgroundSource,
-        tiles: backgroundSource.tiles.map((tile) =>
-          tile.replace('{date}', formatDate)
-        )
-      };
+  //     const inferPaint = {
+  //       'line-color': '#f2a73a',
+  //       'line-opacity': 0.8,
+  //       'line-width': 2
+  //     };
+  //     const formatDate = format(date, dateFormats[layerInfo.timeUnit]);
+  //     const vectorL = {
+  //       ...source,
+  //       data: source.data.replace('{date}', formatDate)
+  //     };
+  //     const rasterL = {
+  //       ...backgroundSource,
+  //       tiles: backgroundSource.tiles.map((tile) =>
+  //         tile.replace('{date}', formatDate)
+  //       )
+  //     };
 
-      toggleOrAddLayer(
-        mbMap,
-        vecId,
-        vectorL,
-        'line',
-        inferPaint,
-        'admin-0-boundary-bg'
-      );
-      toggleOrAddLayer(mbMap, rastId, rasterL, 'raster', {}, vecId);
-      fetch(vectorL.data)
-        .then((res) => res.json())
-        .then((geo) => {
-          mbMap.fitBounds(bbox(geo));
-        })
-        .catch((err) => {
-          console.log('errrrrrrrorrrrrrrrrrrrrr')
-          //console.log(err); // eslint-disable-line no-console
-        });
-    }
-  }
+  //     toggleOrAddLayer(
+  //       mbMap,
+  //       vecId,
+  //       vectorL,
+  //       'line',
+  //       inferPaint,
+  //       'admin-0-boundary-bg'
+  //     );
+  //     toggleOrAddLayer(mbMap, rastId, rasterL, 'raster', {}, vecId);
+  //     fetch(vectorL.data)
+  //       .then((res) => res.json())
+  //       .then((geo) => {
+  //         mbMap.fitBounds(bbox(geo));
+  //       })
+  //       .catch((err) => {
+  //         console.log('errrrrrrrorrrrrrrrrrrrrr')
+  //         //console.log(err); // eslint-disable-line no-console
+  //       });
+  //   }
+  // }
 };

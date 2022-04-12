@@ -9,15 +9,15 @@ import { makeActions, makeFetchThunk, makeAPIReducer } from './reduxeed';
 
 const spotlightSingleActions = makeActions('SPOTLIGHT_SINGLE', true);
 
-export function fetchSpotlightSingle (id) {
-  return makeFetchThunk({
-    url: `${config.api}/sites/${id}`,
-    // cache: true,
-    statePath: ['spotlight', 'single', id],
-    requestFn: spotlightSingleActions.request.bind(null, id),
-    receiveFn: spotlightSingleActions.receive.bind(null, id)
-  });
-}
+// export function fetchSpotlightSingle (id) {
+//   return makeFetchThunk({
+//     url: `${config.api}/sites/${id}`,
+//     // cache: true,
+//     statePath: ['spotlight', 'single', id],
+//     requestFn: spotlightSingleActions.request.bind(null, id),
+//     receiveFn: spotlightSingleActions.receive.bind(null, id)
+//   });
+// }
 
 const spotlightSingleReducer = makeAPIReducer('SPOTLIGHT_SINGLE', true);
 

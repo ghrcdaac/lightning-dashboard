@@ -35,7 +35,7 @@ import { themeVal } from '../../styles/utils/general';
 import media from '../../styles/utils/media-queries';
 import { wrapApiResult } from '../../redux/reduxeed';
 import {
-  fetchCogTimeData as fetchCogTimeDataAction,
+  // fetchCogTimeData as fetchCogTimeDataAction,
   invalidateCogTimeData as invalidateCogTimeDataAction
 } from '../../redux/cog-time-data';
 import { utcDate } from '../../utils/utils';
@@ -287,195 +287,201 @@ class GlobalExplore extends React.Component {
   updateUrlQS () {
     const qString = this.qsState.getQs(this.state);
     this.props.history.push({ search: qString });
+    //console.log(qString)
   }
 
-  async requestCogData () {
-    const {
-      aoi: { feature },
-      cogDateRanges
-    } = this.state;
-    const activeLayers = this.getActiveTimeseriesLayers()
-      .filter(l => !!cogLayers[l.id]);
+  // async requestCogData () {
+  //   console.log('im in requestCogData')
+  //   const {
+  //     aoi: { feature },
+  //     cogDateRanges
+  //   } = this.state;
+  //   const activeLayers = this.getActiveTimeseriesLayers()
+  //     .filter(l => !!cogLayers[l.id]);
 
-    if (!feature || !activeLayers.length) return;
+  //   console.log('brefore global_loading)', cogDateRanges, feature)
+  //   if (!feature || !activeLayers.length) return;
+  //   console.log('brefore global_loading)', cogDateRanges, feature)
+  //   showGlobalLoading();
+  //   await Promise.all(activeLayers.map(l => {
+  //     const cogDate = cogDateRanges[l.id];
+  //     console.log(cogDate)
+  //     return this.props.fetchCogTimeData(
+  //       l.id,
+  //       {
+  //         start: cogDate.start,
+  //         end: cogDate.end,
+  //         timeUnit: l.timeUnit || 'month'
+  //       },
+  //       feature
+  //     );
+  //   }));
+  //   hideGlobalLoading();
+  // }
 
-    showGlobalLoading();
-    await Promise.all(activeLayers.map(l => {
-      const cogDate = cogDateRanges[l.id];
-      return this.props.fetchCogTimeData(
-        l.id,
-        {
-          start: cogDate.start,
-          end: cogDate.end,
-          timeUnit: l.timeUnit || 'month'
-        },
-        feature
-      );
-    }));
-    hideGlobalLoading();
-  }
-
-  async requestSingleCogData (id) {
-    const {
-      aoi: { feature },
-      cogDateRanges
-    } = this.state;
-
-    showGlobalLoading();
-    const cogLayerSettings = cogLayers[id];
-    const cogDate = cogDateRanges[id];
-    await this.props.fetchCogTimeData(
-      id,
-      {
-        start: cogDate.start,
-        end: cogDate.end,
-        dateFormat: cogLayerSettings.dateFormat
-      },
-      feature
-    );
-    hideGlobalLoading();
-  }
+  // async requestSingleCogData (id) {
+  //   const {
+  //     aoi: { feature },
+  //     cogDateRanges
+  //   } = this.state;
+  //   console.log('im in single_cog_data')
+  //   showGlobalLoading();
+  //   const cogLayerSettings = cogLayers[id];
+  //   const cogDate = cogDateRanges[id];
+  //   await this.props.fetchCogTimeData(
+  //     id,
+  //     {
+  //       start: cogDate.start,
+  //       end: cogDate.end,
+  //       dateFormat: cogLayerSettings.dateFormat
+  //     },
+  //     feature
+  //   );
+  //   hideGlobalLoading();
+  // }
 
   onPanelAction (action, payload) {
     // Returns true if the action was handled.
+    console.log('im on panelaction')
     handlePanelAction.call(this, action, payload);
-    console.log(action)
-    switch (action) {
-      case 'aoi.draw-click':
-        // There can only be one selection (feature) on the map
-        // If there's a feature toggle the selection.
-        // If there's no feature toggle the drawing.
-        console.log('1')
-        this.setState((state) => {
-          const selected = !!state.aoi.feature && !state.aoi.selected;
-          return {
-            aoi: {
-              ...state.aoi,
-              drawing: !state.aoi.feature && !state.aoi.drawing,
-              selected,
-              actionOrigin: selected ? 'panel' : null
-            }
-          };
-        });
-        break;
-      case 'aoi.set-bounds':
-        console.log('2')
-        this.setState(
-          (state) => ({
-            aoi: {
-              ...state.aoi,
-              feature: updateFeatureBounds(state.aoi.feature, payload.bounds),
-              actionOrigin: 'panel'
-            }
-          }),
-          () => {
-            this.updateUrlQS();
-            this.requestCogData();
-          }
-        );
-        break;
-      case 'aoi.clear':
-        console.log('3')
-        this.setState(
-          {
-            aoi: {
-              drawing: false,
-              selected: false,
-              feature: null,
-              actionOrigin: null
-            }
-          },
-          () => {
-            this.updateUrlQS();
-            this.props.invalidateCogTimeData();
-          }
-        );
-        break;
-      case 'cog.date-range':
-        console.log('4')
-        this.setState(state => ({
-          cogDateRanges: {
-            ...state.cogDateRanges,
-            [payload.id]: payload.date
-          }
-        }), () => this.requestSingleCogData(payload.id));
-        break;
-    }
+    // console.log(action)
+    // switch (action) {
+    //   case 'aoi.draw-click':
+    //     // There can only be one selection (feature) on the map
+    //     // If there's a feature toggle the selection.
+    //     // If there's no feature toggle the drawing.
+    //     console.log('1')
+    //     this.setState((state) => {
+    //       const selected = !!state.aoi.feature && !state.aoi.selected;
+    //       return {
+    //         aoi: {
+    //           ...state.aoi,
+    //           drawing: !state.aoi.feature && !state.aoi.drawing,
+    //           selected,
+    //           actionOrigin: selected ? 'panel' : null
+    //         }
+    //       };
+    //     });
+    //     break;
+    //   case 'aoi.set-bounds':
+    //     console.log('2')
+    //     this.setState(
+    //       (state) => ({
+    //         aoi: {
+    //           ...state.aoi,
+    //           feature: updateFeatureBounds(state.aoi.feature, payload.bounds),
+    //           actionOrigin: 'panel'
+    //         }
+    //       }),
+    //       () => {
+    //         this.updateUrlQS();
+    //         //this.requestCogData();
+    //       }
+    //     );
+    //     break;
+    //   case 'aoi.clear':
+    //     console.log('3')
+    //     this.setState(
+    //       {
+    //         aoi: {
+    //           drawing: false,
+    //           selected: false,
+    //           feature: null,
+    //           actionOrigin: null
+    //         }
+    //       },
+    //       () => {
+    //         this.updateUrlQS();
+    //         this.props.invalidateCogTimeData();
+    //       }
+    //     );
+    //     break;
+    //   case 'cog.date-range':
+    //     console.log('4')
+    //     this.setState(state => ({
+    //       cogDateRanges: {
+    //         ...state.cogDateRanges,
+    //         [payload.id]: payload.date
+    //       }
+    //     }), () => this.requestSingleCogData(payload.id));
+    //     break;
+    // }
   }
 
   async onMapAction (action, payload) {
     // Returns true if the action was handled.
     handleMapAction.call(this, action, payload);
 
-    switch (action) {
-      case 'aoi.draw-finish':
-        this.setState(
-          (state) => ({
-            aoi: {
-              ...state.aoi,
-              drawing: false,
-              feature: payload.feature,
-              actionOrigin: 'map'
-            }
-          }),
-          () => {
-            this.updateUrlQS();
-            this.requestCogData();
-          }
-        );
-        break;
-      case 'aoi.selection':
-        this.setState((state) => ({
-          aoi: {
-            ...state.aoi,
-            selected: payload.selected,
-            actionOrigin: payload.selected ? 'map' : null
-          }
-        }));
-        break;
-      case 'aoi.update':
-        this.setState(
-          (state) => ({
-            aoi: {
-              ...state.aoi,
-              feature: payload.feature,
-              actionOrigin: 'map'
-            }
-          }),
-          () => {
-            this.updateUrlQS();
-            this.requestCogData();
-          }
-        );
-        break;
-    }
+    // switch (action) {
+    //   case 'aoi.draw-finish':
+    //     this.setState(
+    //       (state) => ({
+    //         aoi: {
+    //           ...state.aoi,
+    //           drawing: false,
+    //           feature: payload.feature,
+    //           actionOrigin: 'map'
+    //         }
+    //       }),
+    //       () => {
+    //         this.updateUrlQS();
+    //         //this.requestCogData();
+    //       }
+    //     );
+    //     break;
+    //   case 'aoi.selection':
+    //     this.setState((state) => ({
+    //       aoi: {
+    //         ...state.aoi,
+    //         selected: payload.selected,
+    //         actionOrigin: payload.selected ? 'map' : null
+    //       }
+    //     }));
+    //     break;
+    //   case 'aoi.update':
+    //     this.setState(
+    //       (state) => ({
+    //         aoi: {
+    //           ...state.aoi,
+    //           feature: payload.feature,
+    //           actionOrigin: 'map'
+    //         }
+    //       }),
+    //       () => {
+    //         this.updateUrlQS();
+    //         //this.requestCogData();
+    //       }
+    //     );
+    //     break;
+    // }
   }
 
   toggleLayer (layer) {
     toggleLayerCommon.call(this, layer, () => {
+      console.log('inside toggle layer')
       this.updateUrlQS();
-      this.requestCogData();
+      //this.requestCogData();
     });
   }
 
   render () {
-    const { spotlightList } = this.props;
+    // const { spotlightList } = this.props;
     const layers = this.getLayersWithState();
     const activeTimeseriesLayers = this.getActiveTimeseriesLayers();
-    const activeCogTimeseriesLayers = activeTimeseriesLayers
-      .filter(l => !!cogLayers[l.id]);
+    // const activeCogTimeseriesLayers = activeTimeseriesLayers
+    //   .filter(l => !!cogLayers[l.id]);
 
     // Check if there's any layer that's comparing.
     const comparingLayer = find(layers, 'comparing');
     const isComparing = !!comparingLayer;
 
     const mapLabel = get(comparingLayer, 'compare.mapLabel');
-    const compareMessage =
-      isComparing && mapLabel
-        ? typeof mapLabel === 'function'
-          ? mapLabel(this.state.timelineDate)
-          : mapLabel
-        : '';
+    // const compareMessage =
+    //   isComparing && mapLabel
+    //     ? typeof mapLabel === 'function'
+    //       ? mapLabel(this.state.timelineDate)
+    //       : mapLabel
+    //     : '';
 
     return (
       <App hideFooter>
@@ -534,7 +540,7 @@ class GlobalExplore extends React.Component {
 }
 
 GlobalExplore.propTypes = {
-  fetchCogTimeData: T.func,
+  // fetchCogTimeData: T.func,
   invalidateCogTimeData: T.func,
   mapLayers: T.array,
   cogTimeData: T.object,
@@ -552,7 +558,7 @@ function mapStateToProps (state, props) {
 }
 
 const mapDispatchToProps = {
-  fetchCogTimeData: fetchCogTimeDataAction,
+  // fetchCogTimeData: fetchCogTimeDataAction,
   invalidateCogTimeData: invalidateCogTimeDataAction
 };
 
