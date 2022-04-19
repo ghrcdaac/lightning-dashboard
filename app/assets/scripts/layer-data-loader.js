@@ -25,8 +25,7 @@ import { storeSpotlightLayers } from './components/common/layers';
 // significant refactor. This was decided taking into account that significant
 // development is planned for the near future.
 const colormaps = ['terrain', 'gist_ncar', 'nipy_spectral','spectral']
-const API_SOURCE = "http://localhost:5000/singleband/{date}/27XVB/B02/{z}/{x}/{y}.png?colormap="+colormaps[0]+"&stretch_range=[0,0.08]"
-
+const API_TERRACOTTA = "https://46uycbmhw2.execute-api.us-west-2.amazonaws.com/development/singleband/index/{date}/B02/{z}/{x}/{y}.png?colormap="+colormaps[0]+"&stretch_range=[0,0.0571533739566803]"
 
 class LayerDataLoader extends React.Component {
   
@@ -43,10 +42,10 @@ class LayerDataLoader extends React.Component {
           `${config.api}/datasets/${spotlightId}`
         );
         console.log(body.datasets.splice(1,5))
-        body.datasets[0].name = 'NALMA'
-        body.datasets[1].name = 'ISS LIS'
+        body.datasets[0].name = 'TRMM LIS'
+        body.datasets[1].name = 'NALMA'
         console.log(body.datasets[0].source.tiles[0]);
-        body.datasets[0].source.tiles[0] = API_SOURCE;
+        body.datasets[0].source.tiles[0] = API_TERRACOTTA;
         storeSpotlightLayers(spotlightId, body.datasets);
       })
     );
