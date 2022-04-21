@@ -10,7 +10,7 @@ const dateFormats = {
 };
 
 const prepDateSource = (source, date, timeUnit = 'month') => {
-  console.log("hello world im in {date} fomat at types.js", format(date, dateFormats[timeUnit]))
+  //console.log("hello world im in {date} fomat at types.js", format(date, dateFormats[timeUnit]))
   return {
     ...source,
     tiles: source.tiles.map((t) =>
@@ -113,7 +113,7 @@ export const layerTypes = {
 
       // Update layer tiles.
       const tiles = prepSource(layerInfo, source, date, knobPos).tiles;
-      console.log(tiles)
+      //console.log(tiles)
       replaceRasterTiles(mbMap, id, tiles);
 
       // Update/init compare layer tiles.

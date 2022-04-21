@@ -195,7 +195,7 @@ class GlobalExplore extends React.Component {
     this.getLayersWithState = getLayersWithState.bind(this);
     this.getActiveTimeseriesLayers = getActiveTimeseriesLayers.bind(this);
     this.resizeMap = resizeMap.bind(this);
-
+    console.log(this.getActiveTimeseriesLayers);
     this.onPanelAction = this.onPanelAction.bind(this);
     this.onMapAction = this.onMapAction.bind(this);
 
@@ -242,7 +242,7 @@ class GlobalExplore extends React.Component {
     const { activeLayers, ...urlState } = this.qsState.getState(
       props.location.search.substr(1)
     );
-
+    console.log(activeLayers, urlState)
     this.state = {
       ...getInitialMapExploreState(),
       ...urlState,
@@ -262,6 +262,7 @@ class GlobalExplore extends React.Component {
         const timeUnit = l.timeUnit || 'month';
         const end = utcDate(l.domain[l.domain.length - 1]);
         const domainStart = utcDate(l.domain[0]);
+        console.log(l, timeUnit, end, domainStart)
         const start = timeUnit === 'month'
           ? dateMax(sub(end, { months: 11 }), domainStart)
           : dateMax(sub(end, { months: 2 }), domainStart);
@@ -342,7 +343,7 @@ class GlobalExplore extends React.Component {
 
   onPanelAction (action, payload) {
     // Returns true if the action was handled.
-    console.log('im on panelaction')
+    //console.log('im on panelaction')
     handlePanelAction.call(this, action, payload);
     // console.log(action)
     // switch (action) {
@@ -458,7 +459,7 @@ class GlobalExplore extends React.Component {
 
   toggleLayer (layer) {
     toggleLayerCommon.call(this, layer, () => {
-      console.log('inside toggle layer')
+      //console.log('inside toggle layer')
       this.updateUrlQS();
       //this.requestCogData();
     });
@@ -476,12 +477,12 @@ class GlobalExplore extends React.Component {
     const isComparing = !!comparingLayer;
 
     const mapLabel = get(comparingLayer, 'compare.mapLabel');
-    // const compareMessage =
-    //   isComparing && mapLabel
-    //     ? typeof mapLabel === 'function'
-    //       ? mapLabel(this.state.timelineDate)
-    //       : mapLabel
-    //     : '';
+    const compareMessage =
+      isComparing && mapLabel
+        ? typeof mapLabel === 'function'
+          ? mapLabel(this.state.timelineDate)
+          : mapLabel
+        : '';
 
     return (
       <App hideFooter>
@@ -523,6 +524,7 @@ class GlobalExplore extends React.Component {
                 <Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={5000}/>
                 <Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={10000}/>
                 {activeTimeseriesLayers.length && <Popups value={['This is Timeline. Scroll to render layers based on different dates. Sometimes nothing is rendered due to fetch error.']} place={'bottom-left'} timer={15000}/>}
+                {console.log(this.state.timelineDate)}
                 <Timeline
                   isActive={!!activeTimeseriesLayers.length}
                   layers={activeTimeseriesLayers}

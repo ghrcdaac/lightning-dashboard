@@ -179,7 +179,7 @@ export function resizeMap () {
  * @param {object} payload Action data
  */
 export function handlePanelAction (action, payload) {
-  console.log(action, payload)
+  //console.log(action, payload)
   switch (action) {
     case 'layer.toggle':
       this.toggleLayer(payload);
@@ -382,11 +382,19 @@ function isDateInDomain (date, domain) {
 export function toggleLayerRasterTimeseries (layer) {
   this.setState(state => {
     // Init the timeline date.
-    const timelineDate = state.timelineDate &&
-      isDateInDomain(state.timelineDate, layer.domain)
-      ? state.timelineDate
-      : utcDate(layer.domain[layer.domain.length - 1]);
 
+    // const timelineDate = state.timelineDate &&
+    //   isDateInDomain(state.timelineDate, layer.domain)
+    //   ? state.timelineDate
+    //   : utcDate(layer.domain[layer.domain.length - 1]);
+
+    //Init the timeline date.
+    const timelineDate = state.timelineDate &&
+    isDateInDomain(state.timelineDate, layer.domain)
+    ? state.timelineDate
+    : utcDate(layer.domain[0]);
+
+    console.log(timelineDate)
     // Check if there's a knob value set. If not, means that this is the
     // first time it is enabled and we need to set a default.
     const knobCurrPos = get(state, ['layersState', layer.id, 'knobCurrPos'], null);
@@ -413,6 +421,7 @@ export function toggleLayerRasterTimeseries (layer) {
  * Returns timeseries data that are active
  */
 export function getActiveTimeseriesLayers () {
+  console.log(this.props.mapLayers)
   return this.props.mapLayers.filter(
     (l) =>
       l.type.includes('timeseries') && this.state.activeLayers.includes(l.id)
