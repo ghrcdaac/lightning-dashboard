@@ -3,7 +3,7 @@ module.exports = {
   default: {
     environment: 'production',
     appTitle: 'Lightning Dashboard',
-    appDescription: 'Although NASA can&apos;t see the novel #coronavirus from space, we can see how our response to it affects the environment. Explore the data using our new experimental dashboard.',
+    appDescription: 'Welcome to Lightning Dashboard.',
     gaTrackingCode: 'UA-170089104-1',
     twitterHandle: '@NASAEarthData',
     mbToken: 'pk.eyJ1IjoiY292aWQtbmFzYSIsImEiOiJja2F6eHBobTUwMzVzMzFueGJuczF6ZzdhIn0.8va1fkyaWgM57_gZ2rBMMg',

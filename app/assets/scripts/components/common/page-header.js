@@ -80,10 +80,10 @@ const PageTitlePrimeLink = styled(Link)`
     grid-row: 1 / span 2;
     content: '';
     height: 48px;
-    width: 56px;
+    width: 62px;
     background: url(https://ghrc.nsstc.nasa.gov/home/sites/all/themes/hydrology/images/logos/ghrc_logo_2021-simple_wht.png);
     background-size: auto 100%;
-    background-repeat: none;
+    background-repeat: no-repeat;
     background-position: top right;
     position: absolute;
     top: 0;
@@ -531,7 +531,7 @@ class PageHeader extends React.Component {
                       </PrimeSubmenu>
                     </PrimeMenuBlock>
                   </li>
-                  <li>
+                  {/* <li>
                     <Button
                       variation='achromic-plain'
                       title='Send feedback'
@@ -540,6 +540,17 @@ class PageHeader extends React.Component {
                       }}
                     >
                       Feedback
+                    </Button>
+                  </li> */}
+                  <li>
+                    <Button
+                      variation="achromic-plain"
+                      title="Home"
+                      onClick={()=>{
+                        window.open('https://ghrc.nsstc.nasa.gov/home/')
+                      }}
+                    >
+                      Home
                     </Button>
                   </li>
                   <ShareLi>

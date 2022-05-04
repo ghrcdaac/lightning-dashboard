@@ -1,6 +1,6 @@
 // this is the main initial page shown
 
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -14,7 +14,7 @@ import { headingAlt } from '../../styles/type/heading';
 import { glsp } from '../../styles/utils/theme-values';
 import Prose from '../../styles/type/prose';
 
-import {toast} from 'react-toastify';
+//import {toast} from 'react-toastify';
 //import 'react-toastify/dist/ReactToastify.css'
 
 import App from '../common/app';
@@ -195,9 +195,10 @@ class GlobalExplore extends React.Component {
     this.getLayersWithState = getLayersWithState.bind(this);
     this.getActiveTimeseriesLayers = getActiveTimeseriesLayers.bind(this);
     this.resizeMap = resizeMap.bind(this);
-    console.log(this.getActiveTimeseriesLayers);
     this.onPanelAction = this.onPanelAction.bind(this);
     this.onMapAction = this.onMapAction.bind(this);
+
+    this.count = 0;
 
     // Ref to the map component to be able to trigger a resize when the panels
     // are shown/hidden.
@@ -232,7 +233,6 @@ class GlobalExplore extends React.Component {
         }
       }
     });
-
     // The active layers can only be enabled once the map loads. The toggle
     // layer method checks the state to see what layers are enabled so we can't
     // store the active layers from the url in the same property, otherwise
@@ -242,7 +242,6 @@ class GlobalExplore extends React.Component {
     const { activeLayers, ...urlState } = this.qsState.getState(
       props.location.search.substr(1)
     );
-    console.log(activeLayers, urlState)
     this.state = {
       ...getInitialMapExploreState(),
       ...urlState,
@@ -262,7 +261,6 @@ class GlobalExplore extends React.Component {
         const timeUnit = l.timeUnit || 'month';
         const end = utcDate(l.domain[l.domain.length - 1]);
         const domainStart = utcDate(l.domain[0]);
-        console.log(l, timeUnit, end, domainStart)
         const start = timeUnit === 'month'
           ? dateMax(sub(end, { months: 11 }), domainStart)
           : dateMax(sub(end, { months: 2 }), domainStart);
@@ -282,12 +280,13 @@ class GlobalExplore extends React.Component {
   }
 
   onPanelChange (panel, revealed) {
+    this.count = 0;
     this.setState({ [panel]: revealed });
   }
 
   updateUrlQS () {
-    const qString = this.qsState.getQs(this.state);
-    this.props.history.push({ search: qString });
+    // const qString = this.qsState.getQs(this.state);
+    // this.props.history.push({ search: qString });
     //console.log(qString)
   }
 
@@ -344,6 +343,7 @@ class GlobalExplore extends React.Component {
   onPanelAction (action, payload) {
     // Returns true if the action was handled.
     //console.log('im on panelaction')
+    this.count = 0;
     handlePanelAction.call(this, action, payload);
     // console.log(action)
     // switch (action) {
@@ -467,6 +467,9 @@ class GlobalExplore extends React.Component {
 
   render () {
     // const { spotlightList } = this.props;
+    const popup_lr = 'popup-left-right'
+    const popup_tline = 'popup-timeline'
+
     const layers = this.getLayersWithState();
     const activeTimeseriesLayers = this.getActiveTimeseriesLayers();
     // const activeCogTimeseriesLayers = activeTimeseriesLayers
@@ -475,7 +478,10 @@ class GlobalExplore extends React.Component {
     // Check if there's any layer that's comparing.
     const comparingLayer = find(layers, 'comparing');
     const isComparing = !!comparingLayer;
+    ++this.count
 
+    console.log(this.count)
+    // console.log(activeTimeseriesLayers.length)
     const mapLabel = get(comparingLayer, 'compare.mapLabel');
     const compareMessage =
       isComparing && mapLabel
@@ -483,7 +489,7 @@ class GlobalExplore extends React.Component {
           ? mapLabel(this.state.timelineDate)
           : mapLabel
         : '';
-
+                                       
     return (
       <App hideFooter>
         <Inpage isMapCentric>
@@ -521,10 +527,13 @@ class GlobalExplore extends React.Component {
                   enableOverlayControls
                   //spotlightList={spotlightList}
                 />             
-                <Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={5000}/>
-                <Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={10000}/>
-                {activeTimeseriesLayers.length && <Popups value={['This is Timeline. Scroll to render layers based on different dates. Sometimes nothing is rendered due to fetch error.']} place={'bottom-left'} timer={15000}/>}
-                {console.log(this.state.timelineDate)}
+                {/* {(activeTimeseriesLayers.length > 0 && this.count === 7 || activeTimeseriesLayers.length === 0 && this.count === 2) && (localStorage.getItem(popup_lr) === null) &&< Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
+                {(activeTimeseriesLayers.length > 0 && this.count === 7 || activeTimeseriesLayers.length === 0 && this.count === 2) && (localStorage.getItem(popup_lr) === null) &&<Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={3000} whichPop={popup_lr}/>}
+                {(activeTimeseriesLayers.length > 0 && this.count >= 6) && (localStorage.getItem(popup_tline) === null) &&(activeTimeseriesLayers.length > 0) && <Popups value={['This is Timeline. Scroll to render layers based on different dates.']} place={'bottom-left'} timer={4000} whichPop={popup_tline}/>} */}
+                {this.count === 2 && !localStorage.getItem(popup_lr) && < Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
+                {this.count === 2 && !localStorage.getItem(popup_lr) && <Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={3000} whichPop={popup_lr}/>}
+                {!!activeTimeseriesLayers.length && this.count === 2 && !localStorage.getItem(popup_tline) && <Popups value={['This is Timeline. Scroll to render layers based on different dates.']} place={'bottom-left'} timer={4000} whichPop={popup_tline}/>}
+
                 <Timeline
                   isActive={!!activeTimeseriesLayers.length}
                   layers={activeTimeseriesLayers}

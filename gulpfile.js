@@ -85,14 +85,14 @@ function serve () {
   });
 
   // watch for changes
-  // gulp.watch(
-  //   [
-  //     'app/*.html',
-  //     'app/assets/graphics/**/*',
-  //     '!app/assets/icons/collecticons/**/*'
-  //   ],
-  //   bs.reload
-  // );
+  gulp.watch(
+    [
+      'app/*.html',
+      'app/assets/graphics/**/*',
+      '!app/assets/icons/collecticons/**/*'
+    ],
+    bs.reload
+  );
 
   gulp.watch('app/assets/icons/collecticons/**', collecticons);
   gulp.watch('package.json', vendorScripts);
@@ -250,7 +250,7 @@ function html () {
 
 function imagesImagemin () {
   return gulp
-    // .src(['app/assets/graphics/**/*'])
+    .src(['app/assets/graphics/**/*'])
     .pipe(
       $.imagemin([
         $.imagemin.gifsicle({ interlaced: true }),
@@ -261,7 +261,7 @@ function imagesImagemin () {
         $.imagemin.svgo({ plugins: [{ cleanupIDs: false }] })
       ])
     )
-    // .pipe(gulp.dest('dist/assets/graphics'));
+    .pipe(gulp.dest('dist/assets/graphics'));
 }
 
 /**

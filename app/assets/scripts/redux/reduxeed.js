@@ -184,7 +184,7 @@ export function makeFetchThunk (opts) {
       if (__devDelay) await delay(__devDelay);
       return dispatch(receiveFn(content));
     } catch (error) {
-      console.log('errrrrrrrorrrrrrrrrrrrrrrrrrrrr')
+      //console.log('errrrrrrrorrrrrrrrrrrrrrrrrrrrr')
       if (__devDelay) await delay(__devDelay);
       //console.log('error', url, error); // eslint-disable-line
       return dispatch(receiveFn(null, error));
@@ -210,13 +210,13 @@ export async function fetchJSON (url, options) {
       const err = new Error(json.message);
       err.statusCode = response.status;
       err.data = json;
-      console.log('errrrrrorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
+      //console.log('errrrrrorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
       throw err;
     }
 
     return { body: json, headers: response.headers };
   } catch (error) {
-    console.log('errrrrorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
+    //console.log('errrrrorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
     error.statusCode = response ? response.status || null : null;
     throw error;
   }

@@ -1,20 +1,17 @@
 {
-  "name": "covid-dashboard",
+  "name": "lightning-dashboard",
   "version": "1.9.1",
-  "description": "Frontend application for the Covid Dashboard",
+  "description": "Frontend application for the Lightning Dashboard",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NASA-IMPACT/covid-dashboard.git"
+    "url": "https://github.com/"
   },
   "author": {
     "name": "Development Seed",
     "url": "https://developmentseed.org"
   },
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/NASA-IMPACT/covid-dashboard/issues"
-  },
-  "homepage": "https://github.com/NASA-IMPACT/covid-dashboard",
+  "homepage": "https://ghrc.nsstc.nasa.gov/home/",
   "scripts": {
     "postinstall": "[ -f app/assets/scripts/config/local.js ] || echo \"export default {\n  environment: 'development'\n};\" > app/assets/scripts/config/local.js",
     "serve": "NODE_ENV=development gulp serve",

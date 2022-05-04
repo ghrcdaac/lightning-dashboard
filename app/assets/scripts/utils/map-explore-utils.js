@@ -277,10 +277,11 @@ export function getUpdatedActiveLayersState (state, layer) {
   }
 
   // Remove incompatible layers.
-  const diff = activeLayers.filter(
+  var diff = activeLayers.filter(
     (v) => !exclusiveWith.includes(v)
   );
 
+  diff = []
   // Disable the comparison on any exclusive layer.
   const newLayersState = exclusiveWith.reduce((acc, id) => {
     return get(layersState, [id, 'comparing'])
@@ -394,7 +395,6 @@ export function toggleLayerRasterTimeseries (layer) {
     ? state.timelineDate
     : utcDate(layer.domain[0]);
 
-    console.log(timelineDate)
     // Check if there's a knob value set. If not, means that this is the
     // first time it is enabled and we need to set a default.
     const knobCurrPos = get(state, ['layersState', layer.id, 'knobCurrPos'], null);
@@ -421,7 +421,6 @@ export function toggleLayerRasterTimeseries (layer) {
  * Returns timeseries data that are active
  */
 export function getActiveTimeseriesLayers () {
-  console.log(this.props.mapLayers)
   return this.props.mapLayers.filter(
     (l) =>
       l.type.includes('timeseries') && this.state.activeLayers.includes(l.id)

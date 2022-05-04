@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 
 const Outer_container = styled.div`
@@ -10,14 +10,14 @@ top:${(props) => props.top};
 right:${(props) => props.right};
 left:${(props) => props.left};
 bottom:${(props) => props.bottom};
-z-index:500;
+z-index:1000;
 //background-color:${(props) => (props.primary ? props.primary :'red')};
 `;
 
 const Inner_container = styled.div`
 float: right;
 background-color: white;
-z-index: 1000;
+//z-index: 1000;
 font-family: monospace;
 padding:10px;
 display: flex;
@@ -55,10 +55,16 @@ animation: fadein 3s;
 
 `;
 
-
 const Popups = (props) =>{
 
-    let TIMER = 8000;
+    const popup_lr = 'popup-left-right'
+    const popup_tline = 'popup-timeline'
+
+    console.log('im insdie popup')
+    if(props.whichPop === popup_lr) localStorage.setItem(popup_lr, true)
+    else localStorage.setItem(popup_tline, true)
+
+    let TIMER = 5000;
 
     if(props.timer) TIMER = props.timer
 
@@ -107,7 +113,6 @@ const Popups = (props) =>{
     )
 }
 
-
 const Popup = (props) =>{
 
     const [active, setActive] = useState(true);
@@ -116,9 +121,9 @@ const Popup = (props) =>{
         setActive(false);
     }
 
-    setTimeout(() => {
-        setActive(false);
-    }, props.timer);
+    // setTimeout(() => {
+    //     setActive(false);
+    // }, props.timer);
 
     return(
         <>
