@@ -178,77 +178,77 @@ export const layerTypes = {
       }
     }
   },
-  // raster: {
-  //   update: (ctx, layerInfo, prevProps) => {
-  //     const { mbMap, mbMapComparing, mbMapComparingLoaded, props } = ctx;
-  //     const { id, compare, paint, source } = layerInfo;
-  //     const { comparing } = props;
+  raster: {
+    update: (ctx, layerInfo, prevProps) => {
+      const { mbMap, mbMapComparing, mbMapComparingLoaded, props } = ctx;
+      const { id, compare, paint, source } = layerInfo;
+      const { comparing } = props;
 
-  //     // Check if the source tiles have changed and need to be replaced. This
-  //     // may happen in the stories when maintaining the layer and changing the
-  //     // spotlight. One example is the slowdown raster layer on la and sf.
-  //     const sourceTiles = mbMap.getSource(id).tiles;
-  //     const newSourceTiles = source.tiles;
-  //     // Quick compare
-  //     if (sourceTiles && sourceTiles.join('-') !== newSourceTiles.join('-')) {
-  //       replaceRasterTiles(mbMap, id, newSourceTiles);
-  //     }
+      // Check if the source tiles have changed and need to be replaced. This
+      // may happen in the stories when maintaining the layer and changing the
+      // spotlight. One example is the slowdown raster layer on la and sf.
+      const sourceTiles = mbMap.getSource(id).tiles;
+      const newSourceTiles = source.tiles;
+      // Quick compare
+      if (sourceTiles && sourceTiles.join('-') !== newSourceTiles.join('-')) {
+        replaceRasterTiles(mbMap, id, newSourceTiles);
+      }
 
-  //     // Do not update if:
-  //     if (
-  //       // Compare didn't change.
-  //       comparing === prevProps.comparing ||
-  //       // There's no comparing map.
-  //       !mbMapComparing
-  //     ) { return; }
+      // Do not update if:
+      if (
+        // Compare didn't change.
+        comparing === prevProps.comparing ||
+        // There's no comparing map.
+        !mbMapComparing
+      ) { return; }
 
-  //     // If we're comparing, and the compare map is not loaded.
-  //     if (comparing && !mbMapComparingLoaded) return;
+      // If we're comparing, and the compare map is not loaded.
+      if (comparing && !mbMapComparingLoaded) return;
 
-  //     // END update checks.
+      // END update checks.
 
-  //     if (mbMapComparing.getSource(id)) {
-  //       mbMapComparing.setLayoutProperty(id, 'visibility', 'visible');
-  //     } else {
-  //       mbMapComparing.addSource(id, compare.source);
-  //       mbMapComparing.addLayer(
-  //         {
-  //           id: id,
-  //           type: 'raster',
-  //           source: id,
-  //           paint: paint || {}
-  //         },
-  //         'admin-0-boundary-bg'
-  //       );
-  //     }
-  //   },
-  //   hide: (ctx, layerInfo) => {
-  //     const { mbMap } = ctx;
-  //     const { id } = layerInfo;
-  //     if (mbMap.getSource(id)) {
-  //       mbMap.setLayoutProperty(id, 'visibility', 'none');
-  //     }
-  //   },
-  //   show: (ctx, layerInfo) => {
-  //     const { mbMap } = ctx;
-  //     const { id, source, paint } = layerInfo;
+      if (mbMapComparing.getSource(id)) {
+        mbMapComparing.setLayoutProperty(id, 'visibility', 'visible');
+      } else {
+        mbMapComparing.addSource(id, compare.source);
+        mbMapComparing.addLayer(
+          {
+            id: id,
+            type: 'raster',
+            source: id,
+            paint: paint || {}
+          },
+          'admin-0-boundary-bg'
+        );
+      }
+    },
+    hide: (ctx, layerInfo) => {
+      const { mbMap } = ctx;
+      const { id } = layerInfo;
+      if (mbMap.getSource(id)) {
+        mbMap.setLayoutProperty(id, 'visibility', 'none');
+      }
+    },
+    show: (ctx, layerInfo) => {
+      const { mbMap } = ctx;
+      const { id, source, paint } = layerInfo;
 
-  //     if (mbMap.getSource(id)) {
-  //       mbMap.setLayoutProperty(id, 'visibility', 'visible');
-  //     } else {
-  //       mbMap.addSource(id, source);
-  //       mbMap.addLayer(
-  //         {
-  //           id: id,
-  //           type: 'raster',
-  //           source: id,
-  //           paint: paint || {}
-  //         },
-  //         'admin-0-boundary-bg'
-  //       );
-  //     }
-  //   }
-  // },
+      if (mbMap.getSource(id)) {
+        mbMap.setLayoutProperty(id, 'visibility', 'visible');
+      } else {
+        mbMap.addSource(id, source);
+        mbMap.addLayer(
+          {
+            id: id,
+            type: 'raster',
+            source: id,
+            paint: paint || {}
+          },
+          'admin-0-boundary-bg'
+        );
+      }
+    }
+  },
   // 'inference-timeseries': {
   //   update: (ctx, layerInfo, prevProps) => {
   //     const { props, mbMap } = ctx;

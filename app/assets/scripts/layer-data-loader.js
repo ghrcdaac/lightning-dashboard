@@ -83,7 +83,6 @@ class LayerDataLoader extends React.Component {
     const local_monthly_link = "http://localhost:5000/singleband/VHRMC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"
     const local_diurnal_link = "http://localhost:5000/singleband/VHRDC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.002]"
     const local_annual_link = "http://localhost:5000/singleband/VHRAC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]";
-    const nalma_link = ""
 
     const aws_full_link = "https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRFC/201301/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.325,23.426]"
     const aws_seasonal_link = "https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRSC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"
@@ -100,8 +99,8 @@ class LayerDataLoader extends React.Component {
     dataset.push(datasets('TRMM LIS Monthly', '2013-01', '2013-12', aws_monthly_link,'month', "Shows the monthly mean flash rate density throughout 1998 to 2013."));
     dataset.push(datasets('TRMM LIS Diurnal', '2012-01', '2013-12', aws_diurnal_link,'month', "Shows the (daily) hourly mean flash rate density throughout 1998 to 2013."));
     dataset.push(datasets('TRMM LIS Annual', '2013-01', '2013-12', aws_annual_link,'day', "Shows the daily mean flash rate density throughout 1998 to 2013."));
-    dataset.push(datasets('NALMA Source Density', '2013-01', '2013-12', null, 'month', "The North Alabama Lightning Mapping Array (NALMA) data are used to validate the Lightning Imaging Sensor (LIS) on the International Space Station (ISS), the Geostationary Lightning Mapper (GLM) instrument, and other current and future lightning measurements."));
-    dataset.push(datasets('NALMA Flash Extent Density', '2013-01', '2013-12', null, 'month', "The North Alabama Lightning Mapping Array (NALMA) data are used to validate the Lightning Imaging Sensor (LIS) on the International Space Station (ISS), the Geostationary Lightning Mapper (GLM) instrument, and other current and future lightning measurements."));
+    // dataset.push(datasets('NALMA Source Density', '2013-01', '2013-12', null, 'month', "The North Alabama Lightning Mapping Array (NALMA) data are used to validate the Lightning Imaging Sensor (LIS) on the International Space Station (ISS), the Geostationary Lightning Mapper (GLM) instrument, and other current and future lightning measurements."));
+    // dataset.push(datasets('NALMA Flash Extent Density', '2013-01', '2013-12', null, 'month', "The North Alabama Lightning Mapping Array (NALMA) data are used to validate the Lightning Imaging Sensor (LIS) on the International Space Station (ISS), the Geostationary Lightning Mapper (GLM) instrument, and other current and future lightning measurements."));
 
     storeSpotlightLayers('global', dataset);
     this.props.onReady();
@@ -114,14 +113,46 @@ class LayerDataLoader extends React.Component {
 
 const datasets = (name, startDate, endDate, API, timeUnit, info) =>{
 
+  var domain = [startDate+"-01T00:00:00Z",endDate+"-01T00:00:00Z"]
+  var isPeriodic = true;
+  var type = 'raster-timeseries'
+
+  if (name === 'TRMM LIS Full'){
+    domain = []
+    timeUnit = 'day'
+    isPeriodic = true;
+    type = 'raster';
+  }else if(name === 'TRMM LIS Seasonal'){
+    timeUnit = 'day'
+    domain = ["2013-03-01T00:00:00Z","2013-07-01T00:00:00Z","2013-10-01T00:00:00Z","2013-12-01T00:00:00Z"]
+  }else if(name === 'TRMM LIS Diurnal'){
+    timeUnit = 'day'
+    domain= ["2013-01-01T00:00:00Z","2013-01-15T00:00:00Z",
+             "2013-02-01T00:00:00Z","2013-02-15T00:00:00Z", 
+             "2013-03-01T00:00:00Z","2013-03-15T00:00:00Z",
+             "2013-04-01T00:00:00Z","2013-04-15T00:00:00Z",
+             "2013-05-01T00:00:00Z","2013-05-15T00:00:00Z",
+             "2013-06-01T00:00:00Z","2013-06-15T00:00:00Z",
+             "2013-07-01T00:00:00Z","2013-07-15T00:00:00Z",
+             "2013-08-01T00:00:00Z","2013-08-15T00:00:00Z",
+             "2013-09-01T00:00:00Z","2013-09-15T00:00:00Z",
+             "2013-10-01T00:00:00Z","2013-10-15T00:00:00Z",
+             "2013-11-01T00:00:00Z","2013-11-15T00:00:00Z",
+             "2013-12-01T00:00:00Z","2013-12-15T00:00:00Z",
+            ] 
+  }else if(name === 'TRMM LIS Annual'){
+    timeUnit = 'day';
+    domain = [startDate+"-01T00:00:00Z",endDate+"-30T00:00:00Z"]
+  }
+
   return {
     backgroundSource: null,
     compare: null,
-    domain:[startDate+"-01T00:00:00Z",endDate+"-01T00:00:00Z"],
+    domain:domain,
     exclusiveWith:[], 
     id: name,
     info: info,
-    isPeriodic: true,
+    isPeriodic: isPeriodic,
     legend:categorical,
     name: name,
     paint: null,
@@ -131,7 +162,7 @@ const datasets = (name, startDate, endDate, API, timeUnit, info) =>{
     },
     swatch: {color: '#C0C0C0', name: 'Grey'},
     timeUnit: timeUnit,
-    type: "raster-timeseries",
+    type: type,
   }
 }
 

@@ -153,7 +153,7 @@ class Layer extends React.Component {
               >
                 <span>Info</span>
               </Button>
-              <Button
+              {/* <Button
                 variation={compareActive ? 'primary-plain' : 'base-plain'}
                 size='small'
                 useIcon='clock'
@@ -165,7 +165,7 @@ class Layer extends React.Component {
                 onClick={onCompareClick}
               >
                 <span>Compare</span>
-              </Button>
+              </Button> */}
               <FormSwitch
                 hideText
                 name={`toggle-${id}`}

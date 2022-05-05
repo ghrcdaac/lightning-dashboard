@@ -10,6 +10,7 @@ import get from 'lodash.get';
 import find from 'lodash.find';
 
 import Popups from '../../utils/Popup';
+import PopupButton from '../../utils/PopupButton';
 import { headingAlt } from '../../styles/type/heading';
 import { glsp } from '../../styles/utils/theme-values';
 import Prose from '../../styles/type/prose';
@@ -480,7 +481,6 @@ class GlobalExplore extends React.Component {
     const isComparing = !!comparingLayer;
     ++this.count
 
-    console.log(this.count)
     // console.log(activeTimeseriesLayers.length)
     const mapLabel = get(comparingLayer, 'compare.mapLabel');
     const compareMessage =
@@ -526,7 +526,8 @@ class GlobalExplore extends React.Component {
                   enableLocateUser
                   enableOverlayControls
                   //spotlightList={spotlightList}
-                />             
+                /> 
+                <PopupButton />            
                 {/* {(activeTimeseriesLayers.length > 0 && this.count === 7 || activeTimeseriesLayers.length === 0 && this.count === 2) && (localStorage.getItem(popup_lr) === null) &&< Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
                 {(activeTimeseriesLayers.length > 0 && this.count === 7 || activeTimeseriesLayers.length === 0 && this.count === 2) && (localStorage.getItem(popup_lr) === null) &&<Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={3000} whichPop={popup_lr}/>}
                 {(activeTimeseriesLayers.length > 0 && this.count >= 6) && (localStorage.getItem(popup_tline) === null) &&(activeTimeseriesLayers.length > 0) && <Popups value={['This is Timeline. Scroll to render layers based on different dates.']} place={'bottom-left'} timer={4000} whichPop={popup_tline}/>} */}

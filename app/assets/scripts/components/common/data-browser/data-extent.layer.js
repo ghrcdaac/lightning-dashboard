@@ -1,5 +1,4 @@
 import { css } from 'styled-components';
-
 import { utcDate } from '../../../utils/utils';
 
 const styles = props => css`

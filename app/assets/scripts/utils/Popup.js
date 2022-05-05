@@ -60,7 +60,7 @@ const Popups = (props) =>{
     const popup_lr = 'popup-left-right'
     const popup_tline = 'popup-timeline'
 
-    console.log('im insdie popup')
+    // console.log('im insdie popup')
     if(props.whichPop === popup_lr) localStorage.setItem(popup_lr, true)
     else localStorage.setItem(popup_tline, true)
 
@@ -107,7 +107,7 @@ const Popups = (props) =>{
         <Outer_container place={place} top={top} right={right} left={left} bottom={bottom}>
             {props.value.map((val)=>{
                 TIMER = TIMER + (TIMER/2);
-                return <Popup value={val} timer={TIMER} key={val}/>
+                return <Popup value={val} timer={TIMER} key={val} whichPop={props.whichPop}/>
             })}
         </Outer_container>
     )
@@ -121,9 +121,20 @@ const Popup = (props) =>{
         setActive(false);
     }
 
-    // setTimeout(() => {
-    //     setActive(false);
-    // }, props.timer);
+    //var timer;
+    // if(props.whichPop === 'popup-timeline'){
+    //     timer = setTimeout(() => {
+    //         setActive(false);
+    //     }, props.timer);
+    // }
+
+    useEffect(()=>{
+        const timer = setTimeout(() => {
+            setActive(false);
+        }, props.timer);
+
+        return () => clearInterval(timer)
+    },[])
 
     return(
         <>
