@@ -11,6 +11,7 @@ import find from 'lodash.find';
 
 import Popups from '../../utils/Popup';
 import PopupButton from '../../utils/PopupButton';
+
 import { headingAlt } from '../../styles/type/heading';
 import { glsp } from '../../styles/utils/theme-values';
 import Prose from '../../styles/type/prose';
@@ -186,7 +187,6 @@ const IntroWelcome = styled.section`
   `}
 `;
 
-//toast.configure();
 class GlobalExplore extends React.Component {
   constructor (props) {
     super(props);
@@ -198,9 +198,11 @@ class GlobalExplore extends React.Component {
     this.resizeMap = resizeMap.bind(this);
     this.onPanelAction = this.onPanelAction.bind(this);
     this.onMapAction = this.onMapAction.bind(this);
+    this.sliderValue = 90;
+    this.tileOpacity = this.tileOpacity.bind(this)
 
     this.count = 0;
-
+    //this.tileOpacity = 100;
     // Ref to the map component to be able to trigger a resize when the panels
     // are shown/hidden.
     this.mbMapRef = React.createRef();
@@ -254,6 +256,7 @@ class GlobalExplore extends React.Component {
         actionOrigin: null
       },
       _urlActiveLayers: activeLayers,
+      tileOpacity: 100,
       panelPrime: false,
       panelSec: false,
       // Init dates for cog data according to a default.
@@ -283,6 +286,14 @@ class GlobalExplore extends React.Component {
   onPanelChange (panel, revealed) {
     this.count = 0;
     this.setState({ [panel]: revealed });
+  }
+
+  tileOpacity(value){
+    // this.state.tileOpacity = value;
+    this.setState({
+      tileOpacity:value
+    })
+    //console.log(this.state.tileOpacity)
   }
 
   updateUrlQS () {
@@ -482,13 +493,13 @@ class GlobalExplore extends React.Component {
     ++this.count
 
     // console.log(activeTimeseriesLayers.length)
-    const mapLabel = get(comparingLayer, 'compare.mapLabel');
-    const compareMessage =
-      isComparing && mapLabel
-        ? typeof mapLabel === 'function'
-          ? mapLabel(this.state.timelineDate)
-          : mapLabel
-        : '';
+    // const mapLabel = get(comparingLayer, 'compare.mapLabel');
+    // const compareMessage =
+    //   isComparing && mapLabel
+    //     ? typeof mapLabel === 'function'
+    //       ? mapLabel(this.state.timelineDate)
+    //       : mapLabel
+    //     : '';
                                        
     return (
       <App hideFooter>
@@ -511,7 +522,7 @@ class GlobalExplore extends React.Component {
                   this.resizeMap();
                   this.onPanelChange('panelPrime', revealed);
                 }}
-                //spotlightList={spotlightList}
+                tileOpacity={this.tileOpacity}
               />
               <ExploreCarto>
                 <MbMap
@@ -525,16 +536,12 @@ class GlobalExplore extends React.Component {
                   comparing={isComparing}
                   enableLocateUser
                   enableOverlayControls
-                  //spotlightList={spotlightList}
+                  tileOpacity={this.state.tileOpacity}
                 /> 
                 <PopupButton />            
-                {/* {(activeTimeseriesLayers.length > 0 && this.count === 7 || activeTimeseriesLayers.length === 0 && this.count === 2) && (localStorage.getItem(popup_lr) === null) &&< Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
-                {(activeTimeseriesLayers.length > 0 && this.count === 7 || activeTimeseriesLayers.length === 0 && this.count === 2) && (localStorage.getItem(popup_lr) === null) &&<Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={3000} whichPop={popup_lr}/>}
-                {(activeTimeseriesLayers.length > 0 && this.count >= 6) && (localStorage.getItem(popup_tline) === null) &&(activeTimeseriesLayers.length > 0) && <Popups value={['This is Timeline. Scroll to render layers based on different dates.']} place={'bottom-left'} timer={4000} whichPop={popup_tline}/>} */}
                 {this.count === 2 && !localStorage.getItem(popup_lr) && < Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
                 {this.count === 2 && !localStorage.getItem(popup_lr) && <Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={3000} whichPop={popup_lr}/>}
                 {!!activeTimeseriesLayers.length && this.count === 2 && !localStorage.getItem(popup_tline) && <Popups value={['This is Timeline. Scroll to render layers based on different dates.']} place={'bottom-left'} timer={4000} whichPop={popup_tline}/>}
-
                 <Timeline
                   isActive={!!activeTimeseriesLayers.length}
                   layers={activeTimeseriesLayers}
@@ -552,7 +559,6 @@ class GlobalExplore extends React.Component {
 }
 
 GlobalExplore.propTypes = {
-  // fetchCogTimeData: T.func,
   invalidateCogTimeData: T.func,
   mapLayers: T.array,
   cogTimeData: T.object,
@@ -570,7 +576,6 @@ function mapStateToProps (state, props) {
 }
 
 const mapDispatchToProps = {
-  // fetchCogTimeData: fetchCogTimeDataAction,
   invalidateCogTimeData: invalidateCogTimeDataAction
 };
 

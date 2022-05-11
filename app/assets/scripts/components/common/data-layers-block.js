@@ -14,15 +14,16 @@ import {
 } from './panel-block';
 import Layer from './layer';
 import { Accordion } from './accordion';
-
+import Slider from '../../utils/Slider';
 
 const PanelBlockLayer = styled(PanelBlock)`
   flex: 2;
 `;
 
 class DataLayersBlock extends React.Component {
+
   render () {
-    const { onAction, layers, mapLoaded } = this.props;
+    const { onAction, layers, mapLoaded,tileOpacity } = this.props;
 
     return (
       <PanelBlockLayer>
@@ -62,6 +63,7 @@ class DataLayersBlock extends React.Component {
                 </ol>
               )}
             </Accordion>
+            <Slider slideHandler={tileOpacity}/>
           </PanelBlockScroll>
         </PanelBlockBody>
       </PanelBlockLayer>
@@ -72,7 +74,8 @@ class DataLayersBlock extends React.Component {
 DataLayersBlock.propTypes = {
   onAction: T.func,
   layers: T.array,
-  mapLoaded: T.bool
+  mapLoaded: T.bool,
+  tileOpacity:T.func,
 };
 
 export default DataLayersBlock;

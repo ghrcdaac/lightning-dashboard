@@ -90,6 +90,13 @@ export const layerTypes = {
 
       const knobPos = layerInfo.knobCurrPos;
       const knobPosPrev = prevLayerInfo ? prevLayerInfo.knobCurrPos : null;
+
+      mbMap.setPaintProperty(
+        id,
+        'raster-opacity',
+        parseInt(ctx.props.tileOpacity,10)/100
+      );
+
       // Do not update if:
       if (
         // There's no date defined.
@@ -102,6 +109,7 @@ export const layerTypes = {
         // Compare didn't change.
         comparing === prevProps.comparing
       ) { return; }
+
       // The source we're updating is not present.
       //console.log(mbMap.getSource(id))
       if (!mbMap.getSource(id)) return;
@@ -113,10 +121,10 @@ export const layerTypes = {
 
       // Update layer tiles.
       const tiles = prepSource(layerInfo, source, date, knobPos).tiles;
-      //console.log(tiles)
+
       replaceRasterTiles(mbMap, id, tiles);
 
-      // Update/init compare layer tiles.
+      // Update/iniit compare layer tiles.
       if (comparing) {
         const compareDate =
           typeof compare.compareDate === 'function'
@@ -143,6 +151,11 @@ export const layerTypes = {
             },
             'admin-0-boundary-bg'
           );
+          mbMap.setPaintProperty(
+            id,
+            'raster-opacity',
+            parseInt(ctx.props.tileOpacity,10)/100
+          );
         }
       }
     },
@@ -154,6 +167,7 @@ export const layerTypes = {
       }
     },
     show: (ctx, layerInfo) => {
+      //console.log(ctx)
       const { mbMap, props } = ctx;
       const { id, source, paint } = layerInfo;
       const { date } = props;
@@ -174,6 +188,11 @@ export const layerTypes = {
             paint: paint || {}
           },
           'admin-0-boundary-bg'
+        );
+        mbMap.setPaintProperty(
+          id,
+          'raster-opacity',
+          parseInt(ctx.props.tileOpacity,10)/100
         );
       }
     }
@@ -220,6 +239,11 @@ export const layerTypes = {
           },
           'admin-0-boundary-bg'
         );
+        mbMap.setPaintProperty(
+          id,
+          'raster-opacity',
+          parseInt(ctx.props.tileOpacity,10)/100
+        );
       }
     },
     hide: (ctx, layerInfo) => {
@@ -245,6 +269,11 @@ export const layerTypes = {
             paint: paint || {}
           },
           'admin-0-boundary-bg'
+        );
+        mbMap.setPaintProperty(
+          id,
+          'raster-opacity',
+          parseInt(ctx.props.tileOpacity,10)/100
         );
       }
     }

@@ -98,10 +98,10 @@ class LayerDataLoader extends React.Component {
     dataset.push(datasets('TRMM LIS Seasonal', '2013-01', '2013-04', aws_seasonal_link,'month', "Shows the seasonal mean flash rate density throughout 1998 to 2013."));
     dataset.push(datasets('TRMM LIS Monthly', '2013-01', '2013-12', aws_monthly_link,'month', "Shows the monthly mean flash rate density throughout 1998 to 2013."));
     dataset.push(datasets('TRMM LIS Diurnal', '2012-01', '2013-12', aws_diurnal_link,'month', "Shows the (daily) hourly mean flash rate density throughout 1998 to 2013."));
-    dataset.push(datasets('TRMM LIS Annual', '2013-01', '2013-12', aws_annual_link,'day', "Shows the daily mean flash rate density throughout 1998 to 2013."));
+    dataset.push(datasets('TRMM LIS Daily', '2013-01', '2013-12', aws_annual_link,'day', "Shows the daily mean flash rate density throughout 1998 to 2013."));
     // dataset.push(datasets('NALMA Source Density', '2013-01', '2013-12', null, 'month', "The North Alabama Lightning Mapping Array (NALMA) data are used to validate the Lightning Imaging Sensor (LIS) on the International Space Station (ISS), the Geostationary Lightning Mapper (GLM) instrument, and other current and future lightning measurements."));
     // dataset.push(datasets('NALMA Flash Extent Density', '2013-01', '2013-12', null, 'month', "The North Alabama Lightning Mapping Array (NALMA) data are used to validate the Lightning Imaging Sensor (LIS) on the International Space Station (ISS), the Geostationary Lightning Mapper (GLM) instrument, and other current and future lightning measurements."));
-
+    console.log('v2')
     storeSpotlightLayers('global', dataset);
     this.props.onReady();
   }
@@ -118,10 +118,10 @@ const datasets = (name, startDate, endDate, API, timeUnit, info) =>{
   var type = 'raster-timeseries'
 
   if (name === 'TRMM LIS Full'){
-    domain = []
-    timeUnit = 'day'
+    domain = [startDate+"-01T00:00:00Z",endDate+"-01T00:00:00Z"]
+    timeUnit = 'month'
     isPeriodic = true;
-    type = 'raster';
+    //type = 'raster';
   }else if(name === 'TRMM LIS Seasonal'){
     timeUnit = 'day'
     domain = ["2013-03-01T00:00:00Z","2013-07-01T00:00:00Z","2013-10-01T00:00:00Z","2013-12-01T00:00:00Z"]
@@ -140,6 +140,7 @@ const datasets = (name, startDate, endDate, API, timeUnit, info) =>{
              "2013-11-01T00:00:00Z","2013-11-15T00:00:00Z",
              "2013-12-01T00:00:00Z","2013-12-15T00:00:00Z",
             ] 
+    
   }else if(name === 'TRMM LIS Annual'){
     timeUnit = 'day';
     domain = [startDate+"-01T00:00:00Z",endDate+"-30T00:00:00Z"]

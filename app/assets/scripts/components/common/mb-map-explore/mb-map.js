@@ -106,7 +106,8 @@ class MbMap extends React.Component {
       popover: {
         coords: null,
         spotlightId: null
-      }
+      },
+      tileOpacity:this.props.tileOpacity
     };
 
     // Store markers to be able to remove them.
@@ -122,12 +123,14 @@ class MbMap extends React.Component {
 
   componentDidUpdate (prevProps, prevState) {
     // Manually trigger render of detached react components.
+
     this.overlayDropdownControl &&
       this.overlayDropdownControl.render(this.props, this.state);
     this.overlayDropdownControlCompare &&
       this.overlayDropdownControlCompare.render(this.props, this.state);
 
-    const { activeLayers, comparing, spotlightList } = this.props;
+    const { activeLayers, comparing, spotlightList, tileOpacity } = this.props;
+
     // Compare Maps
     if (comparing !== prevProps.comparing) {
       if (comparing) {
@@ -141,6 +144,7 @@ class MbMap extends React.Component {
           this.mbMapComparingLoaded = false;
         }
       }
+      console.log('end of component did update')
     }
 
     // Technical debt: The activeLayers and layers prop depend on eachother,
@@ -157,6 +161,7 @@ class MbMap extends React.Component {
       // as this.props.activeLayers. By using the prevProps.activeLayers we fix
       // the problem when 'layers' update at the same time as 'activeLayers'
       // which happens for the stories.
+
       prevProps.activeLayers.forEach((layerId) => {
         const layerInfo = prevProps.layers.find((l) => l.id === layerId);
         const fns = layerTypes[layerInfo.type];
@@ -167,10 +172,10 @@ class MbMap extends React.Component {
         console.error('No functions found for layer type', layerInfo.type);
       });
     }
-
     if (
       prevProps.activeLayers !== activeLayers ||
-      comparing !== prevProps.comparing
+      comparing !== prevProps.comparing ||
+      tileOpacity !== prevProps.tileOpacity
     ) {
       const toRemove = prevProps.activeLayers.filter(
         (l) => !activeLayers.includes(l)
@@ -178,6 +183,26 @@ class MbMap extends React.Component {
       const toAdd = activeLayers.filter(
         (l) => !prevProps.activeLayers.includes(l)
       );
+
+      // if(tileOpacity !== prevProps.tileOpacity){
+      //   for(var i = 0;i<this.props.layers.length;i++){
+      //     if(this.props.layers[i].visible == true){
+      //       const fns = layerTypes[this.props.layers[i].type]
+      //       if(fns){
+      //         fns.show(this, this.props.layers[i], prevProps)
+      //         if(fns.update){
+      //           fns.update(this, this.props.layers[i], prevProps)
+      //         }
+      //       }
+      //       this.updateActiveLayers(prevProps);
+      //       return;
+      //     }
+      //   }
+
+      //   this.setState({
+      //     tileOpacity:this.props.tileOpacity
+      //   })
+      // }
 
       toRemove.forEach((layerId) => {
         const layerInfo = this.props.layers.find((l) => l.id === layerId);
@@ -192,12 +217,15 @@ class MbMap extends React.Component {
 
       toAdd.forEach(async (layerId) => {
         const layerInfo = this.props.layers.find((l) => l.id === layerId);
+
         if (!layerInfo){
           //console.log('no layer info')
          return;
         }
         const fns = layerTypes[layerInfo.type];
+        
         if (fns) {
+
           fns.show(this, layerInfo, prevProps);
           if (fns.update) {
             fns.update(this, layerInfo, prevProps);
@@ -240,7 +268,7 @@ class MbMap extends React.Component {
       style: styleUrl,
       pitchWithRotate: false,
       dragRotate: false,
-      logoPosition: 'bottom-left'
+      logoPosition: 'bottom-left',
     });
 
     // Add zoom controls.
@@ -252,17 +280,17 @@ class MbMap extends React.Component {
     // Remove compass.
     document.querySelector('.mapboxgl-ctrl .mapboxgl-ctrl-compass').remove();
 
-    if (this.props.enableLocateUser) {
-      this.mbMapComparing.addControl(
-        new mapboxgl.GeolocateControl({
-          positionOptions: {
-            enableHighAccuracy: true
-          },
-          trackUserLocation: true
-        }),
-        'top-left'
-      );
-    }
+    // if (this.props.enableLocateUser) {
+    //   this.mbMapComparing.addControl(
+    //     new mapboxgl.GeolocateControl({
+    //       positionOptions: {
+    //         enableHighAccuracy: true
+    //       },
+    //       trackUserLocation: true
+    //     }),
+    //     'top-left'
+    //   );
+    // }
 
     // Style attribution.
     this.mbMapComparing.addControl(
@@ -318,7 +346,7 @@ class MbMap extends React.Component {
       style: styleUrl,
       pitchWithRotate: false,
       dragRotate: false,
-      logoPosition: 'bottom-left'
+      logoPosition: 'bottom-left',
     });
 
     // Disable map rotation using right click + drag.
@@ -334,17 +362,17 @@ class MbMap extends React.Component {
       // Remove compass.
       document.querySelector('.mapboxgl-ctrl .mapboxgl-ctrl-compass').remove();
 
-      if (this.props.enableLocateUser) {
-        this.mbMap.addControl(
-          new mapboxgl.GeolocateControl({
-            positionOptions: {
-              enableHighAccuracy: true
-            },
-            trackUserLocation: true
-          }),
-          'top-left'
-        );
-      }
+      // if (this.props.enableLocateUser) {
+      //   this.mbMap.addControl(
+      //     new mapboxgl.GeolocateControl({
+      //       positionOptions: {
+      //         enableHighAccuracy: true
+      //       },
+      //       trackUserLocation: true
+      //     }),
+      //     'top-left'
+      //   );
+      // }
 
       // if (this.props.enableOverlayControls) {
       //   this.overlayDropdownControl = new MapboxControl(
@@ -363,6 +391,23 @@ class MbMap extends React.Component {
     this.mbMap.on('load', () => {
       const allProps = this.props;
       const {comparing, onAction } = allProps;
+
+      this.mbMap.setLayoutProperty('country-label', 'text-field', [
+        'format',
+        ['get', 'name_en'],
+        { 'font-scale': 1.2 },
+        '\n',
+        {},
+        ['get', 'name'],
+        {
+        'font-scale': 0.8,
+        'text-font': [
+        'literal',
+        ['DIN Offc Pro Italic', 'Arial Unicode MS Regular']
+        ]
+        }
+      ]);
+
       onAction('map.loaded');
 
       if (comparing) {
@@ -458,10 +503,6 @@ function mapStateToProps (state) {
     spotlight: wrapApiResult(state.spotlight.single, true)
   };
 }
-
-// const mapDispatchToProps = {
-//   fetchSpotlightSingle: fetchSpotlightSingleAction
-// };
 
 export default connect(mapStateToProps, {}, null, {
   forwardRef: true

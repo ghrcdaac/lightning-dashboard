@@ -6,11 +6,11 @@ import Popups from "./Popup";
 const Outer_container = styled.div`
 position:absolute;
 float:right;
-width:1.5vw;
+width:1.9rem;
 height:auto;
 z-index:1000;
 top:.6rem;
-right:.6rem;
+right:.55rem;
 left:null;
 bottom:null;
 background-color:white;

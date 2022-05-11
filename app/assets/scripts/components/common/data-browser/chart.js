@@ -175,7 +175,6 @@ class DataBrowserChart extends React.Component {
     const { top, bottom, right, left } = this.margin;
     const { width, height } = this.getSize();
     const { svg, dataCanvas, getXDomain } = this;
-
     // ---------------------------------------------------
     // Functions
     this.xScale = d3
@@ -198,6 +197,7 @@ class DataBrowserChart extends React.Component {
 
     // Axis.
     xaxisLayer.update(this);
+    //console.log(this.container.elRef.current)
   }
 
   renderPopover () {
@@ -216,6 +216,19 @@ class DataBrowserChart extends React.Component {
       top: posY + 'px'
     };
 
+    var season = 'null'
+    if(xPosDate.getMonth() === 2){
+       season = 'Spring';
+    }else if(xPosDate.getMonth() === 6){
+       season = 'Summer';
+    }else if(xPosDate.getMonth() === 9){
+       season = 'Autumn';
+    }else if(xPosDate.getMonth() === 11){
+       season = 'Winter';
+    }else{
+      season = 'null'
+    }
+
     const direction = posX - popoverWidth / 2 < 0
       ? 'right'
       : posX + popoverWidth / 2 > document.body.clientWidth
@@ -231,7 +244,8 @@ class DataBrowserChart extends React.Component {
         timeout={{ enter: 300, exit: 300 }}
       >
         <Popover style={style} direction={direction}>
-          {formatDate(xPosDate, this.props.timeUnit)}
+          {/* {formatDate(xPosDate, this.props.timeUnit)} */}
+          {(this.props.id === 'TRMM LIS Seasonal') ? season : formatDate(xPosDate, this.props.timeUnit)}
         </Popover>
       </CSSTransition>
     ), document.querySelector('#app-container'));
@@ -256,7 +270,8 @@ class DataBrowserChart extends React.Component {
 DataBrowserChart.propTypes = {
   timeUnit: T.string,
   xDomain: T.array,
-  swatch: T.string
+  swatch: T.string,
+  id: T.string,
 };
 
 export default DataBrowserChart;

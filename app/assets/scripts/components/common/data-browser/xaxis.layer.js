@@ -18,6 +18,23 @@ export default {
     const { left, top } = ctx.margin;
     const { height, width } = ctx.getSize();
 
+    if(ctx.props.id === 'TRMM LIS Seasonal'){    
+      
+      var xScaled = d3.scalePoint([])
+      //.domain([new Date('December 01, 1995 03:24:00')])
+      .domain(['Spring','x','y', 'z','Summer','d','a','Autumn','b','Winter'])
+      .range([0, ctx.container.width-62]);
+  
+      const x = d3.axisBottom(xScaled).tickValues(['Spring','Summer','Autumn','Winter'])
+  
+      svg
+      .select(".x.axis")
+      .attr('transform', `translate(${left},${height + top + 8})`)     // This controls the vertical position of the Axis
+      .call(x);
+
+      return;
+    }
+
     // Calculate max tick count from element width
     const minTickSpacing = 80; // in pixels
     const maxTickCount = Math.floor(width / minTickSpacing);
@@ -29,6 +46,7 @@ export default {
     const xAxis = d3fc.axisBottom(xScale)
       .ticks(Math.min(tickCount, maxTickCount))
       .tickFormat(d3.timeFormat('%b \'%y'));
+
 
     svg.select('.x.axis')
       .attr('transform', `translate(${left},${height + top + 8})`)

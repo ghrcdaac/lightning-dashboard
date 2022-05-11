@@ -159,6 +159,7 @@ class Timeline extends React.Component {
 
     const dateDomain = layers[0].domain.map(utcDate);
     const swatch = layers[0].swatch.color;
+    const id = layers[0].id;
 
     const timeUnit = layers[0].timeUnit || 'month';
 
@@ -223,6 +224,7 @@ class Timeline extends React.Component {
               onAction={onAction}
               xDomain={dateDomain}
               swatch={swatch}
+              id={id}
             />
           </DataBrowserBodyScroll>
         </ExploreDataBrowserBody>

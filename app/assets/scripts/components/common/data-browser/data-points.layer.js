@@ -28,6 +28,7 @@ export default {
     const { dataCanvas, props, xScale, yScale } = ctx;
     // Limit data to existing date domain.
     const dateDomain = xScale.domain();
+    console.log(dateDomain)
     const data = props.data.filter(d => {
       const date = utcDate(d.date);
       return !isBefore(date, dateDomain[0]) && !isAfter(date, dateDomain[1]);
@@ -35,6 +36,7 @@ export default {
 
     const dataSeries = dataCanvas.select('.data-series');
 
+    console.log('kaioken')
     const line = d3.line()
       .defined(d => d.value !== null)
       .x(d => xScale(utcDate(d.date)))
@@ -70,5 +72,7 @@ export default {
       // Update current.
       .attr('cx', d => xScale(utcDate(d.date)))
       .attr('cy', d => yScale(d.value));
+    
+    console.log(dataSeries, line, lines, points)
   }
 };

@@ -26,8 +26,8 @@ export default {
     const { dataCanvas, xScale, props } = ctx;
     const { height } = ctx.getSize();
 
+    //console.log(ctx)
     const dataSeries = dataCanvas.select('.data-extent');
-
     const isDiscrete = props.xDomain.length > 2;
 
     // When we have more than 2 date points, we are showing the individual dates

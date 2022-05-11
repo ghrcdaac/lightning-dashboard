@@ -16,6 +16,7 @@ import { utcDate, bisectByDate } from '../../../utils/utils';
 
 const getClosestDate = (data, date, timeUnit) => {
   // If we're working with a discrete domain, get the closest value.
+  
   if (data.length > 2) {
     return bisectByDate(data, date, d => utcDate(d));
   } else {
