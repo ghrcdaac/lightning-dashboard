@@ -43,7 +43,7 @@ export default {
     const [startDate, endDate] = ctx.getXDomain();
     const tickCount = differenceInMonths(endDate, startDate);
 
-    const xAxis = d3fc.axisBottom(xScale)
+    const xAxis = d3.axisBottom(xScale)
       .ticks(Math.min(tickCount, maxTickCount))
       .tickFormat(d3.timeFormat('%b \'%y'));
 

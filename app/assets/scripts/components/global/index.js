@@ -11,6 +11,7 @@ import find from 'lodash.find';
 
 import Popups from '../../utils/Popup';
 import PopupButton from '../../utils/PopupButton';
+import MapButton from '../../utils/MapButton';
 
 import { headingAlt } from '../../styles/type/heading';
 import { glsp } from '../../styles/utils/theme-values';
@@ -199,8 +200,9 @@ class GlobalExplore extends React.Component {
     this.onPanelAction = this.onPanelAction.bind(this);
     this.onMapAction = this.onMapAction.bind(this);
     this.sliderValue = 90;
-    this.tileOpacity = this.tileOpacity.bind(this)
-
+    this.tileOpacity = this.tileOpacity.bind(this);
+    this.mapStyle = this.mapStyle.bind(this);
+    this.updateToggleLayer = this.updateToggleLayer.bind(this)
     this.count = 0;
     //this.tileOpacity = 100;
     // Ref to the map component to be able to trigger a resize when the panels
@@ -257,6 +259,7 @@ class GlobalExplore extends React.Component {
       },
       _urlActiveLayers: activeLayers,
       tileOpacity: 100,
+      mapStyle:'mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y',
       panelPrime: false,
       panelSec: false,
       // Init dates for cog data according to a default.
@@ -293,7 +296,19 @@ class GlobalExplore extends React.Component {
     this.setState({
       tileOpacity:value
     })
-    //console.log(this.state.tileOpacity)
+  }
+
+  mapStyle(){
+    var prevActiveLayer = this.state.activeLayers;
+    this.setState({
+      mapStyle:"mapbox://styles/mapbox/satellite-streets-v11",
+      activeLayers:[],
+    })
+  }
+  
+  updateToggleLayer(passLayer){
+    const layerd = this.getLayersWithState();
+    this.onPanelAction('layer.toggle', passLayer)
   }
 
   updateUrlQS () {
@@ -302,171 +317,14 @@ class GlobalExplore extends React.Component {
     //console.log(qString)
   }
 
-  // async requestCogData () {
-  //   console.log('im in requestCogData')
-  //   const {
-  //     aoi: { feature },
-  //     cogDateRanges
-  //   } = this.state;
-  //   const activeLayers = this.getActiveTimeseriesLayers()
-  //     .filter(l => !!cogLayers[l.id]);
-
-  //   console.log('brefore global_loading)', cogDateRanges, feature)
-  //   if (!feature || !activeLayers.length) return;
-  //   console.log('brefore global_loading)', cogDateRanges, feature)
-  //   showGlobalLoading();
-  //   await Promise.all(activeLayers.map(l => {
-  //     const cogDate = cogDateRanges[l.id];
-  //     console.log(cogDate)
-  //     return this.props.fetchCogTimeData(
-  //       l.id,
-  //       {
-  //         start: cogDate.start,
-  //         end: cogDate.end,
-  //         timeUnit: l.timeUnit || 'month'
-  //       },
-  //       feature
-  //     );
-  //   }));
-  //   hideGlobalLoading();
-  // }
-
-  // async requestSingleCogData (id) {
-  //   const {
-  //     aoi: { feature },
-  //     cogDateRanges
-  //   } = this.state;
-  //   console.log('im in single_cog_data')
-  //   showGlobalLoading();
-  //   const cogLayerSettings = cogLayers[id];
-  //   const cogDate = cogDateRanges[id];
-  //   await this.props.fetchCogTimeData(
-  //     id,
-  //     {
-  //       start: cogDate.start,
-  //       end: cogDate.end,
-  //       dateFormat: cogLayerSettings.dateFormat
-  //     },
-  //     feature
-  //   );
-  //   hideGlobalLoading();
-  // }
-
   onPanelAction (action, payload) {
-    // Returns true if the action was handled.
-    //console.log('im on panelaction')
     this.count = 0;
     handlePanelAction.call(this, action, payload);
-    // console.log(action)
-    // switch (action) {
-    //   case 'aoi.draw-click':
-    //     // There can only be one selection (feature) on the map
-    //     // If there's a feature toggle the selection.
-    //     // If there's no feature toggle the drawing.
-    //     console.log('1')
-    //     this.setState((state) => {
-    //       const selected = !!state.aoi.feature && !state.aoi.selected;
-    //       return {
-    //         aoi: {
-    //           ...state.aoi,
-    //           drawing: !state.aoi.feature && !state.aoi.drawing,
-    //           selected,
-    //           actionOrigin: selected ? 'panel' : null
-    //         }
-    //       };
-    //     });
-    //     break;
-    //   case 'aoi.set-bounds':
-    //     console.log('2')
-    //     this.setState(
-    //       (state) => ({
-    //         aoi: {
-    //           ...state.aoi,
-    //           feature: updateFeatureBounds(state.aoi.feature, payload.bounds),
-    //           actionOrigin: 'panel'
-    //         }
-    //       }),
-    //       () => {
-    //         this.updateUrlQS();
-    //         //this.requestCogData();
-    //       }
-    //     );
-    //     break;
-    //   case 'aoi.clear':
-    //     console.log('3')
-    //     this.setState(
-    //       {
-    //         aoi: {
-    //           drawing: false,
-    //           selected: false,
-    //           feature: null,
-    //           actionOrigin: null
-    //         }
-    //       },
-    //       () => {
-    //         this.updateUrlQS();
-    //         this.props.invalidateCogTimeData();
-    //       }
-    //     );
-    //     break;
-    //   case 'cog.date-range':
-    //     console.log('4')
-    //     this.setState(state => ({
-    //       cogDateRanges: {
-    //         ...state.cogDateRanges,
-    //         [payload.id]: payload.date
-    //       }
-    //     }), () => this.requestSingleCogData(payload.id));
-    //     break;
-    // }
   }
 
   async onMapAction (action, payload) {
     // Returns true if the action was handled.
     handleMapAction.call(this, action, payload);
-
-    // switch (action) {
-    //   case 'aoi.draw-finish':
-    //     this.setState(
-    //       (state) => ({
-    //         aoi: {
-    //           ...state.aoi,
-    //           drawing: false,
-    //           feature: payload.feature,
-    //           actionOrigin: 'map'
-    //         }
-    //       }),
-    //       () => {
-    //         this.updateUrlQS();
-    //         //this.requestCogData();
-    //       }
-    //     );
-    //     break;
-    //   case 'aoi.selection':
-    //     this.setState((state) => ({
-    //       aoi: {
-    //         ...state.aoi,
-    //         selected: payload.selected,
-    //         actionOrigin: payload.selected ? 'map' : null
-    //       }
-    //     }));
-    //     break;
-    //   case 'aoi.update':
-    //     this.setState(
-    //       (state) => ({
-    //         aoi: {
-    //           ...state.aoi,
-    //           feature: payload.feature,
-    //           actionOrigin: 'map'
-    //         }
-    //       }),
-    //       () => {
-    //         this.updateUrlQS();
-    //         //this.requestCogData();
-    //       }
-    //     );
-    //     break;
-    // }
   }
 
   toggleLayer (layer) {
@@ -475,6 +333,7 @@ class GlobalExplore extends React.Component {
       this.updateUrlQS();
       //this.requestCogData();
     });
+
   }
 
   render () {
@@ -537,8 +396,11 @@ class GlobalExplore extends React.Component {
                   enableLocateUser
                   enableOverlayControls
                   tileOpacity={this.state.tileOpacity}
+                  mapStyle={this.mapStyle}
+                  updateToggleLayer={this.updateToggleLayer}
                 /> 
-                <PopupButton />            
+                {/* <MapButton mapStyle={this.mapStyle}/> */}
+                <PopupButton /> 
                 {this.count === 2 && !localStorage.getItem(popup_lr) && < Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
                 {this.count === 2 && !localStorage.getItem(popup_lr) && <Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={3000} whichPop={popup_lr}/>}
                 {!!activeTimeseriesLayers.length && this.count === 2 && !localStorage.getItem(popup_tline) && <Popups value={['This is Timeline. Scroll to render layers based on different dates.']} place={'bottom-left'} timer={4000} whichPop={popup_tline}/>}

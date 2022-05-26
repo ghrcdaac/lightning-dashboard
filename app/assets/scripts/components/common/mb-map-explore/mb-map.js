@@ -5,6 +5,14 @@ import mapboxgl from 'mapbox-gl';
 import CompareMbGL from 'mapbox-gl-compare';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import ReactDOM from 'react-dom';
+
+import MapButton from '../../../utils/MapButton';
+import geoJson from './chicago-parks.json';
+import data2 from './data2.json';
+import Marker from '../../../utils/Marker';
+import MarkerButton from '../../../utils/MarkerButton';
+import { Background } from '../../../utils/FilteredData';
 
 import config from '../../../config';
 //import { fetchSpotlightSingle as fetchSpotlightSingleAction } from '../../../redux/spotlight';
@@ -19,8 +27,9 @@ import Dl from '../../../styles/type/definition-list';
 import spotlight from '../../../redux/spotlight';
 // import LayerControlDropdown from './map-layer-control';
 
-const { center, zoom: defaultZoom, minZoom, maxZoom, styleUrl } = config.map;
-
+const { center, zoom: defaultZoom, minZoom, maxZoom} = config.map;
+var {styleUrl} = config.map
+var activeLayers;
 // Set mapbox token.
 mapboxgl.accessToken = config.mbToken;
 localStorage.setItem('MapboxAccessToken', config.mbToken);
@@ -66,31 +75,6 @@ const SingleMapContainer = styled.div`
   bottom: 0;
 `;
 
-// const PopoverDetails = styled(Dl)`
-//   dt {
-//     font-size: 0.75rem;
-//     line-height: 1;
-//     margin: 0;
-//     margin-bottom: ${glsp(0.25)};
-
-//     &:not(:first-child) {
-//       margin-top: ${glsp(0.75)};
-//     }
-//   }
-//   dd {
-//     font-size: 0.875rem;
-//     line-height: 1.25rem;
-//     margin: 0;
-//     padding-left: ${glsp(0.25)};
-//   }
-// `;
-
-// const SpotlightNavLink = styled(NavLink)`
-//   &,
-//   &:visited {
-//     color: inherit;
-//   }
-// `;
 
 class MbMap extends React.Component {
   constructor (props) {
@@ -107,13 +91,23 @@ class MbMap extends React.Component {
         coords: null,
         spotlightId: null
       },
-      tileOpacity:this.props.tileOpacity
+      tileOpacity:this.props.tileOpacity,
+      mapButton:"mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y",
+      markers:[],
+      modalStatus:false,
+      modalBackground:null,
     };
 
     // Store markers to be able to remove them.
     this.spotlightMarkersList = [];
+    this.marker = []
+    this.markerState = false;
 
+    this.mapButton = this.mapButton.bind(this)
     this.handleOverlayChange = this.handleOverlayChange.bind(this);
+    this.markerHandler = this.markerHandler.bind(this);
+    this.markerBackground = this.markerBackground.bind(this);
+    
   }
 
   componentDidMount () {
@@ -130,7 +124,8 @@ class MbMap extends React.Component {
       this.overlayDropdownControlCompare.render(this.props, this.state);
 
     const { activeLayers, comparing, spotlightList, tileOpacity } = this.props;
-
+  
+    // styleUrl = this.props.mapStyle;
     // Compare Maps
     if (comparing !== prevProps.comparing) {
       if (comparing) {
@@ -144,9 +139,7 @@ class MbMap extends React.Component {
           this.mbMapComparingLoaded = false;
         }
       }
-      console.log('end of component did update')
     }
-
     // Technical debt: The activeLayers and layers prop depend on eachother,
     // but they get updated at different times.
     // This leads to problems when finding a given layer in the layers array.
@@ -183,26 +176,6 @@ class MbMap extends React.Component {
       const toAdd = activeLayers.filter(
         (l) => !prevProps.activeLayers.includes(l)
       );
-
-      // if(tileOpacity !== prevProps.tileOpacity){
-      //   for(var i = 0;i<this.props.layers.length;i++){
-      //     if(this.props.layers[i].visible == true){
-      //       const fns = layerTypes[this.props.layers[i].type]
-      //       if(fns){
-      //         fns.show(this, this.props.layers[i], prevProps)
-      //         if(fns.update){
-      //           fns.update(this, this.props.layers[i], prevProps)
-      //         }
-      //       }
-      //       this.updateActiveLayers(prevProps);
-      //       return;
-      //     }
-      //   }
-
-      //   this.setState({
-      //     tileOpacity:this.props.tileOpacity
-      //   })
-      // }
 
       toRemove.forEach((layerId) => {
         const layerInfo = this.props.layers.find((l) => l.id === layerId);
@@ -257,6 +230,7 @@ class MbMap extends React.Component {
   }
 
   enableCompare (prevProps) {
+    // styleUrl=this.props.mapStyle
     this.mbMap.resize();
     this.mbMapComparing = new mapboxgl.Map({
       attributionControl: false,
@@ -279,7 +253,6 @@ class MbMap extends React.Component {
 
     // Remove compass.
     document.querySelector('.mapboxgl-ctrl .mapboxgl-ctrl-compass').remove();
-
     // if (this.props.enableLocateUser) {
     //   this.mbMapComparing.addControl(
     //     new mapboxgl.GeolocateControl({
@@ -301,6 +274,7 @@ class MbMap extends React.Component {
       this.mbMapComparingLoaded = true;
       this.updateActiveLayers(prevProps);
       this.updateSpotlights();
+      //this.props.updateToggleLayer();
     });
 
     this.compareControl = new CompareMbGL(
@@ -311,7 +285,7 @@ class MbMap extends React.Component {
   }
 
   updateActiveLayers (prevProps) {
-    //console.log(prevProps)
+    //console.log(prevProps);
     this.props.activeLayers.forEach((layerId) => {
       //console.log(this.props.activeLayers)
       const layerInfo = this.props.layers.find((l) => l.id === layerId);
@@ -329,7 +303,65 @@ class MbMap extends React.Component {
     });
   }
 
-  initMap () {
+  //mapButton:"mapbox://styles/mapbox/satellite-streets-v11"
+  mapButton(){
+
+    if(styleUrl === "mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y"){
+      styleUrl = "mapbox://styles/mapbox/satellite-streets-v11"
+    }else{
+      styleUrl = "mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y"
+    }
+
+    const atv = this.props.activeLayers[0]
+    const lyrs = this.props.layers
+    var passLayer = null;
+
+    lyrs.forEach((element)=>{
+      if(element.id === atv){
+        passLayer = element;
+      }
+    })
+
+    this.props.mapStyle();
+    this.mbMap.remove()
+    this.initMap(passLayer)
+  }
+
+  markerHandler(){
+    this.markerState = !this.markerState
+    const arr = Background("");
+    var i = 0;
+    if(this.markerState){
+      geoJson.features.forEach((feature) => {
+        // Create a React ref
+        const ref = React.createRef();
+        // Create a new DOM node and save it to the React ref
+        ref.current = document.createElement('div');
+        // Render a Marker Component on our new DOM node
+  
+        ReactDOM.render(
+          <Marker feature={feature} background={arr[i++]} onClick={this.markerBackground}/>,
+          ref.current
+        );
+  
+        // Create a Mapbox Marker at our new DOM node
+        var mark = new mapboxgl.Marker(ref.current)
+          .setLngLat(feature.geometry.coordinates)
+          .addTo(this.mbMap);
+  
+        this.marker.push(mark);
+      });
+    }else{
+      this.marker.forEach(m => m.remove())
+    }
+  }
+
+  markerBackground(url){
+    console.log('im in markerBackground')
+    console.log(url)
+  }
+
+  initMap (passLayer) {
     const { lng, lat, zoom } = this.props.position || {
       lng: center[0],
       lat: center[1],
@@ -349,6 +381,31 @@ class MbMap extends React.Component {
       logoPosition: 'bottom-left',
     });
 
+    if(this.markerState === true){
+      const arr = Background("");
+      var i = 0;
+
+      geoJson.features.forEach((feature) => {
+        // Create a React ref
+        const ref = React.createRef();
+        // Create a new DOM node and save it to the React ref
+        ref.current = document.createElement('div');
+        // Render a Marker Component on our new DOM node
+  
+        ReactDOM.render(
+          <Marker feature={feature} background={arr[i++]} onClick={this.markerBackground}/>,
+          ref.current
+        );
+  
+        // Create a Mapbox Marker at our new DOM node
+        var mark = new mapboxgl.Marker(ref.current)
+          .setLngLat(feature.geometry.coordinates)
+          .addTo(this.mbMap);
+  
+        this.marker.push(mark);
+      })
+    }
+    
     // Disable map rotation using right click + drag.
     this.mbMap.dragRotate.disable();
 
@@ -361,28 +418,6 @@ class MbMap extends React.Component {
 
       // Remove compass.
       document.querySelector('.mapboxgl-ctrl .mapboxgl-ctrl-compass').remove();
-
-      // if (this.props.enableLocateUser) {
-      //   this.mbMap.addControl(
-      //     new mapboxgl.GeolocateControl({
-      //       positionOptions: {
-      //         enableHighAccuracy: true
-      //       },
-      //       trackUserLocation: true
-      //     }),
-      //     'top-left'
-      //   );
-      // }
-
-      // if (this.props.enableOverlayControls) {
-      //   this.overlayDropdownControl = new MapboxControl(
-      //     (props, state) => this.renderOverlayDropdown(props, state)
-      //   );
-
-      //   this.mbMap.addControl(this.overlayDropdownControl, 'top-left');
-      //   // Initial rendering.
-      //   this.overlayDropdownControl.render(this.props, this.state);
-      // }
     }
 
     // Style attribution
@@ -390,26 +425,10 @@ class MbMap extends React.Component {
 
     this.mbMap.on('load', () => {
       const allProps = this.props;
-      const {comparing, onAction } = allProps;
-
-      this.mbMap.setLayoutProperty('country-label', 'text-field', [
-        'format',
-        ['get', 'name_en'],
-        { 'font-scale': 1.2 },
-        '\n',
-        {},
-        ['get', 'name'],
-        {
-        'font-scale': 0.8,
-        'text-font': [
-        'literal',
-        ['DIN Offc Pro Italic', 'Arial Unicode MS Regular']
-        ]
-        }
-      ]);
-
+      const {comparing, onAction, mapStyle } = allProps;   
+      // this.props.updateToggleLayer();
       onAction('map.loaded');
-
+      //this.props.updateToggleLayer();
       if (comparing) {
         // Fake previous props to simulate the enabling of the compare option.
         this.enableCompare({
@@ -417,6 +436,7 @@ class MbMap extends React.Component {
           comparing: false
         });
       }
+      if(passLayer) this.props.updateToggleLayer(passLayer);
     });
 
     this.mbMap.on('moveend', (e) => {
@@ -477,6 +497,9 @@ class MbMap extends React.Component {
             }}
           />
         </MapsContainer>
+        {/* {<Modal background="https://www.crayon.com/globalassets/us/seasonal-backgrounds/fall-2021/bridge-lake-fall-microsoft-teams-background.png?"/>} */}
+        <MarkerButton onClick={this.markerHandler}/>
+        <MapButton mapStyle={this.mapButton}/>
       </>
     );
   }
@@ -493,6 +516,7 @@ MbMap.propTypes = {
   enableLocateUser: T.bool,
   enableOverlayControls: T.bool,
   disableControls: T.bool,
+  mapStyle: T.func,
   //spotlightList: T.object,
   spotlight: T.object,
   //fetchSpotlightSingle: T.func

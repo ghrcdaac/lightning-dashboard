@@ -36,7 +36,6 @@ export default {
 
     const dataSeries = dataCanvas.select('.data-series');
 
-    console.log('kaioken')
     const line = d3.line()
       .defined(d => d.value !== null)
       .x(d => xScale(utcDate(d.date)))

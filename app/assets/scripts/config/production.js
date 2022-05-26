@@ -17,3 +17,8 @@ module.exports = {
     }
   }
 };
+
+
+//mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y
+
+//mapbox://styles/mapbox/satellite-streets-v11

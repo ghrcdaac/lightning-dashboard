@@ -96,7 +96,7 @@ const TimelineExpanderButton = styled(Button)`
 
 const ExploreDataBrowserBody = styled.div`
   display: flex;
-  height: 6rem;
+  height: 5rem;
   max-height: 0;
   opacity: 0;
   overflow: hidden;

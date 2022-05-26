@@ -8,7 +8,7 @@ position:absolute;
 float:right;
 width:1.9rem;
 height:auto;
-z-index:1000;
+z-index:10;
 top:.6rem;
 right:.55rem;
 left:null;
