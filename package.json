@@ -105,8 +105,6 @@
     "@mapbox/mapbox-gl-draw": "^1.1.2",
     "@mapbox/mapbox-gl-geocoder": "^4.5.1",
     "@mapbox/mapbox-gl-sync-move": "^0.3.0",
-    "@mui/icons-material": "^5.8.0",
-    "@mui/material": "^5.8.1",
     "@turf/area": "^6.0.1",
     "@turf/bbox": "^6.0.1",
     "clipboard": "^2.0.6",
