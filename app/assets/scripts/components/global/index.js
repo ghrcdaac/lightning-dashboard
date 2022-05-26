@@ -201,6 +201,7 @@ class GlobalExplore extends React.Component {
     this.onMapAction = this.onMapAction.bind(this);
     this.sliderValue = 90;
     this.tileOpacity = this.tileOpacity.bind(this);
+    this.toggleHandler = this.toggleHandler.bind(this);
     this.mapStyle = this.mapStyle.bind(this);
     this.updateToggleLayer = this.updateToggleLayer.bind(this)
     this.count = 0;
@@ -298,6 +299,10 @@ class GlobalExplore extends React.Component {
     })
   }
 
+  toggleHandler(state){
+    this.mbMapRef.current.markerHandler(!state);
+  }
+
   mapStyle(){
     var prevActiveLayer = this.state.activeLayers;
     this.setState({
@@ -382,6 +387,7 @@ class GlobalExplore extends React.Component {
                   this.onPanelChange('panelPrime', revealed);
                 }}
                 tileOpacity={this.tileOpacity}
+                toggleHandler={this.toggleHandler}
               />
               <ExploreCarto>
                 <MbMap

@@ -498,7 +498,7 @@ class MbMap extends React.Component {
           />
         </MapsContainer>
         {/* {<Modal background="https://www.crayon.com/globalassets/us/seasonal-backgrounds/fall-2021/bridge-lake-fall-microsoft-teams-background.png?"/>} */}
-        <MarkerButton onClick={this.markerHandler}/>
+        {/* <MarkerButton onClick={this.markerHandler}/> */}
         <MapButton mapStyle={this.mapButton}/>
       </>
     );

@@ -25,6 +25,7 @@ class ExpMapPrimePanel extends React.Component {
       onPanelChange,
       mapLoaded,
       tileOpacity,
+      toggleHandler
     } = this.props;
 
     return (
@@ -40,6 +41,7 @@ class ExpMapPrimePanel extends React.Component {
               mapLoaded={mapLoaded}
               onAction={onAction}
               tileOpacity={tileOpacity}
+              toggleHandler={toggleHandler}
             />
           </>
           }
@@ -56,6 +58,7 @@ ExpMapPrimePanel.propTypes = {
   aoiState: T.object,
   spotlightList: T.object,
   tileOpacity:T.func,
+  toggleHandler:T.func,
 };
 
 export default ExpMapPrimePanel;

@@ -14,7 +14,9 @@ import {
 } from './panel-block';
 import Layer from './layer';
 import { Accordion } from './accordion';
+
 import Slider from '../../utils/Slider';
+import MarkerToggle from '../../utils/MarkerToggle';
 
 const PanelBlockLayer = styled(PanelBlock)`
   flex: 2;
@@ -23,7 +25,7 @@ const PanelBlockLayer = styled(PanelBlock)`
 class DataLayersBlock extends React.Component {
 
   render () {
-    const { onAction, layers, mapLoaded,tileOpacity } = this.props;
+    const { onAction, layers, mapLoaded,tileOpacity, toggleHandler } = this.props;
 
     return (
       <PanelBlockLayer>
@@ -64,6 +66,7 @@ class DataLayersBlock extends React.Component {
               )}
             </Accordion>
             <Slider slideHandler={tileOpacity}/>
+            <MarkerToggle toggleHandler={toggleHandler}/>
           </PanelBlockScroll>
         </PanelBlockBody>
       </PanelBlockLayer>
@@ -76,6 +79,7 @@ DataLayersBlock.propTypes = {
   layers: T.array,
   mapLoaded: T.bool,
   tileOpacity:T.func,
+  toggleHandler:T.func,
 };
 
 export default DataLayersBlock;
