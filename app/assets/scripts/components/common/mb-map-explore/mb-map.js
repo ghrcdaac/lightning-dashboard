@@ -8,11 +8,13 @@ import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 
 import MapButton from '../../../utils/MapButton';
-import geoJson from './chicago-parks.json';
+// import geoJson from './chicago-parks.json';
+import geoJson2 from './chicago-parks2.json'
 import data2 from './data2.json';
 import Marker from '../../../utils/Marker';
 import MarkerButton from '../../../utils/MarkerButton';
 import { Background } from '../../../utils/FilteredData';
+import Calendar from '../../../utils/Calendar';
 
 import config from '../../../config';
 //import { fetchSpotlightSingle as fetchSpotlightSingleAction } from '../../../redux/spotlight';
@@ -107,6 +109,7 @@ class MbMap extends React.Component {
     this.handleOverlayChange = this.handleOverlayChange.bind(this);
     this.markerHandler = this.markerHandler.bind(this);
     this.markerBackground = this.markerBackground.bind(this);
+    this.calendarHandler = this.calendarHandler.bind(this);
     
   }
 
@@ -273,7 +276,7 @@ class MbMap extends React.Component {
     this.mbMapComparing.once('load', () => {
       this.mbMapComparingLoaded = true;
       this.updateActiveLayers(prevProps);
-      this.updateSpotlights();
+      // this.updateSpotlights();
       //this.props.updateToggleLayer();
     });
 
@@ -327,12 +330,29 @@ class MbMap extends React.Component {
     this.initMap(passLayer)
   }
 
+  calendarHandler(){
+    // theMap.getSource(sourceId).tiles = tiles;
+    // // Remove the tiles for a particular source
+    // theMap.style.sourceCaches[sourceId].clearTiles();
+    // // Load the new tiles for the current viewport (theMap.transform -> viewport)
+    // theMap.style.sourceCaches[sourceId].update(theMap.transform);
+    // // Force a repaint, so that the map will be repainted without you having to touch the map
+    // theMap.triggerRepaint();
+
+    if(this.mbMap.style.sourceCaches[this.props.activeLayers[0]]){
+      this.mbMapComparing.getSource(this.props.activeLayers[0]).tiles = 'null'
+      this.mbMapComparing.style.sourceCaches[this.props.activeLayers[0]].clearTiles();
+      this.mbMapComparing.style.sourceCaches[this.props.activeLayers[0]].update(this.mbMap.transform);
+      this.mbMapComparing.triggerRepaint();
+    }
+  }
+
   markerHandler(){
     this.markerState = !this.markerState
-    const arr = Background("");
-    var i = 0;
+    // const arr = Background("");
+    // var i = 0;
     if(this.markerState){
-      geoJson.features.forEach((feature) => {
+      geoJson2.fieldCampaignImages.forEach((feature) => {
         // Create a React ref
         const ref = React.createRef();
         // Create a new DOM node and save it to the React ref
@@ -340,17 +360,18 @@ class MbMap extends React.Component {
         // Render a Marker Component on our new DOM node
   
         ReactDOM.render(
-          <Marker feature={feature} background={arr[i++]} onClick={this.markerBackground}/>,
+          // <Marker feature={feature} background={arr[i++]} onClick={this.markerBackground}/>,
+          <Marker feature={feature} background={feature.imageURL} onClick={this.markerBackground}/>,
           ref.current
         );
   
         // Create a Mapbox Marker at our new DOM node
         var mark = new mapboxgl.Marker(ref.current)
-          .setLngLat(feature.geometry.coordinates)
+          .setLngLat(feature.coordinates)
           .addTo(this.mbMap);
   
         this.marker.push(mark);
-      });
+      })
     }else{
       this.marker.forEach(m => m.remove())
     }
@@ -382,10 +403,9 @@ class MbMap extends React.Component {
     });
 
     if(this.markerState === true){
-      const arr = Background("");
-      var i = 0;
-
-      geoJson.features.forEach((feature) => {
+      // const arr = Background("");
+      // var i = 0;
+      geoJson2.fieldCampaignImages.forEach((feature) => {
         // Create a React ref
         const ref = React.createRef();
         // Create a new DOM node and save it to the React ref
@@ -393,13 +413,13 @@ class MbMap extends React.Component {
         // Render a Marker Component on our new DOM node
   
         ReactDOM.render(
-          <Marker feature={feature} background={arr[i++]} onClick={this.markerBackground}/>,
+          <Marker feature={feature} background={feature.imageURL} onClick={this.markerBackground}/>,
           ref.current
         );
   
         // Create a Mapbox Marker at our new DOM node
         var mark = new mapboxgl.Marker(ref.current)
-          .setLngLat(feature.geometry.coordinates)
+          .setLngLat(feature.coordinates)
           .addTo(this.mbMap);
   
         this.marker.push(mark);
@@ -500,6 +520,7 @@ class MbMap extends React.Component {
         {/* {<Modal background="https://www.crayon.com/globalassets/us/seasonal-backgrounds/fall-2021/bridge-lake-fall-microsoft-teams-background.png?"/>} */}
         {/* <MarkerButton onClick={this.markerHandler}/> */}
         <MapButton mapStyle={this.mapButton}/>
+        <Calendar onClick={this.calendarHandler}/>
       </>
     );
   }

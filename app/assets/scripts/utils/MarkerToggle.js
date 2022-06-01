@@ -96,13 +96,10 @@ const MarkerToggle = (props) =>{
                 <small>Color: {'Grey' || 'Grey'}</small>
             </LayerSwatch>
             <Container>
-                <LayerTitle title={'Image Opacity'}>Marker</LayerTitle>
+                <LayerTitle title={'Image Opacity'}>Photo Viewer</LayerTitle>
                 <SwitchDiv>
                     <FormSwitch
                         hideText
-                        // name={`toggle-${'hello'}`}
-                        // disabled={disabled}
-                        // checked={active}
                         onChange={onToggleClick}
                     >
                         Toggle layer visibility

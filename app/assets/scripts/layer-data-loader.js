@@ -1,7 +1,7 @@
 // mainly used to getch the layer-loder (agriculture, no2, co2) --> in our case will be NALMA and ISSLIS
 
 import '@babel/polyfill';
-import React from 'react';
+import React,{useState} from 'react';
 import T from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -115,6 +115,7 @@ class LayerDataLoader extends React.Component {
 
 const datasets = (name, startDate, endDate, API, timeUnit, info) =>{
 
+  var compareURL = 'https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRAC/2013_01_01/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]'
   var domain = [startDate+"-01T00:00:00Z",endDate+"-01T00:00:00Z"]
   var isPeriodic = true;
   var type = 'raster-timeseries'
@@ -150,7 +151,18 @@ const datasets = (name, startDate, endDate, API, timeUnit, info) =>{
 
   return {
     backgroundSource: null,
-    compare: null,
+    compare: {
+      enabled: true,
+      help: "Compare with baseline",
+      map_label: "{date}: Base vs Mean",
+      source:{
+        // tiles: ['https://8ib71h0627.execute-api.us-east-1.amazonaws…olor_map=custom_no2&color_formula=gamma r {gamma}'],
+        tiles:[compareURL],
+        type: "raster"
+      },
+      time_unit: null,
+      year_diff: 0,
+    },
     domain:domain,
     exclusiveWith:[], 
     id: name,

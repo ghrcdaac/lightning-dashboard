@@ -3,6 +3,7 @@ import styled, { withTheme, ThemeProvider } from 'styled-components';
 import ReactDOM from 'react-dom'
 import {Background} from './FilteredData'
 import ReactPlayer from 'react-player';
+import geoJson from '../components/common/mb-map-explore/chicago-parks2.json';
 // import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 const ModalBackground = styled.div`
@@ -77,22 +78,23 @@ background-image:url(${(props)=>props.background})
 
 const Modal = (props) =>{
 
-    const [index, setIndex] = useState(0)
-    const BackgroundData = Background(props.background)
+    const [index, setIndex] = useState(props.feature.id)
 
     const backwardHandler = () =>{
         if(index === 0){
-            setIndex(BackgroundData.length - 1)
+            setIndex(geoJson.fieldCampaignImages.length - 1)
         }else{
             setIndex(index - 1)
         }
     }
+    
     const forwardHandler = () =>{
-        if(index === BackgroundData.length - 1){
+        if(index === geoJson.fieldCampaignImages.length - 1){
             setIndex(0)
         }else{
             setIndex(index + 1)
         }
+
     }
 
     return ReactDOM.createPortal(
@@ -101,8 +103,8 @@ const Modal = (props) =>{
                 <Button onClick={()=>props.onClick()}>
                     &#9587;
                 </Button>
-                <div style={{backgroundImage:'url('+BackgroundData[index]+')', backgroundRepeat:'no-repeat', borderRadius:'15px', justifyContent:'center', alignItems:'center', maxHeight:'100%', maxWidth:'100%'}}>
-                    <img src={BackgroundData[index]} style={{visibility:'hidden', maxHeight:'100%', maxWidth:'100%'}}/>
+                <div style={{backgroundImage:'url('+geoJson.fieldCampaignImages[index].imageURL+')', backgroundRepeat:'no-repeat', borderRadius:'15px', justifyContent:'center', alignItems:'center', maxHeight:'100%', maxWidth:'100%'}}>
+                    <img src={geoJson.fieldCampaignImages[index].imageURL} style={{visibility:'hidden', maxHeight:'100%', maxWidth:'100%'}}/>
                 </div>
                 <Backward onClick={backwardHandler}>&#8249;</Backward>
                 <Forward onClick={forwardHandler}>&#8250;</Forward>

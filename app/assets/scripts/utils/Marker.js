@@ -29,7 +29,7 @@ const Marker = ({ children, feature, background, onClick }) => {
       <Button onClick={_onClick} className="marker" background={background}>
         {children}
       </Button>
-      {modal && <Modal background={background} onClick={()=>setModal(false)}/>}
+      {modal && <Modal feature={feature} background={background} onClick={()=>setModal(false)}/>}
       </>
     );
 };
