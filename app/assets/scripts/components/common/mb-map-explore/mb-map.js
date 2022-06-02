@@ -6,6 +6,7 @@ import CompareMbGL from 'mapbox-gl-compare';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
+import find from 'lodash.find';
 
 import MapButton from '../../../utils/MapButton';
 // import geoJson from './chicago-parks.json';
@@ -14,7 +15,8 @@ import data2 from './data2.json';
 import Marker from '../../../utils/Marker';
 import MarkerButton from '../../../utils/MarkerButton';
 import { Background } from '../../../utils/FilteredData';
-import Calendar from '../../../utils/Calendar';
+import Calendar from '../../../utils/CalendarTag';
+import {date_to_string, baseline_link} from '../../../utils/HelperMethods'
 
 import config from '../../../config';
 //import { fetchSpotlightSingle as fetchSpotlightSingleAction } from '../../../redux/spotlight';
@@ -330,19 +332,23 @@ class MbMap extends React.Component {
     this.initMap(passLayer)
   }
 
-  calendarHandler(){
-    // theMap.getSource(sourceId).tiles = tiles;
-    // // Remove the tiles for a particular source
-    // theMap.style.sourceCaches[sourceId].clearTiles();
-    // // Load the new tiles for the current viewport (theMap.transform -> viewport)
-    // theMap.style.sourceCaches[sourceId].update(theMap.transform);
-    // // Force a repaint, so that the map will be repainted without you having to touch the map
-    // theMap.triggerRepaint();
+  calendarHandler(date){
+    
+    const comparingLayer = find(this.props.layers, 'comparing');
+    const dateString = date_to_string(date, comparingLayer.id)
+    const tile = baseline_link(this.props.layers, comparingLayer.id, dateString)
+    console.log(comparingLayer)
 
-    if(this.mbMap.style.sourceCaches[this.props.activeLayers[0]]){
-      this.mbMapComparing.getSource(this.props.activeLayers[0]).tiles = 'null'
-      this.mbMapComparing.style.sourceCaches[this.props.activeLayers[0]].clearTiles();
-      this.mbMapComparing.style.sourceCaches[this.props.activeLayers[0]].update(this.mbMap.transform);
+    // if(this.mbMap.style.sourceCaches[this.props.activeLayers[0]] && this.props.comparing){
+    //   this.mbMapComparing.getSource(this.props.activeLayers[0]).tiles = tile
+    //   this.mbMapComparing.style.sourceCaches[this.props.activeLayers[0]].clearTiles();
+    //   this.mbMapComparing.style.sourceCaches[this.props.activeLayers[0]].update(this.mbMap.transform);
+    //   this.mbMapComparing.triggerRepaint();
+    // }
+    if(this.mbMap.style.sourceCaches[comparingLayer.id] && this.props.comparing){
+      this.mbMapComparing.getSource(comparingLayer.id).tiles = tile
+      this.mbMapComparing.style.sourceCaches[comparingLayer.id].clearTiles();
+      this.mbMapComparing.style.sourceCaches[comparingLayer.id].update(this.mbMap.transform);
       this.mbMapComparing.triggerRepaint();
     }
   }
@@ -520,7 +526,7 @@ class MbMap extends React.Component {
         {/* {<Modal background="https://www.crayon.com/globalassets/us/seasonal-backgrounds/fall-2021/bridge-lake-fall-microsoft-teams-background.png?"/>} */}
         {/* <MarkerButton onClick={this.markerHandler}/> */}
         <MapButton mapStyle={this.mapButton}/>
-        <Calendar onClick={this.calendarHandler}/>
+        <Calendar onClick={this.calendarHandler} comparing={this.props.comparing} layers={this.props.layers}/>
       </>
     );
   }

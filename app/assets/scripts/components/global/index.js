@@ -53,7 +53,8 @@ import {
   getActiveTimeseriesLayers,
   getCommonQsState,
   handleMapAction,
-  toggleLayerCommon
+  toggleLayerCommon,
+  toggleLayerCompare
 } from '../../utils/map-explore-utils';
 import QsState from '../../utils/qs-state';
 import { round } from '../../utils/format';
@@ -303,6 +304,7 @@ class GlobalExplore extends React.Component {
     this.mbMapRef.current.markerHandler(!state);
   }
 
+
   mapStyle(){
     var prevActiveLayer = this.state.activeLayers;
     this.setState({
@@ -325,6 +327,7 @@ class GlobalExplore extends React.Component {
   onPanelAction (action, payload) {
     this.count = 0;
     handlePanelAction.call(this, action, payload);
+    // toggleLayerCommon(this.props.activeLayers[0]);
   }
 
   async onMapAction (action, payload) {
@@ -353,6 +356,7 @@ class GlobalExplore extends React.Component {
 
     // Check if there's any layer that's comparing.
     const comparingLayer = find(layers, 'comparing');
+    //console.log(comparingLayer)
     const isComparing = !!comparingLayer;
     ++this.count
 

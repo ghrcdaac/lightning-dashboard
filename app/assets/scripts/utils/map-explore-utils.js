@@ -330,6 +330,7 @@ export function toggleLayerCommon (layer, cb) {
  */
 export function toggleLayerCompare (layer) {
   const layerId = layer.id;
+  console.log(layer)
   const isComparing = this.getLayerState(layerId, 'comparing');
 
   if (isComparing) {

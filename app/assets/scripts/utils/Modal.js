@@ -100,14 +100,14 @@ const Modal = (props) =>{
     return ReactDOM.createPortal(
         <>
             <ModalBackground>
-                <Button onClick={()=>props.onClick()}>
+                <Button onClick={()=>props.onClick()} title="Close">
                     &#9587;
                 </Button>
-                <div style={{backgroundImage:'url('+geoJson.fieldCampaignImages[index].imageURL+')', backgroundRepeat:'no-repeat', borderRadius:'15px', justifyContent:'center', alignItems:'center', maxHeight:'100%', maxWidth:'100%'}}>
-                    <img src={geoJson.fieldCampaignImages[index].imageURL} style={{visibility:'hidden', maxHeight:'100%', maxWidth:'100%'}}/>
+                <div style={{backgroundImage:'url('+geoJson.fieldCampaignImages[index].imageURL+')', backgroundRepeat:'no-repeat', borderRadius:'15px', justifyContent:'center', alignItems:'center', maxHeight:'90%', maxWidth:'90%'}}>
+                    <img src={geoJson.fieldCampaignImages[index].imageURL} style={{visibility:'hidden', maxHeight:'90%', maxWidth:'90%'}}/>
                 </div>
-                <Backward onClick={backwardHandler}>&#8249;</Backward>
-                <Forward onClick={forwardHandler}>&#8250;</Forward>
+                <Backward onClick={backwardHandler} title="Previous">&#8249;</Backward>
+                <Forward onClick={forwardHandler} title="Next">&#8250;</Forward>
             </ModalBackground>        
         </>
         ,document.getElementById('portal')
