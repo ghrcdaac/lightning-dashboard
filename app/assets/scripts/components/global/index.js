@@ -328,13 +328,18 @@ class GlobalExplore extends React.Component {
   onPanelAction (action, payload) {
     this.count = 0;
 
-    // const layers = this.getLayersWithState();
-    // const comparingLayer = find(layers, 'comparing');
+    const layers = this.getLayersWithState();
+    const comparingLayer = find(layers, 'comparing');
     
     // if(comparingLayer){
     //   console.log(get_layer(this.state.activeLayers[0], this.props.mapLayers))
     //   handlePanelAction('layer.compare', get_layer(this.state.activeLayers[0], this.props.mapLayers))
     // }
+
+    if (comparingLayer) {
+      toggleLayerCompare.call(this, get_layer(this.state.activeLayers[0], this.props.mapLayers));
+    }
+
     handlePanelAction.call(this, action, payload);
   }
 
