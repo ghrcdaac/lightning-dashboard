@@ -12,6 +12,7 @@ import find from 'lodash.find';
 import Popups from '../../utils/Popup';
 import PopupButton from '../../utils/PopupButton';
 import MapButton from '../../utils/MapButton';
+import { get_layer } from '../../utils/HelperMethods';
 
 import { headingAlt } from '../../styles/type/heading';
 import { glsp } from '../../styles/utils/theme-values';
@@ -326,8 +327,15 @@ class GlobalExplore extends React.Component {
 
   onPanelAction (action, payload) {
     this.count = 0;
+
+    // const layers = this.getLayersWithState();
+    // const comparingLayer = find(layers, 'comparing');
+    
+    // if(comparingLayer){
+    //   console.log(get_layer(this.state.activeLayers[0], this.props.mapLayers))
+    //   handlePanelAction('layer.compare', get_layer(this.state.activeLayers[0], this.props.mapLayers))
+    // }
     handlePanelAction.call(this, action, payload);
-    // toggleLayerCommon(this.props.activeLayers[0]);
   }
 
   async onMapAction (action, payload) {

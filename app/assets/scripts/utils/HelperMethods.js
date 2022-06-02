@@ -42,3 +42,15 @@ export function baseline_link(layers, activeLayer, dateString){
 
     return [initLink]
 }
+
+export function get_layer(id, layers){
+    var layer;
+    for(var i = 0;i<layers.length;i++){
+        if(layers[i].id === id){
+            layer = layers[i]
+            break;
+        }
+    }
+
+    return layer;
+}
