@@ -47,10 +47,13 @@ const CalendarTag = (props) =>{
     const [date, setDate] = useState(new Date());
     const comparingLayer = find(props.layers, 'comparing');
     var calendarType;
+    var view = 'month';
+
 
     if(typeof comparingLayer !== 'undefined'){
         if(comparingLayer.id === "TRMM LIS Daily" || comparingLayer.id === "TRMM LIS Monthly"){
             calendarType = 'package'
+            if(comparingLayer.id === 'TRMM LIS Monthly') view = 'year';
         }else{
             calendarType = 'custom'
         }
@@ -60,8 +63,15 @@ const CalendarTag = (props) =>{
         setCalendar(!calendar);
     }
 
-    const onChange = date =>{
+    const onClickDay = date =>{
         setDate(date);
+        console.log(date)
+        const dateString = date_to_string(date, comparingLayer.id)
+        props.onClick(dateString);
+    }
+
+    const onClickMonth = date =>{
+        setDate(date)
         const dateString = date_to_string(date, comparingLayer.id)
         props.onClick(dateString);
     }
@@ -87,7 +97,7 @@ const CalendarTag = (props) =>{
                 {props.comparing && calendar && 
                     <div style={{margin:'10px'}}>
                         <div style={{marginBottom:'5px'}}><h5>Active Baseline Layer: </h5></div>
-                        { (calendarType === 'package') && <Calendar view={'month'} minDate={new Date('2013-01-02')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onChange={onChange} value={date}/>}
+                        { (calendarType === 'package') && <Calendar view={view} minDate={new Date('2013-01-02')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onClickDay={onClickDay} onClickMonth={onClickMonth} value={date}/>}
                         { (calendarType === 'custom') && <CustomCalendar id={comparingLayer.id} onClick={customClickHandler}/>}
                     </div>
                 }
