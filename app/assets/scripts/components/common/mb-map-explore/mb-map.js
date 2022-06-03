@@ -15,7 +15,7 @@ import data2 from './data2.json';
 import Marker from '../../../utils/Marker';
 import MarkerButton from '../../../utils/MarkerButton';
 import { Background } from '../../../utils/FilteredData';
-import Calendar from '../../../utils/CalendarTag';
+import CalendarTag from '../../../utils/CalendarTag';
 import {date_to_string, baseline_link} from '../../../utils/HelperMethods'
 
 import config from '../../../config';
@@ -335,9 +335,8 @@ class MbMap extends React.Component {
   calendarHandler(date){
     
     const comparingLayer = find(this.props.layers, 'comparing');
-    const dateString = date_to_string(date, comparingLayer.id)
-    const tile = baseline_link(this.props.layers, comparingLayer.id, dateString)
-    console.log(comparingLayer)
+    const tile = baseline_link(this.props.layers, comparingLayer.id, date)
+    //console.log(comparingLayer)
 
     // if(this.mbMap.style.sourceCaches[this.props.activeLayers[0]] && this.props.comparing){
     //   this.mbMapComparing.getSource(this.props.activeLayers[0]).tiles = tile
@@ -526,7 +525,8 @@ class MbMap extends React.Component {
         {/* {<Modal background="https://www.crayon.com/globalassets/us/seasonal-backgrounds/fall-2021/bridge-lake-fall-microsoft-teams-background.png?"/>} */}
         {/* <MarkerButton onClick={this.markerHandler}/> */}
         <MapButton mapStyle={this.mapButton}/>
-        <Calendar onClick={this.calendarHandler} comparing={this.props.comparing} layers={this.props.layers}/>
+        {(this.props.activeLayers.length !== 0) && <CalendarTag onClick={this.calendarHandler} comparing={this.props.comparing} layers={this.props.layers} activeLayers={this.props.activeLayers}/>}
+        {/* <Calendar onClick={this.calendarHandler} comparing={true} layers={this.props.layers}/> */}
       </>
     );
   }

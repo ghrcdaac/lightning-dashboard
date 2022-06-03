@@ -1,0 +1,64 @@
+{
+    "layer":[
+        {
+            "name":"TRMM LIS Full",
+            "startDate":"",
+            "endDate":"",
+            "API":"",
+            "timeUnit":"",
+            "description":"",
+            "compareURL":"",
+            "domain":[],
+            "isPeriodic":true,
+            "type":""            
+        },
+        {
+            "name":"TRMM LIS Seasonal",
+            "startDate":"",
+            "endDate":"",
+            "API":"",
+            "timeUnit":"",
+            "description":"",
+            "compareURL":"",
+            "domain":[],
+            "isPeriodic":true,
+            "type":""            
+        },
+        {
+            "name":"TRMM LIS Monthly",
+            "startDate":"",
+            "endDate":"",
+            "API":"",
+            "timeUnit":"",
+            "description":"",
+            "compareURL":"",
+            "domain":[],
+            "isPeriodic":true,
+            "type":""            
+        },
+        {
+            "name":"TRMM LIS Diurnal",
+            "startDate":"",
+            "endDate":"",
+            "API":"",
+            "timeUnit":"",
+            "description":"",
+            "compareURL":"",
+            "domain":[],
+            "isPeriodic":true,
+            "type":""            
+        },
+        {
+            "name":"TRMM LIS Daily",
+            "startDate":"",
+            "endDate":"",
+            "API":"",
+            "timeUnit":"",
+            "description":"",
+            "compareURL":"",
+            "domain":[],
+            "isPeriodic":true,
+            "type":""            
+        }
+    ]
+}

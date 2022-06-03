@@ -14,6 +14,8 @@ import {
 } from './components/common/global-loading';
 import { storeSpotlightLayers } from './components/common/layers';
 
+import layerData from './layer-data.json'
+
 // Dev note:
 // The datasets (or map layers) information was moved to the api, however some
 // parts of the app access the data in a synchronous way, making it impossible
@@ -47,32 +49,6 @@ class LayerDataLoader extends React.Component {
     this.requestData();
     //showGlobalLoadingMessage('Loading datasets');
   }
-
-  // async requestData () {
-  //   const ids = ['global'];
-  //   await Promise.all(
-  //     ids.map(async (spotlightId) => {
-  //       const { body } = await fetchJSON(
-  //         `${config.api}/datasets/${spotlightId}`
-  //       );
-  //       //console.log(body.datasets.splice(1,5))
-  //       body.datasets[0].name = 'TRMM LIS'
-  //       body.datasets[1].name = 'NALMA'
-
-  //       body.datasets[0].id = 'TRMM LIS'
-  //       body.datasets[1].id = 'NALMA'
-
-  //       //body.datasets[1].legend.type = "categorical"
-  //       //console.log(body.datasets[0], body.datasets[1]);
-  //       console.log(body.datasets)
-  //       body.datasets[0].source.tiles[0] = API_TERRACOTTA;
-  //       storeSpotlightLayers(spotlightId, body.datasets);
-  //       console.log('v4')
-  //     })
-  //   );
-  //   hideGlobalLoading();
-  //   this.props.onReady();
-  // }
 
   requestData(){
 

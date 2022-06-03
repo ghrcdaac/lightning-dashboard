@@ -129,8 +129,6 @@ export function setLayerState (id, data, cb) {
  * @param {mixed} prop Path to a specific prop (optional). Used lodash.get
  */
 export function getLayerState (id, prop) {
-  console.log('im in get layer state')
-  console.log(id, prop)
   const path = prop
     ? typeof prop === 'string' ? [id, prop] : [id, ...prop]
     : id;
@@ -332,10 +330,8 @@ export function toggleLayerCommon (layer, cb) {
  */
 export function toggleLayerCompare (layer) {
   const layerId = layer.id;
-  console.log(layerId)
   const isComparing = this.getLayerState(layerId, 'comparing');
 
-  console.log('after get layer state')
   if (isComparing) {
     this.setLayerState(layerId, {
       comparing: false

@@ -1,8 +1,10 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 import Button from '../styles/button/button'
 import Calendar from 'react-calendar';
 import find from 'lodash.find';
+import CustomCalendar from './CustomCalendar';
+import { date_to_string } from './HelperMethods';
 // import '../../../../node_modules/react-calendar/dist/Calendar.css';
 //import './Calendar.css'
 
@@ -41,25 +43,36 @@ border-bottom-left-radius:5px;
 
 const CalendarTag = (props) =>{
 
-    //const[index, setIndex] = useState(1)
     const [calendar, setCalendar] = useState(false);
     const [date, setDate] = useState(new Date());
     const comparingLayer = find(props.layers, 'comparing');
+    var calendarType;
+
+    if(typeof comparingLayer !== 'undefined'){
+        if(comparingLayer.id === "TRMM LIS Daily" || comparingLayer.id === "TRMM LIS Monthly"){
+            calendarType = 'package'
+        }else{
+            calendarType = 'custom'
+        }
+    }
 
     const clickHandler = () =>{
-        //setIndex(index+1)
         setCalendar(!calendar);
-        //props.onClick(index);
     }
 
     const onChange = date =>{
         setDate(date);
-        //console.log(date);
-        props.onClick(date);
+        const dateString = date_to_string(date, comparingLayer.id)
+        props.onClick(dateString);
+    }
+
+    const customClickHandler = (dateString) =>{
+        props.onClick(dateString);
     }
 
     return(
-        <Outer_container styleColor='white'>
+        <>
+        {(typeof comparingLayer !== 'undefined') && <Outer_container styleColor='white'>
             <Button
                 variation='base-plain'
                 size='small'
@@ -70,15 +83,17 @@ const CalendarTag = (props) =>{
             >
                 <span>Info</span>
             </Button>
-            <CalendarContainer>
+            {(props.activeLayers.length !== 0) && <CalendarContainer>
                 {props.comparing && calendar && 
                     <div style={{margin:'10px'}}>
-                        <div style={{marginBottom:'5px'}}><h5>Active Baseline Layer: {comparingLayer.id}</h5></div>
-                        <Calendar minDate={new Date('2013-01-01')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onChange={onChange} value={date}/>
+                        <div style={{marginBottom:'5px'}}><h5>Active Baseline Layer: </h5></div>
+                        { (calendarType === 'package') && <Calendar view={'month'} minDate={new Date('2013-01-02')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onChange={onChange} value={date}/>}
+                        { (calendarType === 'custom') && <CustomCalendar id={comparingLayer.id} onClick={customClickHandler}/>}
                     </div>
                 }
-            </CalendarContainer>
-        </Outer_container>
+            </CalendarContainer>}
+        </Outer_container>}
+        </>
     )
 }
 
