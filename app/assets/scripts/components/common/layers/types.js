@@ -126,7 +126,6 @@ export const layerTypes = {
 
       // Update/iniit compare layer tiles.
       if (comparing) {
-        console.log('comparing first if condition')
         const compareDate =
           typeof compare.compareDate === 'function'
             ? compare.compareDate(date)
@@ -139,9 +138,8 @@ export const layerTypes = {
           compareDate,
           knobPos
         );
-        console.log(mbMapComparing)
         if (mbMapComparing.getSource(id)) {
-          console.log(mbMapComparing.getSource(id))
+          //console.log(mbMapComparing.getSource(id))
           //replaceRasterTiles(mbMapComparing, id, sourceCompare.tiles);
         } else {
           mbMapComparing.addSource(id, sourceCompare);

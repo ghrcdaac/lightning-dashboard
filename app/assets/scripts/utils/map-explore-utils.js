@@ -332,6 +332,8 @@ export function toggleLayerCompare (layer) {
   const layerId = layer.id;
   const isComparing = this.getLayerState(layerId, 'comparing');
 
+  console.log(layerId, isComparing);
+  
   if (isComparing) {
     this.setLayerState(layerId, {
       comparing: false

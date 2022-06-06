@@ -206,6 +206,7 @@ class GlobalExplore extends React.Component {
     this.toggleHandler = this.toggleHandler.bind(this);
     this.mapStyle = this.mapStyle.bind(this);
     this.updateToggleLayer = this.updateToggleLayer.bind(this)
+    this.toggleCompare = this.toggleCompare.bind(this)
     this.count = 0;
     //this.tileOpacity = 100;
     // Ref to the map component to be able to trigger a resize when the panels
@@ -317,6 +318,13 @@ class GlobalExplore extends React.Component {
   updateToggleLayer(passLayer){
     const layerd = this.getLayersWithState();
     this.onPanelAction('layer.toggle', passLayer)
+    //this.onPanelAction('layer.compare', passLayer)
+  }
+
+  toggleCompare(passLayer){
+    console.log(passLayer)
+    this.onPanelAction('layer.compare', passLayer)
+    console.log(passLayer)
   }
 
   updateUrlQS () {
@@ -327,7 +335,8 @@ class GlobalExplore extends React.Component {
 
   onPanelAction (action, payload) {
     this.count = 0;
-
+    
+    handlePanelAction.call(this, action, payload);
     if(action === 'layer.toggle'){
       const layers = this.getLayersWithState();
       const comparingLayer = find(layers, 'comparing');
@@ -336,8 +345,6 @@ class GlobalExplore extends React.Component {
         toggleLayerCompare.call(this, get_layer(this.state.activeLayers[0], this.props.mapLayers));
       }
     }
-
-    handlePanelAction.call(this, action, payload);
   }
 
   async onMapAction (action, payload) {
@@ -418,6 +425,7 @@ class GlobalExplore extends React.Component {
                   tileOpacity={this.state.tileOpacity}
                   mapStyle={this.mapStyle}
                   updateToggleLayer={this.updateToggleLayer}
+                  toggleCompare={this.toggleCompare}
                 /> 
                 {/* <MapButton mapStyle={this.mapStyle}/> */}
                 <PopupButton /> 

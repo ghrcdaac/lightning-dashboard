@@ -65,7 +65,6 @@ const CalendarTag = (props) =>{
 
     const onClickDay = date =>{
         setDate(date);
-        console.log(date)
         const dateString = date_to_string(date, comparingLayer.id)
         props.onClick(dateString);
     }
@@ -96,7 +95,7 @@ const CalendarTag = (props) =>{
             {(props.activeLayers.length !== 0) && <CalendarContainer>
                 {props.comparing && calendar && 
                     <div style={{margin:'10px'}}>
-                        <div style={{marginBottom:'5px'}}><h5>Active Baseline Layer: </h5></div>
+                        {/* <div style={{marginBottom:'5px'}}><h5>Compare Date: {date_to_string(date, comparingLayer.id)}</h5></div> */}
                         { (calendarType === 'package') && <Calendar view={view} minDate={new Date('2013-01-02')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onClickDay={onClickDay} onClickMonth={onClickMonth} value={date}/>}
                         { (calendarType === 'custom') && <CustomCalendar id={comparingLayer.id} onClick={customClickHandler}/>}
                     </div>

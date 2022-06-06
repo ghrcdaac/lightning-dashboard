@@ -327,9 +327,15 @@ class MbMap extends React.Component {
       }
     })
 
+    if(this.props.comparing) this.props.toggleCompare(passLayer)
+
     this.props.mapStyle();
     this.mbMap.remove()
     this.initMap(passLayer)
+
+    this.mbMapComparing.remove()
+
+    //this.mbMapComparing.setStyle(styleUrl)
   }
 
   calendarHandler(date){
@@ -544,6 +550,7 @@ MbMap.propTypes = {
   enableOverlayControls: T.bool,
   disableControls: T.bool,
   mapStyle: T.func,
+  toggleCompare:T.func,
   //spotlightList: T.object,
   spotlight: T.object,
   //fetchSpotlightSingle: T.func
