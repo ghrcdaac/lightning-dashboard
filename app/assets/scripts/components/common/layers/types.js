@@ -41,7 +41,7 @@ const prepSource = (layerInfo, source, date, knobPos) => {
   return source;
 };
 
-const replaceRasterTiles = (theMap, sourceId, tiles) => {
+export const replaceRasterTiles = (theMap, sourceId, tiles) => {
   // https://github.com/mapbox/mapbox-gl-js/issues/2941
   // Set the tile url to a cache-busting url (to circumvent browser caching behaviour):
   theMap.getSource(sourceId).tiles = tiles;
@@ -82,7 +82,7 @@ const replaceRasterTiles = (theMap, sourceId, tiles) => {
 
 export const layerTypes = {
   'raster-timeseries': {
-    update: (ctx, layerInfo, prevProps) => {
+    update: (ctx, layerInfo, prevProps, comparingLayer, prevComparingId) => {
       const { mbMap, mbMapComparing, mbMapComparingLoaded, props } = ctx;
       const { id, source, compare, paint } = layerInfo;
       const prevLayerInfo = prevProps.layers.find((l) => l.id === layerInfo.id);
@@ -90,6 +90,7 @@ export const layerTypes = {
 
       const knobPos = layerInfo.knobCurrPos;
       const knobPosPrev = prevLayerInfo ? prevLayerInfo.knobCurrPos : null;
+
 
       mbMap.setPaintProperty(
         id,
@@ -138,16 +139,24 @@ export const layerTypes = {
           compareDate,
           knobPos
         );
-        if (mbMapComparing.getSource(id)) {
-          //console.log(mbMapComparing.getSource(id))
-          //replaceRasterTiles(mbMapComparing, id, sourceCompare.tiles);
+        console.log(comparingLayer)
+        if (mbMapComparing.getSource(comparingLayer.id)) {
+          console.log('im in types.js mbMapComparing if condition')
+
         } else {
-          mbMapComparing.addSource(id, sourceCompare);
+          console.log('im in types.js mbMapComparing else condition', mbMapComparing, comparingLayer.id)
+
+          if(mbMapComparing.getSource(prevComparingId)){
+            mbMapComparing.removeLayer(prevComparingId);
+            mbMapComparing.removeSource(prevComparingId);
+          }
+
+          mbMapComparing.addSource(comparingLayer.id, comparingLayer.compare.source);
           mbMapComparing.addLayer(
             {
-              id: id,
+              id: comparingLayer.id,
               type: 'raster',
-              source: id,
+              source: comparingLayer.id,
               paint: paint || {}
             },
             'admin-0-boundary-bg'
@@ -199,11 +208,12 @@ export const layerTypes = {
     }
   },
   raster: {
-    update: (ctx, layerInfo, prevProps) => {
+    update: (ctx, layerInfo, prevProps, comparingLayer) => {
       const { mbMap, mbMapComparing, mbMapComparingLoaded, props } = ctx;
       const { id, compare, paint, source } = layerInfo;
       const { comparing } = props;
 
+      console.log('im in raster')
       // Check if the source tiles have changed and need to be replaced. This
       // may happen in the stories when maintaining the layer and changing the
       // spotlight. One example is the slowdown raster layer on la and sf.
@@ -227,15 +237,17 @@ export const layerTypes = {
 
       // END update checks.
 
-      if (mbMapComparing.getSource(id)) {
-        mbMapComparing.setLayoutProperty(id, 'visibility', 'visible');
+      if (mbMapComparing.getSource(comparingLayer.id)) {
+        mbMapComparing.setLayoutProperty(comparingLayer.id, 'visibility', 'visible');
+        console.log('im in types.js mbMapComparing raster if condition')
       } else {
-        mbMapComparing.addSource(id, compare.source);
+        console.log('im in types.js mbMapComparing raster else condition', mbMapComparing, comparingLayer.id)
+        mbMapComparing.addSource(comparingLayer.id, comparingLayer.compare.source);
         mbMapComparing.addLayer(
           {
-            id: id,
+            id: comparingLayer.id,
             type: 'raster',
-            source: id,
+            source: comparingLayer.id,
             paint: paint || {}
           },
           'admin-0-boundary-bg'

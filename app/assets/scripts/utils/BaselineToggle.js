@@ -5,6 +5,7 @@ import {themeVal} from '../styles/utils/general'
 import { visuallyHidden, truncated } from '../styles/helpers';
 import { FormSwitch } from "../styles/form/switch";
 import { glsp } from '../styles/utils/theme-values';
+import CalendarTag from "./CalendarTag";
 
 const Outer_Container = styled.div`
 height: 65px;
@@ -14,6 +15,7 @@ background: #fff;
 border-radius: 5px;
 padding: 0 65px 0 45px;
 box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
+//display:flex;
 input{
     //-webkit-appearance: none;
     width: 100%;
@@ -39,7 +41,7 @@ input&:after{
 const LayerSwatch = styled.span`
   position: absolute;
   height:3.7rem;
-  top: 27.5rem;
+  top: 31.5rem;
   left: 0.125rem;
   bottom: 0.125rem;
   width: 0.25rem;
@@ -67,8 +69,8 @@ const LayerTitle = styled.h1`
 
 const Body = styled.div`
 //background-color:blue;
-margin-top:0.2rem;
-margin-left:-1.7rem;
+//margin-top:0.2rem;
+margin-left:-1.8rem;
 `
 
 const Container = styled.div`
@@ -81,13 +83,22 @@ margin-top:0.3rem;
 margin-right:-2.5rem;
 `
 
-const MarkerToggle = (props) =>{
+const BaselineToggle = (props) =>{
 
     const [status, setStatus] = useState(false);
+    const [value, setValue] = useState('Datasets');
+    const [date, setDate] = useState('');
+    //var value = 'Datasets';
 
     const onToggleClick = () =>{
         setStatus(!status)
-        props.toggleHandler(status)
+    }
+
+    const changeHandler = (e) =>{
+        if(e.target.value !== 'Datasets'){
+            props.baselineId(e.target.value);
+        }
+        setValue(e.target.value);
     }
 
     return(
@@ -96,19 +107,32 @@ const MarkerToggle = (props) =>{
                 <small>Color: {'Grey' || 'Grey'}</small>
             </LayerSwatch>
             <Container>
-                <LayerTitle title={'Image Opacity'}>Photo Viewer</LayerTitle>
-                <SwitchDiv>
+                <LayerTitle title={'Image Opacity'}>Baseline Image</LayerTitle>
+                {(props.activeLayers.length !== 0) && (value !== 'Datasets') && <CalendarTag layers={props.layers} onClick={props.baselineHandler} comparingId={props.comparingId}/>}
+                {/* <SwitchDiv>
                     <FormSwitch
                         hideText
                         onChange={onToggleClick}
                     >
-                        Toggle layer visibility
+                        Toggle Baseline Layer
                     </FormSwitch>
-                </SwitchDiv>
+                </SwitchDiv> */}
             </Container>
-            <Body><h6>Toggle to enable/disable Markers</h6></Body>
+            {(props.activeLayers.length !== 0) &&  
+            <Body>
+                <select name="layers" id="layers" onChange={changeHandler}>
+                    <option>Datasets</option>
+                    {props.layers.map((layer)=>(
+                        <option key={layer.id}>{layer.id}</option>
+                    ))}
+                </select>
+            </Body>}
+            {props.activeLayers.length === 0 && 
+            <Body>
+                <h6 style={{marginTop:'0.5rem', color:'red'}}>Warning: Activate layer to compare</h6>
+            </Body>}
         </Outer_Container>
     )
 }
 
-export default MarkerToggle
+export default BaselineToggle

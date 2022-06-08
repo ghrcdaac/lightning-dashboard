@@ -205,9 +205,12 @@ class GlobalExplore extends React.Component {
     this.tileOpacity = this.tileOpacity.bind(this);
     this.toggleHandler = this.toggleHandler.bind(this);
     this.mapStyle = this.mapStyle.bind(this);
-    this.updateToggleLayer = this.updateToggleLayer.bind(this)
-    this.toggleCompare = this.toggleCompare.bind(this)
+    this.updateToggleLayer = this.updateToggleLayer.bind(this);
+    this.toggleCompare = this.toggleCompare.bind(this);
+    this.baselineHandler = this.baselineHandler.bind(this);
+    this.baselineId = this.baselineId.bind(this);
     this.count = 0;
+    //this.comparingId = 'TRMM LIS Full';
     //this.tileOpacity = 100;
     // Ref to the map component to be able to trigger a resize when the panels
     // are shown/hidden.
@@ -262,6 +265,8 @@ class GlobalExplore extends React.Component {
         actionOrigin: null
       },
       _urlActiveLayers: activeLayers,
+      comparingId:'TRMM LIS Full',
+      prevComparingId:null,
       tileOpacity: 100,
       mapStyle:'mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y',
       panelPrime: false,
@@ -322,9 +327,9 @@ class GlobalExplore extends React.Component {
   }
 
   toggleCompare(passLayer){
-    console.log(passLayer)
+    //console.log(passLayer)
     this.onPanelAction('layer.compare', passLayer)
-    console.log(passLayer)
+    //console.log(passLayer)
   }
 
   updateUrlQS () {
@@ -335,16 +340,29 @@ class GlobalExplore extends React.Component {
 
   onPanelAction (action, payload) {
     this.count = 0;
-    
     handlePanelAction.call(this, action, payload);
     if(action === 'layer.toggle'){
       const layers = this.getLayersWithState();
       const comparingLayer = find(layers, 'comparing');
   
-      if (comparingLayer) {
-        toggleLayerCompare.call(this, get_layer(this.state.activeLayers[0], this.props.mapLayers));
+      console.log(comparingLayer, this.state.activeLayers)
+      if (this.state.activeLayers[0] === payload.id && comparingLayer) {
+        toggleLayerCompare.call(this, get_layer(this.state.comparingId, getGlobalLayers()));
       }
     }
+  }
+
+  baselineHandler(dateString, activeCompareLayer){
+    this.mbMapRef.current.calendarHandler(dateString);
+  }
+
+  baselineId(id){
+    this.setState({
+      prevComparingId:this.state.comparingId,
+      comparingId:id,
+    })
+    //handlePanelAction.call(this, 'layer.compare', get_layer(this.state.comparingId, getGlobalLayers()))
+    toggleLayerCompare.call(this,get_layer(id, getGlobalLayers()));
   }
 
   async onMapAction (action, payload) {
@@ -409,6 +427,11 @@ class GlobalExplore extends React.Component {
                 }}
                 tileOpacity={this.tileOpacity}
                 toggleHandler={this.toggleHandler}
+                baselineHandler={this.baselineHandler}
+                baselineId = {this.baselineId}
+                activeLayers={this.state.activeLayers}
+                comparing={isComparing}
+                comparingId={this.state.comparingId}
               />
               <ExploreCarto>
                 <MbMap
@@ -426,6 +449,8 @@ class GlobalExplore extends React.Component {
                   mapStyle={this.mapStyle}
                   updateToggleLayer={this.updateToggleLayer}
                   toggleCompare={this.toggleCompare}
+                  comparingId={this.state.comparingId}
+                  prevComparingId={this.state.prevComparingId}
                 /> 
                 {/* <MapButton mapStyle={this.mapStyle}/> */}
                 <PopupButton /> 

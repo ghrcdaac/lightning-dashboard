@@ -16,7 +16,8 @@ import Marker from '../../../utils/Marker';
 import MarkerButton from '../../../utils/MarkerButton';
 import { Background } from '../../../utils/FilteredData';
 import CalendarTag from '../../../utils/CalendarTag';
-import {date_to_string, baseline_link} from '../../../utils/HelperMethods'
+import {date_to_string, baseline_link, get_layer} from '../../../utils/HelperMethods'
+import { replaceRasterTiles } from '../layers/types';
 
 import config from '../../../config';
 //import { fetchSpotlightSingle as fetchSpotlightSingleAction } from '../../../redux/spotlight';
@@ -106,6 +107,7 @@ class MbMap extends React.Component {
     this.spotlightMarkersList = [];
     this.marker = []
     this.markerState = false;
+    this.comparingId = this.props.comparingId;
 
     this.mapButton = this.mapButton.bind(this)
     this.handleOverlayChange = this.handleOverlayChange.bind(this);
@@ -206,7 +208,9 @@ class MbMap extends React.Component {
 
           fns.show(this, layerInfo, prevProps);
           if (fns.update) {
-            fns.update(this, layerInfo, prevProps);
+            const comparingLayer = find(this.props.layers, 'comparing');
+            const layer = get_layer(this.props.comparingId, this.props.layers)
+            fns.update(this, layerInfo, prevProps, layer, this.props.prevComparingId);
           }
           return;
         }
@@ -303,7 +307,9 @@ class MbMap extends React.Component {
       //console.log(fns);
       if (fns && fns.update) {
         //console.log('fns')
-        return fns.update(this, layerInfo, prevProps);
+        const comparingLayer = find(this.props.layers, 'comparing');
+        const layer = get_layer(this.props.comparingId, this.props.layers)
+        return fns.update(this, layerInfo, prevProps, layer, this.props.prevComparingId);
       }
     });
   }
@@ -322,7 +328,7 @@ class MbMap extends React.Component {
     var passLayer = null;
 
     lyrs.forEach((element)=>{
-      if(element.id === atv){
+      if(element.id === this.props.comparingId){
         passLayer = element;
       }
     })
@@ -333,7 +339,10 @@ class MbMap extends React.Component {
     this.mbMap.remove()
     this.initMap(passLayer)
 
-    this.mbMapComparing.remove()
+    if(typeof this.mbMapComparing !== 'undefined' && this.mbMapComparing !== null){
+      console.log(this.mbMapComparing)
+      this.mbMapComparing.remove()
+    }
 
     //this.mbMapComparing.setStyle(styleUrl)
   }
@@ -341,21 +350,43 @@ class MbMap extends React.Component {
   calendarHandler(date){
     
     const comparingLayer = find(this.props.layers, 'comparing');
-    const tile = baseline_link(this.props.layers, comparingLayer.id, date)
-    //console.log(comparingLayer)
-
+    const tile = baseline_link(this.props.layers, this.props.comparingId, date)
+    const layer = get_layer(this.props.comparingId, this.props.layers)
     // if(this.mbMap.style.sourceCaches[this.props.activeLayers[0]] && this.props.comparing){
     //   this.mbMapComparing.getSource(this.props.activeLayers[0]).tiles = tile
     //   this.mbMapComparing.style.sourceCaches[this.props.activeLayers[0]].clearTiles();
     //   this.mbMapComparing.style.sourceCaches[this.props.activeLayers[0]].update(this.mbMap.transform);
     //   this.mbMapComparing.triggerRepaint();
     // }
-    if(this.mbMap.style.sourceCaches[comparingLayer.id] && this.props.comparing){
-      this.mbMapComparing.getSource(comparingLayer.id).tiles = tile
-      this.mbMapComparing.style.sourceCaches[comparingLayer.id].clearTiles();
-      this.mbMapComparing.style.sourceCaches[comparingLayer.id].update(this.mbMap.transform);
+    
+    // if(this.mbMapComparing.style.sourceCaches[comparingLayer.id] && this.props.comparing){
+    //   console.log('inside if condition')
+    //   this.mbMapComparing.getSource(comparingLayer.id).tiles = tile
+    //   this.mbMapComparing.style.sourceCaches[comparingLayer.id].clearTiles();
+    //   this.mbMapComparing.style.sourceCaches[comparingLayer.id].update(this.mbMap.transform);
+    //   this.mbMapComparing.triggerRepaint();
+    // }
+    if(this.mbMapComparing.getSource(this.props.comparingId)){
+      this.mbMapComparing.getSource(this.props.comparingId).tiles = tile
+      this.mbMapComparing.style.sourceCaches[this.props.comparingId].clearTiles();
+      this.mbMapComparing.style.sourceCaches[this.props.comparingId].update(this.mbMap.transform);
       this.mbMapComparing.triggerRepaint();
-    }
+    }else{
+      this.mbMapComparing.removeLayer(this.props.prevComparingId)
+      this.mbMapComparing.removeSource(this.props.prevComparingId)
+
+      this.mbMapComparing.addSource(this.props.comparingId, {tiles:tile, type:'raster'});
+      this.mbMapComparing.addLayer(
+        {
+          id: this.props.comparingId,
+          type: 'raster',
+          source: this.props.comparingId,
+          paint: {}
+        },
+        'admin-0-boundary-bg'
+      );
+      
+    } 
   }
 
   markerHandler(){
@@ -531,7 +562,7 @@ class MbMap extends React.Component {
         {/* {<Modal background="https://www.crayon.com/globalassets/us/seasonal-backgrounds/fall-2021/bridge-lake-fall-microsoft-teams-background.png?"/>} */}
         {/* <MarkerButton onClick={this.markerHandler}/> */}
         <MapButton mapStyle={this.mapButton}/>
-        {(this.props.activeLayers.length !== 0) && <CalendarTag onClick={this.calendarHandler} comparing={this.props.comparing} layers={this.props.layers} activeLayers={this.props.activeLayers}/>}
+        {/* {(this.props.activeLayers.length !== 0) && <CalendarTag onClick={this.calendarHandler} comparing={this.props.comparing} layers={this.props.layers} activeLayers={this.props.activeLayers}/>} */}
         {/* <Calendar onClick={this.calendarHandler} comparing={true} layers={this.props.layers}/> */}
       </>
     );
@@ -553,6 +584,8 @@ MbMap.propTypes = {
   toggleCompare:T.func,
   //spotlightList: T.object,
   spotlight: T.object,
+  comparingId:T.string,
+  prevComparingId:T.string,
   //fetchSpotlightSingle: T.func
 };
 
