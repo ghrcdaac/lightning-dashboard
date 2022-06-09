@@ -5,29 +5,7 @@ import Calendar from 'react-calendar';
 import find from 'lodash.find';
 import CustomCalendar from './CustomCalendar';
 import { date_to_string } from './HelperMethods';
-// import '../../../../node_modules/react-calendar/dist/Calendar.css';
-//import './Calendar.css'
-
-// const Outer_container = styled.div`
-// position:absolute;
-// float:right;
-// width:2rem;
-// height:auto;
-// z-index:1000;
-// top:5.6rem;
-// right:null;
-// left:0.5rem;
-// bottom:null;
-// background-color:${(props)=>props.styleColor};
-// background-color:red;
-// padding:5px;
-// border-top-right-radius:5px;
-// border-top-left-radius:5px;
-// border-bottom-right-radius:5px;
-// border-bottom-left-radius:5px;
-// display:flex;
-// justify-content:center;
-// `
+import ReactDOM from 'react-dom'
 
 const Outer_container = styled.div`
 //position:absolute;
@@ -50,25 +28,50 @@ border-bottom-right-radius:5px;
 border-bottom-left-radius:5px;
 display:flex;
 justify-content:center;
+
+// background-color: rgba(200, 200, 200,0.6);
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+z-index:999999;
+bottom:100vh;
+border-radius: 12px;
 `
 
 const CalendarContainer = styled.div`
 position: absolute;
 background-color:white;
-left:-0.5rem;
-top:35rem;
+left:10rem;
+top:22rem;
 //z-index:99999999999;
-width:300px;
+width:280px;
 //margin:10px;
 border-top-right-radius:5px;
 border-top-left-radius:5px;
 border-bottom-right-radius:5px;
 border-bottom-left-radius:5px;
+
+.react-calendar__navigation {
+    display: flex;
+
+    .react-calendar__navigation__label {
+      font-weight: bold;
+    }
+
+    .react-calendar__navigation__arrow {
+      flex-grow: 0.333;
+    }
+
+    .react-calendar__month-view__weekdays {
+        text-align: center;
+      }
+  }
 `
 
 const CalendarTag = (props) =>{
 
-    const [calendar, setCalendar] = useState(false);
+    const [calendar, setCalendar] = useState(true);
     const [date, setDate] = useState(new Date());
     const comparingLayer = find(props.layers, 'comparing');
     var calendarType;
@@ -104,7 +107,7 @@ const CalendarTag = (props) =>{
         props.onClick(dateString);
     }
 
-    return(
+    return ReactDOM.createPortal(
         <>
         <Outer_container styleColor='white'>
             <Button
@@ -126,7 +129,7 @@ const CalendarTag = (props) =>{
                 }
             </CalendarContainer>}
         </Outer_container>
-        </>
+        </>,document.getElementById('calendar')
     )
 
     // return(
