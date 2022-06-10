@@ -26,7 +26,7 @@ const PanelBlockLayer = styled(PanelBlock)`
 class DataLayersBlock extends React.Component {
 
   render () {
-    const { onAction, layers, mapLoaded,tileOpacity, toggleHandler, baselineHandler, baselineId, activeLayers, comparing, comparingId } = this.props;
+    const { onAction, layers, mapLoaded,tileOpacity, toggleHandler, baselineHandler, baselineId, activeLayers, comparing, comparingId, calendarStatus } = this.props;
 
     return (
       <PanelBlockLayer>
@@ -68,7 +68,7 @@ class DataLayersBlock extends React.Component {
             </Accordion>
             <Slider slideHandler={tileOpacity}/>
             <MarkerToggle toggleHandler={toggleHandler}/>
-            <BaselineToggle layers={layers} activeLayers={activeLayers} comparing={comparing} baselineHandler={baselineHandler} comparingId={comparingId} baselineId={baselineId}/>
+            <BaselineToggle calendarStatus={calendarStatus} layers={layers} activeLayers={activeLayers} comparing={comparing} baselineHandler={baselineHandler} comparingId={comparingId} baselineId={baselineId}/>
             {/* <BaselineToggle layers={layers} activeLayers={activeLayers} comparing={comparing} baselineHandler={baselineHandler} comparingId={comparingId} baselineId={baselineId} onCompareClick={(i)=>onAction('layer.compare', layers[i])} /> */}
           </PanelBlockScroll>
         </PanelBlockBody>
@@ -88,6 +88,7 @@ DataLayersBlock.propTypes = {
   comparing:T.bool,
   comparingId:T.string,
   baselineId:T.func,
+  calendarStatus:T.func,
 };
 
 export default DataLayersBlock;

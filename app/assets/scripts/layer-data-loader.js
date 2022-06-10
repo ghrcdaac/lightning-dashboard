@@ -77,7 +77,7 @@ class LayerDataLoader extends React.Component {
     dataset.push(datasets('TRMM LIS Daily', '2013-01', '2013-12', aws_annual_link,'day', "Shows the daily mean flash rate density throughout 1998 to 2013."));
     // dataset.push(datasets('NALMA Source Density', '2013-01', '2013-12', null, 'month', "The North Alabama Lightning Mapping Array (NALMA) data are used to validate the Lightning Imaging Sensor (LIS) on the International Space Station (ISS), the Geostationary Lightning Mapper (GLM) instrument, and other current and future lightning measurements."));
     // dataset.push(datasets('NALMA Flash Extent Density', '2013-01', '2013-12', null, 'month', "The North Alabama Lightning Mapping Array (NALMA) data are used to validate the Lightning Imaging Sensor (LIS) on the International Space Station (ISS), the Geostationary Lightning Mapper (GLM) instrument, and other current and future lightning measurements."));
-    console.log('v8')
+    console.log('v9')
     storeSpotlightLayers('global', dataset);
     this.props.onReady();
   }
@@ -91,7 +91,8 @@ class LayerDataLoader extends React.Component {
 
 const datasets = (name, startDate, endDate, API, timeUnit, info) =>{
 
-  var compareURL = 'https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRAC/2013_01_01/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]'
+  var compareURL = 'null{date}'
+  //var compareURL = 'https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRAC/2013_01_01/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]'
   var domain = [startDate+"-01T00:00:00Z",endDate+"-01T00:00:00Z"]
   var isPeriodic = true;
   var type = 'raster-timeseries'

@@ -6,6 +6,7 @@ import { visuallyHidden, truncated } from '../styles/helpers';
 import { FormSwitch } from "../styles/form/switch";
 import { glsp } from '../styles/utils/theme-values';
 import CalendarTag from "./CalendarTag";
+import Button from '../styles/button/button'
 
 const Outer_Container = styled.div`
 height: 65px;
@@ -87,6 +88,7 @@ const BaselineToggle = (props) =>{
 
     const [status, setStatus] = useState(false);
     const [value, setValue] = useState('Datasets');
+    const [calendar, setCalendar] = useState(false);
     const [date, setDate] = useState('');
     //var value = 'Datasets';
 
@@ -97,9 +99,12 @@ const BaselineToggle = (props) =>{
     const changeHandler = (e) =>{
         if(e.target.value !== 'Datasets'){
             props.baselineId(e.target.value);
+        }else{
+            props.calendarStatus('Datasets');
         }
         setValue(e.target.value);
     }
+
 
     return(
         <Outer_Container>
@@ -108,15 +113,19 @@ const BaselineToggle = (props) =>{
             </LayerSwatch>
             <Container>
                 <LayerTitle title={'Image Opacity'}>Baseline Image</LayerTitle>
-                {(props.activeLayers.length !== 0) && (value !== 'Datasets') && <CalendarTag layers={props.layers} onClick={props.baselineHandler} comparingId={props.comparingId}/>}
-                {/* <SwitchDiv>
-                    <FormSwitch
+                {(props.activeLayers.length !== 0) && (value !== 'Datasets') &&
+                <div style={{marginTop:'8px'}}>
+                    <Button
+                        variation='base-plain'
+                        size='small'
+                        useIcon='calendar'
+                        title='Calendar for Baseline Layer'
                         hideText
-                        onChange={onToggleClick}
-                    >
-                        Toggle Baseline Layer
-                    </FormSwitch>
-                </SwitchDiv> */}
+                        onClick={()=>props.calendarStatus('calendar-button')}
+                        >
+                        <span>Info</span>
+                    </Button>
+                </div>}
             </Container>
             {(props.activeLayers.length !== 0) &&  
             <Body>

@@ -28,44 +28,32 @@ border-bottom-right-radius:5px;
 border-bottom-left-radius:5px;
 display:flex;
 justify-content:center;
-
-// background-color: rgba(200, 200, 200,0.6);
-position: relative;
-display: flex;
-justify-content: center;
-align-items: center;
-z-index:999999;
-bottom:100vh;
-border-radius: 12px;
 `
-
 const CalendarContainer = styled.div`
 position: absolute;
-background-color:white;
-left:10rem;
-top:22rem;
+//background-color:white;
+left:.7rem;
+bottom:17rem;
+//bottom:${(props)=>props.bottom}
 //z-index:99999999999;
 width:280px;
+max-height:350px;
 //margin:10px;
 border-top-right-radius:5px;
 border-top-left-radius:5px;
 border-bottom-right-radius:5px;
 border-bottom-left-radius:5px;
 
-.react-calendar__navigation {
-    display: flex;
+.react-calendar__month-view__days {
+    // display: grid !important;
+    // grid-template-columns: 14.2% 14.2% 14.2% 14.2% 14.2% 14.2% 14.2%; 
 
-    .react-calendar__navigation__label {
-      font-weight: bold;
+    .react-calendar__tile {
+        border-top-right-radius:5px;
+        border-top-left-radius:5px;
+        border-bottom-right-radius:5px;
+        border-bottom-left-radius:5px;
     }
-
-    .react-calendar__navigation__arrow {
-      flex-grow: 0.333;
-    }
-
-    .react-calendar__month-view__weekdays {
-        text-align: center;
-      }
   }
 `
 
@@ -107,10 +95,10 @@ const CalendarTag = (props) =>{
         props.onClick(dateString);
     }
 
-    return ReactDOM.createPortal(
+    return(
         <>
         <Outer_container styleColor='white'>
-            <Button
+            {/* <Button
                 variation='base-plain'
                 size='small'
                 useIcon='calendar'
@@ -119,8 +107,8 @@ const CalendarTag = (props) =>{
                 onClick={clickHandler}
                 >
                 <span>Info</span>
-            </Button>
-            {(typeof comparingLayer !== 'undefined') && <CalendarContainer>
+            </Button> */}
+            {(typeof comparingLayer !== 'undefined') && <CalendarContainer bottom={(props.comparingId === 'TRMM LIS Full') && '22rem' || '17rem'}>
                 {calendar && 
                     <div style={{margin:'10px'}}>
                         { (calendarType === 'package') && <Calendar view={view} minDate={new Date('2013-01-02')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onClickDay={onClickDay} onClickMonth={onClickMonth} value={date}/>}
@@ -129,7 +117,7 @@ const CalendarTag = (props) =>{
                 }
             </CalendarContainer>}
         </Outer_container>
-        </>,document.getElementById('calendar')
+        </>
     )
 
     // return(

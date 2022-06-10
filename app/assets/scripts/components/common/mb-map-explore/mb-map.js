@@ -340,7 +340,6 @@ class MbMap extends React.Component {
     this.initMap(passLayer)
 
     if(typeof this.mbMapComparing !== 'undefined' && this.mbMapComparing !== null){
-      console.log(this.mbMapComparing)
       this.mbMapComparing.remove()
     }
 
@@ -372,8 +371,11 @@ class MbMap extends React.Component {
       this.mbMapComparing.style.sourceCaches[this.props.comparingId].update(this.mbMap.transform);
       this.mbMapComparing.triggerRepaint();
     }else{
-      this.mbMapComparing.removeLayer(this.props.prevComparingId)
-      this.mbMapComparing.removeSource(this.props.prevComparingId)
+
+      if(this.mbMapComparing.getSource(this.props.prevComparingId)){
+        this.mbMapComparing.removeLayer(this.props.prevComparingId)
+        this.mbMapComparing.removeSource(this.props.prevComparingId)
+      }
 
       this.mbMapComparing.addSource(this.props.comparingId, {tiles:tile, type:'raster'});
       this.mbMapComparing.addLayer(
@@ -564,6 +566,7 @@ class MbMap extends React.Component {
         <MapButton mapStyle={this.mapButton}/>
         {/* {(this.props.activeLayers.length !== 0) && <CalendarTag onClick={this.calendarHandler} comparing={this.props.comparing} layers={this.props.layers} activeLayers={this.props.activeLayers}/>} */}
         {/* <Calendar onClick={this.calendarHandler} comparing={true} layers={this.props.layers}/> */}
+        {(this.props.activeLayers.length !== 0) && this.props.calendarStatus && <CalendarTag layers={this.props.layers} onClick={this.calendarHandler} comparingId={this.props.comparingId}/>}
       </>
     );
   }
@@ -586,6 +589,7 @@ MbMap.propTypes = {
   spotlight: T.object,
   comparingId:T.string,
   prevComparingId:T.string,
+  calendarStatus:T.bool,
   //fetchSpotlightSingle: T.func
 };
 

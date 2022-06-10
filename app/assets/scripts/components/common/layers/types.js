@@ -139,12 +139,9 @@ export const layerTypes = {
           compareDate,
           knobPos
         );
-        console.log(comparingLayer)
         if (mbMapComparing.getSource(comparingLayer.id)) {
-          console.log('im in types.js mbMapComparing if condition')
 
         } else {
-          console.log('im in types.js mbMapComparing else condition', mbMapComparing, comparingLayer.id)
 
           if(mbMapComparing.getSource(prevComparingId)){
             mbMapComparing.removeLayer(prevComparingId);
@@ -213,7 +210,6 @@ export const layerTypes = {
       const { id, compare, paint, source } = layerInfo;
       const { comparing } = props;
 
-      console.log('im in raster')
       // Check if the source tiles have changed and need to be replaced. This
       // may happen in the stories when maintaining the layer and changing the
       // spotlight. One example is the slowdown raster layer on la and sf.
@@ -239,9 +235,7 @@ export const layerTypes = {
 
       if (mbMapComparing.getSource(comparingLayer.id)) {
         mbMapComparing.setLayoutProperty(comparingLayer.id, 'visibility', 'visible');
-        console.log('im in types.js mbMapComparing raster if condition')
       } else {
-        console.log('im in types.js mbMapComparing raster else condition', mbMapComparing, comparingLayer.id)
         mbMapComparing.addSource(comparingLayer.id, comparingLayer.compare.source);
         mbMapComparing.addLayer(
           {

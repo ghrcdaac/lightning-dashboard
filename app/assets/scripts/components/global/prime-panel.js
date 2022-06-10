@@ -31,6 +31,7 @@ class ExpMapPrimePanel extends React.Component {
       activeLayers,
       comparing, 
       comparingId,
+      calendarStatus,
     } = this.props;
 
     return (
@@ -52,6 +53,7 @@ class ExpMapPrimePanel extends React.Component {
               activeLayers={activeLayers}
               comparing={comparing}
               comparingId={comparingId}
+              calendarStatus={calendarStatus}
             />
           </>
           }
@@ -74,6 +76,7 @@ ExpMapPrimePanel.propTypes = {
   activeLayers:T.array,
   comparing:T.bool,
   comparingId:T.string,
+  calendarStatus:T.func,
 };
 
 export default ExpMapPrimePanel;

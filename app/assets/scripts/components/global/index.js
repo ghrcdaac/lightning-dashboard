@@ -209,6 +209,7 @@ class GlobalExplore extends React.Component {
     this.toggleCompare = this.toggleCompare.bind(this);
     this.baselineHandler = this.baselineHandler.bind(this);
     this.baselineId = this.baselineId.bind(this);
+    this.calendarStatus = this.calendarStatus.bind(this);
     this.count = 0;
     //this.comparingId = 'TRMM LIS Full';
     //this.tileOpacity = 100;
@@ -265,8 +266,9 @@ class GlobalExplore extends React.Component {
         actionOrigin: null
       },
       _urlActiveLayers: activeLayers,
-      comparingId:'TRMM LIS Full',
+      comparingId:null,
       prevComparingId:null,
+      calendarStatus:false,
       tileOpacity: 100,
       mapStyle:'mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y',
       panelPrime: false,
@@ -345,7 +347,6 @@ class GlobalExplore extends React.Component {
       const layers = this.getLayersWithState();
       const comparingLayer = find(layers, 'comparing');
   
-      console.log(comparingLayer, this.state.activeLayers)
       if (this.state.activeLayers[0] === payload.id && comparingLayer) {
         toggleLayerCompare.call(this, get_layer(this.state.comparingId, getGlobalLayers()));
       }
@@ -354,6 +355,14 @@ class GlobalExplore extends React.Component {
 
   baselineHandler(dateString, activeCompareLayer){
     this.mbMapRef.current.calendarHandler(dateString);
+  }
+
+  calendarStatus(action){
+    this.setState({
+      calendarStatus:!this.state.calendarStatus
+    })
+
+    if(this.state.comparingId !== null && action === 'Datasets') toggleLayerCompare.call(this, get_layer(this.state.comparingId, getGlobalLayers()));
   }
 
   baselineId(id){
@@ -432,6 +441,7 @@ class GlobalExplore extends React.Component {
                 activeLayers={this.state.activeLayers}
                 comparing={isComparing}
                 comparingId={this.state.comparingId}
+                calendarStatus={this.calendarStatus}
               />
               <ExploreCarto>
                 <MbMap
@@ -451,6 +461,7 @@ class GlobalExplore extends React.Component {
                   toggleCompare={this.toggleCompare}
                   comparingId={this.state.comparingId}
                   prevComparingId={this.state.prevComparingId}
+                  calendarStatus={this.state.calendarStatus}
                 /> 
                 {/* <MapButton mapStyle={this.mapStyle}/> */}
                 <PopupButton /> 
