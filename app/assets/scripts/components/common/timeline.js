@@ -13,6 +13,8 @@ import { glsp } from '../../styles/utils/theme-values';
 import { themeVal } from '../../styles/utils/general';
 import { utcDate } from '../../utils/utils';
 
+import TimelineTimer from '../../utils/TimelineTimer';
+
 const checkSameDate = (date, compareDate, interval) => {
   if (interval === 'day') {
     return isSameDay(date, compareDate);
@@ -185,6 +187,7 @@ class Timeline extends React.Component {
             </ExploreDataBrowserTitle>
           </ExploreDataBrowserHeadline>
           <ExploreDataBrowserActions>
+            {/* <TimelineTimer/> */}
             <CurrentDate>
               {date ? formatDate(date, timeUnit) : 'Select date'}
             </CurrentDate>

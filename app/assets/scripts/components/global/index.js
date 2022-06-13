@@ -12,11 +12,12 @@ import find from 'lodash.find';
 import Popups from '../../utils/Popup';
 import PopupButton from '../../utils/PopupButton';
 import MapButton from '../../utils/MapButton';
-import { get_layer } from '../../utils/HelperMethods';
+import { get_layer, dateFormat } from '../../utils/HelperMethods';
 
 import { headingAlt } from '../../styles/type/heading';
 import { glsp } from '../../styles/utils/theme-values';
 import Prose from '../../styles/type/prose';
+import MapMessage from '../common/map-message';
 
 //import {toast} from 'react-toastify';
 //import 'react-toastify/dist/ReactToastify.css'
@@ -207,7 +208,7 @@ class GlobalExplore extends React.Component {
     this.mapStyle = this.mapStyle.bind(this);
     this.updateToggleLayer = this.updateToggleLayer.bind(this);
     this.toggleCompare = this.toggleCompare.bind(this);
-    this.baselineHandler = this.baselineHandler.bind(this);
+    this.baselineDate = this.baselineDate.bind(this);
     this.baselineId = this.baselineId.bind(this);
     this.calendarStatus = this.calendarStatus.bind(this);
     this.count = 0;
@@ -269,6 +270,7 @@ class GlobalExplore extends React.Component {
       comparingId:null,
       prevComparingId:null,
       calendarStatus:false,
+      baselineDate:'null',
       tileOpacity: 100,
       mapStyle:'mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y',
       panelPrime: false,
@@ -353,13 +355,18 @@ class GlobalExplore extends React.Component {
     }
   }
 
-  baselineHandler(dateString, activeCompareLayer){
-    this.mbMapRef.current.calendarHandler(dateString);
+  baselineDate(date, id){
+
+    const dateString = dateFormat(date, 'month-day-year', id)
+    this.setState({
+      baselineDate:dateString
+    })
   }
 
   calendarStatus(action){
     this.setState({
-      calendarStatus:!this.state.calendarStatus
+      calendarStatus:!this.state.calendarStatus,
+      baselineDate:'null'
     })
 
     if(this.state.comparingId !== null && action === 'Datasets') toggleLayerCompare.call(this, get_layer(this.state.comparingId, getGlobalLayers()));
@@ -369,6 +376,7 @@ class GlobalExplore extends React.Component {
     this.setState({
       prevComparingId:this.state.comparingId,
       comparingId:id,
+      baselineDate:'null'
     })
     //handlePanelAction.call(this, 'layer.compare', get_layer(this.state.comparingId, getGlobalLayers()))
     toggleLayerCompare.call(this,get_layer(id, getGlobalLayers()));
@@ -436,7 +444,7 @@ class GlobalExplore extends React.Component {
                 }}
                 tileOpacity={this.tileOpacity}
                 toggleHandler={this.toggleHandler}
-                baselineHandler={this.baselineHandler}
+                baselineHandler={this.baselineDate}
                 baselineId = {this.baselineId}
                 activeLayers={this.state.activeLayers}
                 comparing={isComparing}
@@ -444,6 +452,9 @@ class GlobalExplore extends React.Component {
                 calendarStatus={this.calendarStatus}
               />
               <ExploreCarto>
+                <MapMessage active={isComparing}>
+                  <p>{this.state.comparingId + ' - ' + this.state.baselineDate + ' vs ' + this.state.activeLayers[0] +' - '+ dateFormat(this.state.timelineDate,'month-day-year', this.state.activeLayers[0])}</p>
+                </MapMessage>
                 <MbMap
                   ref={this.mbMapRef}
                   position={this.state.mapPos}
@@ -462,6 +473,7 @@ class GlobalExplore extends React.Component {
                   comparingId={this.state.comparingId}
                   prevComparingId={this.state.prevComparingId}
                   calendarStatus={this.state.calendarStatus}
+                  baselineHandler={this.baselineDate}
                 /> 
                 {/* <MapButton mapStyle={this.mapStyle}/> */}
                 <PopupButton /> 

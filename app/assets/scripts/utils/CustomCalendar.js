@@ -44,7 +44,7 @@ const CustomCalendar = ({ id, onClick }) =>{
     return(
         <ButtonContainer>
             {arr !== null && arr[0].data.map((data)=>(
-                <Button onClick={()=>{onClick(data[0]);useSelected({id:id, date:data[0]})}} key={data[1]} backgroundColor={((id === selected.id) && (data[0] === selected.date) && '#007afc')}>
+                <Button onClick={()=>{onClick(data[0], data, id);useSelected({id:id, date:data[0]})}} key={data[1]} backgroundColor={((id === selected.id) && (data[0] === selected.date) && '#007afc')}>
                     <div style={{display:'flex', flexDirection:'column', textAlign:'center', justifyContent:'center', alignItems:'center'}}>
                         <div>{data[1]}</div>
                         {data.length > 2 && <div>{data[2]}</div>}

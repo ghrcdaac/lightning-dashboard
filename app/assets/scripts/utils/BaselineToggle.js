@@ -9,14 +9,14 @@ import CalendarTag from "./CalendarTag";
 import Button from '../styles/button/button'
 
 const Outer_Container = styled.div`
-height: 65px;
+height: 70px;
 //position:absolute;
 width: 100%;
 background: #fff;
 border-radius: 5px;
 padding: 0 65px 0 45px;
-box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
-//display:flex;
+box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
+margin-bottom:1px;
 input{
     //-webkit-appearance: none;
     width: 100%;
@@ -41,8 +41,8 @@ input&:after{
 
 const LayerSwatch = styled.span`
   position: absolute;
-  height:3.7rem;
-  top: 31.5rem;
+  height:4.3rem;
+  top: 31.3rem;
   left: 0.125rem;
   bottom: 0.125rem;
   width: 0.25rem;
@@ -77,6 +77,7 @@ margin-left:-1.8rem;
 const Container = styled.div`
 display:flex;
 justify-content:space-between;
+//background-color:red;
 `
 
 const SwitchDiv = styled.div`
@@ -104,7 +105,6 @@ const BaselineToggle = (props) =>{
         }
         setValue(e.target.value);
     }
-
 
     return(
         <Outer_Container>
@@ -138,7 +138,7 @@ const BaselineToggle = (props) =>{
             </Body>}
             {props.activeLayers.length === 0 && 
             <Body>
-                <h6 style={{marginTop:'0.5rem', color:'red'}}>Warning: Activate layer to compare</h6>
+                <h6 style={{marginTop:'0.5rem', color:'black'}}>Note: Activate layer to compare</h6>
             </Body>}
         </Outer_Container>
     )

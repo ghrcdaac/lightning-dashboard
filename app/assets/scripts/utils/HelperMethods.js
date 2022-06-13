@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
+import { add, sub, format, isSameMonth, isSameDay } from 'date-fns';
 
 export function date_to_string(date, layer){
 
@@ -59,4 +60,38 @@ export function get_layer(id, layers){
     }
 
     return layer;
+}
+
+export function dateFormat(date, interval, id){
+
+    const month = ["Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"];
+    var dateString = '';
+
+    if(Array.isArray(date)){
+        if(id === 'TRMM LIS Full'){
+            dateString = date[1] + ' ' + date[2]
+        }else if(id === 'TRMM LIS Seasonal'){
+            dateString = date[1]
+        }else if(id === 'TRMM LIS Diurnal'){
+            dateString = date[1] + ' ' + date[2]
+        }
+    }else{        
+        if(interval === 'month-day-year' && typeof date !== 'undefined' && date !== null){            
+            if(id === 'TRMM LIS Seasonal'){
+                if(month[date.getMonth()] === 'Mar'){
+                    dateString = 'Spring'
+                }else if(month[date.getMonth()] === 'Jul'){
+                    dateString = 'Summer'
+                }else if(month[date.getMonth()] === 'Oct'){
+                    dateString = 'Autumn'
+                }else{
+                    dateString = 'Winter'
+                }
+            }else{
+                dateString = month[date.getMonth()] + ' ' + date.getDate() + ' ' + date.getFullYear();
+            }
+        }
+    }
+
+    return dateString;
 }

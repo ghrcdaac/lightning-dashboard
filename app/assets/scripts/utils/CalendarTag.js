@@ -82,17 +82,17 @@ const CalendarTag = (props) =>{
     const onClickDay = date =>{
         setDate(date);
         const dateString = date_to_string(date, props.comparingId)
-        props.onClick(dateString);
+        props.onClick(dateString, date);
     }
 
     const onClickMonth = date =>{
         setDate(date)
         const dateString = date_to_string(date, props.comparingId)
-        props.onClick(dateString);
+        props.onClick(dateString, date);
     }
 
-    const customClickHandler = (dateString) =>{
-        props.onClick(dateString);
+    const customClickHandler = (dateString, data, id) =>{
+        props.onClick(dateString,data, id);
     }
 
     return(

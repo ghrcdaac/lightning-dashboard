@@ -52,8 +52,8 @@ const Right = styled.div`
 `
 const LayerSwatch = styled.span`
   position: absolute;
-  height:73px;
-  top: 22.6rem;
+  height:70px;
+  top: 22.7rem;
   left: 0.125rem;
   bottom: 0.125rem;
   width: 0.25rem;
@@ -86,7 +86,8 @@ width: 100%;
 background: #fff;
 border-radius: 5px;
 padding: 0 65px 0 45px;
-box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
+box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
+margin-bottom:1px;
 input{
     //-webkit-appearance: none;
     width: 100%;

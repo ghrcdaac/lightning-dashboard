@@ -346,10 +346,11 @@ class MbMap extends React.Component {
     //this.mbMapComparing.setStyle(styleUrl)
   }
 
-  calendarHandler(date){
+  calendarHandler(dateString, date, id){
     
+    this.props.baselineHandler(date, id);
     const comparingLayer = find(this.props.layers, 'comparing');
-    const tile = baseline_link(this.props.layers, this.props.comparingId, date)
+    const tile = baseline_link(this.props.layers, this.props.comparingId, dateString)
     const layer = get_layer(this.props.comparingId, this.props.layers)
     // if(this.mbMap.style.sourceCaches[this.props.activeLayers[0]] && this.props.comparing){
     //   this.mbMapComparing.getSource(this.props.activeLayers[0]).tiles = tile
