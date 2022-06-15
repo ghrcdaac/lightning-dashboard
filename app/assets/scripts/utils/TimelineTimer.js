@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import {FaPlay, FaPause} from '../../../../node_modules/react-icons/fa'
-import Timer from './Timer';
 
 const Input = styled.input`
 width:70px;
@@ -19,6 +18,26 @@ cursor:pointer;
 //background-color:red;
 `
 
+const TimerLabel = styled.span`
+position: absolute;
+  
+/* Size should match the parent container */
+width: 37px;
+height: 37px;
+
+/* Keep the label aligned to the top */
+top: 0;
+
+/* Create a flexible box that centers content vertically and horizontally */
+display: flex;
+align-items: center;
+justify-content: center;
+
+/* Sort of an arbitrary number; adjust to your liking */
+font-size: 15px;
+font-weight:bold;
+`
+
 class TimelineTimer extends React.Component {
 
     constructor (props) {
@@ -32,6 +51,7 @@ class TimelineTimer extends React.Component {
         };
 
         this.interval = null;
+        this.intervalTop = null;
         this.clickPlayHandler = this.clickPlayHandler.bind(this);
         this.clickPauseHandler = this.clickPauseHandler.bind(this);
         this.changeHandler = this.changeHandler.bind(this);
@@ -42,18 +62,20 @@ class TimelineTimer extends React.Component {
             alert('Value needs to be between the range of 5-60 seconds')
         }else{
             this.interval = setInterval(()=>{
-                // if(this.state.countdown === -1){
-                //     this.setState({
-                //         countdown:this.state.value
-                //     })
-                // }else{
-                //     this.setState({
-                //         countdown:countdown - 1
-                //     })
-                // }
                 this.props.nextDate('next-date',this.state.intervalId, this.interval);
             }, this.state.value * 1000)
 
+            this.interval2 = setInterval(()=>{
+                if(this.state.countdown - 1 === 0){
+                    this.setState({
+                        countdown:this.state.value
+                    })
+                }else{
+                    this.setState({
+                        countdown:this.state.countdown - 1
+                    })
+                }
+            }, 1000)
             this.setState({
                 intervalId:this.interval,
                 playIcon:false
@@ -64,8 +86,10 @@ class TimelineTimer extends React.Component {
     clickPauseHandler(e){
         clearInterval(this.state.intervalId)
         clearInterval(this.interval)
+        clearInterval(this.interval2)
         this.setState({
-            playIcon:true
+            playIcon:true,
+            countdown:this.state.value,
         })
     }
 
@@ -79,65 +103,24 @@ class TimelineTimer extends React.Component {
     render(){
         return(
             <>
-                {!this.state.playIcon && <Timer value={this.state.value}/>}
+                {/* {!this.state.playIcon && <div style={{marginRight:'15px', fontSize:'20px', fontWeight:'bold'}}>Countdown: {this.state.countdown}</div>} */}
+                {!this.state.playIcon && <div class="base-timer" style={{position:'relative', height:'37px', width:'37px'}}>
+                    <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <g class="base-timer__circle" style={{fill:'none', stroke:'none'}}>
+                        <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" style={{strokeWidth:'10px', stroke:'green'}}/>
+                        </g>
+                    </svg>
+                    <TimerLabel>{this.state.countdown}</TimerLabel>
+                </div>}
                 <div style={{display:"flex", marginRight:'20px', width:'113px', justifyContent:'space-between'}}>
-                    <Input type="number" min="5" max="60" value={this.state.value} onChange={this.changeHandler}/>
+                    {this.state.playIcon && <Input type="number" min="5" max="60" value={this.state.value} onChange={this.changeHandler}/>}
                     {this.state.playIcon && <Button onClick={this.clickPlayHandler}><FaPlay/></Button>}
+                    {!this.state.playIcon && <Input type="number" min="5" max="60" value={this.state.value} onChange={this.changeHandler} disabled/>}
                     {!this.state.playIcon && <Button onClick={this.clickPauseHandler}><FaPause/></Button>}
                 </div>
             </>
         )
     }
 }
-
-// const TimelineTimer = forwardRef((props, ref) =>{
-
-//     const [value, setValue] = useState(5)
-//     const [playIcon, setIcon] = useState(true);
-//     const [intervalId, setIntervalId] = useState();
-//     var interval;
-
-//     useImperativeHandle(ref, ()=>({
-//         clickPauseHandler(e){
-//             clearInterval(intervalId)
-//             clearInterval(interval)
-//             setIcon(true)
-//         }
-//     }))
-
-//     function changeHandler(e){
-//         setValue(e.target.value)
-//     }
-
-//     function clickPlayHandler(e){
-
-//         if(value < 5 || value > 60){
-//             alert('Value needs to be between the range of 5-60 seconds')
-//         }else{
-//             console.log(props)
-//             interval = setInterval(()=>{
-//                 props.nextDate('next-date',intervalId, interval, setIcon);
-//             }, value * 1000)
-//             setIntervalId(interval)
-//             setIcon(false)
-//         }
-//     }
-
-    
-//     return(
-//         <div style={{display:"flex", marginRight:'20px', width:'113px', justifyContent:'space-between'}}>
-//             <Input type="number" min="5" max="60" value={value} onChange={changeHandler}/>
-//             {playIcon && <Button onClick={clickPlayHandler}><FaPlay/></Button>}
-//             {!playIcon && <Button><FaPause/></Button>}
-//         </div>
-//     )
-//     // return(
-//     //     <div style={{display:"flex", marginRight:'20px', width:'113px', justifyContent:'space-between'}}>
-//     //         <Input type="number" min="5" max="60" value={value} onChange={changeHandler}/>
-//     //         {playIcon && <Button onClick={clickPlayHandler}><FaPlay/></Button>}
-//     //         {!playIcon && <Button onClick={clickPauseHandler}><FaPause/></Button>}
-//     //     </div>
-//     // )
-// })
 
 export default TimelineTimer
