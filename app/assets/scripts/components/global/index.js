@@ -217,6 +217,7 @@ class GlobalExplore extends React.Component {
     // Ref to the map component to be able to trigger a resize when the panels
     // are shown/hidden.
     this.mbMapRef = React.createRef();
+    this.timelineRef = React.createRef();
 
     // Set query state definition for url state storing.
     const common = getCommonQsState(props);
@@ -344,6 +345,9 @@ class GlobalExplore extends React.Component {
 
   onPanelAction (action, payload) {
     this.count = 0;
+    if(this.state.activeLayers.length > 0 && action === 'layer.toggle'){
+      this.timelineRef.current.nextDate('layer-toggle');
+    }
     handlePanelAction.call(this, action, payload);
     if(action === 'layer.toggle'){
       const layers = this.getLayersWithState();
@@ -481,6 +485,7 @@ class GlobalExplore extends React.Component {
                 {this.count === 2 && !localStorage.getItem(popup_lr) && <Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={3000} whichPop={popup_lr}/>}
                 {!!activeTimeseriesLayers.length && this.count === 2 && !localStorage.getItem(popup_tline) && <Popups value={['This is Timeline. Scroll to render layers based on different dates.']} place={'bottom-left'} timer={4000} whichPop={popup_tline}/>}
                 <Timeline
+                  ref={this.timelineRef}
                   isActive={!!activeTimeseriesLayers.length}
                   layers={activeTimeseriesLayers}
                   date={this.state.timelineDate}

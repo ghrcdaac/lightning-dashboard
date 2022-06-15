@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import T from 'prop-types';
 import styled, { css } from 'styled-components';
 import { add, sub, format, isSameMonth, isSameDay } from 'date-fns';
@@ -140,8 +140,12 @@ class Timeline extends React.Component {
   constructor (props) {
     super(props);
 
+    this.nextDate = this.nextDate.bind(this);
+    this.timerRef = React.createRef();
+
     this.state = {
-      isExpanded: true
+      isExpanded: true,
+      nextDisabled:false,
     };
   }
 
@@ -152,6 +156,28 @@ class Timeline extends React.Component {
     ) {
       this.props.onSizeChange && this.props.onSizeChange();
     }
+  }
+
+  nextDate(action, intervalId, interval){
+    
+    const { date, onAction, isActive, layers } = this.props;
+    if (!isActive) return null;
+    const dateDomain = layers[0].domain.map(utcDate);
+    const swatch = layers[0].swatch.color;
+    const id = layers[0].id;
+    const timeUnit = layers[0].timeUnit || 'month';
+    const disabled = !date || checkSameDate(date, dateDomain[dateDomain.length - 1], timeUnit)
+
+    if(action === 'next-date'){
+      if(!disabled){
+        this.props.onAction('date.set', { date: getNextDate(dateDomain, date, timeUnit) })
+      }else{
+        this.timerRef.current.clickPauseHandler();
+      }
+    }else if(action === 'layer-toggle'){
+      this.timerRef.current.clickPauseHandler();
+    }
+
   }
 
   render () {
@@ -187,7 +213,7 @@ class Timeline extends React.Component {
             </ExploreDataBrowserTitle>
           </ExploreDataBrowserHeadline>
           <ExploreDataBrowserActions>
-            {/* <TimelineTimer/> */}
+            <TimelineTimer nextDate={this.nextDate} nextDisabled={this.state.nextDisabled} ref={this.timerRef}/>
             <CurrentDate>
               {date ? formatDate(date, timeUnit) : 'Select date'}
             </CurrentDate>
