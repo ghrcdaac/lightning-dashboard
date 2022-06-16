@@ -114,6 +114,8 @@ class MbMap extends React.Component {
     this.markerHandler = this.markerHandler.bind(this);
     this.markerBackground = this.markerBackground.bind(this);
     this.calendarHandler = this.calendarHandler.bind(this);
+    this.addLayer = this.addLayer.bind(this);
+    this.removeLayer = this.removeLayer.bind(this);
     
   }
 
@@ -390,6 +392,17 @@ class MbMap extends React.Component {
       );
       
     } 
+  }
+
+  addLayer(){
+
+  }
+
+  removeLayer(id){
+    if(this.mbMapComparing !== null && this.mbMapComparing.getSource(id) !== null && typeof this.mbMapComparing.getSource(id) !== 'undefined'){
+      this.mbMapComparing.removeLayer(id)
+      this.mbMapComparing.removeSource(id)
+    }
   }
 
   markerHandler(){

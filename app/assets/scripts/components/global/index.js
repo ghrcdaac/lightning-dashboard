@@ -377,12 +377,15 @@ class GlobalExplore extends React.Component {
   }
 
   baselineId(id){
+    if(this.state.comparingId !== null) this.mbMapRef.current.removeLayer(this.state.comparingId);
+    
     this.setState({
       prevComparingId:this.state.comparingId,
       comparingId:id,
       baselineDate:'null'
     })
     //handlePanelAction.call(this, 'layer.compare', get_layer(this.state.comparingId, getGlobalLayers()))
+    
     toggleLayerCompare.call(this,get_layer(id, getGlobalLayers()));
   }
 
