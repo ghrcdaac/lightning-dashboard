@@ -77,7 +77,7 @@ class LayerDataLoader extends React.Component {
     dataset.push(datasets('TRMM LIS Daily', '2013-01', '2013-12', aws_annual_link,'day', "Shows the daily mean flash rate density throughout 1998 to 2013."));
     // dataset.push(datasets('NALMA Source Density', '2013-01', '2013-12', null, 'month', "The North Alabama Lightning Mapping Array (NALMA) data are used to validate the Lightning Imaging Sensor (LIS) on the International Space Station (ISS), the Geostationary Lightning Mapper (GLM) instrument, and other current and future lightning measurements."));
     // dataset.push(datasets('NALMA Flash Extent Density', '2013-01', '2013-12', null, 'month', "The North Alabama Lightning Mapping Array (NALMA) data are used to validate the Lightning Imaging Sensor (LIS) on the International Space Station (ISS), the Geostationary Lightning Mapper (GLM) instrument, and other current and future lightning measurements."));
-    console.log('v9')
+    console.log('v11')
     storeSpotlightLayers('global', dataset);
     this.props.onReady();
   }

@@ -141,6 +141,7 @@ class Timeline extends React.Component {
     super(props);
 
     this.nextDate = this.nextDate.bind(this);
+    this.clickPause = this.clickPause.bind(this);
     this.timerRef = React.createRef();
 
     this.state = {
@@ -172,12 +173,18 @@ class Timeline extends React.Component {
       if(!disabled){
         this.props.onAction('date.set', { date: getNextDate(dateDomain, date, timeUnit) })
       }else{
+        //this.clickPause();
         this.timerRef.current.clickPauseHandler();
       }
     }else if(action === 'layer-toggle'){
+      //this.clickPause();
       this.timerRef.current.clickPauseHandler();
     }
 
+  }
+
+  clickPause(){
+    this.timerRef.current.clickPauseHandler();
   }
 
   render () {

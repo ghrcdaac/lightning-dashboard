@@ -26,9 +26,15 @@ const Marker = ({ children, feature, background, onClick }) => {
     // console.log(background)
     return (
       <>
+      {feature.type === 'image' &&      
       <Button onClick={_onClick} className="marker" background={background}>
         {children}
+      </Button>}
+      {feature.type === 'video' &&
+      <Button onClick={_onClick} className="marker" background={"https://i.ytimg.com/vi/k5iTj6jRJzY/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA1eLIhGfVQ6oiLLu-JZgmK57ZNOg"}>
+        {children}
       </Button>
+      }
       {modal && <Modal feature={feature} background={background} onClick={()=>setModal(false)}/>}
       </>
     );

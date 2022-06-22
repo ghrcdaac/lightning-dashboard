@@ -17,8 +17,8 @@ width: 100%;
 background: #fff;
 border-radius: 5px;
 padding: 0 65px 0 45px;
-box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
-margin-bottom:1px;
+box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
+margin-bottom:0.8px;
 input{
     //-webkit-appearance: none;
     width: 100%;
@@ -93,6 +93,7 @@ const BaselineToggle = (props) =>{
     const [value, setValue] = useState('Datasets');
     const [calendar, setCalendar] = useState(false);
     const [date, setDate] = useState('');
+    // const [color, setColor] = useState('black');
     //var value = 'Datasets';
 
     const onToggleClick = () =>{

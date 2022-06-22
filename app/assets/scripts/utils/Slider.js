@@ -21,7 +21,7 @@ z-index:1000;
 
 const Inner_container = styled.div`
 background-color: #fff;
-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 border-radius: 3px;
 padding: 10px;
 margin-bottom: 10px;
@@ -86,8 +86,8 @@ width: 100%;
 background: #fff;
 border-radius: 5px;
 padding: 0 65px 0 45px;
-box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
-margin-bottom:1px;
+box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
+margin-bottom:0.8px;
 input{
     //-webkit-appearance: none;
     width: 100%;

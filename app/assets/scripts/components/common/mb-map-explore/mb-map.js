@@ -327,19 +327,24 @@ class MbMap extends React.Component {
 
     const atv = this.props.activeLayers[0]
     const lyrs = this.props.layers
-    var passLayer = null;
+    var toggleLayer = null;
+    var compareLayer = null;
 
     lyrs.forEach((element)=>{
       if(element.id === this.props.comparingId){
-        passLayer = element;
+        compareLayer = element;
+      }
+      if(element.id === atv){
+        toggleLayer = element;
       }
     })
 
-    if(this.props.comparing) this.props.toggleCompare(passLayer)
+    if(this.props.comparing) this.props.toggleCompare(compareLayer)
+    //this.props.toggleCompare(passLayer)
 
     this.props.mapStyle();
     this.mbMap.remove()
-    this.initMap(passLayer)
+    this.initMap(toggleLayer)
 
     if(typeof this.mbMapComparing !== 'undefined' && this.mbMapComparing !== null){
       this.mbMapComparing.remove()
@@ -354,20 +359,7 @@ class MbMap extends React.Component {
     const comparingLayer = find(this.props.layers, 'comparing');
     const tile = baseline_link(this.props.layers, this.props.comparingId, dateString)
     const layer = get_layer(this.props.comparingId, this.props.layers)
-    // if(this.mbMap.style.sourceCaches[this.props.activeLayers[0]] && this.props.comparing){
-    //   this.mbMapComparing.getSource(this.props.activeLayers[0]).tiles = tile
-    //   this.mbMapComparing.style.sourceCaches[this.props.activeLayers[0]].clearTiles();
-    //   this.mbMapComparing.style.sourceCaches[this.props.activeLayers[0]].update(this.mbMap.transform);
-    //   this.mbMapComparing.triggerRepaint();
-    // }
-    
-    // if(this.mbMapComparing.style.sourceCaches[comparingLayer.id] && this.props.comparing){
-    //   console.log('inside if condition')
-    //   this.mbMapComparing.getSource(comparingLayer.id).tiles = tile
-    //   this.mbMapComparing.style.sourceCaches[comparingLayer.id].clearTiles();
-    //   this.mbMapComparing.style.sourceCaches[comparingLayer.id].update(this.mbMap.transform);
-    //   this.mbMapComparing.triggerRepaint();
-    // }
+
     if(this.mbMapComparing.getSource(this.props.comparingId)){
       this.mbMapComparing.getSource(this.props.comparingId).tiles = tile
       this.mbMapComparing.style.sourceCaches[this.props.comparingId].clearTiles();
@@ -514,7 +506,9 @@ class MbMap extends React.Component {
           comparing: false
         });
       }
-      if(passLayer) this.props.updateToggleLayer(passLayer);
+      if(passLayer){
+        this.props.updateToggleLayer(passLayer);
+      }
     });
 
     this.mbMap.on('moveend', (e) => {

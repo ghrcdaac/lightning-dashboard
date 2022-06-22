@@ -323,6 +323,11 @@ class GlobalExplore extends React.Component {
       mapStyle:"mapbox://styles/mapbox/satellite-streets-v11",
       activeLayers:[],
     })
+
+    if(this.state.activeLayers.length > 0){
+      this.timelineRef.current.clickPause();
+    }
+
   }
   
   updateToggleLayer(passLayer){

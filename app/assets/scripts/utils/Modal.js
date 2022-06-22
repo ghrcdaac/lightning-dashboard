@@ -103,9 +103,18 @@ const Modal = (props) =>{
                 <Button onClick={()=>props.onClick()} title="Close">
                     &#9587;
                 </Button>
+                {geoJson.fieldCampaignImages[index].type === 'image' &&
                 <div style={{backgroundImage:'url('+geoJson.fieldCampaignImages[index].imageURL+')', backgroundRepeat:'no-repeat', borderRadius:'15px', justifyContent:'center', alignItems:'center', maxHeight:'90%', maxWidth:'90%'}}>
                     <img src={geoJson.fieldCampaignImages[index].imageURL} style={{visibility:'hidden', maxHeight:'90%', maxWidth:'90%'}}/>
                 </div>
+                }
+                {geoJson.fieldCampaignImages[index].type === 'video' &&
+                <div style={{justifyContent:'center', alignItems:'center', maxHeight:'100%', maxWidth:'100%'}}>
+                    {/* <img src={BackgroundData[index]} style={{visibility:'hidden', maxHeight:'100%', maxWidth:'100%'}}/> */}
+                    {/* <video src='https://www.youtube.com/watch?v=V3-Ex0WOrI8' type="video/mp4" controls/> */}
+                    <ReactPlayer url={geoJson.fieldCampaignImages[index].imageURL} controls />
+                </div>                    
+                }
                 <Backward onClick={backwardHandler} title="Previous">&#8249;</Backward>
                 <Forward onClick={forwardHandler} title="Next">&#8250;</Forward>
             </ModalBackground>        
