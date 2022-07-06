@@ -489,7 +489,7 @@ class GlobalExplore extends React.Component {
                 /> 
                 {/* <MapButton mapStyle={this.mapStyle}/> */}
                 <PopupButton /> 
-                {this.count === 2 && !localStorage.getItem(popup_lr) && < Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
+                {this.count === 2 && !localStorage.getItem(popup_lr) && < Popups value={['Hey, Welcome to Light Dash']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
                 {this.count === 2 && !localStorage.getItem(popup_lr) && <Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={3000} whichPop={popup_lr}/>}
                 {!!activeTimeseriesLayers.length && this.count === 2 && !localStorage.getItem(popup_tline) && <Popups value={['This is Timeline. Scroll to render layers based on different dates.']} place={'bottom-left'} timer={4000} whichPop={popup_tline}/>}
                 <Timeline

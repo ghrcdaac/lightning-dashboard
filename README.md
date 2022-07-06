@@ -1,4 +1,4 @@
-# Lightning Dashboard
+# Light Dash
 
 
 

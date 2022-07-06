@@ -33,6 +33,7 @@ export const PanelBlockBody = styled.div`
   display: flex;
   flex-flow: column nowrap;
   flex: 1;
+  margin-top:10px;
 `;
 
 export const PanelBlockScroll = styled(ShadowScrollbar)`

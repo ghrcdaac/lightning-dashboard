@@ -2,7 +2,7 @@
 
 import React from 'react';
 import T from 'prop-types';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import get from 'lodash.get';
 
 import {
@@ -18,24 +18,132 @@ import { Accordion } from './accordion';
 import Slider from '../../utils/Slider';
 import MarkerToggle from '../../utils/MarkerToggle';
 import BaselineToggle from '../../utils/BaselineToggle'
+import {FiExternalLink} from '../../../../../node_modules/react-icons/fi'
+import LINK_DATA from '../../data/links';
+
+const COLOR = '#2276AC';
 
 const PanelBlockLayer = styled(PanelBlock)`
   flex: 2;
 `;
 
+const TitleBlock = styled.div`
+display:flex;
+justify-content:space-around;
+//background-color:red;
+width:100%;
+transition:slideRight 0.6s ease;
+`
+const TitleName = styled.div`
+text-align:center;
+:hover{
+  cursor:pointer;
+}
+transition:1s;
+left:0;
+
+`
+const LayerTitle = styled.div`
+display:flex;
+flex-direction:column;
+width:50%;
+margin-right:10px;
+transition:1s;
+left:0;
+justify-content:center;
+align-items:center;
+//color:#1da1f2;
+transition:slideRight 0.6s ease;
+`
+
+const LinkTitle = styled.div`
+display:flex;
+flex-direction:column;
+width:50%;
+margin-left:10px;
+transition:1s;
+left:0;
+justify-content:center;
+align-items:center;
+`
+const BottomLine = styled.div`
+width:124%;
+height:3px;
+background-color:grey;
+transition:1s;
+left:0;
+justify-content:center;
+align-items:center;
+background-color:#2276AC;
+position:relative;
+top:10px;
+transition: all 0.3s ease-in-out;
+`
+const LinkContainer = styled.div`
+//background-color:red;
+padding-top:5px;
+`
+
+const Link = styled.div`
+padding-bottom:15px;
+padding-left:15px;
+padding-right:15px;
+//background-color:white;
+font-weight:bold;
+`
+
+const slideRight = keyframes`
+from{
+left:0px;
+}
+to{
+left:50px;
+}
+`;
+
 class DataLayersBlock extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      layer:true
+    };  
+    
+    this.layerHandler = this.layerHandler.bind(this);
+    this.linkHandler = this.linkHandler.bind(this);
+  }
+
+  layerHandler(){
+    this.setState({layer:true})
+  }
+  linkHandler(){
+    this.setState({layer:false})
+  }
 
   render () {
     const { onAction, layers, mapLoaded,tileOpacity, toggleHandler, baselineHandler, baselineId, activeLayers, comparing, comparingId, calendarStatus } = this.props;
-
+    
     return (
       <PanelBlockLayer>
         <PanelBlockHeader>
-          <PanelBlockTitle>Layers</PanelBlockTitle>
+          <PanelBlockTitle>
+            <TitleBlock>
+              <LayerTitle>
+                {this.state.layer && <TitleName onClick={this.layerHandler} style={{color:COLOR}}>Layers</TitleName>}
+                {this.state.layer && <BottomLine></BottomLine>}
+                {!this.state.layer && <TitleName onClick={this.layerHandler}>Layers</TitleName>}
+              </LayerTitle>
+              <LinkTitle>
+                {!this.state.layer && <TitleName onClick={this.linkHandler} style={{color:COLOR}}>Links</TitleName>}
+                {!this.state.layer && <BottomLine></BottomLine>}
+                {this.state.layer && <TitleName onClick={this.linkHandler}>Links</TitleName>}
+              </LinkTitle>
+            </TitleBlock>
+          </PanelBlockTitle>
         </PanelBlockHeader>
         <PanelBlockBody>
           <PanelBlockScroll>
-            <Accordion>
+            {this.state.layer && <Accordion>
               {({ checkExpanded, setExpanded }) => (
                 <ol>
                   {layers.map((l, idx) => (
@@ -65,11 +173,19 @@ class DataLayersBlock extends React.Component {
                   ))}
                 </ol>
               )}
-            </Accordion>
-            <Slider slideHandler={tileOpacity}/>
-            <MarkerToggle toggleHandler={toggleHandler}/>
-            <BaselineToggle calendarStatus={calendarStatus} layers={layers} activeLayers={activeLayers} comparing={comparing} baselineHandler={baselineHandler} comparingId={comparingId} baselineId={baselineId}/>
-            {/* <BaselineToggle layers={layers} activeLayers={activeLayers} comparing={comparing} baselineHandler={baselineHandler} comparingId={comparingId} baselineId={baselineId} onCompareClick={(i)=>onAction('layer.compare', layers[i])} /> */}
+            </Accordion>}
+            { this.state.layer && <Slider slideHandler={tileOpacity}/>}
+            { this.state.layer && <BaselineToggle calendarStatus={calendarStatus} layers={layers} activeLayers={activeLayers} comparing={comparing} baselineHandler={baselineHandler} comparingId={comparingId} baselineId={baselineId}/>}
+            {!this.state.layer &&
+            <LinkContainer>
+              {LINK_DATA.links.map((link)=>(
+              <Link>
+                <FiExternalLink/>
+                <a style={{marginLeft:'10px'}} href={link.link} target="_blank">{link.name}</a>
+              </Link>
+              ))}
+            </LinkContainer>
+            }
           </PanelBlockScroll>
         </PanelBlockBody>
       </PanelBlockLayer>

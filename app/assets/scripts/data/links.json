@@ -1,0 +1,21 @@
+{
+    "links":[
+        {
+            "name":"GHRC",
+            "link":"https://ghrc.nsstc.nasa.gov/home/"
+        },
+        {
+            "name":"Lightning Dashboard",
+            "link":"http://lightning-dashboard-playground.s3-website-us-east-1.amazonaws.com/"
+        },
+        {
+            "name":"FCX",
+            "link":"https://ghrc.earthdata.nasa.gov/fcx/index.html"
+        },
+        {
+            "name":"EarthDataSearch",
+            "link":"https://search.earthdata.nasa.gov/search"
+        }
+        
+    ]
+}

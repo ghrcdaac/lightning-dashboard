@@ -78,7 +78,6 @@ const LayerTitle = styled.h1`
   }
 `;
 
-
 const Range = styled.div`
 height: 65px;
 //position:absolute;

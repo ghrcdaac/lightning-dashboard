@@ -44,7 +44,7 @@ input&:after{
 const LayerSwatch = styled.span`
   position: absolute;
   height:4.3rem;
-  top: 31.3rem;
+  top: 27.3rem;
   left: 0.125rem;
   bottom: 0.125rem;
   width: 0.25rem;
