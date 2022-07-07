@@ -1,20 +1,12 @@
 {
     "links":[
         {
-            "name":"GHRC",
-            "link":"https://ghrc.nsstc.nasa.gov/home/"
+            "name":"TRMM LIS (DOI)",
+            "link":"https://dx.doi.org/10.5067/LIS/LIS/DATA304"
         },
         {
-            "name":"Lightning Dashboard",
-            "link":"http://lightning-dashboard-playground.s3-website-us-east-1.amazonaws.com/"
-        },
-        {
-            "name":"FCX",
-            "link":"https://ghrc.earthdata.nasa.gov/fcx/index.html"
-        },
-        {
-            "name":"EarthDataSearch",
-            "link":"https://search.earthdata.nasa.gov/search"
+            "name":"NALMA (DOI)",
+            "link":"https://cmr.earthdata.nasa.gov/search/concepts/C2023025142-GHRC_DAAC.html"
         }
         
     ]
