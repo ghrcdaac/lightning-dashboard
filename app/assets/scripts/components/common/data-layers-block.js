@@ -54,6 +54,19 @@ justify-content:center;
 align-items:center;
 //color:#1da1f2;
 transition:slideRight 0.6s ease;
+-webkit-animation: fadein 3s;
+-moz-animation: fadein 3s; 
+-ms-animation: fadein 3s;
+-o-animation: fadein 3s; 
+animation: fadein 3s; 
+
+:hover{
+  color:#2276AC;
+}
+@keyframes fadein {
+    from { background-color: blue; }
+    to   { background-color: red; }
+}
 `
 
 const LinkTitle = styled.div`
@@ -65,19 +78,42 @@ transition:1s;
 left:0;
 justify-content:center;
 align-items:center;
+:hover{
+  color:#2276AC;
+}
 `
 const BottomLine = styled.div`
 width:124%;
 height:3px;
 background-color:grey;
-transition:1s;
-left:0;
+//transition:1s;
+left:${(props)=>props.left};
 justify-content:center;
 align-items:center;
 background-color:#2276AC;
 position:relative;
 top:10px;
-transition: all 0.3s ease-in-out;
+-webkit-animation: ${(props)=>props.animation};
+-moz-animation: ${(props)=>props.animation}; 
+-ms-animation: ${(props)=>props.animation};
+-o-animation: ${(props)=>props.animation}; 
+animation: ${(props)=>props.animation}; 
+
+@keyframes fadein {
+  0% { left:0px }
+  25% { left:34.5px }
+  50% {left:69px}
+  75% {left:103.5px}
+  100% {left:138px}
+}
+
+@keyframes fadeout {
+  0% { left:138px }
+  25% {left:103.5px}
+  50% {left:69px}
+  75% { left:34.5px }
+  100% { left:0px }
+}
 `
 const LinkContainer = styled.div`
 //background-color:red;
@@ -94,10 +130,10 @@ font-weight:bold;
 
 const slideRight = keyframes`
 from{
-left:0px;
+background-color:blue;
 }
 to{
-left:50px;
+background-color:red;
 }
 `;
 
@@ -106,7 +142,9 @@ class DataLayersBlock extends React.Component {
     super(props);
 
     this.state = {
-      layer:true
+      layer:true,
+      animation:'null',
+      left:'0px'
     };  
     
     this.layerHandler = this.layerHandler.bind(this);
@@ -114,10 +152,10 @@ class DataLayersBlock extends React.Component {
   }
 
   layerHandler(){
-    this.setState({layer:true})
+    this.setState({layer:true,animation:'fadeout 0.3s;', left:'0px'})
   }
   linkHandler(){
-    this.setState({layer:false})
+    this.setState({layer:false,animation:'fadein 0.3s;', left:'138px'})
   }
 
   render () {
@@ -130,12 +168,12 @@ class DataLayersBlock extends React.Component {
             <TitleBlock>
               <LayerTitle>
                 {this.state.layer && <TitleName onClick={this.layerHandler} style={{color:COLOR}}>Layers</TitleName>}
-                {this.state.layer && <BottomLine></BottomLine>}
                 {!this.state.layer && <TitleName onClick={this.layerHandler}>Layers</TitleName>}
+                <BottomLine animation={this.state.animation} left={this.state.left}></BottomLine>
               </LayerTitle>
               <LinkTitle>
                 {!this.state.layer && <TitleName onClick={this.linkHandler} style={{color:COLOR}}>Links</TitleName>}
-                {!this.state.layer && <BottomLine></BottomLine>}
+                {/* {!this.state.layer && <BottomLine></BottomLine>} */}
                 {this.state.layer && <TitleName onClick={this.linkHandler}>Links</TitleName>}
               </LinkTitle>
             </TitleBlock>
@@ -143,7 +181,9 @@ class DataLayersBlock extends React.Component {
         </PanelBlockHeader>
         <PanelBlockBody>
           <PanelBlockScroll>
-            {this.state.layer && <Accordion>
+            <div>
+            {this.state.layer && 
+            <Accordion>
               {({ checkExpanded, setExpanded }) => (
                 <ol>
                   {layers.map((l, idx) => (
@@ -176,6 +216,7 @@ class DataLayersBlock extends React.Component {
             </Accordion>}
             { this.state.layer && <Slider slideHandler={tileOpacity}/>}
             { this.state.layer && <BaselineToggle calendarStatus={calendarStatus} layers={layers} activeLayers={activeLayers} comparing={comparing} baselineHandler={baselineHandler} comparingId={comparingId} baselineId={baselineId}/>}
+            </div>
             {!this.state.layer &&
             <LinkContainer>
               {LINK_DATA.links.map((link)=>(
