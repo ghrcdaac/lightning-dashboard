@@ -38,10 +38,10 @@ const TitleName = styled.div`
 text-align:center;
 :hover{
   cursor:pointer;
+  color:${COLOR};
 }
-transition:1s;
-left:0;
-
+//left:0;
+color:${(props)=>props.color}
 `
 const LayerTitle = styled.div`
 display:flex;
@@ -52,7 +52,7 @@ transition:1s;
 left:0;
 justify-content:center;
 align-items:center;
-//color:#1da1f2;
+color:${(props)=>props.color};
 transition:slideRight 0.6s ease;
 -webkit-animation: fadein 3s;
 -moz-animation: fadein 3s; 
@@ -62,10 +62,6 @@ animation: fadein 3s;
 
 :hover{
   color:#2276AC;
-}
-@keyframes fadein {
-    from { background-color: blue; }
-    to   { background-color: red; }
 }
 `
 
@@ -81,6 +77,7 @@ align-items:center;
 :hover{
   color:#2276AC;
 }
+color:${(props)=>props.color}
 `
 const BottomLine = styled.div`
 width:124%;
@@ -99,7 +96,7 @@ top:10px;
 -o-animation: ${(props)=>props.animation}; 
 animation: ${(props)=>props.animation}; 
 
-@keyframes fadein {
+@keyframes fadein-title {
   0% { left:0px }
   25% { left:34.5px }
   50% {left:69px}
@@ -107,7 +104,7 @@ animation: ${(props)=>props.animation};
   100% {left:138px}
 }
 
-@keyframes fadeout {
+@keyframes fadeout-title {
   0% { left:138px }
   25% {left:103.5px}
   50% {left:69px}
@@ -118,6 +115,7 @@ animation: ${(props)=>props.animation};
 const LinkContainer = styled.div`
 //background-color:red;
 padding-top:5px;
+width:17rem;
 `
 
 const Link = styled.div`
@@ -126,16 +124,43 @@ padding-left:15px;
 padding-right:15px;
 //background-color:white;
 font-weight:bold;
+width:17rem;
 `
 
-const slideRight = keyframes`
-from{
-background-color:blue;
+const LayerBody = styled.div`
+width:70%;
+`
+const LinkBody = styled.div`
+width:30%;
+`
+const MainBody = styled.div`
+display:flex;
+position:relative;
+width:25.8rem;
+//left:-280px;
+left:${(props)=>props.left};
+-webkit-animation: ${(props)=>props.animation};
+-moz-animation: ${(props)=>props.animation}; 
+-ms-animation: ${(props)=>props.animation};
+-o-animation: ${(props)=>props.animation}; 
+animation: ${(props)=>props.animation}; 
+
+@keyframes fadein-body {
+  0% { left:0px }
+  25% { left:-70px }
+  50% {left:-140px}
+  75% {left:-210px}
+  100% {left:-280px}
 }
-to{
-background-color:red;
+
+@keyframes fadeout-body {
+  0% {left:-280px}
+  25% {left:-210px}
+  50% {left:-140px}
+  75% { left:-70px }
+  100% { left:0px }
 }
-`;
+`
 
 class DataLayersBlock extends React.Component {
   constructor (props) {
@@ -143,8 +168,12 @@ class DataLayersBlock extends React.Component {
 
     this.state = {
       layer:true,
-      animation:'null',
-      left:'0px'
+      animationBody:'null',
+      animationTitle:'null',
+      leftTitle:'0px',
+      layerTitleColor:'#2276AC',
+      linkTitleColor:'black',
+      leftBody:'0px',
     };  
     
     this.layerHandler = this.layerHandler.bind(this);
@@ -152,10 +181,10 @@ class DataLayersBlock extends React.Component {
   }
 
   layerHandler(){
-    this.setState({layer:true,animation:'fadeout 0.3s;', left:'0px'})
+    this.setState({layer:true,animationBody:'fadeout-body 0.15s;', leftTitle:'0px', layerTitleColor:COLOR, linkTitleColor:'black', leftBody:'0px', animationTitle:'fadeout-title 0.15s'})
   }
   linkHandler(){
-    this.setState({layer:false,animation:'fadein 0.3s;', left:'138px'})
+    this.setState({layer:false,animationBody:'fadein-body 0.15s;', leftTitle:'138px', layerTitleColor:'black', linkTitleColor:COLOR, leftBody:'-280px', animationTitle:'fadein-title 0.15s'})
   }
 
   render () {
@@ -167,66 +196,71 @@ class DataLayersBlock extends React.Component {
           <PanelBlockTitle>
             <TitleBlock>
               <LayerTitle>
-                {this.state.layer && <TitleName onClick={this.layerHandler} style={{color:COLOR}}>Layers</TitleName>}
-                {!this.state.layer && <TitleName onClick={this.layerHandler}>Layers</TitleName>}
-                <BottomLine animation={this.state.animation} left={this.state.left}></BottomLine>
+                <TitleName onClick={this.layerHandler} color={this.state.layerTitleColor}>Layers</TitleName>
+                <BottomLine animation={this.state.animationTitle} left={this.state.leftTitle}></BottomLine>
               </LayerTitle>
               <LinkTitle>
-                {!this.state.layer && <TitleName onClick={this.linkHandler} style={{color:COLOR}}>Links</TitleName>}
-                {/* {!this.state.layer && <BottomLine></BottomLine>} */}
-                {this.state.layer && <TitleName onClick={this.linkHandler}>Links</TitleName>}
+                <TitleName onClick={this.linkHandler} color={this.state.linkTitleColor}>Links</TitleName>
               </LinkTitle>
             </TitleBlock>
           </PanelBlockTitle>
         </PanelBlockHeader>
         <PanelBlockBody>
           <PanelBlockScroll>
-            <div>
-            {this.state.layer && 
-            <Accordion>
-              {({ checkExpanded, setExpanded }) => (
-                <ol>
-                  {layers.map((l, idx) => (
-                    <li key={l.id}>
-                      <Layer
-                        id={l.id}
-                        label={l.name}
-                        disabled={!mapLoaded}
-                        type={l.type}
-                        active={l.visible}
-                        swatchColor={get(l, 'swatch.color')}
-                        swatchName={get(l, 'swatch.name')}
-                        dataOrder={l.dataOrder}
-                        info={l.info}
-                        legend={l.legend}
-                        isExpanded={checkExpanded(idx)}
-                        setExpanded={v => setExpanded(idx, v)}
-                        onToggleClick={() => onAction('layer.toggle', l)}
-                        onLegendKnobChange={(payload) => onAction('layer.legend-knob', { id: l.id, ...payload })}
-                        knobPos={l.knobPos}
-                        compareEnabled={!!l.compare}
-                        compareActive={l.comparing}
-                        compareHelp={get(l, 'compare.help')}
-                        onCompareClick={() => onAction('layer.compare', l)}
-                      />
-                    </li>
+            <MainBody left={this.state.leftBody} animation={this.state.animationBody}>
+              <LayerBody>
+                <Accordion>
+                  {({ checkExpanded, setExpanded }) => (
+                    <ol>
+                      {layers.map((l, idx) => (
+                        <li key={l.id}>
+                          <Layer
+                            id={l.id}
+                            label={l.name}
+                            disabled={!mapLoaded}
+                            type={l.type}
+                            active={l.visible}
+                            swatchColor={get(l, 'swatch.color')}
+                            swatchName={get(l, 'swatch.name')}
+                            dataOrder={l.dataOrder}
+                            info={l.info}
+                            legend={l.legend}
+                            isExpanded={checkExpanded(idx)}
+                            setExpanded={v => setExpanded(idx, v)}
+                            onToggleClick={() => onAction('layer.toggle', l)}
+                            onLegendKnobChange={(payload) => onAction('layer.legend-knob', { id: l.id, ...payload })}
+                            knobPos={l.knobPos}
+                            compareEnabled={!!l.compare}
+                            compareActive={l.comparing}
+                            compareHelp={get(l, 'compare.help')}
+                            onCompareClick={() => onAction('layer.compare', l)}
+                          />
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                </Accordion>
+                <Slider slideHandler={tileOpacity}/>
+                  <BaselineToggle 
+                  calendarStatus={calendarStatus} 
+                  layers={layers} 
+                  activeLayers={activeLayers} 
+                  comparing={comparing} 
+                  baselineHandler={baselineHandler} 
+                  comparingId={comparingId} 
+                  baselineId={baselineId}/>
+              </LayerBody>
+              <LinkBody>
+                <LinkContainer>
+                  {LINK_DATA.links.map((link)=>(
+                  <Link key={link.name}>
+                    <FiExternalLink/>
+                    <a style={{marginLeft:'10px'}} href={link.link} target="_blank">{link.name}</a>
+                  </Link>
                   ))}
-                </ol>
-              )}
-            </Accordion>}
-            { this.state.layer && <Slider slideHandler={tileOpacity}/>}
-            { this.state.layer && <BaselineToggle calendarStatus={calendarStatus} layers={layers} activeLayers={activeLayers} comparing={comparing} baselineHandler={baselineHandler} comparingId={comparingId} baselineId={baselineId}/>}
-            </div>
-            {!this.state.layer &&
-            <LinkContainer>
-              {LINK_DATA.links.map((link)=>(
-              <Link>
-                <FiExternalLink/>
-                <a style={{marginLeft:'10px'}} href={link.link} target="_blank">{link.name}</a>
-              </Link>
-              ))}
-            </LinkContainer>
-            }
+                </LinkContainer>
+              </LinkBody>
+            </MainBody>
           </PanelBlockScroll>
         </PanelBlockBody>
       </PanelBlockLayer>

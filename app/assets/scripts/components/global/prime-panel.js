@@ -11,9 +11,10 @@ import DataLayersBlock from '../common/data-layers-block';
 import media, { isLargeViewport } from '../../styles/utils/media-queries';
 
 const PrimePanel = styled(Panel)`
-  ${media.largeUp`
-    width: 18rem;
-  `}
+  // ${media.largeUp`
+  //   width: 18rem;
+  // `}
+  width:18rem;
 `;
 
 class ExpMapPrimePanel extends React.Component {

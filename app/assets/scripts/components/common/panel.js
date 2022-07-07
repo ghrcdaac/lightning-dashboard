@@ -99,22 +99,22 @@ const PanelOffsetActions = styled.div`
   ${({ direction }) => direction === 'right' && css`
     right: calc(100% + ${glsp(0.5)}); /* stylelint-disable-line */
 
-    ${media.mediumDown`
-      ${({ revealed }) => revealed && css`
-        right: ${glsp(0.5)};
-      `}
-    `}
+    // ${media.mediumDown`
+    //   ${({ revealed }) => revealed && css`
+    //     right: ${glsp(0.5)};
+    //   `}
+    // `}
   `}
 
   ${({ direction }) => direction === 'left' && css`
     left: calc(100% + ${glsp(0.5)}); /* stylelint-disable-line */
 
-    ${media.mediumDown`
-      ${({ revealed }) => revealed && css`
-        left: calc(100% - ${glsp(0.5)});
-        transform: translate(-100%, 0);
-      `}
-    `}
+    // ${media.mediumDown`
+    //   ${({ revealed }) => revealed && css`
+    //     left: calc(100% - ${glsp(0.5)});
+    //     transform: translate(-100%, 0);
+    //   `}
+    // `}
   `}
 `;
 

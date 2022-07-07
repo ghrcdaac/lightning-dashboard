@@ -97,23 +97,26 @@ const updateFeatureBounds = (feature, bounds) => {
     };
 };
 
+
+// ${media.mediumDown`
+// ${({ panelPrime, panelSec }) => {
+//   if (panelPrime && !panelSec) {
+//     return 'grid-template-columns: min-content 0 0;';
+//   }
+
+//   if (!panelPrime && panelSec) {
+//     return 'grid-template-columns: 0 0 min-content;';
+//   }
+// }}
+// `}
+
 const ExploreCanvas = styled.div`
   display: grid;
   height: 100%;
   grid-template-columns: min-content 1fr min-content;
   overflow: hidden;
 
-  ${media.mediumDown`
-    ${({ panelPrime, panelSec }) => {
-      if (panelPrime && !panelSec) {
-        return 'grid-template-columns: min-content 0 0;';
-      }
 
-      if (!panelPrime && panelSec) {
-        return 'grid-template-columns: 0 0 min-content;';
-      }
-    }}
-  `}
 
   > * {
     grid-row: 1;
