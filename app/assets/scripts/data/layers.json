@@ -1,0 +1,217 @@
+{
+    "layer":[
+        {
+            "backgroundSource":"null",
+            "compare":{
+                "enabled":true,
+                "help":"Compare with baseline",
+                "map_label":"{date}: Base vs Mean",
+                "source":{
+                    "tiles":["null{date}"],
+                    "type":"raster"
+                },
+                "time_unit": null,
+                "year_diff": 0
+            },
+            "domain":["2013-01-01T00:00:00Z","2013-01-01T00:00:00Z"],
+            "exclusiveWith":[],
+            "id":"TRMM LIS Full",
+            "info":"Shows the entire mean flash rate density from 1998 to 2013.",
+            "isPeriodic":true,
+            "legend":{
+                "max": null,
+                "min": null,
+                "stops":[
+                  {"color": "#F4F5D3", "label": "Exceptional"},
+                  {"color": "#794416", "label": "Favourable"},
+                  {"color": "#F3EF4F", "label": "Watch"},
+                  {"color": "#6ECC51", "label": "Few"},
+                  {"color": "#3C8EC4", "label": "Poor"}
+                ],
+                "type": "categorical" 
+            },
+            "name":"TRMM LIS Full",
+            "paint":null,
+            "source":{
+                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRFC/201301/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.325,23.426]"],
+                "type":"raster"
+            },
+            "swatch":{"color": "#C0C0C0", "name": "Grey"},
+            "timeUnit":"month",
+            "type":"raster-timeseries"
+        },
+        {
+            "backgroundSource":"null",
+            "compare":{
+                "enabled":true,
+                "help":"Compare with baseline",
+                "map_label":"{date}: Base vs Mean",
+                "source":{
+                    "tiles":["null{date}"],
+                    "type":"raster"
+                },
+                "time_unit": null,
+                "year_diff": 0
+            },
+            "domain":["2013-03-01T00:00:00Z","2013-07-01T00:00:00Z","2013-10-01T00:00:00Z","2013-12-01T00:00:00Z"],
+            "exclusiveWith":[],
+            "id":"TRMM LIS Seasonal",
+            "info":"Shows the seasonal mean flash rate density throughout 1998 to 2013.",
+            "isPeriodic":true,
+            "legend":{
+                "max": null,
+                "min": null,
+                "stops":[
+                  {"color": "#F4F5D3", "label": "Exceptional"},
+                  {"color": "#794416", "label": "Favourable"},
+                  {"color": "#F3EF4F", "label": "Watch"},
+                  {"color": "#6ECC51", "label": "Few"},
+                  {"color": "#3C8EC4", "label": "Poor"}
+                ],
+                "type": "categorical" 
+            },
+            "name":"TRMM LIS Seasonal",
+            "paint":null,
+            "source":{
+                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRSC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
+                "type":"raster"
+            },
+            "swatch":{"color": "#C0C0C0", "name": "Grey"},
+            "timeUnit":"day",
+            "type":"raster-timeseries"
+        },
+        {
+            "backgroundSource":"null",
+            "compare":{
+                "enabled":true,
+                "help":"Compare with baseline",
+                "map_label":"{date}: Base vs Mean",
+                "source":{
+                    "tiles":["null{date}"],
+                    "type":"raster"
+                },
+                "time_unit": null,
+                "year_diff": 0
+            },
+            "domain":["2013-01-01T00:00:00Z","2013-12-01T00:00:00Z"],
+            "exclusiveWith":[],
+            "id":"TRMM LIS Monthly",
+            "info":"Shows the monthly mean flash rate density throughout 1998 to 2013.",
+            "isPeriodic":true,
+            "legend":{
+                "max": null,
+                "min": null,
+                "stops":[
+                  {"color": "#F4F5D3", "label": "Exceptional"},
+                  {"color": "#794416", "label": "Favourable"},
+                  {"color": "#F3EF4F", "label": "Watch"},
+                  {"color": "#6ECC51", "label": "Few"},
+                  {"color": "#3C8EC4", "label": "Poor"}
+                ],
+                "type": "categorical" 
+            },
+            "name":"TRMM LIS Monthly",
+            "paint":null,
+            "source":{
+                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRMC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
+                "type":"raster"
+            },
+            "swatch":{"color": "#C0C0C0", "name": "Grey"},
+            "timeUnit":"month",
+            "type":"raster-timeseries"
+        },
+        {
+            "backgroundSource":"null",
+            "compare":{
+                "enabled":true,
+                "help":"Compare with baseline",
+                "map_label":"{date}: Base vs Mean",
+                "source":{
+                    "tiles":["null{date}"],
+                    "type":"raster"
+                },
+                "time_unit": null,
+                "year_diff": 0
+            },
+            "domain":[
+                    "2013-01-01T00:00:00Z","2013-01-15T00:00:00Z",
+                    "2013-02-01T00:00:00Z","2013-02-15T00:00:00Z", 
+                    "2013-03-01T00:00:00Z","2013-03-15T00:00:00Z",
+                    "2013-04-01T00:00:00Z","2013-04-15T00:00:00Z",
+                    "2013-05-01T00:00:00Z","2013-05-15T00:00:00Z",
+                    "2013-06-01T00:00:00Z","2013-06-15T00:00:00Z",
+                    "2013-07-01T00:00:00Z","2013-07-15T00:00:00Z",
+                    "2013-08-01T00:00:00Z","2013-08-15T00:00:00Z",
+                    "2013-09-01T00:00:00Z","2013-09-15T00:00:00Z",
+                    "2013-10-01T00:00:00Z","2013-10-15T00:00:00Z",
+                    "2013-11-01T00:00:00Z","2013-11-15T00:00:00Z",
+                    "2013-12-01T00:00:00Z","2013-12-15T00:00:00Z"
+                ],
+            "exclusiveWith":[],
+            "id":"TRMM LIS Diurnal",
+            "info":"Shows the (daily) hourly mean flash rate density throughout 1998 to 2013.",
+            "isPeriodic":true,
+            "legend":{
+                "max": null,
+                "min": null,
+                "stops":[
+                  {"color": "#F4F5D3", "label": "Exceptional"},
+                  {"color": "#794416", "label": "Favourable"},
+                  {"color": "#F3EF4F", "label": "Watch"},
+                  {"color": "#6ECC51", "label": "Few"},
+                  {"color": "#3C8EC4", "label": "Poor"}
+                ],
+                "type": "categorical" 
+            },
+            "name":"TRMM LIS Diurnal",
+            "paint":null,
+            "source":{
+                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRDC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.002]"],
+                "type":"raster"
+            },
+            "swatch":{"color": "#C0C0C0", "name": "Grey"},
+            "timeUnit":"day",
+            "type":"raster-timeseries"
+        },
+        {
+            "backgroundSource":"null",
+            "compare":{
+                "enabled":true,
+                "help":"Compare with baseline",
+                "map_label":"{date}: Base vs Mean",
+                "source":{
+                    "tiles":["null{date}"],
+                    "type":"raster"
+                },
+                "time_unit": null,
+                "year_diff": 0
+            },
+            "domain":["2013-01-01T00:00:00Z","2013-12-01T00:00:00Z"],
+            "exclusiveWith":[],
+            "id":"TRMM LIS Daily",
+            "info":"Shows the daily mean flash rate density throughout 1998 to 2013.",
+            "isPeriodic":true,
+            "legend":{
+                "max": null,
+                "min": null,
+                "stops":[
+                  {"color": "#F4F5D3", "label": "Exceptional"},
+                  {"color": "#794416", "label": "Favourable"},
+                  {"color": "#F3EF4F", "label": "Watch"},
+                  {"color": "#6ECC51", "label": "Few"},
+                  {"color": "#3C8EC4", "label": "Poor"}
+                ],
+                "type": "categorical" 
+            },
+            "name":"TRMM LIS Daily",
+            "paint":null,
+            "source":{
+                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRAC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
+                "type":"raster"
+            },
+            "swatch":{"color": "#C0C0C0", "name": "Grey"},
+            "timeUnit":"day",
+            "type":"raster-timeseries"
+        }
+    ]
+}

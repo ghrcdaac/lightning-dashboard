@@ -241,14 +241,14 @@ class DataLayersBlock extends React.Component {
                   )}
                 </Accordion>
                 <Slider slideHandler={tileOpacity}/>
-                  <BaselineToggle 
-                  calendarStatus={calendarStatus} 
-                  layers={layers} 
-                  activeLayers={activeLayers} 
-                  comparing={comparing} 
-                  baselineHandler={baselineHandler} 
-                  comparingId={comparingId} 
-                  baselineId={baselineId}/>
+                <BaselineToggle 
+                calendarStatus={calendarStatus} 
+                layers={layers} 
+                activeLayers={activeLayers} 
+                comparing={comparing} 
+                baselineHandler={baselineHandler} 
+                comparingId={comparingId} 
+                baselineId={baselineId}/>
               </LayerBody>
               <LinkBody>
                 <LinkContainer>
