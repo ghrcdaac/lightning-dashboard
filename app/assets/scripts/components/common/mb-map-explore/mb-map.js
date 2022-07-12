@@ -14,7 +14,6 @@ import geoJson2 from './chicago-parks2.json'
 import data2 from './data2.json';
 import Marker from '../../../utils/Marker';
 import MarkerButton from '../../../utils/MarkerButton';
-import { Background } from '../../../utils/FilteredData';
 import CalendarTag from '../../../utils/CalendarTag';
 import {date_to_string, baseline_link, get_layer} from '../../../utils/HelperMethods'
 import { replaceRasterTiles } from '../layers/types';

@@ -1,26 +1,17 @@
 import React, {useState, useRef, useEffect} from "react";
 import styled, { withTheme, ThemeProvider } from 'styled-components';
-//import { themeVal } from '../../styles/utils/general';
-import {themeVal} from '../styles/utils/general'
 import { visuallyHidden, truncated } from '../styles/helpers';
-import { FormSwitch } from "../styles/form/switch";
-import { glsp } from '../styles/utils/theme-values';
-import CalendarTag from "./CalendarTag";
-import Button from '../styles/button/button'
-import {FaCalendar} from '../../../../node_modules/react-icons/fa'
 import {VscCalendar} from '../../../../node_modules/react-icons/vsc'
 
 const Outer_Container = styled.div`
-height: 70px;
-//position:absolute;
+height: 65px;
 width: 100%;
 background: #fff;
-border-radius: 5px;
+border-bottom: 0.1px solid #E8E8E8;
 padding: 0 65px 0 45px;
-box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
 margin-bottom:0.8px;
+display:flex;
 input{
-    //-webkit-appearance: none;
     width: 100%;
     height: 3px;
     background: #ddd;
@@ -30,7 +21,6 @@ input{
     z-index: 2222;
 }
 input&:after{
-    //-webkit-appearance: none;
     width: 20px;
     height: 20px;
     background: red;
@@ -40,23 +30,6 @@ input&:after{
     cursor: pointer;
 }
 `
-
-const LayerSwatch = styled.span`
-  position: absolute;
-  height:4.3rem;
-  top: 27.3rem;
-  left: 0.125rem;
-  bottom: 0.125rem;
-  width: 0.25rem;
-  //width:10rem;
-  //background: grey;
-  background: ${({ swatch }) => swatch || themeVal('color.primary')};
-  border-radius: ${themeVal('shape.rounded')};
-
-  > * {
-    ${visuallyHidden()}
-  }
-`;
 
 const LayerTitle = styled.h1`
   ${truncated()}
@@ -71,34 +44,33 @@ const LayerTitle = styled.h1`
 `;
 
 const Body = styled.div`
-//background-color:blue;
 margin-top:5px;
 margin-left:-1.8rem;
 `
 
-const Container = styled.div`
+const MainContainer = styled.div`
 display:flex;
-justify-content:space-between;
-//background-color:red;
+height:74px;
+width:100%;
 `
-
-const SwitchDiv = styled.div`
-margin-top:0.3rem;
-margin-right:-2.5rem;
+const Swatch = styled.div`
+position:absolute;
+height:62px;
+margin-left:2px;
+margin-top:1.3px;
+border-radius: 25px;
+width:3.8px;
+z-index:999999;
+background-color:#C0C0C0;
+`
+const Main = styled.div`
+height:100%;
+width:100%;
 `
 
 const BaselineToggle = (props) =>{
 
-    const [status, setStatus] = useState(false);
     const [value, setValue] = useState('Datasets');
-    const [calendar, setCalendar] = useState(false);
-    const [date, setDate] = useState('');
-    // const [color, setColor] = useState('black');
-    //var value = 'Datasets';
-
-    const onToggleClick = () =>{
-        setStatus(!status)
-    }
 
     const changeHandler = (e) =>{
         if(e.target.value !== 'Datasets'){
@@ -110,73 +82,34 @@ const BaselineToggle = (props) =>{
     }
 
     return(
-        <Outer_Container>
-            <LayerSwatch swatch={'#C0C0C0'}>
-                <small>Color: {'Grey' || 'Grey'}</small>
-            </LayerSwatch>
-            <div style={{display:'flex'}}>
-                <div style={{display:'flex',flexDirection:'column'}}>
-                    <LayerTitle title={'Image Opacity'}>Baseline Image</LayerTitle>
-                    {(props.activeLayers.length !== 0) &&  
-                    <Body>
-                        <select name="layers" id="layers" onChange={changeHandler}>
-                            <option>Datasets</option>
-                            {props.layers.map((layer)=>(
-                                <option key={layer.id}>{layer.id}</option>
-                            ))}
-                        </select>
-                    </Body>}
-                    {props.activeLayers.length === 0 && 
-                    <Body>
-                        <h6 style={{marginTop:'0.5rem', color:'black'}}>Note: Activate layer to compare</h6>
-                    </Body>}
-                </div>
-                {(props.activeLayers.length !== 0) && (value !== 'Datasets') &&
-                <div style={{marginLeft:'10px', marginTop:'30px'}}>
-                    <button style={{backgroundColor:'transparent', border:'none', cursor:'pointer'}} onClick={()=>props.calendarStatus('calendar-button')}><VscCalendar size="30px"/></button>
-                </div>}
-            </div>
-        </Outer_Container>
+        <MainContainer>
+            <Main>
+                <Swatch/>
+                <Outer_Container>
+                        <div style={{display:'flex',flexDirection:'column'}}>
+                            <LayerTitle title={'Image Opacity'}>Baseline Image</LayerTitle>
+                            {(props.activeLayers.length !== 0) &&  
+                            <Body>
+                                <select name="layers" id="layers" onChange={changeHandler}>
+                                    <option>Datasets</option>
+                                    {props.layers.map((layer)=>(
+                                        <option key={layer.id}>{layer.id}</option>
+                                    ))}
+                                </select>
+                            </Body>}
+                            {props.activeLayers.length === 0 && 
+                            <Body>
+                                <h6 style={{marginTop:'0.5rem', color:'black'}}>Note: Activate layer to compare</h6>
+                            </Body>}
+                        </div>
+                        {(props.activeLayers.length !== 0) && (value !== 'Datasets') &&
+                        <div style={{marginLeft:'10px', marginTop:'30px'}}>
+                            <button style={{backgroundColor:'transparent', border:'none', cursor:'pointer'}} onClick={()=>props.calendarStatus('calendar-button')}><VscCalendar size="30px"/></button>
+                        </div>}
+                </Outer_Container>
+            </Main>
+        </MainContainer>
     )
-
-
-    // return(
-    //     <Outer_Container>
-    //         <LayerSwatch swatch={'#C0C0C0'}>
-    //             <small>Color: {'Grey' || 'Grey'}</small>
-    //         </LayerSwatch>
-    //         <Container>
-    //             <LayerTitle title={'Image Opacity'}>Baseline Image</LayerTitle>
-    //             {(props.activeLayers.length !== 0) && (value !== 'Datasets') &&
-    //             <div style={{marginTop:'8px', position:'relative', top:'5px'}}>
-    //                 {/* <Button
-    //                     variation='base-plain'
-    //                     size='small'
-    //                     useIcon='calendar'
-    //                     title='Calendar for Baseline Layer'
-    //                     hideText
-    //                     onClick={()=>props.calendarStatus('calendar-button')}
-    //                     >
-    //                     <span>Info</span>
-    //                 </Button> */}
-    //                 <button style={{backgroundColor:'transparent', border:'none', cursor:'pointer'}} onClick={()=>props.calendarStatus('calendar-button')}><VscCalendar size="30px"/></button>
-    //             </div>}
-    //         </Container>
-    //         {(props.activeLayers.length !== 0) &&  
-    //         <Body>
-    //             <select name="layers" id="layers" onChange={changeHandler}>
-    //                 <option>Datasets</option>
-    //                 {props.layers.map((layer)=>(
-    //                     <option key={layer.id}>{layer.id}</option>
-    //                 ))}
-    //             </select>
-    //         </Body>}
-    //         {props.activeLayers.length === 0 && 
-    //         <Body>
-    //             <h6 style={{marginTop:'0.5rem', color:'black'}}>Note: Activate layer to compare</h6>
-    //         </Body>}
-    //     </Outer_Container>
-    // )
 }
 
 export default BaselineToggle

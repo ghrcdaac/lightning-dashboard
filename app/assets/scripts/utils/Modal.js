@@ -1,7 +1,6 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 import ReactDOM from 'react-dom'
-import {Background} from './FilteredData'
 import ReactPlayer from 'react-player';
 import geoJson from '../components/common/mb-map-explore/chicago-parks2.json';
 // import ArrowRightIcon from '@mui/icons-material/ArrowRight';

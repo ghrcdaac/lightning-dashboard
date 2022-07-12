@@ -412,30 +412,28 @@ class GlobalExplore extends React.Component {
   }
 
   render () {
-    // const { spotlightList } = this.props;
     const popup_lr = 'popup-left-right'
     const popup_tline = 'popup-timeline'
 
     const layers = this.getLayersWithState();
     const activeTimeseriesLayers = this.getActiveTimeseriesLayers();
-    // const activeCogTimeseriesLayers = activeTimeseriesLayers
-    //   .filter(l => !!cogLayers[l.id]);
+
 
     // Check if there's any layer that's comparing.
     const comparingLayer = find(layers, 'comparing');
-    //console.log(comparingLayer)
     const isComparing = !!comparingLayer;
     ++this.count
+    
+    //tile pre-load feature --work on progress
+    // var img = new Image();
+    // img.src = "https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRAC/2013_01_01/LIS/2/1/2.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]";
+    // console.log(img)
+    // setInterval(()=>{
+    //   img = new Image();
+    //   img.src = "https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRAC/2013_01_01/LIS/2/1/2.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]";
+    //   console.log(img)
+    // }, 10000)
 
-    // console.log(activeTimeseriesLayers.length)
-    // const mapLabel = get(comparingLayer, 'compare.mapLabel');
-    // const compareMessage =
-    //   isComparing && mapLabel
-    //     ? typeof mapLabel === 'function'
-    //       ? mapLabel(this.state.timelineDate)
-    //       : mapLabel
-    //     : '';
-                                       
     return (
       <App hideFooter>
         <Inpage isMapCentric>

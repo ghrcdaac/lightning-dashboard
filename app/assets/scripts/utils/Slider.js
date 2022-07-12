@@ -5,51 +5,6 @@ import {themeVal} from '../styles/utils/general'
 import { visuallyHidden, truncated } from '../styles/helpers';
 import { replaceSub2 } from '../utils/format';
 
-const Outer_container = styled.div`
-font: bold 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-//position: relative;
-float:left;
-width: 100%;
-top: null;
-right:null;
-left: 0rem;
-bottom:8rem;
-padding: 10px;
-z-index:1000;
-//background-color: red;
-`;
-
-const Inner_container = styled.div`
-background-color: #fff;
-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-border-radius: 3px;
-padding: 10px;
-margin-bottom: 10px;
-border: 0.01px solid grey;
-//border: .05rem solid grey;
-`;
-
-const Input = styled.input`
--webkit-appearance: none;
-width: 100%;
-height: 5px;
-background: #ddd;
-border-radius: 10px;
-outline: none;
-border: none;
-z-index: 2222;
-margin-right:5px;
-
-`
-const Container = styled.div`
-display:flex;
-align-items:center;
-`
-const Left = styled.div`
-margin-right:5px;
-`
-const Right = styled.div`
-`
 const LayerSwatch = styled.span`
   position: absolute;
   height:70px;
@@ -83,9 +38,11 @@ height: 65px;
 //position:absolute;
 width: 100%;
 background: #fff;
-border-radius: 5px;
+//background:red;
+border-bottom: 0.1px solid #E8E8E8;
+// border-radius: 5px;
 padding: 0 65px 0 45px;
-box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
+//box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
 margin-bottom:0.8px;
 input{
     //-webkit-appearance: none;
@@ -178,6 +135,26 @@ margin-top:5px;
     //margin-top:1px;
 }
 `
+const MainContainer = styled.div`
+display:flex;
+height:74px;
+width:100%;
+//background-color:blue;
+`
+const Swatch = styled.div`
+position:absolute;
+height:69px;
+margin-left:2px;
+margin-top:2px;
+border-radius: 25px;
+width:3.8px;
+z-index:999999;
+background-color:#C0C0C0;
+`
+const Main = styled.div`
+height:100%;
+width:100%;
+`
 
 const Slider = (props) =>{
 
@@ -190,30 +167,21 @@ const Slider = (props) =>{
         props.slideHandler(e.target.value);
     }
 
-    // return( 
-    //     <Outer_container>
-    //         <Inner_container>
-    //             <label>Image opacity: <span id="slider-value">{value}%</span></label>
-    //             <input style={{width: '100%'}} onChange={changeHandler} id="slider" type="range" min="0" max="100" step="0" value={value} orient='vertical'/>
-    //         </Inner_container>
-    //     </Outer_container>
-    // )
-
-    //style={{display:'flex', justifyContent:'center', textAlign:'center', alignItems:'center'}}>
-
     return(
-        <Range>
-            <SliderValue><span>100</span></SliderValue>
-            <LayerSwatch swatch={'#C0C0C0'}>
-                <small>Color: {'Grey' || 'Grey'}</small>
-            </LayerSwatch>
-            <LayerTitle title={'Image Opacity'}>Image Opacity: {value}%</LayerTitle>
-            <Field>
-                <div className="value left">0</div>
-                <input type="range" min="0" max="100" value={value} onChange={changeHandler} steps="1"/>
-                <div className="value right">100</div>
-            </Field>
-        </Range>       
+        <MainContainer>
+            <Main>
+                <Swatch/>
+                <Range>
+                    <SliderValue><span>100</span></SliderValue>
+                    <LayerTitle title={'Image Opacity'}>Image Opacity: {value}%</LayerTitle>
+                    <Field>
+                        <div className="value left">0</div>
+                        <input type="range" min="0" max="100" value={value} onChange={changeHandler} steps="1"/>
+                        <div className="value right">100</div>
+                    </Field>
+                </Range>       
+            </Main>
+        </MainContainer>
     )
 }
 
