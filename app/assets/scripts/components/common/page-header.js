@@ -14,7 +14,7 @@ import { filterComponentProps } from '../../utils/utils';
 import { glsp } from '../../styles/utils/theme-values';
 import media from '../../styles/utils/media-queries';
 import { surfaceElevatedD } from '../../styles/skins';
-import { wrapApiResult } from '../../redux/reduxeed';
+//import { wrapApiResult } from '../../redux/reduxeed';
 import { headingAlt } from '../../styles/type/heading';
 
 import Button from '../../styles/button/button';
@@ -621,7 +621,7 @@ PageHeader.propTypes = {
 
 function mapStateToProps (state, props) {
   return {
-    spotlightList: wrapApiResult(state.spotlight.list)
+    //spotlightList: wrapApiResult(state.spotlight.list)
   };
 }
 

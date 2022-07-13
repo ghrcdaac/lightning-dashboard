@@ -3,10 +3,6 @@
 import '@babel/polyfill';
 import React,{useState} from 'react';
 import T from 'prop-types';
-import { connect } from 'react-redux';
-
-import config from './config';
-import { fetchJSON, wrapApiResult } from './redux/reduxeed';
 
 import { storeSpotlightLayers } from './components/common/layers';
 import LAYER_JSON from './data/layers';
@@ -35,10 +31,4 @@ LayerDataLoader.propTypes = {
   onReady: T.func
 };
 
-function mapStateToProps (state, props) {
-  return {
-    spotlightList: wrapApiResult(state.spotlight.list)
-  };
-}
-
-export default connect(mapStateToProps, {})(LayerDataLoader);
+export default LayerDataLoader;

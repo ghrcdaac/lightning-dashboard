@@ -5,13 +5,13 @@ import T from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import bbox from '@turf/bbox';
-import { sub } from 'date-fns';
-import get from 'lodash.get';
+//import { sub } from 'date-fns';
+//import get from 'lodash.get';
 import find from 'lodash.find';
 
 import Popups from '../../utils/Popup';
 import PopupButton from '../../utils/PopupButton';
-import MapButton from '../../utils/MapButton';
+//import MapButton from '../../utils/MapButton';
 import { get_layer, dateFormat } from '../../utils/HelperMethods';
 
 import { headingAlt } from '../../styles/type/heading';
@@ -35,15 +35,15 @@ import {
 import MbMap from '../common/mb-map-explore/mb-map';
 import Timeline from '../common/timeline';
 
-import { showGlobalLoading, hideGlobalLoading } from '../common/global-loading';
+//import { showGlobalLoading, hideGlobalLoading } from '../common/global-loading';
 import { themeVal } from '../../styles/utils/general';
 import media from '../../styles/utils/media-queries';
-import { wrapApiResult } from '../../redux/reduxeed';
-import {
-  // fetchCogTimeData as fetchCogTimeDataAction,
-  invalidateCogTimeData as invalidateCogTimeDataAction
-} from '../../redux/cog-time-data';
-import { utcDate } from '../../utils/utils';
+// import { wrapApiResult } from '../../redux/reduxeed';
+// import {
+//   // fetchCogTimeData as fetchCogTimeDataAction,
+//   invalidateCogTimeData as invalidateCogTimeDataAction
+// } from '../../redux/cog-time-data';
+//import { utcDate } from '../../utils/utils';
 import { getGlobalLayers } from '../common/layers';
 import {
   setLayerState,
@@ -224,9 +224,9 @@ class GlobalExplore extends React.Component {
 
     // Set query state definition for url state storing.
     const common = getCommonQsState(props);
-    common.layers.default = props.mapLayers
-      .filter((l) => l.enabled)
-      .map((l) => l.id);
+    // common.layers.default = props.mapLayers
+    //   .filter((l) => l.enabled)
+    //   .map((l) => l.id);
     this.qsState = new QsState({
       ...common,
       bbox: {
@@ -280,27 +280,27 @@ class GlobalExplore extends React.Component {
       panelPrime: false,
       panelSec: false,
       // Init dates for cog data according to a default.
-      cogDateRanges: Object.keys(cogLayers).reduce((acc, id) => {
-        const l = props.mapLayers.find(l => l.id === id);
-        const timeUnit = l.timeUnit || 'month';
-        const end = utcDate(l.domain[l.domain.length - 1]);
-        const domainStart = utcDate(l.domain[0]);
-        const start = timeUnit === 'month'
-          ? dateMax(sub(end, { months: 11 }), domainStart)
-          : dateMax(sub(end, { months: 2 }), domainStart);
+      // cogDateRanges: Object.keys(cogLayers).reduce((acc, id) => {
+      //   const l = props.mapLayers.find(l => l.id === id);
+      //   const timeUnit = l.timeUnit || 'month';
+      //   const end = utcDate(l.domain[l.domain.length - 1]);
+      //   const domainStart = utcDate(l.domain[0]);
+      //   const start = timeUnit === 'month'
+      //     ? dateMax(sub(end, { months: 11 }), domainStart)
+      //     : dateMax(sub(end, { months: 2 }), domainStart);
 
-        return {
-          ...acc,
-          [id]: {
-            start, end
-          }
-        };
-      }, {})
+      //   return {
+      //     ...acc,
+      //     [id]: {
+      //       start, end
+      //     }
+      //   };
+      // }, {})
     };
   }
 
   componentWillUnmount () {
-    this.props.invalidateCogTimeData();
+    //this.props.invalidateCogTimeData();
   }
 
   onPanelChange (panel, revealed) {
@@ -511,7 +511,7 @@ class GlobalExplore extends React.Component {
 }
 
 GlobalExplore.propTypes = {
-  invalidateCogTimeData: T.func,
+  //invalidateCogTimeData: T.func,
   mapLayers: T.array,
   cogTimeData: T.object,
   spotlightList: T.object,
@@ -521,14 +521,14 @@ GlobalExplore.propTypes = {
 
 function mapStateToProps (state, props) {
   return {
-    spotlightList: wrapApiResult(state.spotlight.list),
+    //spotlightList: wrapApiResult(state.spotlight.list),
     mapLayers: getGlobalLayers(),
-    cogTimeData: wrapApiResult(state.cogTimeData, true)
+    //cogTimeData: wrapApiResult(state.cogTimeData, true)
   };
 }
 
 const mapDispatchToProps = {
-  invalidateCogTimeData: invalidateCogTimeDataAction
+  //invalidateCogTimeData: invalidateCogTimeDataAction
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GlobalExplore);
+export default connect(mapStateToProps)(GlobalExplore);

@@ -3,8 +3,6 @@ import T from 'prop-types';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 import mapboxgl from 'mapbox-gl';
 import CompareMbGL from 'mapbox-gl-compare';
-import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import find from 'lodash.find';
 
@@ -19,16 +17,12 @@ import {date_to_string, baseline_link, get_layer} from '../../../utils/HelperMet
 import { replaceRasterTiles } from '../layers/types';
 
 import config from '../../../config';
-//import { fetchSpotlightSingle as fetchSpotlightSingleAction } from '../../../redux/spotlight';
-import { wrapApiResult } from '../../../redux/reduxeed';
 import { layerTypes } from '../layers/types';
 import { glsp } from '../../../styles/utils/theme-values';
 import { round } from '../../../utils/format';
 // import MapboxControl from '../mapbox-react-control';
 
 import ReactPopoverGl from './mb-popover';
-import Dl from '../../../styles/type/definition-list';
-import spotlight from '../../../redux/spotlight';
 // import LayerControlDropdown from './map-layer-control';
 
 const { center, zoom: defaultZoom, minZoom, maxZoom} = config.map;
@@ -600,12 +594,4 @@ MbMap.propTypes = {
   //fetchSpotlightSingle: T.func
 };
 
-function mapStateToProps (state) {
-  return {
-    spotlight: wrapApiResult(state.spotlight.single, true)
-  };
-}
-
-export default connect(mapStateToProps, {}, null, {
-  forwardRef: true
-})(withTheme(MbMap));
+export default (withTheme(MbMap));
