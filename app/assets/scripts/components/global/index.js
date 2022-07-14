@@ -19,9 +19,6 @@ import { glsp } from '../../styles/utils/theme-values';
 import Prose from '../../styles/type/prose';
 import MapMessage from '../common/map-message';
 
-//import {toast} from 'react-toastify';
-//import 'react-toastify/dist/ReactToastify.css'
-
 import App from '../common/app';
 import ExpMapPrimePanel from './prime-panel';
 import {
@@ -34,16 +31,8 @@ import {
 } from '../../styles/inpage';
 import MbMap from '../common/mb-map-explore/mb-map';
 import Timeline from '../common/timeline';
-
-//import { showGlobalLoading, hideGlobalLoading } from '../common/global-loading';
 import { themeVal } from '../../styles/utils/general';
 import media from '../../styles/utils/media-queries';
-// import { wrapApiResult } from '../../redux/reduxeed';
-// import {
-//   // fetchCogTimeData as fetchCogTimeDataAction,
-//   invalidateCogTimeData as invalidateCogTimeDataAction
-// } from '../../redux/cog-time-data';
-//import { utcDate } from '../../utils/utils';
 import { getGlobalLayers } from '../common/layers';
 import {
   setLayerState,
@@ -60,6 +49,8 @@ import {
 } from '../../utils/map-explore-utils';
 import QsState from '../../utils/qs-state';
 import { round } from '../../utils/format';
+
+import { changeBaselineId, changeBaselineDate, resetBaseline } from '../../redux/action/BaselineAction';
 
 /**
  * Returns a feature with a polygon geometry made of the provided bounds.
@@ -354,6 +345,7 @@ class GlobalExplore extends React.Component {
   onPanelAction (action, payload) {
     this.count = 0;
     if(this.state.activeLayers.length > 0 && action === 'layer.toggle'){
+      this.props.resetBaseline();
       this.timelineRef.current.nextDate('layer-toggle');
     }
     handlePanelAction.call(this, action, payload);
@@ -418,21 +410,10 @@ class GlobalExplore extends React.Component {
     const layers = this.getLayersWithState();
     const activeTimeseriesLayers = this.getActiveTimeseriesLayers();
 
-
     // Check if there's any layer that's comparing.
     const comparingLayer = find(layers, 'comparing');
     const isComparing = !!comparingLayer;
     ++this.count
-    
-    //tile pre-load feature --work on progress
-    // var img = new Image();
-    // img.src = "https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRAC/2013_01_01/LIS/2/1/2.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]";
-    // console.log(img)
-    // setInterval(()=>{
-    //   img = new Image();
-    //   img.src = "https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRAC/2013_01_01/LIS/2/1/2.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]";
-    //   console.log(img)
-    // }, 10000)
 
     return (
       <App hideFooter>
@@ -521,14 +502,18 @@ GlobalExplore.propTypes = {
 
 function mapStateToProps (state, props) {
   return {
-    //spotlightList: wrapApiResult(state.spotlight.list),
+    BASELINE_ID:state.BASELINE_REDUCER.BASELINE_ID,
+    BASELINE_DATE:state.BASELINE_REDUCER.BASELINE_DATE,
     mapLayers: getGlobalLayers(),
-    //cogTimeData: wrapApiResult(state.cogTimeData, true)
   };
 }
 
-const mapDispatchToProps = {
-  //invalidateCogTimeData: invalidateCogTimeDataAction
-};
+const mapDispatchToProps = () =>{
+  return{
+    changeBaselineDate,
+    changeBaselineId,
+    resetBaseline
+  }
+}
 
-export default connect(mapStateToProps)(GlobalExplore);
+export default connect(mapStateToProps, mapDispatchToProps())(GlobalExplore);

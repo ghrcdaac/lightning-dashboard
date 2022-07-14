@@ -562,11 +562,6 @@ class MbMap extends React.Component {
             }}
           />
         </MapsContainer>
-        {/* {<Modal background="https://www.crayon.com/globalassets/us/seasonal-backgrounds/fall-2021/bridge-lake-fall-microsoft-teams-background.png?"/>} */}
-        {/* <MarkerButton onClick={this.markerHandler}/> */}
-        {/* <MapButton mapStyle={this.mapButton}/> */}
-        {/* {(this.props.activeLayers.length !== 0) && <CalendarTag onClick={this.calendarHandler} comparing={this.props.comparing} layers={this.props.layers} activeLayers={this.props.activeLayers}/>} */}
-        {/* <Calendar onClick={this.calendarHandler} comparing={true} layers={this.props.layers}/> */}
         {(this.props.activeLayers.length !== 0) && this.props.calendarStatus && <CalendarTag layers={this.props.layers} onClick={this.calendarHandler} comparingId={this.props.comparingId}/>}
       </>
     );

@@ -68,7 +68,7 @@ const CalendarTag = (props) =>{
 
     if(typeof props.comparingId !== 'undefined' || props.comparingId !== null){
         if(props.comparingId === "TRMM LIS Daily" || props.comparingId === "TRMM LIS Monthly"){
-            calendarType = 'package'
+            calendarType = 'non-custom'
             if(props.comparingId === 'TRMM LIS Monthly') view = 'year';
         }else{
             calendarType = 'custom'
@@ -101,7 +101,7 @@ const CalendarTag = (props) =>{
             {(typeof comparingLayer !== 'undefined') && <CalendarContainer bottom={(props.comparingId === 'TRMM LIS Full') && '22rem' || '17rem'}>
                 {calendar && 
                     <div style={{margin:'10px'}}>
-                        { (calendarType === 'package') && <Calendar view={view} minDate={new Date('2013-01-02')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onClickDay={onClickDay} onClickMonth={onClickMonth} value={date}/>}
+                        { (calendarType === 'non-custom') && <Calendar view={view} minDate={new Date('2013-01-02')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onClickDay={onClickDay} onClickMonth={onClickMonth} value={date}/>}
                         { (calendarType === 'custom') && <CustomCalendar id={props.comparingId} onClick={customClickHandler}/>}
                     </div>
                 }
