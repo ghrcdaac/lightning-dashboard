@@ -98,16 +98,6 @@ const CalendarTag = (props) =>{
     return(
         <>
         <Outer_container styleColor='white'>
-            {/* <Button
-                variation='base-plain'
-                size='small'
-                useIcon='calendar'
-                title='Calendar for Baseline Layer'
-                hideText
-                onClick={clickHandler}
-                >
-                <span>Info</span>
-            </Button> */}
             {(typeof comparingLayer !== 'undefined') && <CalendarContainer bottom={(props.comparingId === 'TRMM LIS Full') && '22rem' || '17rem'}>
                 {calendar && 
                     <div style={{margin:'10px'}}>
@@ -119,32 +109,6 @@ const CalendarTag = (props) =>{
         </Outer_container>
         </>
     )
-
-    // return(
-    //     <>
-    //     {(typeof comparingLayer !== 'undefined') && <Outer_container styleColor='white'>
-    //         <Button
-    //             variation='base-plain'
-    //             size='small'
-    //             useIcon='calendar'
-    //             title='Calendar for Baseline Layer'
-    //             hideText
-    //             onClick={clickHandler}
-    //         >
-    //             <span>Info</span>
-    //         </Button>
-    //         {(props.activeLayers.length !== 0) && <CalendarContainer>
-    //             {props.comparing && calendar && 
-    //                 <div style={{margin:'10px'}}>
-    //                     {/* <div style={{marginBottom:'5px'}}><h5>Compare Date: {date_to_string(date, comparingLayer.id)}</h5></div> */}
-    //                     { (calendarType === 'package') && <Calendar view={view} minDate={new Date('2013-01-02')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onClickDay={onClickDay} onClickMonth={onClickMonth} value={date}/>}
-    //                     { (calendarType === 'custom') && <CustomCalendar id={comparingLayer.id} onClick={customClickHandler}/>}
-    //                 </div>
-    //             }
-    //         </CalendarContainer>}
-    //     </Outer_container>}
-    //     </>
-    // )
 }
 
 export default CalendarTag

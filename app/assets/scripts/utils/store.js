@@ -1,13 +1,12 @@
 'use strict';
 import { createStore} from 'redux';
 
-import reducer from '../redux';
+import reducers from '../redux';
 
 const initialState = {};
 
 const store = createStore(
-  reducer,
-  initialState,
+  reducers,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

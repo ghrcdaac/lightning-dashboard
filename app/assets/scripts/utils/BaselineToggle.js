@@ -2,6 +2,8 @@ import React, {useState, useRef, useEffect} from "react";
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 import { visuallyHidden, truncated } from '../styles/helpers';
 import {VscCalendar} from '../../../../node_modules/react-icons/vsc'
+import { useSelector, useDispatch } from "react-redux";
+import { changeBaselineId } from "../redux/action/BaselineAction";
 
 const Outer_Container = styled.div`
 height: 65px;
@@ -70,12 +72,16 @@ width:100%;
 const BaselineToggle = (props) =>{
 
     const [value, setValue] = useState('Datasets');
+    const baseline_id = useSelector(state=>state.BASELINE_REDUCER.BASELINE_ID)
+    const dispatch = useDispatch();
 
     const changeHandler = (e) =>{
         if(e.target.value !== 'Datasets'){
             props.baselineId(e.target.value);
+            dispatch(changeBaselineId(e.target.value))
         }else{
             props.calendarStatus('Datasets');
+            dispatch(changeBaselineId("Datasets"))
         }
         setValue(e.target.value);
     }

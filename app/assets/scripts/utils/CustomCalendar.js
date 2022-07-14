@@ -53,20 +53,6 @@ const CustomCalendar = ({ id, onClick }) =>{
             ))}
         </ButtonContainer>
     )
-
-    // return(
-    //     <ButtonContainer>
-    //         {arr !== null && arr[0].data.map((data)=>(
-    //             <Button onClick={()=>onClick(data[0])} key={data[1]}>
-    //                 <div style={{display:'flex', flexDirection:'column', textAlign:'center', justifyContent:'center', alignItems:'center'}}>
-    //                     <div>{data[1]}</div>
-    //                     {data.length > 2 && <div>{data[2]}</div>}
-    //                 </div>
-    //             </Button>
-    //         ))}
-    //     </ButtonContainer>
-    // )
-
 }
 
 export default CustomCalendar

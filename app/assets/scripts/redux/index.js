@@ -1,8 +1,10 @@
 'use strict';
 import { combineReducers } from 'redux';
 
-export const reducers = {
+import BASELINE_REDUCER from './reducers/BaselineReducer';
 
-};
+const reducers = combineReducers({
+    BASELINE_REDUCER:BASELINE_REDUCER
+})
 
-export default combineReducers(reducers);
+export default reducers
