@@ -279,11 +279,9 @@ class GlobalExplore extends React.Component {
 
   componentDidUpdate(prevProps){
     if(prevProps.BASELINE_ID !== this.props.BASELINE_ID){
-      // if(prevProps.BASELINE_ID !== null && prevProps.BASELINE_ID !== 'Datasets'){
-      //   this.mbMapRef.current.removeLayer(this.props.PREV_BASELINE_ID)
-      // }
 
       if(this.props.BASELINE_ID === 'Datasets'){
+        console.log('im here')
         toggleLayerCompare.call(this, get_layer(prevProps.BASELINE_ID, getGlobalLayers()));
       }else{
         toggleLayerCompare.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()));
@@ -350,7 +348,7 @@ class GlobalExplore extends React.Component {
       
       if (this.state.activeLayers[0] === payload.id && comparingLayer) {
         console.log(payload.id, comparingLayer)
-        toggleLayerCompare.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()));
+        //toggleLayerCompare.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()));
         console.log(this.props.BASELINE_ID)
         console.log(find(layers, 'comparing'))
         this.props.resetBaseline();
