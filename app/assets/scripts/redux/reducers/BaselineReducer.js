@@ -1,23 +1,49 @@
+import { 
+    BASELINE_DATE_F,
+    BASELINE_DATE_I,
+    BASELINE_ID,
+    BASELINE_RESET,
+    CALENDAR_ACTIVE,
+    CALENDAR_ICON
+} from "../constants/BaselineConstants"
+
 const InitState = {
     BASELINE_ID:"Datasets",
-    BASELINE_DATE:null,
+    PREV_BASELINE_ID:null,
+    BASELINE_DATE_F:null,
+    BASELINE_DATE_I:null,
     CALENDAR_ACTIVE:false,
+    CALENDAR_ICON:false,
 }
 
 const BASELINE_REDUCER = (state = InitState, action) =>{
-    if(action.type === 'BASELINE_ID'){
+    if(action.type === BASELINE_ID){
         return{
-            BASELINE_ID:action.payload, 
-            BASELINE_DATE:state.BASELINE_DATE,
-            CALENDAR_ACTIVE:state.CALENDAR_ACTIVE,
+            ...state,
+            PREV_BASELINE_ID:state.BASELINE_ID,
+            BASELINE_ID:action.payload,
         }
-    }else if(action.type === 'BASELINE_DATE'){
+    }else if(action.type === BASELINE_DATE_F){
         return{
-            BASELINE_ID:state.BASELINE_ID, 
-            BASELINE_DATE:action.payload,
-            CALENDAR_ACTIVE:state.CALENDAR_ACTIVE
+            ...state,
+            BASELINE_DATE_F:action.payload,
         }
-    }else if(action.type === 'BASELINE_RESET'){
+    }else if(action.type === BASELINE_DATE_I){
+        return{
+            ...state,
+            BASELINE_DATE_I:action.payload,
+        }
+    }else if(action.type === CALENDAR_ICON){
+        return{
+            ...state,
+            CALENDAR_ICON:action.payload,
+        }
+    }else if(action.type === CALENDAR_ACTIVE){
+        return{
+            ...state,
+            CALENDAR_ACTIVE:!state.CALENDAR_ACTIVE,
+        }
+    }else if(action.type === BASELINE_RESET){
         return InitState
     }else{
         return state

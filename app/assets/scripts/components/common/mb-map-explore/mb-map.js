@@ -5,9 +5,8 @@ import mapboxgl from 'mapbox-gl';
 import CompareMbGL from 'mapbox-gl-compare';
 import ReactDOM from 'react-dom';
 import find from 'lodash.find';
+import { connect } from 'react-redux';
 
-import MapButton from '../../../utils/MapButton';
-// import geoJson from './chicago-parks.json';
 import geoJson2 from './chicago-parks2.json'
 import data2 from './data2.json';
 import Marker from '../../../utils/Marker';
@@ -23,7 +22,8 @@ import { round } from '../../../utils/format';
 // import MapboxControl from '../mapbox-react-control';
 
 import ReactPopoverGl from './mb-popover';
-// import LayerControlDropdown from './map-layer-control';
+
+import { changeBaselineDate } from '../../../redux/action/BaselineAction';
 
 const { center, zoom: defaultZoom, minZoom, maxZoom} = config.map;
 var {styleUrl} = config.map
@@ -90,7 +90,6 @@ class MbMap extends React.Component {
         spotlightId: null
       },
       tileOpacity:this.props.tileOpacity,
-      mapButton:"mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y",
       markers:[],
       modalStatus:false,
       modalBackground:null,
@@ -102,7 +101,6 @@ class MbMap extends React.Component {
     this.markerState = false;
     this.comparingId = this.props.comparingId;
 
-    this.mapButton = this.mapButton.bind(this)
     this.handleOverlayChange = this.handleOverlayChange.bind(this);
     this.markerHandler = this.markerHandler.bind(this);
     this.markerBackground = this.markerBackground.bind(this);
@@ -118,6 +116,13 @@ class MbMap extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
+
+    if(prevProps.BASELINE_ID !== this.props.BASELINE_ID){
+      if(prevProps.BASELINE_ID !== null && prevProps.BASELINE_ID !== 'Datasets'){
+        this.removeLayer(prevProps.BASELINE_ID)
+      }
+    }
+
     // Manually trigger render of detached react components.
 
     this.overlayDropdownControl &&
@@ -204,8 +209,8 @@ class MbMap extends React.Component {
           fns.show(this, layerInfo, prevProps);
           if (fns.update) {
             const comparingLayer = find(this.props.layers, 'comparing');
-            const layer = get_layer(this.props.comparingId, this.props.layers)
-            fns.update(this, layerInfo, prevProps, layer, this.props.prevComparingId);
+            const layer = get_layer(this.props.BASELINE_ID, this.props.layers)
+            fns.update(this, layerInfo, prevProps, layer, this.props.PREV_BASELINE_ID);
           }
           return;
         }
@@ -309,49 +314,9 @@ class MbMap extends React.Component {
     });
   }
 
-  //mapButton:"mapbox://styles/mapbox/satellite-streets-v11"
-  mapButton(){
+  calendarHandler(dateString, date, id){    
 
-    if(styleUrl === "mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y"){
-      styleUrl = "mapbox://styles/mapbox/satellite-streets-v11"
-    }else{
-      styleUrl = "mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y"
-    }
-
-    const atv = this.props.activeLayers[0]
-    const lyrs = this.props.layers
-    var toggleLayer = null;
-    var compareLayer = null;
-
-    lyrs.forEach((element)=>{
-      if(element.id === this.props.comparingId){
-        compareLayer = element;
-      }
-      if(element.id === atv){
-        toggleLayer = element;
-      }
-    })
-
-    if(this.props.comparing) this.props.toggleCompare(compareLayer)
-    //this.props.toggleCompare(passLayer)
-
-    this.props.mapStyle();
-    this.mbMap.remove()
-    this.initMap(toggleLayer)
-
-    if(typeof this.mbMapComparing !== 'undefined' && this.mbMapComparing !== null){
-      this.mbMapComparing.remove()
-    }
-
-    //this.mbMapComparing.setStyle(styleUrl)
-  }
-
-  calendarHandler(dateString, date, id){
-    
-    this.props.baselineHandler(date, id);
-    const comparingLayer = find(this.props.layers, 'comparing');
     const tile = baseline_link(this.props.layers, this.props.comparingId, dateString)
-    const layer = get_layer(this.props.comparingId, this.props.layers)
 
     if(this.mbMapComparing.getSource(this.props.comparingId)){
       this.mbMapComparing.getSource(this.props.comparingId).tiles = tile
@@ -379,12 +344,36 @@ class MbMap extends React.Component {
     } 
   }
 
-  addLayer(){
+  addLayer(id){
+    const tile = baseline_link(this.props.layers, id, this.props.BASELINE_DATE_I)
+    if(this.mbMapComparing.getSource(id)){
+      this.mbMapComparing.getSource(id).tiles = tile
+      this.mbMapComparing.style.sourceCaches[id].clearTiles();
+      this.mbMapComparing.style.sourceCaches[id].update(this.mbMap.transform);
+      this.mbMapComparing.triggerRepaint();
+    }else{
 
+      if(this.mbMapComparing.getSource(this.props.PREV_BASELINE_ID)){
+        this.mbMapComparing.removeLayer(this.props.PREV_BASELINE_ID)
+        this.mbMapComparing.removeSource(this.props.PREV_BASELINE_ID)
+      }
+
+      this.mbMapComparing.addSource(this.props.BASELINE_ID, {tiles:tile, type:'raster'});
+      this.mbMapComparing.addLayer(
+        {
+          id: this.props.BASELINE_ID,
+          type: 'raster',
+          source: this.props.BASELINE_ID,
+          paint: {}
+        },
+        'admin-0-boundary-bg'
+      );
+      
+    } 
   }
 
   removeLayer(id){
-    if(this.mbMapComparing !== null && this.mbMapComparing.getSource(id) !== null && typeof this.mbMapComparing.getSource(id) !== 'undefined'){
+    if(this.mbMapComparing !== null && typeof this.mbMapComparing !== 'undefined' && typeof this.mbMapComparing.getSource(id) !== 'undefined'){
       this.mbMapComparing.removeLayer(id)
       this.mbMapComparing.removeSource(id)
     }
@@ -562,7 +551,7 @@ class MbMap extends React.Component {
             }}
           />
         </MapsContainer>
-        {(this.props.activeLayers.length !== 0) && this.props.calendarStatus && <CalendarTag layers={this.props.layers} onClick={this.calendarHandler} comparingId={this.props.comparingId}/>}
+        {(this.props.activeLayers.length !== 0) && this.props.CALENDAR_ACTIVE && <CalendarTag layers={this.props.layers} onClick={this.calendarHandler} comparingId={this.props.comparingId}/>}
       </>
     );
   }
@@ -589,4 +578,23 @@ MbMap.propTypes = {
   //fetchSpotlightSingle: T.func
 };
 
-export default (withTheme(MbMap));
+function mapStateToProps (state, props) {
+  return {
+    BASELINE_ID:state.BASELINE_REDUCER.BASELINE_ID,
+    PREV_BASELINE_ID:state.BASELINE_REDUCER.PREV_BASELINE_ID,
+    BASELINE_DATE_F:state.BASELINE_REDUCER.BASELINE_DATE_F,
+    BASELINE_DATE_I:state.BASELINE_REDUCER.BASELINE_DATE_I,
+    CALENDAR_ACTIVE:state.BASELINE_REDUCER.CALENDAR_ACTIVE
+    //mapLayers: getGlobalLayers(),
+  };
+}
+
+const mapDispatchToProps = () =>{
+  return{
+    changeBaselineDate:changeBaselineDate
+  }
+}
+
+export default connect(mapStateToProps,{}, null,{
+  forwardRef:true
+})(withTheme(MbMap));

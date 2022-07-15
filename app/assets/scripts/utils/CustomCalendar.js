@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 import JsonData from './CustomCalendar-data.json'
+import BaselineJSON from '../data/Baseline'
 import find from 'lodash.find';
 import { checkPropTypes } from 'prop-types';
 
@@ -38,7 +39,8 @@ background-color:${(props)=>props.backgroundColor}
 
 const CustomCalendar = ({ id, onClick }) =>{
 
-    const arr = JsonData.layers.filter((layer)=> layer.id === id)
+    //const arr = JsonData.layers.filter((layer)=> layer.id === id)
+    const arr = BaselineJSON.Baseline.filter((layer)=> layer.id === id)
     const [selected, useSelected] = useState({});
 
     return(

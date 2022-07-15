@@ -11,7 +11,6 @@ import find from 'lodash.find';
 
 import Popups from '../../utils/Popup';
 import PopupButton from '../../utils/PopupButton';
-//import MapButton from '../../utils/MapButton';
 import { get_layer, dateFormat } from '../../utils/HelperMethods';
 
 import { headingAlt } from '../../styles/type/heading';
@@ -51,6 +50,7 @@ import QsState from '../../utils/qs-state';
 import { round } from '../../utils/format';
 
 import { changeBaselineId, changeBaselineDate, resetBaseline } from '../../redux/action/BaselineAction';
+import BASELINE_REDUCER from '../../redux/reducers/BaselineReducer';
 
 /**
  * Returns a feature with a polygon geometry made of the provided bounds.
@@ -270,28 +270,25 @@ class GlobalExplore extends React.Component {
       mapStyle:'mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y',
       panelPrime: false,
       panelSec: false,
-      // Init dates for cog data according to a default.
-      // cogDateRanges: Object.keys(cogLayers).reduce((acc, id) => {
-      //   const l = props.mapLayers.find(l => l.id === id);
-      //   const timeUnit = l.timeUnit || 'month';
-      //   const end = utcDate(l.domain[l.domain.length - 1]);
-      //   const domainStart = utcDate(l.domain[0]);
-      //   const start = timeUnit === 'month'
-      //     ? dateMax(sub(end, { months: 11 }), domainStart)
-      //     : dateMax(sub(end, { months: 2 }), domainStart);
-
-      //   return {
-      //     ...acc,
-      //     [id]: {
-      //       start, end
-      //     }
-      //   };
-      // }, {})
     };
   }
 
   componentWillUnmount () {
     //this.props.invalidateCogTimeData();
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.BASELINE_ID !== this.props.BASELINE_ID){
+      // if(prevProps.BASELINE_ID !== null && prevProps.BASELINE_ID !== 'Datasets'){
+      //   this.mbMapRef.current.removeLayer(this.props.PREV_BASELINE_ID)
+      // }
+
+      if(this.props.BASELINE_ID === 'Datasets'){
+        toggleLayerCompare.call(this, get_layer(prevProps.BASELINE_ID, getGlobalLayers()));
+      }else{
+        toggleLayerCompare.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()));
+      }
+    }
   }
 
   onPanelChange (panel, revealed) {
@@ -345,18 +342,21 @@ class GlobalExplore extends React.Component {
   onPanelAction (action, payload) {
     this.count = 0;
     if(this.state.activeLayers.length > 0 && action === 'layer.toggle'){
-      this.props.resetBaseline();
       this.timelineRef.current.nextDate('layer-toggle');
     }
-    handlePanelAction.call(this, action, payload);
     if(action === 'layer.toggle'){
       const layers = this.getLayersWithState();
       const comparingLayer = find(layers, 'comparing');
-  
+      
       if (this.state.activeLayers[0] === payload.id && comparingLayer) {
-        toggleLayerCompare.call(this, get_layer(this.state.comparingId, getGlobalLayers()));
+        console.log(payload.id, comparingLayer)
+        toggleLayerCompare.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()));
+        console.log(this.props.BASELINE_ID)
+        console.log(find(layers, 'comparing'))
+        this.props.resetBaseline();
       }
     }
+    handlePanelAction.call(this, action, payload);
   }
 
   baselineDate(date, id){
@@ -368,25 +368,33 @@ class GlobalExplore extends React.Component {
   }
 
   calendarStatus(action){
-    this.setState({
-      calendarStatus:!this.state.calendarStatus,
-      baselineDate:'null'
-    })
-
-    if(this.state.comparingId !== null && action === 'Datasets') toggleLayerCompare.call(this, get_layer(this.state.comparingId, getGlobalLayers()));
+    // this.setState({
+    //   calendarStatus:!this.state.calendarStatus,
+    //   baselineDate:'null'
+    // })
+    // console.log(action)
+    // if(this.state.comparingId !== null && action === 'Datasets') toggleLayerCompare.call(this, get_layer(this.state.comparingId, getGlobalLayers()));
   }
 
   baselineId(id){
-    if(this.state.comparingId !== null) this.mbMapRef.current.removeLayer(this.state.comparingId);
+    // if(this.state.comparingId !== null) this.mbMapRef.current.removeLayer(this.state.comparingId);
     
-    this.setState({
-      prevComparingId:this.state.comparingId,
-      comparingId:id,
-      baselineDate:'null'
-    })
-    //handlePanelAction.call(this, 'layer.compare', get_layer(this.state.comparingId, getGlobalLayers()))
+    // this.setState({
+    //   prevComparingId:this.state.comparingId,
+    //   comparingId:id,
+    //   baselineDate:'null'
+    // })
     
-    toggleLayerCompare.call(this,get_layer(id, getGlobalLayers()));
+    // toggleLayerCompare.call(this,get_layer(id, getGlobalLayers()));
+
+    // if(this.props.PREV_BASELINE_ID !== null){
+    //   this.mbMapRef.current.removeLayer(this.props.PREV_BASELINE_ID)
+    // }
+
+    // console.log(this.props.BASELINE_ID)
+    // console.log(get_layer(this.props.BASELINE_ID, getGlobalLayers()))
+    // toggleLayerCommon.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()))
+
   }
 
   async onMapAction (action, payload) {
@@ -447,7 +455,8 @@ class GlobalExplore extends React.Component {
               />
               <ExploreCarto>
                 <MapMessage active={isComparing}>
-                  <p>{this.state.comparingId + ' - ' + this.state.baselineDate + ' vs ' + this.state.activeLayers[0] +' - '+ dateFormat(this.state.timelineDate,'month-day-year', this.state.activeLayers[0])}</p>
+                  <p>{this.props.BASELINE_ID + ' - ' + dateFormat(this.props.BASELINE_DATE_F, 'month-day-year', this.props.BASELINE_ID) + ' vs ' + 
+                  this.state.activeLayers[0] +' - '+ dateFormat(this.state.timelineDate,'month-day-year', this.state.activeLayers[0])}</p>
                 </MapMessage>
                 <MbMap
                   ref={this.mbMapRef}
@@ -464,12 +473,11 @@ class GlobalExplore extends React.Component {
                   mapStyle={this.mapStyle}
                   updateToggleLayer={this.updateToggleLayer}
                   toggleCompare={this.toggleCompare}
-                  comparingId={this.state.comparingId}
-                  prevComparingId={this.state.prevComparingId}
+                  comparingId={this.props.BASELINE_ID}
+                  prevComparingId={this.props.PREV_BASELINE_ID}
                   calendarStatus={this.state.calendarStatus}
                   baselineHandler={this.baselineDate}
                 /> 
-                {/* <MapButton mapStyle={this.mapStyle}/> */}
                 <PopupButton /> 
                 {this.count === 2 && !localStorage.getItem(popup_lr) && < Popups value={['Hey, Welcome to Light Dash']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
                 {this.count === 2 && !localStorage.getItem(popup_lr) && <Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={3000} whichPop={popup_lr}/>}
@@ -503,7 +511,9 @@ GlobalExplore.propTypes = {
 function mapStateToProps (state, props) {
   return {
     BASELINE_ID:state.BASELINE_REDUCER.BASELINE_ID,
-    BASELINE_DATE:state.BASELINE_REDUCER.BASELINE_DATE,
+    PREV_BASELINE_ID:state.BASELINE_REDUCER.PREV_BASELINE_ID,
+    BASELINE_DATE_F:state.BASELINE_REDUCER.BASELINE_DATE_F,
+    BASELINE_DATE_I:state.BASELINE_REDUCER.BASELINE_DATE_I,
     mapLayers: getGlobalLayers(),
   };
 }

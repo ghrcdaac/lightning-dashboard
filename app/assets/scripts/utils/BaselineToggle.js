@@ -3,7 +3,7 @@ import styled, { withTheme, ThemeProvider } from 'styled-components';
 import { visuallyHidden, truncated } from '../styles/helpers';
 import {VscCalendar} from '../../../../node_modules/react-icons/vsc'
 import { useSelector, useDispatch } from "react-redux";
-import { changeBaselineId } from "../redux/action/BaselineAction";
+import { changeBaselineId, changeCalendarIcon, changeCalendarActive, changeBaselineDate } from "../redux/action/BaselineAction";
 
 const Outer_Container = styled.div`
 height: 65px;
@@ -73,6 +73,7 @@ const BaselineToggle = (props) =>{
 
     const [value, setValue] = useState('Datasets');
     const baseline_id = useSelector(state=>state.BASELINE_REDUCER.BASELINE_ID)
+    const calendar_active = useSelector(state=>state.BASELINE_REDUCER.CALENDAR_ACTIVE)
     const dispatch = useDispatch();
 
     const changeHandler = (e) =>{
@@ -86,16 +87,31 @@ const BaselineToggle = (props) =>{
         setValue(e.target.value);
     }
 
+    const titleHandler = (e) =>{
+        if(e.target.value !== 'Datasets'){
+            dispatch(changeBaselineId(e.target.value))
+            dispatch(changeCalendarIcon(true))
+        }else{
+            dispatch(changeBaselineId(e.target.value));
+            dispatch(changeCalendarIcon(false))
+        }
+        dispatch(changeBaselineDate(null))
+    }
+
+    const calendarIcon = (e) =>{
+        dispatch(changeCalendarActive())
+    }
+
     return(
         <MainContainer>
             <Main>
                 <Swatch/>
                 <Outer_Container>
                         <div style={{display:'flex',flexDirection:'column'}}>
-                            <LayerTitle title={'Image Opacity'}>Baseline Image</LayerTitle>
+                            <LayerTitle title={'Baseline Image'}>Baseline Image</LayerTitle>
                             {(props.activeLayers.length !== 0) &&  
                             <Body>
-                                <select name="layers" id="layers" onChange={changeHandler}>
+                                <select name="layers" id="layers" onChange={titleHandler}>
                                     <option>Datasets</option>
                                     {props.layers.map((layer)=>(
                                         <option key={layer.id}>{layer.id}</option>
@@ -107,9 +123,9 @@ const BaselineToggle = (props) =>{
                                 <h6 style={{marginTop:'0.5rem', color:'black'}}>Note: Activate layer to compare</h6>
                             </Body>}
                         </div>
-                        {(props.activeLayers.length !== 0) && (value !== 'Datasets') &&
+                        {(props.activeLayers.length !== 0) && (baseline_id !== 'Datasets') &&
                         <div style={{marginLeft:'10px', marginTop:'30px'}}>
-                            <button style={{backgroundColor:'transparent', border:'none', cursor:'pointer'}} onClick={()=>props.calendarStatus('calendar-button')}><VscCalendar size="30px"/></button>
+                            <button style={{backgroundColor:'transparent', border:'none', cursor:'pointer'}} onClick={calendarIcon}><VscCalendar size="30px"/></button>
                         </div>}
                 </Outer_Container>
             </Main>

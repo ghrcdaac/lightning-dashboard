@@ -6,6 +6,9 @@ import find from 'lodash.find';
 import CustomCalendar from './CustomCalendar';
 import { date_to_string } from './HelperMethods';
 import ReactDOM from 'react-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { changeBaselineDate, changeBaselineDateInformal } from '../redux/action/BaselineAction';
+import BaselineJSON from '../data/Baseline'
 
 const Outer_container = styled.div`
 //position:absolute;
@@ -64,15 +67,17 @@ const CalendarTag = (props) =>{
     const comparingLayer = find(props.layers, 'comparing');
     var calendarType;
     var view = 'month';
+    const dispatch = useDispatch();
+    const baseline_id = useSelector(state=>state.BASELINE_REDUCER.BASELINE_ID)
 
-
-    if(typeof props.comparingId !== 'undefined' || props.comparingId !== null){
-        if(props.comparingId === "TRMM LIS Daily" || props.comparingId === "TRMM LIS Monthly"){
-            calendarType = 'non-custom'
-            if(props.comparingId === 'TRMM LIS Monthly') view = 'year';
-        }else{
-            calendarType = 'custom'
-        }
+    // console.log(BaselineJSON)
+    if(typeof baseline_id !== 'undefined' && baseline_id !== null && baseline_id !== 'Datasets'){
+        BaselineJSON.Baseline.map((element)=>{
+            if(element.id === baseline_id){
+                calendarType = element.calendarType
+            }
+        })
+        if(baseline_id === 'TRMM LIS Monthly') view = 'year';
     }
 
     const clickHandler = () =>{
@@ -80,29 +85,34 @@ const CalendarTag = (props) =>{
     }
 
     const onClickDay = date =>{
-        setDate(date);
         const dateString = date_to_string(date, props.comparingId)
+        setDate(date);
+        dispatch(changeBaselineDate(date))
+        dispatch(changeBaselineDateInformal(dateString))
         props.onClick(dateString, date);
     }
 
     const onClickMonth = date =>{
-        setDate(date)
         const dateString = date_to_string(date, props.comparingId)
+        setDate(date)
+        dispatch(changeBaselineDate(date))
+        dispatch(changeBaselineDateInformal(dateString))
         props.onClick(dateString, date);
     }
 
     const customClickHandler = (dateString, data, id) =>{
         props.onClick(dateString,data, id);
+        dispatch(changeBaselineDate(data))
     }
 
     return(
         <>
         <Outer_container styleColor='white'>
-            {(typeof comparingLayer !== 'undefined') && <CalendarContainer bottom={(props.comparingId === 'TRMM LIS Full') && '22rem' || '17rem'}>
+            {(typeof comparingLayer !== 'undefined') && <CalendarContainer bottom={(baseline_id === 'TRMM LIS Full') && '22rem' || '17rem'}>
                 {calendar && 
                     <div style={{margin:'10px'}}>
                         { (calendarType === 'non-custom') && <Calendar view={view} minDate={new Date('2013-01-02')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onClickDay={onClickDay} onClickMonth={onClickMonth} value={date}/>}
-                        { (calendarType === 'custom') && <CustomCalendar id={props.comparingId} onClick={customClickHandler}/>}
+                        { (calendarType === 'custom') && <CustomCalendar id={baseline_id} onClick={customClickHandler}/>}
                     </div>
                 }
             </CalendarContainer>}
