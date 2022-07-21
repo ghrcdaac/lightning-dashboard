@@ -281,7 +281,6 @@ class GlobalExplore extends React.Component {
     if(prevProps.BASELINE_ID !== this.props.BASELINE_ID){
 
       if(this.props.BASELINE_ID === 'Datasets'){
-        console.log('im here')
         toggleLayerCompare.call(this, get_layer(prevProps.BASELINE_ID, getGlobalLayers()));
       }else{
         toggleLayerCompare.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()));
@@ -477,7 +476,7 @@ class GlobalExplore extends React.Component {
                   baselineHandler={this.baselineDate}
                 /> 
                 <PopupButton /> 
-                {this.count === 2 && !localStorage.getItem(popup_lr) && < Popups value={['Hey, Welcome to Light Dash']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
+                {this.count === 2 && !localStorage.getItem(popup_lr) && < Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
                 {this.count === 2 && !localStorage.getItem(popup_lr) && <Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={3000} whichPop={popup_lr}/>}
                 {!!activeTimeseriesLayers.length && this.count === 2 && !localStorage.getItem(popup_tline) && <Popups value={['This is Timeline. Scroll to render layers based on different dates.']} place={'bottom-left'} timer={4000} whichPop={popup_tline}/>}
                 <Timeline

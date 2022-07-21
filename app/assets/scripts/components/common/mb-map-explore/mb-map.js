@@ -8,12 +8,15 @@ import find from 'lodash.find';
 import { connect } from 'react-redux';
 
 import geoJson2 from './chicago-parks2.json'
+import HotSpotJSON from '../../../data/HotSpot'
 import data2 from './data2.json';
 import Marker from '../../../utils/Marker';
+import HotSpot from '../../global/panelComponents/HotSpot';
 import MarkerButton from '../../../utils/MarkerButton';
 import CalendarTag from '../../../utils/CalendarTag';
-import {date_to_string, baseline_link, get_layer} from '../../../utils/HelperMethods'
+import {date_to_string, baseline_link, get_layer, HotSpotDate} from '../../../utils/HelperMethods'
 import { replaceRasterTiles } from '../layers/types';
+import { data } from '../../../data/HotSpotData';
 
 import config from '../../../config';
 import { layerTypes } from '../layers/types';
@@ -98,8 +101,10 @@ class MbMap extends React.Component {
     // Store markers to be able to remove them.
     this.spotlightMarkersList = [];
     this.marker = []
+    this.hotspotMarkers = []
     this.markerState = false;
     this.comparingId = this.props.comparingId;
+
 
     this.handleOverlayChange = this.handleOverlayChange.bind(this);
     this.markerHandler = this.markerHandler.bind(this);
@@ -107,6 +112,7 @@ class MbMap extends React.Component {
     this.calendarHandler = this.calendarHandler.bind(this);
     this.addLayer = this.addLayer.bind(this);
     this.removeLayer = this.removeLayer.bind(this);
+    this.addHotSpot = this.addHotSpot.bind(this);
     
   }
 
@@ -120,6 +126,32 @@ class MbMap extends React.Component {
     if(prevProps.BASELINE_ID !== this.props.BASELINE_ID){
       if(prevProps.BASELINE_ID !== null && prevProps.BASELINE_ID !== 'Datasets'){
         this.removeLayer(prevProps.BASELINE_ID)
+      }
+    }
+
+    if(this.props.HOTSPOT === true){
+      if(prevProps.activeLayers[0] !== this.props.activeLayers[0]){
+        if(typeof prevProps.activeLayers[0] === 'undefined'){
+          this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));
+        }else if(this.props.activeLayers.length === 0){
+          this.removeHotSpot()
+        }else{        
+          this.removeHotSpot();
+          this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));
+        }
+      }
+  
+      if(prevProps.date !== this.props.date){
+        this.removeHotSpot();
+        this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));    
+      }
+    }
+
+    if(prevProps.HOTSPOT !== this.props.HOTSPOT){
+      if(this.props.HOTSPOT === true){
+        this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));
+      }else{
+        this.removeHotSpot();
       }
     }
 
@@ -199,7 +231,6 @@ class MbMap extends React.Component {
         const layerInfo = this.props.layers.find((l) => l.id === layerId);
 
         if (!layerInfo){
-          //console.log('no layer info')
          return;
         }
         const fns = layerTypes[layerInfo.type];
@@ -294,19 +325,13 @@ class MbMap extends React.Component {
   }
 
   updateActiveLayers (prevProps) {
-    //console.log(prevProps);
     this.props.activeLayers.forEach((layerId) => {
-      //console.log(this.props.activeLayers)
       const layerInfo = this.props.layers.find((l) => l.id === layerId);
-      //console.log(layerInfo)
       if (!layerInfo){
-        //console.log('no layer info') 
         return;
       }
       const fns = layerTypes[layerInfo.type];
-      //console.log(fns);
       if (fns && fns.update) {
-        //console.log('fns')
         const comparingLayer = find(this.props.layers, 'comparing');
         const layer = get_layer(this.props.comparingId, this.props.layers)
         return fns.update(this, layerInfo, prevProps, layer, this.props.prevComparingId);
@@ -379,6 +404,35 @@ class MbMap extends React.Component {
     }
   }
 
+  addHotSpot(layer, date){
+
+    const datas = data(layer, date);
+    datas[0].data.forEach((feature) => {
+        // Create a React ref
+        const ref = React.createRef();
+        // Create a new DOM node and save it to the React ref
+        ref.current = document.createElement('div');
+        // Render a Marker Component on our new DOM node
+
+        ReactDOM.render(
+          // <Marker feature={feature} background={arr[i++]} onClick={this.markerBackground}/>,
+          <HotSpot feature={feature}/>,
+          ref.current
+        );
+  
+        // Create a Mapbox Marker at our new DOM node
+        var mark = new mapboxgl.Marker(ref.current)
+          .setLngLat([feature.lat, feature.lng])
+          .addTo(this.mbMap);
+  
+        this.hotspotMarkers.push(mark);
+    })
+  }
+
+  removeHotSpot(){
+    this.hotspotMarkers.forEach(m => m.remove())
+  }
+
   markerHandler(){
     this.markerState = !this.markerState
     // const arr = Background("");
@@ -410,8 +464,6 @@ class MbMap extends React.Component {
   }
 
   markerBackground(url){
-    console.log('im in markerBackground')
-    console.log(url)
   }
 
   initMap (passLayer) {
@@ -433,30 +485,6 @@ class MbMap extends React.Component {
       dragRotate: false,
       logoPosition: 'bottom-left',
     });
-
-    if(this.markerState === true){
-      // const arr = Background("");
-      // var i = 0;
-      geoJson2.fieldCampaignImages.forEach((feature) => {
-        // Create a React ref
-        const ref = React.createRef();
-        // Create a new DOM node and save it to the React ref
-        ref.current = document.createElement('div');
-        // Render a Marker Component on our new DOM node
-  
-        ReactDOM.render(
-          <Marker feature={feature} background={feature.imageURL} onClick={this.markerBackground}/>,
-          ref.current
-        );
-  
-        // Create a Mapbox Marker at our new DOM node
-        var mark = new mapboxgl.Marker(ref.current)
-          .setLngLat(feature.coordinates)
-          .addTo(this.mbMap);
-  
-        this.marker.push(mark);
-      })
-    }
     
     // Disable map rotation using right click + drag.
     this.mbMap.dragRotate.disable();
@@ -575,6 +603,7 @@ MbMap.propTypes = {
   comparingId:T.string,
   prevComparingId:T.string,
   calendarStatus:T.bool,
+  date:T.object,
   //fetchSpotlightSingle: T.func
 };
 
@@ -584,8 +613,8 @@ function mapStateToProps (state, props) {
     PREV_BASELINE_ID:state.BASELINE_REDUCER.PREV_BASELINE_ID,
     BASELINE_DATE_F:state.BASELINE_REDUCER.BASELINE_DATE_F,
     BASELINE_DATE_I:state.BASELINE_REDUCER.BASELINE_DATE_I,
-    CALENDAR_ACTIVE:state.BASELINE_REDUCER.CALENDAR_ACTIVE
-    //mapLayers: getGlobalLayers(),
+    CALENDAR_ACTIVE:state.BASELINE_REDUCER.CALENDAR_ACTIVE,
+    HOTSPOT:state.HOTSPOT_REDUCER.HOTSPOT
   };
 }
 

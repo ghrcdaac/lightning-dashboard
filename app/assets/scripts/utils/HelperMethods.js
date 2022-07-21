@@ -95,3 +95,22 @@ export function dateFormat(date, interval, id){
 
     return dateString;
 }
+
+export function HotSpotDate(id, date){
+    var newDate;
+
+    var day = date.getDate();
+    if(day <=9){
+        day = '0' + day.toString();
+    }
+    const month = date.getMonth() + 1;
+    const year = '2013';
+
+    if(month <= 9){
+        newDate = year + '-0' + month + '-' + day;   
+    }else{
+        newDate = year + '-' + month + '-' + day;
+    }
+
+    return newDate
+}

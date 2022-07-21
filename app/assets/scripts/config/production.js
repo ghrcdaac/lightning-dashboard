@@ -2,8 +2,8 @@
 module.exports = {
   default: {
     environment: 'production',
-    appTitle: 'Light Dash',
-    appDescription: 'Welcome to Light Dash.',
+    appTitle: 'Lightning Dashboard',
+    appDescription: 'Welcome to Lightning Dashboard.',
     gaTrackingCode: 'UA-170089104-1',
     twitterHandle: '@NASAEarthData',
     mbToken: 'pk.eyJ1IjoiYWxhbnN1YmVkaSIsImEiOiJjbDF1eTJodzgwMWp2M2RxYzR3Mmlod3g3In0.bWeFglLhxIyJGT8ytNbvTw',

@@ -52,7 +52,7 @@ margin-left:-1.8rem;
 
 const MainContainer = styled.div`
 display:flex;
-height:74px;
+height:65px;
 width:100%;
 `
 const Swatch = styled.div`

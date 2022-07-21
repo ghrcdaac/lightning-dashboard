@@ -18,6 +18,7 @@ import { Accordion } from './accordion';
 import Slider from '../../utils/Slider';
 import MarkerToggle from '../../utils/MarkerToggle';
 import BaselineToggle from '../../utils/BaselineToggle'
+import HotSpotToggle from '../global/panelComponents/HotSpotToggle';
 import {FiExternalLink} from '../../../../../node_modules/react-icons/fi'
 import LINK_DATA from '../../data/links';
 
@@ -249,6 +250,7 @@ class DataLayersBlock extends React.Component {
                 baselineHandler={baselineHandler} 
                 comparingId={comparingId} 
                 baselineId={baselineId}/>
+                <HotSpotToggle activeLayers={activeLayers}/>
               </LayerBody>
               <LinkBody>
                 <LinkContainer>

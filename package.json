@@ -1,7 +1,7 @@
 {
   "name": "light-dash",
   "version": "1.9.1",
-  "description": "Frontend application for the Light Dash",
+  "description": "Frontend application for the Lightning Dashboard",
   "repository": {
     "type": "git",
     "url": "https://github.com/"
