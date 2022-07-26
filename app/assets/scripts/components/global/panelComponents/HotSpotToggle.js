@@ -54,7 +54,7 @@ const HotSpotToggle = ({activeLayers}) =>{
                 <Swatch />
             <Main>
                 <div>
-                    <LayerTitle>HotSpots</LayerTitle>
+                    <LayerTitle title={'HotSpots'}>HotSpots</LayerTitle>
                     <h6 style={{marginLeft:'17px'}}>Note: Activate layer for HotSpot</h6>
                 </div>
                 {(activeLayers.length !== 0) && <div style={{marginLeft:'45px'}}>

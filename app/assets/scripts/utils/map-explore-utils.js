@@ -182,6 +182,7 @@ export function handlePanelAction (action, payload) {
   switch (action) {
     case 'layer.toggle':
       this.toggleLayer(payload);
+      this.setState({timelineDate:new Date(`2013-${payload.domain[0].slice(5,7)}-02`)})
       break;
     case 'layer.compare':
       toggleLayerCompare.call(this, payload);

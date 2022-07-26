@@ -114,3 +114,7 @@ export function HotSpotDate(id, date){
 
     return newDate
 }
+
+export function dateSlice(date){
+    
+}

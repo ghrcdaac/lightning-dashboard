@@ -5,24 +5,9 @@ import { data } from '../../../data/HotSpotData';
 const OuterContainer = styled.div`
 height:10px;
 width:10px;
-z-index:100;
+//z-index:100;
 //background-color:white;
 `
-
-// const HotSpots = styled.div`
-// background-color:#FDD023;
-// background-repeat: no-repeat;
-// // height:5px;
-// // width:5px;
-// height:${(props)=>props.size};
-// width:${(props)=>props.size};
-// border-radius:50%;
-// margin-bottom:5px;
-// :hover{
-//     cursor:pointer;
-// }
-// z-index:5;
-// `
 
 const HotSpots = styled.div.attrs(props=>({
     style:{
@@ -64,6 +49,7 @@ const Hover = styled.div`
 height:12px;
 width:12px;
 background:transparent;
+z-index:5;
 :hover{
     cursor:pointer;
 }

@@ -135,16 +135,17 @@ class MbMap extends React.Component {
           this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));
         }else if(this.props.activeLayers.length === 0){
           this.removeHotSpot()
-        }else{        
+        }else{    
           this.removeHotSpot();
           this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));
         }
+      }else{
+        if(prevProps.date !== this.props.date){
+          this.removeHotSpot();
+          this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));    
+        }
       }
   
-      if(prevProps.date !== this.props.date){
-        this.removeHotSpot();
-        this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));    
-      }
     }
 
     if(prevProps.HOTSPOT !== this.props.HOTSPOT){
