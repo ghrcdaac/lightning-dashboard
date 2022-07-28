@@ -100,9 +100,9 @@ export default class MBPopoverInner extends React.Component {
     const mapLeft = pageXOffset + left;
     const mapRight = pageXOffset + left + width;
     const mapBottom = pageYOffset + top + height;
-
+    
     const pos = mbMap.project(lngLat);
-
+    
     const anchorPosition = {
       top: mapTop + pos.y,
       left: mapLeft + pos.x

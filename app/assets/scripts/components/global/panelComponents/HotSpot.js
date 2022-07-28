@@ -1,23 +1,43 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 import { data } from '../../../data/HotSpotData';
+import ReactMapGL, {Marker, Popup } from 'react-map-gl';
 
 const OuterContainer = styled.div`
 height:10px;
 width:10px;
 //z-index:100;
 //background-color:white;
+// background-color: rgb(300, 300, 300);
 `
 
-const HotSpots = styled.div.attrs(props=>({
-    style:{
-        height:props.size,
-        width:props.size
-    },
-}))`
-background-color:#FDD023;
-//background-color:#e5ebe6;
-border-radius:50%;
+// const HotSpots = styled.div.attrs(props=>({
+//     style:{
+//         height:props.size,
+//         width:props.size
+//     },
+// }))`
+// background-color:#FDD023;
+// //background-color:#e5ebe6;
+// background-image:url("https://i.pinimg.com/564x/a5/2e/3e/a52e3ead549f0fef288d9d074b979df2--computer.jpg");
+// border-radius:50%;
+// margin-bottom:5px;
+// :hover{
+//     cursor:pointer;
+// }
+// z-index:5;
+// `
+
+const HotSpots = styled.button`
+height:30px;
+width:30px;
+border:none;
+//background:url("https://www.nicepng.com/png/detail/48-480695_google-marker-pin-google-map-pointer-vector.png");
+background-image:url("../../../../../assets/graphics/meta/favicon.png");
+background-repeat: no-repeat;
+background-size: contain;
+//background-color:green;
+//border-radius:50%;
 margin-bottom:5px;
 :hover{
     cursor:pointer;
@@ -46,9 +66,9 @@ z-index:10;
 //align-items:center;
 `
 const Hover = styled.div`
-height:12px;
-width:12px;
-background:transparent;
+height:15px;
+width:15px;
+background-image:url("https://i.pinimg.com/564x/a5/2e/3e/a52e3ead549f0fef288d9d074b979df2--computer.jpg");
 z-index:5;
 :hover{
     cursor:pointer;
@@ -71,11 +91,9 @@ const HotSpot = ({ children, feature}) => {
 
     return (
         <OuterContainer>
-            <Hover onMouseOver={displayInfo} onMouseLeave={removeDisplay}>
-                <HotSpots onClick={_onClick} size={size} className="marker">
-                    {children}
-                </HotSpots>
-            </Hover>
+            <HotSpots onClick={_onClick} size={size} className="marker">
+                {children}
+            </HotSpots>
             {display && <Display>
                 <InnerDisplay>
                     <div style={{zIndex:'1000'}}>Lat: {(feature.lat).slice(0,8)}</div>

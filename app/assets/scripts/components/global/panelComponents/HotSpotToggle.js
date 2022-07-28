@@ -33,12 +33,11 @@ const LayerTitle = styled.h1`
   line-height: 1.25rem;
   margin: 0;
   margin-bottom:10px;
-  margin-left:-82px;
+  margin-left:20px;
   sub {
     bottom: 0;
   }
 `;
-
 
 const HotSpotToggle = ({activeLayers}) =>{
 
@@ -55,9 +54,8 @@ const HotSpotToggle = ({activeLayers}) =>{
             <Main>
                 <div>
                     <LayerTitle title={'HotSpots'}>HotSpots</LayerTitle>
-                    <h6 style={{marginLeft:'17px'}}>Note: Activate layer for HotSpot</h6>
                 </div>
-                {(activeLayers.length !== 0) && <div style={{marginLeft:'45px'}}>
+                <div style={{marginLeft:'140px'}}>
                     <FormSwitch
                     hideText
                     //name={`toggle-${id}`}
@@ -66,8 +64,8 @@ const HotSpotToggle = ({activeLayers}) =>{
                     onChange={ToggleHandler}
                     >
                     Toggle layer visibility
-                </FormSwitch>
-                </div>}
+                    </FormSwitch>
+                </div>
             </Main>
         </MainContainer>
     )

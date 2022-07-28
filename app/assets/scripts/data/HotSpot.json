@@ -4,25 +4,8 @@
             "name":"TRMM LIS Full",
             "HotSpots":[
                 {
-                    "date":"",
-                    "lat":"-89.543496",
-                    "lng":"41.940430",
-                    "flash":"2563",
-                    "events":""
-                },
-                {
-                    "date":"",
-                    "lat":"-86.453596",
-                    "lng":"41.940501",
-                    "flash":"4568",
-                    "events":""
-                },
-                {
-                    "date":"",
-                    "lat":"-89.435596",
-                    "lng":"41.970403",
-                    "flash":"485",
-                    "events":""
+                    "center":["-89.5436","41.34234"],
+                    "id":"TRMM LIS Full"
                 }
             ]
         },
@@ -30,25 +13,10 @@
             "name":"TRMM LIS Seasonal",
             "HotSpots":[
                 {
-                    "date":"",
-                    "lat":"-81.564596",
-                    "lng":"41.840403",
-                    "flash":"2542",
-                    "events":""
-                },
-                {
-                    "date":"",
-                    "lat":"-85.563596",
-                    "lng":"41.640403",
-                    "flash":"452",
-                    "events":""
-                },
-                {
-                    "date":"",
-                    "lat":"-87.453496",
-                    "lng":"41.350403",
-                    "flash":"856",
-                    "events":""
+                    "center":["-83.5436","45.34234"],
+                    "id":"TRMM LIS Seasonal",
+                    "indicators":["a","b","c"],
+                    "label":"TRMM LIS Seasonal"
                 }
             ]
         },
@@ -56,25 +24,10 @@
             "name":"TRMM LIS Monthly",
             "HotSpots":[
                 {
-                    "date":"",
-                    "lat":"-87.453596",
-                    "lng":"41.690403",
-                    "flash":"486",
-                    "events":""
-                },
-                {
-                    "date":"",
-                    "lat":"-89.637596",
-                    "lng":"41.450403",
-                    "flash":"7896",
-                    "events":""
-                },
-                {
-                    "date":"",
-                    "lat":"-88.637596",
-                    "lng":"42.940403",
-                    "flash":"87564",
-                    "events":""
+                    "center":["-83.5436","42.34234"],
+                    "id":"TRMM LIS Monthly",
+                    "indicators":["a","b","c"],
+                    "label":"TRMM LIS Monthly"
                 }
             ]
         },
@@ -82,18 +35,10 @@
             "name":"TRMM LIS Diurnal",
             "HotSpots":[
                 {
-                    "date":"",
-                    "lat":"-83.637596",
-                    "lng":"43.940403",
-                    "flash":"8652",
-                    "events":""
-                },
-                {
-                    "date":"",
-                    "lat":"-84.637596",
-                    "lng":"49.940403",
-                    "flash":"45",
-                    "events":""
+                    "center":["-81.5436","51.34234"],
+                    "id":"TRMM LIS Diurnal",
+                    "indicators":["a","b","c"],
+                    "label":"TRMM LIS Diurnal"
                 }
             ]
         },
@@ -101,11 +46,10 @@
             "name":"TRMM LIS Daily",
             "HotSpots":[
                 {
-                    "date":"",
-                    "lat":"-86.637596",
-                    "lng":"48.983403",
-                    "flash":"687",
-                    "events":""
+                    "center":["-79.5436","49.34234"],
+                    "id":"TRMM LIS Daily",
+                    "indicators":["a","b","c"],
+                    "label":"TRMM LIS Daily"
                 }
             ]
         }

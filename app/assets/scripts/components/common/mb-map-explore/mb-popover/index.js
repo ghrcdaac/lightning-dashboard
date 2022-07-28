@@ -151,7 +151,6 @@ export default class MBPopover extends React.Component {
   render () {
     // Remove unneeded props.
     const { lngLat, onClose: _, mbMap, ...rest } = this.props;
-
     if (lngLat && !mbMap) {
       /* eslint-disable-next-line no-console */
       console.error('Mapbox map required for the popover. Use the mbMap prop.');
