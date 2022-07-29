@@ -23,6 +23,7 @@ import { data } from '../../../data/HotSpotData';
 import CustomMarker from '../../global/panelComponents/CustomMarker';
 import DataIndex from '../../../data/DataIndex';
 import {HotSpotData} from '../../../data/HotSpot2.0';
+import HotSpotBody from '../../global/panelComponents/HotSpotBody';
 
 import config from '../../../config';
 import { layerTypes } from '../layers/types';
@@ -312,15 +313,27 @@ class MbMap extends React.Component {
     //   })
     // })
 
+
     // Define a common function to add markers
+    // const addMarker = (spotlight, map) => {
+    //   return createMbMarker(map, { color: this.props.theme.color.primary })
+    //     .setLngLat(spotlight.center, console.log(spotlight))
+    //     .addTo(map)
+    //     .onClick((coords) => {
+    //       this.activeSpotlight = []
+    //       this.activeSpotlight.push(spotlight)
+    //       this.setState({ popover: { coords, spotlightId: spotlight.id } });
+    //     });
+    // };
+
     const addMarker = (spotlight, map) => {
       return createMbMarker(map, { color: this.props.theme.color.primary })
-        .setLngLat(spotlight.center)
+        .setLngLat([spotlight.Lon, spotlight.Lat])
         .addTo(map)
         .onClick((coords) => {
           this.activeSpotlight = []
           this.activeSpotlight.push(spotlight)
-          this.setState({ popover: { coords, spotlightId: spotlight.id } });
+          this.setState({ popover: { coords, spotlightId: spotlight.GlobalRank } });
         });
     };
 
@@ -650,18 +663,36 @@ class MbMap extends React.Component {
           <div>TRMM LIS Lightning</div>
         }
         content={(this.activeSpotlight.length > 0) &&
-          <div>
-            <div>Lat: {this.activeSpotlight[0].center[0]}</div>
-            <div>Lat: {this.activeSpotlight[0].center[1]}</div>
-            <div>Flashes: {this.activeSpotlight[0].flashes}</div>
-          </div>
+          // <div>
+          //   <div><div></div>Global_Rank: {this.activeSpotlight[0].GlobalRank}</div>
+          //   <div style={{display:"flex"}}><div style={{width:"50px"}}>Lat:</div> {this.activeSpotlight[0].Lat}</div>
+          //   <div><div></div>Lng: {this.activeSpotlight[0].Lon}</div>
+          //   <div><div></div>FRD: {this.activeSpotlight[0].FRD}</div>
+          //   <div><div></div>PPL: {this.activeSpotlight[0].PPL}</div>
+          //   <div><div></div>Country: {this.activeSpotlight[0].Country}</div>
+          //   <div><div></div>PPL lat: {this.activeSpotlight[0].PPL_lat}</div>
+          //   <div><div></div>PPL lon: {this.activeSpotlight[0].PPL_lon}</div>
+          //   <div><div></div>Dist : {this.activeSpotlight[0].Dist}km</div>
+          // </div>
+
+          <HotSpotBody 
+            rank={this.activeSpotlight[0].GlobalRank}
+            frd={this.activeSpotlight[0].FRD}
+            lat={this.activeSpotlight[0].Lat}
+            lng={this.activeSpotlight[0].Lon}
+            ppl={this.activeSpotlight[0].PPL}
+            country={this.activeSpotlight[0].Country}
+            ppl_lat={this.activeSpotlight[0].PPL_lat}
+            ppl_lon={this.activeSpotlight[0].PPL_lon}
+            dist={this.activeSpotlight[0].Dist}
+          />
         }
         footerContent={
           <Button
             variation='primary-raised-dark'
             //useIcon={['chevron-right--small', 'after']}
             onClick={()=>{
-              window.open('https://ghrc.nsstc.nasa.gov/pub/lis/iss/data/science/nqc/nc/')
+              window.open('https://ghrc.nsstc.nasa.gov/pub/lis/climatology/LIS/')
             }}
           >
             <FiExternalLink/> Download Data Here
