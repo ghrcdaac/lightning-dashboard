@@ -9,7 +9,7 @@ float:right;
 width:1.9rem;
 height:auto;
 z-index:10;
-top:.6rem;
+top:7.4rem;
 right:.55rem;
 left:null;
 bottom:null;

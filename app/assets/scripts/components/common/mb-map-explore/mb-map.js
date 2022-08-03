@@ -21,9 +21,10 @@ import {date_to_string, baseline_link, get_layer, HotSpotDate} from '../../../ut
 import { replaceRasterTiles } from '../layers/types';
 import { data } from '../../../data/HotSpotData';
 import CustomMarker from '../../global/panelComponents/CustomMarker';
-import DataIndex from '../../../data/DataIndex';
+//import DataIndex from '../../../data/DataIndex';
 import {HotSpotData} from '../../../data/HotSpot2.0';
 import HotSpotBody from '../../global/panelComponents/HotSpotBody';
+import BarChart from '../bar-chart/chart';
 
 import config from '../../../config';
 import { layerTypes } from '../layers/types';
@@ -663,18 +664,6 @@ class MbMap extends React.Component {
           <div>TRMM LIS Lightning</div>
         }
         content={(this.activeSpotlight.length > 0) &&
-          // <div>
-          //   <div><div></div>Global_Rank: {this.activeSpotlight[0].GlobalRank}</div>
-          //   <div style={{display:"flex"}}><div style={{width:"50px"}}>Lat:</div> {this.activeSpotlight[0].Lat}</div>
-          //   <div><div></div>Lng: {this.activeSpotlight[0].Lon}</div>
-          //   <div><div></div>FRD: {this.activeSpotlight[0].FRD}</div>
-          //   <div><div></div>PPL: {this.activeSpotlight[0].PPL}</div>
-          //   <div><div></div>Country: {this.activeSpotlight[0].Country}</div>
-          //   <div><div></div>PPL lat: {this.activeSpotlight[0].PPL_lat}</div>
-          //   <div><div></div>PPL lon: {this.activeSpotlight[0].PPL_lon}</div>
-          //   <div><div></div>Dist : {this.activeSpotlight[0].Dist}km</div>
-          // </div>
-
           <HotSpotBody 
             rank={this.activeSpotlight[0].GlobalRank}
             frd={this.activeSpotlight[0].FRD}

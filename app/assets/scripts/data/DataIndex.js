@@ -1,6 +1,7 @@
 import HotSpotJSON from './HotSpot'
+import BarChartJSON from './BarChart'
 
-const DataIndex = (id) =>{
+export const HotSpotIndex = (id) =>{
     console.log(id, HotSpotJSON)
     var a;
     HotSpotJSON.layers.forEach((element)=>{
@@ -13,4 +14,27 @@ const DataIndex = (id) =>{
     return a
 }
 
-export default DataIndex
+export const BarChartIndex = (id) =>{
+    var layerData;
+    BarChartJSON.forEach((layer)=>{
+        if(layer.id === id){
+            layerData = layer
+        }
+    })
+
+    var min = layerData.data[0].indicator, max = layerData.data[0].indicator;
+    layerData.data.forEach((data)=>{
+        if(data.indicator < min){
+            min  = data.indicator;
+        }
+        if(data.indicator > max){
+            max = data.indicator;
+        }
+    })
+
+    return{
+        max:max,
+        min:min,
+        data:layerData
+    }
+}

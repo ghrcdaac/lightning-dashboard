@@ -19,6 +19,7 @@ import Prose from '../../styles/type/prose';
 import MapMessage from '../common/map-message';
 
 import App from '../common/app';
+import ExpMapSecPanel from './sec-panel';
 import ExpMapPrimePanel from './prime-panel';
 import {
   Inpage,
@@ -488,6 +489,18 @@ class GlobalExplore extends React.Component {
                   onSizeChange={this.resizeMap}
                 />
               </ExploreCarto>
+              {/* <ExpMapSecPanel
+                // aoiFeature={this.state.aoi.feature}
+                // cogTimeData={this.props.cogTimeData}
+                // cogDateRanges={this.state.cogDateRanges}
+                // cogLayersSettings={cogLayers}
+                // layers={activeCogTimeseriesLayers}
+                onAction={this.onPanelAction}
+                onPanelChange={({ revealed }) => {
+                  this.resizeMap();
+                  this.onPanelChange('panelSec', revealed);
+                }}
+              /> */}
             </ExploreCanvas>
           </InpageBody>
         </Inpage>

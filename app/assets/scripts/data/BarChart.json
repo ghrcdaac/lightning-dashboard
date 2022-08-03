@@ -1,0 +1,63 @@
+[
+    {
+        "id":"TRMM LIS Seasonal",
+        "data":[
+            {"date":"2013-03-17", "indicator":"78"},
+            {"date":"2013-07-24", "indicator":"98"},
+            {"date":"2013-10-06", "indicator":"22"},
+            {"date":"2013-12-02", "indicator":"61"}
+        ]
+    },
+    {
+        "id":"TRMM LIS Monthly",
+        "data":[
+            {"date":"2013-01-10", "indicator":"30"},
+            {"date":"2013-02-17", "indicator":"3"},
+            {"date":"2013-03-26", "indicator":"74"},
+            {"date":"2013-04-21", "indicator":"20"},
+            {"date":"2013-05-23", "indicator":"88"},
+            {"date":"2013-06-22", "indicator":"59"},
+            {"date":"2013-07-06", "indicator":"50"},
+            {"date":"2013-08-11", "indicator":"38"},
+            {"date":"2013-09-13", "indicator":"30"},
+            {"date":"2013-10-28", "indicator":"81"},
+            {"date":"2013-11-28", "indicator":"73"},
+            {"date":"2013-12-18", "indicator":"67"}
+        ]   
+    },
+    {
+        "id":"TRMM LIS Diurnal",
+        "data":[
+            {"date":"2013-01-01", "indicator":"35"},
+            {"date":"2013-01-15", "indicator":"19"},
+            {"date":"2013-02-01", "indicator":"66"},
+            {"date":"2013-02-15", "indicator":"92"},
+            {"date":"2013-03-01", "indicator":"2"},
+            {"date":"2013-03-15", "indicator":"99"},
+            {"date":"2013-04-01", "indicator":"92"},
+            {"date":"2013-04-15", "indicator":"11"},
+            {"date":"2013-05-01", "indicator":"83"},
+            {"date":"2013-05-15", "indicator":"56"},
+            {"date":"2013-06-01", "indicator":"67"},
+            {"date":"2013-06-15", "indicator":"85"},
+            {"date":"2013-07-01", "indicator":"89"},
+            {"date":"2013-07-15", "indicator":"9"},
+            {"date":"2013-08-01", "indicator":"27"},
+            {"date":"2013-08-15", "indicator":"94"},
+            {"date":"2013-09-01", "indicator":"29"},
+            {"date":"2013-09-15", "indicator":"66"},
+            {"date":"2013-10-01", "indicator":"19"},
+            {"date":"2013-10-15", "indicator":"3"},
+            {"date":"2013-11-01", "indicator":"25"},
+            {"date":"2013-11-15", "indicator":"53"},
+            {"date":"2013-12-01", "indicator":"22"},
+            {"date":"2013-12-15", "indicator":"19"}
+        ]
+    },
+    {
+        "id":"TRMM LIS Daily",
+        "data":[
+            
+        ]
+    }
+]
