@@ -23,9 +23,10 @@ import { differenceInMonths, differenceInDays } from 'date-fns';
 import SummaryExpandable from '../common/summary-expandable';
 
 const PanelSelf = styled(Panel)`
-  ${media.largeUp`
-    width: 30rem;
-  `}
+  // ${media.largeUp`
+  //   width: 30rem;
+  // `}
+  width:25rem;
 `;
 
 const BodyScroll = styled(ShadowScrollbar)`

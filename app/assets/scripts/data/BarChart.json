@@ -57,7 +57,7 @@
     {
         "id":"TRMM LIS Daily",
         "data":[
-            
+            {"date":"2013-01-01", "indicator":"62"}
         ]
     }
 ]

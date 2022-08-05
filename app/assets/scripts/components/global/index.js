@@ -489,7 +489,7 @@ class GlobalExplore extends React.Component {
                   onSizeChange={this.resizeMap}
                 />
               </ExploreCarto>
-              {/* <ExpMapSecPanel
+              <ExpMapSecPanel
                 // aoiFeature={this.state.aoi.feature}
                 // cogTimeData={this.props.cogTimeData}
                 // cogDateRanges={this.state.cogDateRanges}
@@ -500,7 +500,7 @@ class GlobalExplore extends React.Component {
                   this.resizeMap();
                   this.onPanelChange('panelSec', revealed);
                 }}
-              /> */}
+              />
             </ExploreCanvas>
           </InpageBody>
         </Inpage>

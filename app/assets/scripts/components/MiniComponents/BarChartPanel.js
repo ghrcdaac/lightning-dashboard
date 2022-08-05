@@ -21,6 +21,7 @@ const BarChartPanel = () =>{
     const SEASONAL = BarChartIndex("TRMM LIS Seasonal")
     const MONTHLY = BarChartIndex("TRMM LIS Monthly")
     const DIURNAL = BarChartIndex("TRMM LIS Diurnal")
+    const DAILY = BarChartIndex("TRMM LIS Daily")
 
     return(
         <>
@@ -50,7 +51,16 @@ const BarChartPanel = () =>{
                 yUnit={'FRD'}
                 //selectedDate={this.props.date}
                 />
-            </ChartContainer>            
+            </ChartContainer>      
+            <ChartContainer>
+                <ChartTitle>TRMM LIS Daily</ChartTitle>
+                <BarChart
+                yDomain={[DAILY.min,DAILY.max]}
+                data={DAILY.data.data}
+                yUnit={'FRD'}
+                //selectedDate={this.props.date}
+                />
+            </ChartContainer>       
         </>
     )
 }
