@@ -1,9 +1,8 @@
 import React, {useState, useRef, useEffect} from "react";
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 //import { themeVal } from '../../styles/utils/general';
-import {themeVal} from '../styles/utils/general'
-import { visuallyHidden, truncated } from '../styles/helpers';
-import { replaceSub2 } from '../utils/format';
+import {themeVal} from '../../../styles/utils/general'
+import { visuallyHidden, truncated } from '../../../styles/helpers';
 
 const LayerSwatch = styled.span`
   position: absolute;

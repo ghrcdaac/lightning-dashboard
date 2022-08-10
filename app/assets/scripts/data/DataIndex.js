@@ -35,6 +35,7 @@ export const BarChartIndex = (id) =>{
     return{
         max:max,
         min:min,
-        data:layerData
+        data:layerData,
+        id:id
     }
 }

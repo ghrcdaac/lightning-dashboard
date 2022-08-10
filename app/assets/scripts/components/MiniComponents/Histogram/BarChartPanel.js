@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import BarChart from "../common/bar-chart/chart";
-import { BarChartIndex } from "../../data/DataIndex";
+import BarChart from "../../common/bar-chart/chart";
+import { BarChartIndex } from "../../../data/DataIndex";
 
 const ChartContainer = styled.div`
 display:flex;
@@ -21,43 +21,47 @@ const BarChartPanel = () =>{
     const SEASONAL = BarChartIndex("TRMM LIS Seasonal")
     const MONTHLY = BarChartIndex("TRMM LIS Monthly")
     const DIURNAL = BarChartIndex("TRMM LIS Diurnal")
-    const DAILY = BarChartIndex("TRMM LIS Daily")
+    const FULL = BarChartIndex("TRMM LIS Full")
 
     return(
         <>
             <ChartContainer>
-                <ChartTitle>TRMM LIS Seasonal</ChartTitle>
+                <ChartTitle>{SEASONAL.id}</ChartTitle>
                 <BarChart
                 yDomain={[SEASONAL.min,SEASONAL.max]}
                 data={SEASONAL.data.data}
                 yUnit={'FRD'}
+                id={SEASONAL.id}
                 //selectedDate={this.props.date}
                 />
             </ChartContainer>
             <ChartContainer>
-                <ChartTitle>TRMM LIS Monthly</ChartTitle>
+                <ChartTitle>{MONTHLY.id}</ChartTitle>
                 <BarChart
                 yDomain={[MONTHLY.min,MONTHLY.max]}
                 data={MONTHLY.data.data}
                 yUnit={'FRD'}
+                id={MONTHLY.id}
                 //selectedDate={this.props.date}
                 />
             </ChartContainer>
             <ChartContainer>
-                <ChartTitle>TRMM LIS Diurnal</ChartTitle>
+                <ChartTitle>{DIURNAL.id}</ChartTitle>
                 <BarChart
                 yDomain={[DIURNAL.min,DIURNAL.max]}
                 data={DIURNAL.data.data}
                 yUnit={'FRD'}
+                id={DIURNAL.id}
                 //selectedDate={this.props.date}
                 />
             </ChartContainer>      
             <ChartContainer>
-                <ChartTitle>TRMM LIS Daily</ChartTitle>
+                <ChartTitle>{FULL.id}</ChartTitle>
                 <BarChart
-                yDomain={[DAILY.min,DAILY.max]}
-                data={DAILY.data.data}
+                yDomain={[FULL.min,FULL.max]}
+                data={FULL.data.data}
                 yUnit={'FRD'}
+                id={FULL.id}
                 //selectedDate={this.props.date}
                 />
             </ChartContainer>       

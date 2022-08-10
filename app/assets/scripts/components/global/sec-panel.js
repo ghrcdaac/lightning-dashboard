@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import T from 'prop-types';
 import * as d3 from 'd3';
 
-import BarChartPanel from '../MiniComponents/BarChartPanel';
+import BarChartPanel from '../MiniComponents/Histogram/BarChartPanel';
 import { BarChartIndex } from '../../data/DataIndex';
 import Heading from '../../styles/type/heading';
 // import SimpleLineChart from '../common/simple-line-chart/chart';
@@ -135,9 +135,6 @@ class ExpMapSecPanel extends React.Component {
 
   render () {
 
-    const chartData = BarChartIndex("TRMM LIS Monthly")
-
-    console.log(chartData)
     return (
       <PanelSelf
         collapsible
@@ -152,15 +149,6 @@ class ExpMapSecPanel extends React.Component {
         bodyContent={
           <BodyScroll>
             <BarChartPanel/>
-            {/* <BarChart
-              yDomain={[chartData.min,chartData.max]}
-              data={chartData.data.data}
-              yUnit={'FRD'}
-              selectedDate={this.props.date}
-            /> */}
-            {/* <InsightsBlock>
-              {this.renderContent()}
-            </InsightsBlock> */}
           </BodyScroll>
         }
       />

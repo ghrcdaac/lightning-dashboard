@@ -9,8 +9,10 @@ import bbox from '@turf/bbox';
 //import get from 'lodash.get';
 import find from 'lodash.find';
 
-import Popups from '../../utils/Popup';
-import PopupButton from '../../utils/PopupButton';
+// import Popups from '../../utils/Popup';
+// import PopupButton from '../../utils/PopupButton';
+import Popups from '../MiniComponents/PopUp/Popup';
+import PopupButton from '../MiniComponents/PopUp/PopupButton';
 import { get_layer, dateFormat } from '../../utils/HelperMethods';
 
 import { headingAlt } from '../../styles/type/heading';

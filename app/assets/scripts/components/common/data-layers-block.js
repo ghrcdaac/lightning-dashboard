@@ -15,10 +15,9 @@ import {
 import Layer from './layer';
 import { Accordion } from './accordion';
 
-import Slider from '../../utils/Slider';
-import MarkerToggle from '../../utils/MarkerToggle';
-import BaselineToggle from '../../utils/BaselineToggle'
-import HotSpotToggle from '../global/panelComponents/HotSpotToggle';
+import Slider from '../MiniComponents/Single/Slider';
+import BaselineToggle from '../MiniComponents/BaselineLayer/BaselineToggle';
+import HotSpotToggle from '../MiniComponents/HotSpot/HotSpotToggle'
 import {FiExternalLink} from '../../../../../node_modules/react-icons/fi'
 import LINK_DATA from '../../data/links';
 

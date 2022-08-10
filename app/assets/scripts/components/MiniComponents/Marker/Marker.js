@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
-import Modal from './Modal';
+import Modal from '../../../utils/Modal';
 
 const Button = styled.button`
 //background-color:blue;

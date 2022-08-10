@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
-import JsonData from './CustomCalendar-data.json'
-import BaselineJSON from '../data/Baseline'
+// import JsonData from './CustomCalendar-data.json'
+import BaselineJSON from '../../../data/Baseline'
 import find from 'lodash.find';
 import { checkPropTypes } from 'prop-types';
 

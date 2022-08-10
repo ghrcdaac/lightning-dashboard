@@ -1,9 +1,10 @@
 import React, {useState, useRef, useEffect} from "react";
 import styled, { withTheme, ThemeProvider } from 'styled-components';
-import { visuallyHidden, truncated } from '../styles/helpers';
-import {VscCalendar} from '../../../../node_modules/react-icons/vsc'
+//import { visuallyHidden, truncated } from '../styles/helpers';
+import { truncated } from "../../../styles/helpers";
+import {VscCalendar} from '../../../../../../node_modules/react-icons/vsc'
 import { useSelector, useDispatch } from "react-redux";
-import { changeBaselineId, changeCalendarIcon, changeCalendarActive, changeBaselineDate } from "../redux/action/BaselineAction";
+import { changeBaselineId, changeCalendarIcon, changeCalendarActive, changeBaselineDate } from "../../../redux/action/BaselineAction";
 
 const Outer_Container = styled.div`
 height: 65px;
