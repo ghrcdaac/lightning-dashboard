@@ -19,6 +19,7 @@ import LayerDataLoader from './layer-data-loader';
 
 // Views
 import GlobalExplore from './components/global';
+import Download from './utils/Download';
 import UhOh from './components/uhoh';
 
 const { gaTrackingCode } = config;
@@ -66,6 +67,7 @@ class Root extends React.Component {
               {this.state.dataReady && (
                 <Switch>
                   <Route exact path='/' component={GlobalExplore} /> 
+                  <Route exact path="/download" component={Download} />
                   <Route path='*' component={UhOh} />
                 </Switch>
               )}

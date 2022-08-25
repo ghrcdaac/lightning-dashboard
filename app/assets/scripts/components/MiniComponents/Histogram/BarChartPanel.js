@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import BarChart from "../../common/bar-chart/chart";
 import { BarChartIndex } from "../../../data/DataIndex";
+import HistogramJSON from '../../../data/BarChart.json'
+import { Link } from "react-router-dom";
+import Download from "../../../utils/Download";
 
 const ChartContainer = styled.div`
 display:flex;
@@ -23,6 +26,7 @@ const BarChartPanel = () =>{
     const DIURNAL = BarChartIndex("TRMM LIS Diurnal")
     const FULL = BarChartIndex("TRMM LIS Full")
 
+    console.log(HistogramJSON)
     return(
         <>
             <ChartContainer>
@@ -34,6 +38,9 @@ const BarChartPanel = () =>{
                 id={SEASONAL.id}
                 //selectedDate={this.props.date}
                 />
+                {/* <button><Link to={__dirname+"/hello.json"} target="_blank">Download</Link></button> */}
+                {/* <button><a href={HistogramJSON} download="BarChart.json">Download!</a></button> */}
+                <button onClick={()=>Download(SEASONAL)}>Download</button>
             </ChartContainer>
             <ChartContainer>
                 <ChartTitle>{MONTHLY.id}</ChartTitle>
