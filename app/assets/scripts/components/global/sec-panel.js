@@ -150,7 +150,7 @@ class ExpMapSecPanel extends React.Component {
         }
         bodyContent={
           <BodyScroll>
-            <BarChartPanel/>
+            <BarChartPanel layer={this.props.activeLayer}/>
           </BodyScroll>
         }
       />
