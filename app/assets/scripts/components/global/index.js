@@ -491,14 +491,14 @@ class GlobalExplore extends React.Component {
                   onSizeChange={this.resizeMap}
                 />
               </ExploreCarto>
-              {this.state.activeLayers.length > 0 &&  <ExpMapSecPanel
+              {/* {this.state.activeLayers.length > 0 &&  <ExpMapSecPanel
                 onAction={this.onPanelAction}
                 activeLayer={this.state.activeLayers[0]}
                 onPanelChange={({ revealed }) => {
                   this.resizeMap();
                   this.onPanelChange('panelSec', revealed);
                 }}
-              />}
+              />} */}
             </ExploreCanvas>
           </InpageBody>
         </Inpage>

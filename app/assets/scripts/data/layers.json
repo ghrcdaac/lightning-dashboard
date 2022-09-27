@@ -187,6 +187,159 @@
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"day",
             "type":"raster-timeseries"
+        },
+        {
+            "compare":{
+                "enabled":true,
+                "help":"Compare with baseline",
+                "source":{
+                    "tiles":["null{date}"],
+                    "type":"raster"
+                }
+            },
+            "domain":["2013-01-01T00:00:00Z","2013-01-01T00:00:00Z"],
+            "exclusiveWith":[],
+            "id":"OTD Full",
+            "info":"Shows the entire mean flash rate density from 1998 to 2013.",
+            "legend":{
+                "max": null,
+                "min": null,
+                "stops":[
+                  {"color": "#F4F5D3", "label": "Exceptional"},
+                  {"color": "#794416", "label": "Favourable"},
+                  {"color": "#F3EF4F", "label": "Watch"},
+                  {"color": "#6ECC51", "label": "Few"},
+                  {"color": "#3C8EC4", "label": "Poor"}
+                ],
+                "type": "categorical" 
+            },
+            "name":"OTD Full",
+            "paint":null,
+            "source":{
+                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/HRFC/201301/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.325,55.426]"],
+                "type":"raster"
+            },
+            "swatch":{"color": "#C0C0C0", "name": "Grey"},
+            "timeUnit":"month",
+            "type":"raster-timeseries"
+        },
+        {
+            "compare":{
+                "enabled":true,
+                "help":"Compare with baseline",
+                "source":{
+                    "tiles":["null{date}"],
+                    "type":"raster"
+                }
+            },
+            "domain":["2013-01-01T00:00:00Z","2013-12-01T00:00:00Z"],
+            "exclusiveWith":[],
+            "id":"OTD Monthly",
+            "info":"Shows the monthly mean flash rate density throughout 1998 to 2013.",
+            "legend":{
+                "max": null,
+                "min": null,
+                "stops":[
+                  {"color": "#F4F5D3", "label": "Exceptional"},
+                  {"color": "#794416", "label": "Favourable"},
+                  {"color": "#F3EF4F", "label": "Watch"},
+                  {"color": "#6ECC51", "label": "Few"},
+                  {"color": "#3C8EC4", "label": "Poor"}
+                ],
+                "type": "categorical" 
+            },
+            "name":"OTD Monthly",
+            "paint":null,
+            "source":{
+                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/HRMC/{date}/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.2]"],
+                "type":"raster"
+            },
+            "swatch":{"color": "#C0C0C0", "name": "Grey"},
+            "timeUnit":"month",
+            "type":"raster-timeseries"
+        },
+        {
+            "compare":{
+                "enabled":true,
+                "help":"Compare with baseline",
+                "source":{
+                    "tiles":["null{date}"],
+                    "type":"raster"
+                }
+            },
+            "domain":[
+                    "2013-01-01T00:00:00Z","2013-01-15T00:00:00Z",
+                    "2013-02-01T00:00:00Z","2013-02-15T00:00:00Z", 
+                    "2013-03-01T00:00:00Z","2013-03-15T00:00:00Z",
+                    "2013-04-01T00:00:00Z","2013-04-15T00:00:00Z",
+                    "2013-05-01T00:00:00Z","2013-05-15T00:00:00Z",
+                    "2013-06-01T00:00:00Z","2013-06-15T00:00:00Z",
+                    "2013-07-01T00:00:00Z","2013-07-15T00:00:00Z",
+                    "2013-08-01T00:00:00Z","2013-08-15T00:00:00Z",
+                    "2013-09-01T00:00:00Z","2013-09-15T00:00:00Z",
+                    "2013-10-01T00:00:00Z","2013-10-15T00:00:00Z",
+                    "2013-11-01T00:00:00Z","2013-11-15T00:00:00Z",
+                    "2013-12-01T00:00:00Z","2013-12-15T00:00:00Z"
+                ],
+            "exclusiveWith":[],
+            "id":"OTD Diurnal",
+            "info":"Shows the (daily) hourly mean flash rate density throughout 1998 to 2013.",
+            "legend":{
+                "max": null,
+                "min": null,
+                "stops":[
+                  {"color": "#F4F5D3", "label": "Exceptional"},
+                  {"color": "#794416", "label": "Favourable"},
+                  {"color": "#F3EF4F", "label": "Watch"},
+                  {"color": "#6ECC51", "label": "Few"},
+                  {"color": "#3C8EC4", "label": "Poor"}
+                ],
+                "type": "categorical" 
+            },
+            "name":"OTD Diurnal",
+            "paint":null,
+            "source":{
+                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/LRDC/{date}/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.002]"],
+                "type":"raster"
+            },
+            "swatch":{"color": "#C0C0C0", "name": "Grey"},
+            "timeUnit":"day",
+            "type":"raster-timeseries"
+        },
+        {
+            "compare":{
+                "enabled":true,
+                "help":"Compare with baseline",
+                "source":{
+                    "tiles":["null{date}"],
+                    "type":"raster"
+                }
+            },
+            "domain":["2013-01-01T00:00:00Z","2013-12-01T00:00:00Z"],
+            "exclusiveWith":[],
+            "id":"OTD Daily",
+            "info":"Shows the daily mean flash rate density throughout 1998 to 2013.",
+            "legend":{
+                "max": null,
+                "min": null,
+                "stops":[
+                  {"color": "#F4F5D3", "label": "Exceptional"},
+                  {"color": "#794416", "label": "Favourable"},
+                  {"color": "#F3EF4F", "label": "Watch"},
+                  {"color": "#6ECC51", "label": "Few"},
+                  {"color": "#3C8EC4", "label": "Poor"}
+                ],
+                "type": "categorical" 
+            },
+            "name":"OTD Daily",
+            "paint":null,
+            "source":{
+                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/HRAC/{date}/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
+                "type":"raster"
+            },
+            "swatch":{"color": "#C0C0C0", "name": "Grey"},
+            "timeUnit":"day",
+            "type":"raster-timeseries"
         }
     ]
 }
