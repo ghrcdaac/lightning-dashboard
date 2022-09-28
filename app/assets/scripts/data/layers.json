@@ -33,7 +33,8 @@
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"month",
-            "type":"raster-timeseries"
+            "type":"raster-timeseries",
+            "dataset_type":"TRMM LIS"
         },
         {
             "compare":{
@@ -68,7 +69,8 @@
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"day",
-            "type":"raster-timeseries"
+            "type":"raster-timeseries",
+            "dataset_type":"TRMM LIS"
         },
         {
             "compare":{
@@ -103,7 +105,8 @@
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"month",
-            "type":"raster-timeseries"
+            "type":"raster-timeseries",
+            "dataset_type":"TRMM LIS"
         },
         {
             "compare":{
@@ -151,7 +154,8 @@
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"day",
-            "type":"raster-timeseries"
+            "type":"raster-timeseries",
+            "dataset_type":"TRMM LIS"
         },
         {
             "compare":{
@@ -186,7 +190,8 @@
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"day",
-            "type":"raster-timeseries"
+            "type":"raster-timeseries",
+            "dataset_type":"TRMM LIS"
         },
         {
             "compare":{
@@ -221,7 +226,8 @@
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"month",
-            "type":"raster-timeseries"
+            "type":"raster-timeseries",
+            "dataset_type":"OTD"
         },
         {
             "compare":{
@@ -256,7 +262,8 @@
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"month",
-            "type":"raster-timeseries"
+            "type":"raster-timeseries",
+            "dataset_type":"OTD"
         },
         {
             "compare":{
@@ -304,7 +311,8 @@
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"day",
-            "type":"raster-timeseries"
+            "type":"raster-timeseries",
+            "dataset_type":"OTD"
         },
         {
             "compare":{
@@ -339,7 +347,8 @@
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"day",
-            "type":"raster-timeseries"
+            "type":"raster-timeseries",
+            "dataset_type":"OTD"
         }
     ]
 }
