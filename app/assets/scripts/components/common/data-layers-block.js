@@ -84,9 +84,8 @@ class DataLayersBlock extends React.Component {
     
     const { onAction, layers, mapLoaded,tileOpacity, toggleHandler, baselineHandler, baselineId, activeLayers, comparing, comparingId, calendarStatus } = this.props;
 
-    console.log(this.state.dropdown)
-    //seperating 1D different layer information to 2d array with each row/array specifying a single type layer
-    //this will be useful for accordion loop
+    //seperating 1D multiple layer information to 2d array with each row/array specifying a single type layer
+    //this will be useful for accordion loop -- also adds dynamism to this feature --> new dataset types will automatically add themselves on their own dropdown
     let dataset_type = layers[0].dataset_type;
     const two_dim_layers = []
     let layer_array = []
@@ -104,7 +103,6 @@ class DataLayersBlock extends React.Component {
     })
     two_dim_layers.push(layer_array)
 
-    //console.log(two_dim_layers)
     return (
       <PanelBlockLayer>
         <PanelBlockHeader>
@@ -122,7 +120,6 @@ class DataLayersBlock extends React.Component {
         </PanelBlockHeader>
         <PanelBlockBody>
           <PanelBlockScroll>
-            {/* <PanelTitle>Datasets</PanelTitle> */}
             <MainBody left={this.state.leftBody} animation={this.state.animationBody}>
               <LayerBody>
                 {two_dim_layers.map((layerArray)=>(
@@ -135,39 +132,39 @@ class DataLayersBlock extends React.Component {
                     </TitleWrapper>
                     <BottomLineAccordion/>
                     {this.state.dropdown === layerArray[0].dataset_type && 
-                    <AccordionBody>
-                      <Accordion>
-                        {({ checkExpanded, setExpanded }) => (
-                          <ol>
-                            {layerArray.map((l, idx) => (
-                              <li key={l.id}>
-                                <Layer
-                                  id={l.id}
-                                  label={l.name}
-                                  disabled={!mapLoaded}
-                                  type={l.type}
-                                  active={l.visible}
-                                  swatchColor={get(l, 'swatch.color')}
-                                  swatchName={get(l, 'swatch.name')}
-                                  dataOrder={l.dataOrder}
-                                  info={l.info}
-                                  legend={l.legend}
-                                  isExpanded={checkExpanded(idx)}
-                                  setExpanded={v => setExpanded(idx, v)}
-                                  onToggleClick={() => onAction('layer.toggle', l)}
-                                  onLegendKnobChange={(payload) => onAction('layer.legend-knob', { id: l.id, ...payload })}
-                                  knobPos={l.knobPos}
-                                  compareEnabled={!!l.compare}
-                                  compareActive={l.comparing}
-                                  compareHelp={get(l, 'compare.help')}
-                                  onCompareClick={() => onAction('layer.compare', l)}
-                                />
-                              </li>
-                            ))}
-                          </ol>
-                        )}
-                      </Accordion>
-                    </AccordionBody>
+                      <AccordionBody>
+                        <Accordion>
+                          {({ checkExpanded, setExpanded }) => (
+                            <ol>
+                              {layerArray.map((l, idx) => (
+                                <li key={l.id}>
+                                  <Layer
+                                    id={l.id}
+                                    label={l.name}
+                                    disabled={!mapLoaded}
+                                    type={l.type}
+                                    active={l.visible}
+                                    swatchColor={get(l, 'swatch.color')}
+                                    swatchName={get(l, 'swatch.name')}
+                                    dataOrder={l.dataOrder}
+                                    info={l.info}
+                                    legend={l.legend}
+                                    isExpanded={checkExpanded(idx)}
+                                    setExpanded={v => setExpanded(idx, v)}
+                                    onToggleClick={() => onAction('layer.toggle', l)}
+                                    onLegendKnobChange={(payload) => onAction('layer.legend-knob', { id: l.id, ...payload })}
+                                    knobPos={l.knobPos}
+                                    compareEnabled={!!l.compare}
+                                    compareActive={l.comparing}
+                                    compareHelp={get(l, 'compare.help')}
+                                    onCompareClick={() => onAction('layer.compare', l)}
+                                  />
+                                </li>
+                              ))}
+                            </ol>
+                          )}
+                        </Accordion>
+                      </AccordionBody>
                     }
                   </AccordionContainer>
                 ))}

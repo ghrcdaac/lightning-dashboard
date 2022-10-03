@@ -77,7 +77,7 @@ const CalendarTag = (props) =>{
                 calendarType = element.calendarType
             }
         })
-        if(baseline_id === 'TRMM LIS Monthly') view = 'year';
+        if(baseline_id === 'TRMM LIS Monthly' || baseline_id === 'OTD Monthly') view = 'year';
     }
 
     const clickHandler = () =>{
@@ -108,7 +108,7 @@ const CalendarTag = (props) =>{
     return(
         <>
         <Outer_container styleColor='white'>
-            {(typeof comparingLayer !== 'undefined') && <CalendarContainer bottom={(baseline_id === 'TRMM LIS Full') && '22rem' || '17rem'}>
+            {(typeof comparingLayer !== 'undefined') && <CalendarContainer bottom={(baseline_id === 'TRMM LIS Full' || baseline_id === 'OTD Full') && '22rem' || '17rem'}>
                 {calendar && 
                     <div style={{margin:'10px'}}>
                         { (calendarType === 'non-custom') && <Calendar view={view} minDate={new Date('2013-01-02')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onClickDay={onClickDay} onClickMonth={onClickMonth} value={date}/>}

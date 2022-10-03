@@ -135,8 +135,6 @@ class ExpMapSecPanel extends React.Component {
 
   render () {
 
-    console.log(this.props.activeLayer)
-
     return (
       <PanelSelf
         collapsible

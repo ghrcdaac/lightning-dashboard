@@ -28,7 +28,6 @@ export default {
     const { dataCanvas, props, xScale, yScale } = ctx;
     // Limit data to existing date domain.
     const dateDomain = xScale.domain();
-    console.log(dateDomain)
     const data = props.data.filter(d => {
       const date = utcDate(d.date);
       return !isBefore(date, dateDomain[0]) && !isAfter(date, dateDomain[1]);

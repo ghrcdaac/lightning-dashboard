@@ -349,10 +349,8 @@ class GlobalExplore extends React.Component {
       const comparingLayer = find(layers, 'comparing');
       
       if (this.state.activeLayers[0] === payload.id && comparingLayer) {
-        console.log(payload.id, comparingLayer)
         //toggleLayerCompare.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()));
-        console.log(this.props.BASELINE_ID)
-        console.log(find(layers, 'comparing'))
+        //console.log(find(layers, 'comparing'))
         this.props.resetBaseline();
       }
     }

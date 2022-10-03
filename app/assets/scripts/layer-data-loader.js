@@ -16,7 +16,7 @@ class LayerDataLoader extends React.Component {
   requestData(){
     const dataset = []
     LAYER_JSON.layer.map((layer)=>dataset.push(layer))
-    console.log('v12')
+    console.log('v13')
     storeSpotlightLayers('global', dataset);
     this.props.onReady();
   }
