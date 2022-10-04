@@ -332,7 +332,7 @@ class GlobalExplore extends React.Component {
     this.onPanelAction('layer.compare', passLayer)
     //console.log(passLayer)
   }
-
+  
   updateUrlQS () {
     // const qString = this.qsState.getQs(this.state);
     // this.props.history.push({ search: qString });

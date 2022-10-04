@@ -34,7 +34,8 @@
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"month",
             "type":"raster-timeseries",
-            "dataset_type":"TRMM LIS"
+            "dataset_type":"TRMM LIS",
+            "baseline":["custom", "full"]
         },
         {
             "compare":{
@@ -70,7 +71,8 @@
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"day",
             "type":"raster-timeseries",
-            "dataset_type":"TRMM LIS"
+            "dataset_type":"TRMM LIS",
+            "baseline":["custom", "seasonal"]
         },
         {
             "compare":{
@@ -106,7 +108,8 @@
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"month",
             "type":"raster-timeseries",
-            "dataset_type":"TRMM LIS"
+            "dataset_type":"TRMM LIS",
+            "baseline":["non-custom", "year"]
         },
         {
             "compare":{
@@ -155,7 +158,8 @@
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"day",
             "type":"raster-timeseries",
-            "dataset_type":"TRMM LIS"
+            "dataset_type":"TRMM LIS",
+            "baseline":["custom", "diurnal"]
         },
         {
             "compare":{
@@ -191,7 +195,8 @@
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"day",
             "type":"raster-timeseries",
-            "dataset_type":"TRMM LIS"
+            "dataset_type":"TRMM LIS",
+            "baseline":["non-custom", "month"]
         },
         {
             "compare":{
@@ -227,7 +232,8 @@
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"month",
             "type":"raster-timeseries",
-            "dataset_type":"OTD"
+            "dataset_type":"OTD",
+            "baseline":["custom", "full"]
         },
         {
             "compare":{
@@ -263,7 +269,8 @@
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"month",
             "type":"raster-timeseries",
-            "dataset_type":"OTD"
+            "dataset_type":"OTD",
+            "baseline":["non-custom", "year"]
         },
         {
             "compare":{
@@ -312,7 +319,8 @@
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"day",
             "type":"raster-timeseries",
-            "dataset_type":"OTD"
+            "dataset_type":"OTD",
+            "baseline":["custom", "diurnal"]
         },
         {
             "compare":{
@@ -348,7 +356,8 @@
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
             "timeUnit":"day",
             "type":"raster-timeseries",
-            "dataset_type":"OTD"
+            "dataset_type":"OTD",
+            "baseline":["non-custom", "month"]
         }
     ]
 }

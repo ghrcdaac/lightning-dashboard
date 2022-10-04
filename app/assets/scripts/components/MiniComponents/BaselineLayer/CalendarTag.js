@@ -9,6 +9,8 @@ import ReactDOM from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { changeBaselineDate, changeBaselineDateInformal } from '../../../redux/action/BaselineAction';
 import BaselineJSON from '../../../data/Baseline'
+import { getBaselineData } from '../../../data/DataIndex';
+import { get_layer } from '../../../utils/HelperMethods';
 
 const Outer_container = styled.div`
 //position:absolute;
@@ -70,14 +72,20 @@ const CalendarTag = (props) =>{
     const dispatch = useDispatch();
     const baseline_id = useSelector(state=>state.BASELINE_REDUCER.BASELINE_ID)
 
-    // console.log(BaselineJSON)
+    const layer = get_layer(baseline_id, props.layers)
+
+    // if(typeof baseline_id !== 'undefined' && baseline_id !== null && baseline_id !== 'Datasets'){
+    //     BaselineJSON.Baseline.map((element)=>{
+    //         if(element.id === baseline_id){
+    //             calendarType = element.calendarType
+    //         }
+    //     })
+    //     if(baseline_id === 'TRMM LIS Monthly' || baseline_id === 'OTD Monthly') view = 'year';
+    // }
+
     if(typeof baseline_id !== 'undefined' && baseline_id !== null && baseline_id !== 'Datasets'){
-        BaselineJSON.Baseline.map((element)=>{
-            if(element.id === baseline_id){
-                calendarType = element.calendarType
-            }
-        })
-        if(baseline_id === 'TRMM LIS Monthly' || baseline_id === 'OTD Monthly') view = 'year';
+        calendarType = layer.baseline[0]
+        view = layer.baseline[1]
     }
 
     const clickHandler = () =>{
@@ -112,7 +120,7 @@ const CalendarTag = (props) =>{
                 {calendar && 
                     <div style={{margin:'10px'}}>
                         { (calendarType === 'non-custom') && <Calendar view={view} minDate={new Date('2013-01-02')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onClickDay={onClickDay} onClickMonth={onClickMonth} value={date}/>}
-                        { (calendarType === 'custom') && <CustomCalendar id={baseline_id} onClick={customClickHandler}/>}
+                        { (calendarType === 'custom') && <CustomCalendar id={baseline_id} onClick={customClickHandler} layer={layer}/>}
                     </div>
                 }
             </CalendarContainer>}
