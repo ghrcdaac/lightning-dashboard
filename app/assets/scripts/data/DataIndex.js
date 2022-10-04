@@ -1,12 +1,11 @@
 import HotSpotJSON from './HotSpot'
 import BarChartJSON from './BarChart'
+import Baseline2 from './Baseline2'
 
 export const HotSpotIndex = (id) =>{
-    console.log(id, HotSpotJSON)
     var a;
     HotSpotJSON.layers.forEach((element)=>{
         if(element.name === id){
-            console.log(element.HotSpots)
             a = element.HotSpots
         }
     })
@@ -35,6 +34,17 @@ export const BarChartIndex = (id) =>{
     return{
         max:max,
         min:min,
-        data:layerData
+        data:layerData,
+        id:id
     }
+}
+
+export const getBaselineData = (id) =>{
+    var a;
+    Baseline2.forEach((element)=>{
+        if(element.id === id){
+            a = element
+        }
+    })
+    return a
 }

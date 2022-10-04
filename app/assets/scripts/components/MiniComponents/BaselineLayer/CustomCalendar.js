@@ -1,9 +1,11 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
-import JsonData from './CustomCalendar-data.json'
-import BaselineJSON from '../data/Baseline'
+// import JsonData from './CustomCalendar-data.json'
+import BaselineJSON from '../../../data/Baseline'
+import Baseline2 from '../../../data/Baseline2'
 import find from 'lodash.find';
 import { checkPropTypes } from 'prop-types';
+import { getBaselineData } from '../../../data/DataIndex';
 
 const ButtonContainer = styled.div`
 //position:absolute;
@@ -37,15 +39,15 @@ align-items:center;
 background-color:${(props)=>props.backgroundColor}
 `
 
-const CustomCalendar = ({ id, onClick }) =>{
+const CustomCalendar = ({ id, onClick, layer }) =>{
 
-    //const arr = JsonData.layers.filter((layer)=> layer.id === id)
-    const arr = BaselineJSON.Baseline.filter((layer)=> layer.id === id)
+    //const arr = BaselineJSON.Baseline.filter((layer)=> layer.id === id)
+    const arr = getBaselineData(layer.baseline[1])
     const [selected, useSelected] = useState({});
 
     return(
         <ButtonContainer>
-            {arr !== null && arr[0].data.map((data)=>(
+            {arr !== null && arr.data.map((data)=>(
                 <Button onClick={()=>{onClick(data[0], data, id);useSelected({id:id, date:data[0]})}} key={data[1]} backgroundColor={((id === selected.id) && (data[0] === selected.date) && '#007afc')}>
                     <div style={{display:'flex', flexDirection:'column', textAlign:'center', justifyContent:'center', alignItems:'center'}}>
                         <div>{data[1]}</div>

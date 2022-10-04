@@ -1,14 +1,16 @@
 import React,{useState, useEffect} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
-import Button from '../styles/button/button'
+import Button from '../../../styles/button/button';
 import Calendar from 'react-calendar';
 import find from 'lodash.find';
 import CustomCalendar from './CustomCalendar';
-import { date_to_string } from './HelperMethods';
+import { date_to_string } from '../../../utils/HelperMethods';
 import ReactDOM from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { changeBaselineDate, changeBaselineDateInformal } from '../redux/action/BaselineAction';
-import BaselineJSON from '../data/Baseline'
+import { changeBaselineDate, changeBaselineDateInformal } from '../../../redux/action/BaselineAction';
+import BaselineJSON from '../../../data/Baseline'
+import { getBaselineData } from '../../../data/DataIndex';
+import { get_layer } from '../../../utils/HelperMethods';
 
 const Outer_container = styled.div`
 //position:absolute;
@@ -70,14 +72,20 @@ const CalendarTag = (props) =>{
     const dispatch = useDispatch();
     const baseline_id = useSelector(state=>state.BASELINE_REDUCER.BASELINE_ID)
 
-    // console.log(BaselineJSON)
+    const layer = get_layer(baseline_id, props.layers)
+
+    // if(typeof baseline_id !== 'undefined' && baseline_id !== null && baseline_id !== 'Datasets'){
+    //     BaselineJSON.Baseline.map((element)=>{
+    //         if(element.id === baseline_id){
+    //             calendarType = element.calendarType
+    //         }
+    //     })
+    //     if(baseline_id === 'TRMM LIS Monthly' || baseline_id === 'OTD Monthly') view = 'year';
+    // }
+
     if(typeof baseline_id !== 'undefined' && baseline_id !== null && baseline_id !== 'Datasets'){
-        BaselineJSON.Baseline.map((element)=>{
-            if(element.id === baseline_id){
-                calendarType = element.calendarType
-            }
-        })
-        if(baseline_id === 'TRMM LIS Monthly') view = 'year';
+        calendarType = layer.baseline[0]
+        view = layer.baseline[1]
     }
 
     const clickHandler = () =>{
@@ -108,11 +116,11 @@ const CalendarTag = (props) =>{
     return(
         <>
         <Outer_container styleColor='white'>
-            {(typeof comparingLayer !== 'undefined') && <CalendarContainer bottom={(baseline_id === 'TRMM LIS Full') && '22rem' || '17rem'}>
+            {(typeof comparingLayer !== 'undefined') && <CalendarContainer bottom={(baseline_id === 'TRMM LIS Full' || baseline_id === 'OTD Full') && '22rem' || '17rem'}>
                 {calendar && 
                     <div style={{margin:'10px'}}>
                         { (calendarType === 'non-custom') && <Calendar view={view} minDate={new Date('2013-01-02')} maxDate={new Date('2013-12-31')} defaultActiveStartDate={new Date('2013-01-01')} onClickDay={onClickDay} onClickMonth={onClickMonth} value={date}/>}
-                        { (calendarType === 'custom') && <CustomCalendar id={baseline_id} onClick={customClickHandler}/>}
+                        { (calendarType === 'custom') && <CustomCalendar id={baseline_id} onClick={customClickHandler} layer={layer}/>}
                     </div>
                 }
             </CalendarContainer>}

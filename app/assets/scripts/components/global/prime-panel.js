@@ -3,7 +3,6 @@
 import React from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';
-import Slider from '../../utils/Slider';
 
 import Panel from '../common/panel';
 import DataLayersBlock from '../common/data-layers-block';

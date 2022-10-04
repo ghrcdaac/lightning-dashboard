@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {FaPlay, FaPause} from '../../../../node_modules/react-icons/fa'
+import {FaPlay, FaPause} from '../../../../../../node_modules/react-icons/fa'
 
 const Input = styled.input`
 width:50px;

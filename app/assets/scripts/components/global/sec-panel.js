@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import T from 'prop-types';
 import * as d3 from 'd3';
 
-import BarChartPanel from '../MiniComponents/BarChartPanel';
-import { BarChartIndex } from '../../data/DataIndex';
+import BarChartPanel from '../MiniComponents/Histogram/BarChartPanel';
+// import { BarChartIndex } from '../../data/DataIndex';
 import Heading from '../../styles/type/heading';
 // import SimpleLineChart from '../common/simple-line-chart/chart';
 import BarChart from '../common/bar-chart/chart';
@@ -23,9 +23,10 @@ import { differenceInMonths, differenceInDays } from 'date-fns';
 import SummaryExpandable from '../common/summary-expandable';
 
 const PanelSelf = styled(Panel)`
-  ${media.largeUp`
-    width: 30rem;
-  `}
+  // ${media.largeUp`
+  //   width: 30rem;
+  // `}
+  width:25rem;
 `;
 
 const BodyScroll = styled(ShadowScrollbar)`
@@ -134,9 +135,6 @@ class ExpMapSecPanel extends React.Component {
 
   render () {
 
-    const chartData = BarChartIndex("TRMM LIS Monthly")
-
-    console.log(chartData)
     return (
       <PanelSelf
         collapsible
@@ -150,16 +148,7 @@ class ExpMapSecPanel extends React.Component {
         }
         bodyContent={
           <BodyScroll>
-            <BarChartPanel/>
-            {/* <BarChart
-              yDomain={[chartData.min,chartData.max]}
-              data={chartData.data.data}
-              yUnit={'FRD'}
-              selectedDate={this.props.date}
-            /> */}
-            {/* <InsightsBlock>
-              {this.renderContent()}
-            </InsightsBlock> */}
+            {/* <BarChartPanel layer={this.props.activeLayer}/> */}
           </BodyScroll>
         }
       />

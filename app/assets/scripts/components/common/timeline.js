@@ -13,7 +13,8 @@ import { glsp } from '../../styles/utils/theme-values';
 import { themeVal } from '../../styles/utils/general';
 import { utcDate } from '../../utils/utils';
 
-import TimelineTimer from '../../utils/TimelineTimer';
+//import TimelineTimer from '../../utils/TimelineTimer';
+import TimelineTimer from '../MiniComponents/Single/TimelineTimer';
 
 const checkSameDate = (date, compareDate, interval) => {
   if (interval === 'day') {

@@ -9,8 +9,10 @@ import bbox from '@turf/bbox';
 //import get from 'lodash.get';
 import find from 'lodash.find';
 
-import Popups from '../../utils/Popup';
-import PopupButton from '../../utils/PopupButton';
+// import Popups from '../../utils/Popup';
+// import PopupButton from '../../utils/PopupButton';
+import Popups from '../MiniComponents/PopUp/Popup';
+import PopupButton from '../MiniComponents/PopUp/PopupButton';
 import { get_layer, dateFormat } from '../../utils/HelperMethods';
 
 import { headingAlt } from '../../styles/type/heading';
@@ -330,7 +332,7 @@ class GlobalExplore extends React.Component {
     this.onPanelAction('layer.compare', passLayer)
     //console.log(passLayer)
   }
-
+  
   updateUrlQS () {
     // const qString = this.qsState.getQs(this.state);
     // this.props.history.push({ search: qString });
@@ -347,10 +349,8 @@ class GlobalExplore extends React.Component {
       const comparingLayer = find(layers, 'comparing');
       
       if (this.state.activeLayers[0] === payload.id && comparingLayer) {
-        console.log(payload.id, comparingLayer)
         //toggleLayerCompare.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()));
-        console.log(this.props.BASELINE_ID)
-        console.log(find(layers, 'comparing'))
+        //console.log(find(layers, 'comparing'))
         this.props.resetBaseline();
       }
     }
@@ -489,18 +489,14 @@ class GlobalExplore extends React.Component {
                   onSizeChange={this.resizeMap}
                 />
               </ExploreCarto>
-              {/* <ExpMapSecPanel
-                // aoiFeature={this.state.aoi.feature}
-                // cogTimeData={this.props.cogTimeData}
-                // cogDateRanges={this.state.cogDateRanges}
-                // cogLayersSettings={cogLayers}
-                // layers={activeCogTimeseriesLayers}
+              {/* {this.state.activeLayers.length > 0 &&  <ExpMapSecPanel
                 onAction={this.onPanelAction}
+                activeLayer={this.state.activeLayers[0]}
                 onPanelChange={({ revealed }) => {
                   this.resizeMap();
                   this.onPanelChange('panelSec', revealed);
                 }}
-              /> */}
+              />} */}
             </ExploreCanvas>
           </InpageBody>
         </Inpage>

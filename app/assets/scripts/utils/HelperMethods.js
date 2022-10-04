@@ -8,7 +8,7 @@ export function date_to_string(date, layer){
 
     if(layer === 'TRMM LIS Full'){
 
-    }else if(layer === 'TRMM LIS Monthly'){
+    }else if(layer === 'TRMM LIS Monthly' || layer === 'OTD Monthly'){
         var month = date.getMonth() + 1;
 
         if(month < 10){
@@ -16,7 +16,7 @@ export function date_to_string(date, layer){
         }else{
             dateString = date.getFullYear() + '' + month
         }        
-    }else if(layer === 'TRMM LIS Daily'){
+    }else if(layer === 'TRMM LIS Daily' || layer === 'OTD Daily'){
         var month = date.getMonth() + 1;
         var day = date.getDate();
 

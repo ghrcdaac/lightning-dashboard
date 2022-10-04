@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
-import Button from '../styles/button/button'
+import Button from '../../../styles/button/button'
 
 const Outer_container = styled.div`
 position:absolute;

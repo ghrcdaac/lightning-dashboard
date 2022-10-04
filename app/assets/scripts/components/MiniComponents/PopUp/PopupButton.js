@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect} from "react";
 import styled, { withTheme, ThemeProvider } from 'styled-components';
-import Button from '../styles/button/button'
+import Button from "../../../styles/button/button";
 import Popups from "./Popup";
 
 const Outer_container = styled.div`

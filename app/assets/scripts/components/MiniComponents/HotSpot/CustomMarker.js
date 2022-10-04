@@ -8,7 +8,6 @@ const CustomMarker = ({feature}) => {
         setPopup(value)
     }
 
-    console.log(feature.lng, feature.lat)
     return (
       <Marker
         longitude={feature.lng}

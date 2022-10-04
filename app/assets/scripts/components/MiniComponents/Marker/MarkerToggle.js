@@ -1,10 +1,10 @@
 import React, {useState, useRef, useEffect} from "react";
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 //import { themeVal } from '../../styles/utils/general';
-import {themeVal} from '../styles/utils/general'
-import { visuallyHidden, truncated } from '../styles/helpers';
-import { FormSwitch } from "../styles/form/switch";
-import { glsp } from '../styles/utils/theme-values';
+import {themeVal} from '../../../styles/utils/general'
+import { visuallyHidden, truncated } from '../../../styles/helpers';
+import { FormSwitch } from "../../../styles/form/switch";
+import { glsp } from '../../../styles/utils/theme-values';
 
 const Outer_Container = styled.div`
 height: 65px;
