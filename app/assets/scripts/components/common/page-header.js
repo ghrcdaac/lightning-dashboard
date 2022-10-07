@@ -21,7 +21,7 @@ import Button from '../../styles/button/button';
 import { CopyField } from './copy-field';
 
 const { appTitle, appVersion, baseUrl } = config;
-
+const LOGO = "https://ghrc.nsstc.nasa.gov/home/sites/all/themes/hydrology/images/logos/ghrc_logo_2021-simple_wht.png";
 const _rgba = stylizeFunction(rgba);
 
 const PageHead = styled.header`
@@ -81,7 +81,7 @@ const PageTitlePrimeLink = styled(Link)`
     content: '';
     height: 48px;
     width: 62px;
-    background: url(https://ghrc.nsstc.nasa.gov/home/sites/all/themes/hydrology/images/logos/ghrc_logo_2021-simple_wht.png);
+    background: url(${LOGO});
     background-size: auto 100%;
     background-repeat: no-repeat;
     background-position: top right;

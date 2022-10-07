@@ -1,4 +1,4 @@
 export default {
   environment: 'staging',
-  api: 'https://08dvkxus0a.execute-api.us-east-1.amazonaws.com/v1'
+  api: 'https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/'
 };

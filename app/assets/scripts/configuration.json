@@ -1,0 +1,8 @@
+{
+    "mbToken":"pk.eyJ1IjoiYWxhbnN1YmVkaSIsImEiOiJjbDF1eTJodzgwMWp2M2RxYzR3Mmlod3g3In0.bWeFglLhxIyJGT8ytNbvTw",
+    "styleUrl":"mapbox://styles/mapbox/satellite-streets-v11",
+    "api":"https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/",
+    "NODE_ENV":"production",
+    "BASEURL":null,
+    "APP_VERSION":null
+}

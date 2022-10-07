@@ -28,7 +28,7 @@
             "name":"TRMM LIS Full",
             "paint":null,
             "source":{
-                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRFC/201301/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.325,23.426]"],
+                "tiles":["VHRFC/201301/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.325,23.426]"],
                 "type":"raster"
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
@@ -65,7 +65,7 @@
             "name":"TRMM LIS Seasonal",
             "paint":null,
             "source":{
-                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRSC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
+                "tiles":["VHRSC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
                 "type":"raster"
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
@@ -102,7 +102,7 @@
             "name":"TRMM LIS Monthly",
             "paint":null,
             "source":{
-                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRMC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
+                "tiles":["VHRMC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
                 "type":"raster"
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
@@ -152,7 +152,7 @@
             "name":"TRMM LIS Diurnal",
             "paint":null,
             "source":{
-                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRDC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.002]"],
+                "tiles":["VHRDC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.002]"],
                 "type":"raster"
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
@@ -189,7 +189,7 @@
             "name":"TRMM LIS Daily",
             "paint":null,
             "source":{
-                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/VHRAC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
+                "tiles":["VHRAC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
                 "type":"raster"
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
@@ -226,7 +226,7 @@
             "name":"OTD Full",
             "paint":null,
             "source":{
-                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/HRFC/201301/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.325,55.426]"],
+                "tiles":["HRFC/201301/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.325,55.426]"],
                 "type":"raster"
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
@@ -263,7 +263,7 @@
             "name":"OTD Monthly",
             "paint":null,
             "source":{
-                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/HRMC/{date}/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.2]"],
+                "tiles":["HRMC/{date}/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.2]"],
                 "type":"raster"
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
@@ -313,7 +313,7 @@
             "name":"OTD Diurnal",
             "paint":null,
             "source":{
-                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/LRDC/{date}/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.002]"],
+                "tiles":["LRDC/{date}/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.002]"],
                 "type":"raster"
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
@@ -350,7 +350,7 @@
             "name":"OTD Daily",
             "paint":null,
             "source":{
-                "tiles":["https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/HRAC/{date}/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
+                "tiles":["HRAC/{date}/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
                 "type":"raster"
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
