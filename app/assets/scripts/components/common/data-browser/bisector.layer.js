@@ -99,6 +99,7 @@ export default {
       .on('click', function () {
         const xPos = d3.mouse(this)[0];
         const date = getClosestDate(ctx.props.xDomain, ctx.xScale.invert(xPos), ctx.props.timeUnit);
+        console.log(date)
         ctx.props.onAction('date.set', { date });
       });
   },

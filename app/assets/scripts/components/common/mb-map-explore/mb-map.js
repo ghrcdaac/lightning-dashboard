@@ -155,33 +155,6 @@ class MbMap extends React.Component {
       }
     }
 
-    // if(this.props.HOTSPOT === true){
-    //   if(prevProps.activeLayers[0] !== this.props.activeLayers[0]){
-    //     if(typeof prevProps.activeLayers[0] === 'undefined'){
-    //       this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));
-    //     }else if(this.props.activeLayers.length === 0){
-    //       this.removeHotSpot()
-    //     }else{    
-    //       this.removeHotSpot();
-    //       this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));
-    //     }
-    //   }else{
-    //     if(prevProps.date !== this.props.date){
-    //       this.removeHotSpot();
-    //       this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));    
-    //     }
-    //   }
-  
-    // }
-
-    // if(prevProps.HOTSPOT !== this.props.HOTSPOT){
-    //   if(this.props.HOTSPOT === true){
-    //     this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));
-    //   }else{
-    //     this.removeHotSpot();
-    //   }
-    // }
-
     // Manually trigger render of detached react components.
 
     this.overlayDropdownControl &&
@@ -434,6 +407,8 @@ class MbMap extends React.Component {
 
     const tile = baseline_link(this.props.layers, this.props.comparingId, dateString)
 
+    console.log(">>>>>>>", tile)
+    console.log("++++++++", this.props.comparingId)
     if(this.mbMapComparing.getSource(this.props.comparingId)){
       this.mbMapComparing.getSource(this.props.comparingId).tiles = tile
       this.mbMapComparing.style.sourceCaches[this.props.comparingId].clearTiles();

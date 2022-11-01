@@ -7,6 +7,7 @@ import Button from '../../styles/button/button';
 import ButtonGroup from '../../styles/button/group';
 import DataBrowserChart from './data-browser/chart';
 import ShadowScrollbar from './shadow-scrollbar';
+import TimelineDropDown from '../MiniComponents/TimelineDropDown';
 
 import { panelSkin } from '../../styles/skins';
 import { glsp } from '../../styles/utils/theme-values';
@@ -254,6 +255,7 @@ class Timeline extends React.Component {
           </ExploreDataBrowserActions>
         </ExploreDataBrowserHeader>
         <ExploreDataBrowserBody isExpanded={this.state.isExpanded}>
+          {(layers[0].timeline_type == 'regular') ?
           <DataBrowserBodyScroll>
             <DataBrowserChart
               selectedDate={date}
@@ -263,7 +265,9 @@ class Timeline extends React.Component {
               swatch={swatch}
               id={id}
             />
-          </DataBrowserBodyScroll>
+          </DataBrowserBodyScroll> :
+          <TimelineDropDown/>
+          }
         </ExploreDataBrowserBody>
       </ExploreDataBrowser>
     );

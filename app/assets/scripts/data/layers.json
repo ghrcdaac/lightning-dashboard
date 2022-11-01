@@ -35,7 +35,8 @@
             "timeUnit":"month",
             "type":"raster-timeseries",
             "dataset_type":"TRMM LIS",
-            "baseline":["custom", "full"]
+            "baseline":["custom", "full"],
+            "timeline_type":"regular"
         },
         {
             "compare":{
@@ -72,7 +73,8 @@
             "timeUnit":"day",
             "type":"raster-timeseries",
             "dataset_type":"TRMM LIS",
-            "baseline":["custom", "seasonal"]
+            "baseline":["custom", "seasonal"],
+            "timeline_type":"regular"
         },
         {
             "compare":{
@@ -109,7 +111,8 @@
             "timeUnit":"month",
             "type":"raster-timeseries",
             "dataset_type":"TRMM LIS",
-            "baseline":["non-custom", "year"]
+            "baseline":["non-custom", "year"],
+            "timeline_type":"regular"
         },
         {
             "compare":{
@@ -159,7 +162,8 @@
             "timeUnit":"day",
             "type":"raster-timeseries",
             "dataset_type":"TRMM LIS",
-            "baseline":["custom", "diurnal"]
+            "baseline":["custom", "diurnal"],
+            "timeline_type":"regular"
         },
         {
             "compare":{
@@ -196,7 +200,8 @@
             "timeUnit":"day",
             "type":"raster-timeseries",
             "dataset_type":"TRMM LIS",
-            "baseline":["non-custom", "month"]
+            "baseline":["non-custom", "month"],
+            "timeline_type":"regular"
         },
         {
             "compare":{
@@ -233,7 +238,8 @@
             "timeUnit":"month",
             "type":"raster-timeseries",
             "dataset_type":"OTD",
-            "baseline":["custom", "full"]
+            "baseline":["custom", "full"],
+            "timeline_type":"regular"
         },
         {
             "compare":{
@@ -270,7 +276,8 @@
             "timeUnit":"month",
             "type":"raster-timeseries",
             "dataset_type":"OTD",
-            "baseline":["non-custom", "year"]
+            "baseline":["non-custom", "year"],
+            "timeline_type":"regular"
         },
         {
             "compare":{
@@ -320,7 +327,8 @@
             "timeUnit":"day",
             "type":"raster-timeseries",
             "dataset_type":"OTD",
-            "baseline":["custom", "diurnal"]
+            "baseline":["custom", "diurnal"],
+            "timeline_type":"regular"
         },
         {
             "compare":{
@@ -357,7 +365,46 @@
             "timeUnit":"day",
             "type":"raster-timeseries",
             "dataset_type":"OTD",
-            "baseline":["non-custom", "month"]
+            "baseline":["non-custom", "month"],
+            "timeline_type":"regular"
+        },
+        {
+            "compare":{
+                "enabled":true,
+                "help":"Compare with baseline",
+                "source":{
+                    "tiles":["null{date}"],
+                    "type":"raster"
+                }
+            },
+            "domain":["2013-01-01T00:00:00Z","2013-12-01T00:00:00Z"],
+            "exclusiveWith":[],
+            "id":"Spring 2022",
+            "info":"Shows the daily mean flash rate density throughout 1998 to 2013.",
+            "legend":{
+                "max": null,
+                "min": null,
+                "stops":[
+                  {"color": "#F4F5D3", "label": "Exceptional"},
+                  {"color": "#794416", "label": "Favourable"},
+                  {"color": "#F3EF4F", "label": "Watch"},
+                  {"color": "#6ECC51", "label": "Few"},
+                  {"color": "#3C8EC4", "label": "Poor"}
+                ],
+                "type": "categorical" 
+            },
+            "name":"Spring 2022",
+            "paint":null,
+            "source":{
+                "tiles":["ISS_LIS/20220320/103612/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0]"],
+                "type":"raster"
+            },
+            "swatch":{"color": "#C0C0C0", "name": "Grey"},
+            "timeUnit":"day",
+            "type":"raster-timeseries",
+            "dataset_type":"ISS LIS",
+            "baseline":["non-custom", "month"],
+            "timeline_type":"non-regular"
         }
     ]
 }

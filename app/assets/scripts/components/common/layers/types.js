@@ -98,6 +98,7 @@ export const layerTypes = {
         parseInt(ctx.props.tileOpacity,10)/100
       );
 
+      console.log('update -- ', date)
       // Do not update if:
       if (
         // There's no date defined.
