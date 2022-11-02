@@ -9,7 +9,7 @@ const dateFormats = {
   day: 'yyyy_MM_dd'
 };
 
-const prepDateSource = (source, date, timeUnit = 'month') => {
+const prepDateSource = (source, date, timeUnit = 'month',id, ctx) => {
   //console.log("hello world im in {date} fomat at types.js", format(date, dateFormats[timeUnit]))
   return {
     ...source,
@@ -32,11 +32,24 @@ const prepGammaSource = (source, knobPos) => {
   };
 };
 
-const prepSource = (layerInfo, source, date, knobPos) => {
+const prepSource = (layerInfo, source, date, knobPos, id, ctx) => {
   if (layerInfo.legend.type === 'gradient-adjustable') {
     source = prepGammaSource(source, knobPos);
   }
-  source = prepDateSource(source, date, layerInfo.timeUnit);
+  if(id == 'Spring 2022' && typeof ctx.props.time != "undefined" && ctx.props.time !== null){
+    console.log(ctx)
+    console.log(ctx.props.time.date, ctx.props.time.time)
+    console.log(source)
+    var tiles = source.tiles
+    tiles = tiles.map((t) =>t.replace('{date}', ctx.props.time.year + ctx.props.time.month + ctx.props.time.day))
+    tiles = tiles.map((t) =>t.replace('{time}', ctx.props.time.time))
+    return {
+      ...source,
+      tiles: tiles
+    };
+  }else{
+    source = prepDateSource(source, date, layerInfo.timeUnit, id, ctx);
+  }
   //console.log(source, date, layerInfo.timeUnit)
   return source;
 };
@@ -52,33 +65,6 @@ export const replaceRasterTiles = (theMap, sourceId, tiles) => {
   // Force a repaint, so that the map will be repainted without you having to touch the map
   theMap.triggerRepaint();
 };
-
-// const replaceVectorData = (theMap, sourceId, data) => {
-//   const empty = {
-//     type: 'FeatureCollection',
-//     features: []
-//   };
-//   theMap.getSource(sourceId).setData(empty);
-//   theMap.getSource(sourceId).setData(data);
-// };
-
-// const toggleOrAddLayer = (mbMap, id, source, type, paint, beforeId) => {
-//   if (mbMap.getSource(id)) {
-//     mbMap.setLayoutProperty(id, 'visibility', 'visible');
-//   } else {
-//     mbMap.addSource(id, source);
-//     mbMap.addLayer(
-//       {
-//         id: id,
-//         type: type,
-//         source: id,
-//         layout: {},
-//         paint
-//       },
-//       beforeId
-//     );
-//   }
-// };
 
 export const layerTypes = {
   'raster-timeseries': {
@@ -98,7 +84,22 @@ export const layerTypes = {
         parseInt(ctx.props.tileOpacity,10)/100
       );
 
-      console.log('update -- ', date)
+      console.log('----------------------------------------------')
+      console.log(ctx)
+      console.log(prevProps)
+      if(id === 'Spring 2022' && ctx.props.time){
+        if(!prevProps.time){
+          const tiles = prepSource(layerInfo, source, date, knobPos, id, ctx).tiles;
+          replaceRasterTiles(mbMap, id, tiles);
+        }else{
+          if(prevProps.time.time !== props.time.time){
+            const tiles = prepSource(layerInfo, source, date, knobPos, id, ctx).tiles;
+            replaceRasterTiles(mbMap, id, tiles);
+          }
+        }
+        return;
+      }
+
       // Do not update if:
       if (
         // There's no date defined.

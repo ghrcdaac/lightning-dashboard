@@ -266,7 +266,7 @@ class Timeline extends React.Component {
               id={id}
             />
           </DataBrowserBodyScroll> :
-          <TimelineDropDown/>
+          <TimelineDropDown onTimeChange={(data)=>this.props.onTimeChange(data)}/>
           }
         </ExploreDataBrowserBody>
       </ExploreDataBrowser>

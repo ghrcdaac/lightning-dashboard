@@ -107,7 +107,8 @@ class MbMap extends React.Component {
       markers:[],
       modalStatus:false,
       modalBackground:null,
-      maploaded:false
+      maploaded:false,
+      time:null
     };
 
     // Store markers to be able to remove them.
@@ -144,16 +145,21 @@ class MbMap extends React.Component {
       }
     }
 
-    // if(this.props.HOTSPOT === true && prevProps.HOTSPOT !== this.props.HOTSPOT){
-    //   if(this.props.activeLayers.length > 0){
-    //   }
-    // }
-
     if(prevProps.BASELINE_ID !== this.props.BASELINE_ID){
       if(prevProps.BASELINE_ID !== null && prevProps.BASELINE_ID !== 'Datasets'){
         this.removeLayer(prevProps.BASELINE_ID)
       }
     }
+
+    // if(this.props.activeLayers[0] == 'Spring 2022'){
+    //   const layerInfo = this.props.layers.find((l) => l.id === 'Spring 2022');
+    //   const fns = layerTypes[layerInfo.type];
+    //   if(fns.update){
+    //     //const comparingLayer = find(this.props.layers, 'comparing');
+    //     const layer = get_layer(this.props.BASELINE_ID, this.props.layers)
+    //     fns.update(this, layerInfo, prevProps, layer, this.props.PREV_BASELINE_ID);
+    //   }
+    // }
 
     // Manually trigger render of detached react components.
 
@@ -217,6 +223,7 @@ class MbMap extends React.Component {
       );
 
       toRemove.forEach((layerId) => {
+        console.log(layerId)
         const layerInfo = this.props.layers.find((l) => l.id === layerId);
         if (!layerInfo) return;
         const fns = layerTypes[layerInfo.type];
@@ -234,6 +241,7 @@ class MbMap extends React.Component {
          return;
         }
         const fns = layerTypes[layerInfo.type];
+        console.log(layerTypes,layerInfo.type)
         
         if (fns) {
 
@@ -273,35 +281,6 @@ class MbMap extends React.Component {
     // Check if spotlights are available
     //const { spotlightList } = this.props;
     const spotlights = HotSpotData(this.props.activeLayers[0]);
-    //if (!spotlightList || !spotlightList.isReady()) return;
-
-    // Get spotlights from API data
-    // const data = spotlightList.getData();
-    // console.log(data)
-    
-    // const spotlights = []
-    // const spot = data.forEach((element)=>{
-    //   spotlights.push({
-    //     center:element.center,
-    //     id:element.id,
-    //     indicators:element.indicators,
-    //     label:element.label
-    //   })
-    // })
-
-
-    // Define a common function to add markers
-    // const addMarker = (spotlight, map) => {
-    //   return createMbMarker(map, { color: this.props.theme.color.primary })
-    //     .setLngLat(spotlight.center, console.log(spotlight))
-    //     .addTo(map)
-    //     .onClick((coords) => {
-    //       this.activeSpotlight = []
-    //       this.activeSpotlight.push(spotlight)
-    //       this.setState({ popover: { coords, spotlightId: spotlight.id } });
-    //     });
-    // };
-
     const addMarker = (spotlight, map) => {
       return createMbMarker(map, { color: this.props.theme.color.primary })
         .setLngLat([spotlight.Lon, spotlight.Lat])
@@ -354,18 +333,6 @@ class MbMap extends React.Component {
 
     // Remove compass.
     document.querySelector('.mapboxgl-ctrl .mapboxgl-ctrl-compass').remove();
-    // if (this.props.enableLocateUser) {
-    //   this.mbMapComparing.addControl(
-    //     new mapboxgl.GeolocateControl({
-    //       positionOptions: {
-    //         enableHighAccuracy: true
-    //       },
-    //       trackUserLocation: true
-    //     }),
-    //     'top-left'
-    //   );
-    // }
-
     // Style attribution.
     this.mbMapComparing.addControl(
       new mapboxgl.AttributionControl({ compact: true })
@@ -386,6 +353,10 @@ class MbMap extends React.Component {
       this.mbMap,
       '#container'
     );
+  }
+
+  updateTime(data){
+
   }
 
   updateActiveLayers (prevProps) {
@@ -471,40 +442,6 @@ class MbMap extends React.Component {
   }
 
   addHotSpot(layer, date){
-    // const datas = data(layer, date);
-    // datas[0].data.forEach((feature) => {
-    //     // Create a React ref
-    //     // const ref = React.createRef();
-    //     // // Create a new DOM node and save it to the React ref
-    //     // ref.current = document.createElement('div');
-    //     // ref.current.style.backgroundColor = 'red';
-    //     // // ref.current.setAttribute(
-    //     // //   'style',
-    //     // //   'background-color: red;',
-    //     // // );
-    //     // // Render a Marker Component on our new DOM node
-
-    //     // ReactDOM.render(
-    //     //   // <Marker feature={feature} background={arr[i++]} onClick={this.markerBackground}/>,
-    //     //   <HotSpot feature={feature}/>,
-    //     //   ref.current
-    //     // );
-  
-    //     // // Create a Mapbox Marker at our new DOM node
-    //     // var mark = new mapboxgl.Marker(ref.current)
-    //     //   .setLngLat([feature.lat, feature.lng])
-    //     //   .addTo(this.mbMap);
-  
-    //     // this.hotspotMarkers.push(mark);
-
-    //     const marker = new mapboxgl.Marker().setLngLat([feature.lat, feature.lng]).addTo(this.mbMap);
-    //     marker.getElement().addEventListener('click',()=>{
-    //       console.log('click')
-    //       // this.renderPopover([[feature.lat, feature.lng]])
-    //       //this.setState({popover:{coords:[feature.lat, feature.lng]}})
-    //       this.renderPop();
-    //     })
-    // })
   }
 
   removeHotSpot(){

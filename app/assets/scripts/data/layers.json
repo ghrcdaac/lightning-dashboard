@@ -396,7 +396,7 @@
             "name":"Spring 2022",
             "paint":null,
             "source":{
-                "tiles":["ISS_LIS/20220320/103612/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0]"],
+                "tiles":["ISS_LIS/{date}/{time}/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0]"],
                 "type":"raster"
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},

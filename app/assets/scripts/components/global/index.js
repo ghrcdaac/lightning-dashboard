@@ -54,6 +54,7 @@ import { round } from '../../utils/format';
 
 import { changeBaselineId, changeBaselineDate, resetBaseline } from '../../redux/action/BaselineAction';
 import BASELINE_REDUCER from '../../redux/reducers/BaselineReducer';
+import dataHighlightBandsLayer from '../common/common-chart-utils/data-highlight-bands.layer';
 
 /**
  * Returns a feature with a polygon geometry made of the provided bounds.
@@ -208,6 +209,7 @@ class GlobalExplore extends React.Component {
     this.baselineDate = this.baselineDate.bind(this);
     this.baselineId = this.baselineId.bind(this);
     this.calendarStatus = this.calendarStatus.bind(this);
+    this.onTimeChange = this.onTimeChange.bind(this);
     this.count = 0;
     //this.comparingId = 'TRMM LIS Full';
     //this.tileOpacity = 100;
@@ -273,6 +275,7 @@ class GlobalExplore extends React.Component {
       mapStyle:'mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y',
       panelPrime: false,
       panelSec: false,
+      time:null
     };
   }
 
@@ -357,8 +360,14 @@ class GlobalExplore extends React.Component {
     handlePanelAction.call(this, action, payload);
   }
 
-  baselineDate(date, id){
+  onTimeChange(data){
+    console.log(data)
+    this.setState({
+      time:data
+    })
+  }
 
+  baselineDate(date, id){
     const dateString = dateFormat(date, 'month-day-year', id)
     this.setState({
       baselineDate:dateString
@@ -366,33 +375,9 @@ class GlobalExplore extends React.Component {
   }
 
   calendarStatus(action){
-    // this.setState({
-    //   calendarStatus:!this.state.calendarStatus,
-    //   baselineDate:'null'
-    // })
-    // console.log(action)
-    // if(this.state.comparingId !== null && action === 'Datasets') toggleLayerCompare.call(this, get_layer(this.state.comparingId, getGlobalLayers()));
   }
 
   baselineId(id){
-    // if(this.state.comparingId !== null) this.mbMapRef.current.removeLayer(this.state.comparingId);
-    
-    // this.setState({
-    //   prevComparingId:this.state.comparingId,
-    //   comparingId:id,
-    //   baselineDate:'null'
-    // })
-    
-    // toggleLayerCompare.call(this,get_layer(id, getGlobalLayers()));
-
-    // if(this.props.PREV_BASELINE_ID !== null){
-    //   this.mbMapRef.current.removeLayer(this.props.PREV_BASELINE_ID)
-    // }
-
-    // console.log(this.props.BASELINE_ID)
-    // console.log(get_layer(this.props.BASELINE_ID, getGlobalLayers()))
-    // toggleLayerCommon.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()))
-
   }
 
   async onMapAction (action, payload) {
@@ -475,6 +460,7 @@ class GlobalExplore extends React.Component {
                   prevComparingId={this.props.PREV_BASELINE_ID}
                   calendarStatus={this.state.calendarStatus}
                   baselineHandler={this.baselineDate}
+                  time={this.state.time}
                 /> 
                 <PopupButton /> 
                 {this.count === 2 && !localStorage.getItem(popup_lr) && < Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
@@ -487,6 +473,7 @@ class GlobalExplore extends React.Component {
                   date={this.state.timelineDate}
                   onAction={this.onPanelAction}
                   onSizeChange={this.resizeMap}
+                  onTimeChange={this.onTimeChange}
                 />
               </ExploreCarto>
               {/* {this.state.activeLayers.length > 0 &&  <ExpMapSecPanel

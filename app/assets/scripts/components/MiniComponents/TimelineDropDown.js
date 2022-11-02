@@ -42,8 +42,10 @@ font-weight: bold;
 
 var currentData;
 var dayData_normal = []
+var curYear = "2022"
+var curMonth, curDay, curTime;
 
-const TimelineDropDown = () =>{
+const TimelineDropDown = ({ onTimeChange }) =>{
     const [month, setMonth] = useState(false)
     const [day, setDay] = useState(false)
     const [time, setTime] = useState(false);
@@ -56,8 +58,6 @@ const TimelineDropDown = () =>{
         arr.push(i)
     }
 
-    var curYear = "2022"
-    var curMonth, curDay, curTime;
 
     const monthHandler = (e) =>{
         dayData_normal = []
@@ -96,7 +96,7 @@ const TimelineDropDown = () =>{
             var time_data = []
             for(var i = start_index;i<=end_index;i++){
                 var file_name = currentData[0].file[i];
-                var file_time = file_name.substr(17, 8);
+                var file_time = file_name.substr(25, 8);
                 var hour = file_time.substr(0,2);
                 var minute = file_time.substr(2, 2);
                 var second = file_time.substr(4, 2);
@@ -108,15 +108,22 @@ const TimelineDropDown = () =>{
     }
 
     //need to handle this properly -- send data back from here
-    const timeHandler = () =>{
+    const timeHandler = (e) =>{
         if(e.target.value === 'Select Time'){
             
         }else{
             curTime = e.target.value;
+            curTime = curTime.substr(0,2) + curTime.substr(3,2) + curTime.substr(6,2)
+            onTimeChange({
+                year:curYear,
+                month:curMonth,
+                day:curDay,
+                time:curTime
+            })
         }
     }
 
-    console.log(currentData)
+
     return(
         <Container>
             <Inner_Container>
