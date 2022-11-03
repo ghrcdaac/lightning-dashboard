@@ -36,10 +36,7 @@ const prepSource = (layerInfo, source, date, knobPos, id, ctx) => {
   if (layerInfo.legend.type === 'gradient-adjustable') {
     source = prepGammaSource(source, knobPos);
   }
-  if(id == 'Spring 2022' && typeof ctx.props.time != "undefined" && ctx.props.time !== null){
-    console.log(ctx)
-    console.log(ctx.props.time.date, ctx.props.time.time)
-    console.log(source)
+  if(id === 'Spring 2022' && typeof ctx.props.time != "undefined" && ctx.props.time !== null){
     var tiles = source.tiles
     tiles = tiles.map((t) =>t.replace('{date}', ctx.props.time.year + ctx.props.time.month + ctx.props.time.day))
     tiles = tiles.map((t) =>t.replace('{time}', ctx.props.time.time))
@@ -84,9 +81,6 @@ export const layerTypes = {
         parseInt(ctx.props.tileOpacity,10)/100
       );
 
-      console.log('----------------------------------------------')
-      console.log(ctx)
-      console.log(prevProps)
       if(id === 'Spring 2022' && ctx.props.time){
         if(!prevProps.time){
           const tiles = prepSource(layerInfo, source, date, knobPos, id, ctx).tiles;

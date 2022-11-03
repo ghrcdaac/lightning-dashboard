@@ -52,17 +52,15 @@ const TimelineDropDown = ({ onTimeChange }) =>{
     const [dayData, setDayData] = useState([]);
     const [timeData, setTimeData] = useState([]);
 
-    console.log('im at top')
     var arr = [];
     for(var i = 1;i<=31;i++){
         arr.push(i)
     }
 
-
     const monthHandler = (e) =>{
         dayData_normal = []
+        setDay(false);
         if(e.target.value === 'Select Month'){
-            setDay(false);
             setTime(false);
             setMonth(false);
             setDayData([]);
@@ -133,25 +131,27 @@ const TimelineDropDown = ({ onTimeChange }) =>{
                 <Month name="month" id="month" onChange={monthHandler}>
                     <option>Select Month</option>
                     {isslis.map((element)=>(
-                        <option>{element.month}</option>
+                        <option key={element.month}>{element.month}</option>
                     ))}
                 </Month>
                 <Day name="day" id="day" onChange={dayHandler} disabled={!month}>
                     <option>Select Day</option>
                     {dayData.map((element)=>(
-                        element < 10 ? <option>0{element}</option> : <option>{element}</option>
+                        element < 10 ? <option key={element}>0{element}</option> : <option key={element}>{element}</option>
                     ))}
                 </Day>
-                <Time name="time" id="time" onChange={timeHandler} disabled={!day}>
+                {!day && <Time name="time" id="time" onChange={timeHandler} disabled={!day}>
+                    <option>Select Time</option>
+                </Time>}
+                {day && <Time name="time" id="time" onChange={timeHandler} disabled={!day}>
                     <option>Select Time</option>
                     {timeData.map((element)=>(
-                        <option>{element}</option>
+                        <option key={element}>{element}</option>
                     ))}
-                </Time>
+                </Time>}
             </Inner_Container>
         </Container>
     )
-
 }
 
 export default TimelineDropDown

@@ -255,7 +255,7 @@ class Timeline extends React.Component {
           </ExploreDataBrowserActions>
         </ExploreDataBrowserHeader>
         <ExploreDataBrowserBody isExpanded={this.state.isExpanded}>
-          {(layers[0].timeline_type == 'regular') ?
+          {(layers[0].timeline_type === 'regular') ?
           <DataBrowserBodyScroll>
             <DataBrowserChart
               selectedDate={date}

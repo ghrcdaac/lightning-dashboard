@@ -241,7 +241,6 @@ class MbMap extends React.Component {
          return;
         }
         const fns = layerTypes[layerInfo.type];
-        console.log(layerTypes,layerInfo.type)
         
         if (fns) {
 
