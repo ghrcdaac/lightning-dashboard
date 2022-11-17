@@ -222,7 +222,7 @@ class Timeline extends React.Component {
             </ExploreDataBrowserTitle>
           </ExploreDataBrowserHeadline>
           <ExploreDataBrowserActions>
-            <TimelineTimer nextDate={this.nextDate} nextDisabled={this.state.nextDisabled} ref={this.timerRef}/>
+            {<TimelineTimer nextDate={this.nextDate} nextDisabled={this.state.nextDisabled} ref={this.timerRef}/>}
             <CurrentDate>
               {date ? formatDate(date, timeUnit) : 'Select date'}
             </CurrentDate>

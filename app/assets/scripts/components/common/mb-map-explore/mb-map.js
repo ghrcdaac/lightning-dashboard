@@ -223,7 +223,6 @@ class MbMap extends React.Component {
       );
 
       toRemove.forEach((layerId) => {
-        console.log(layerId)
         const layerInfo = this.props.layers.find((l) => l.id === layerId);
         if (!layerInfo) return;
         const fns = layerTypes[layerInfo.type];
