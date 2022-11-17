@@ -7,7 +7,7 @@ import Button from '../../styles/button/button';
 import ButtonGroup from '../../styles/button/group';
 import DataBrowserChart from './data-browser/chart';
 import ShadowScrollbar from './shadow-scrollbar';
-import TimelineDropDown from '../MiniComponents/TimelineDropDown';
+import TimelineDropDown from '../MiniComponents/TImelineDropDown/TimelineDropDown';
 
 import { panelSkin } from '../../styles/skins';
 import { glsp } from '../../styles/utils/theme-values';
