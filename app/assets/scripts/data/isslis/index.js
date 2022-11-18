@@ -1,4 +1,5 @@
 import isslis from './Spring2022.json'
+import hs3 from '../HS3/HS3.json'
 
 //get year
 export const get_arg1 = () =>{

@@ -417,7 +417,7 @@
             },
             "domain":["2013-01-01T00:00:00Z","2013-12-01T00:00:00Z"],
             "exclusiveWith":[],
-            "id":"Spring 2022",
+            "id":"HS3",
             "info":"Shows the daily mean flash rate density throughout 1998 to 2013.",
             "legend":{
                 "max": null,

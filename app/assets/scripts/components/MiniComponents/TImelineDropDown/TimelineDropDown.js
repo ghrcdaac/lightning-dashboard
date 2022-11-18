@@ -5,17 +5,20 @@ import { get_arg1, get_arg2, get_arg3, get_arg4 } from "../../../data/isslis";
 
 const year = get_arg1();
 
-var cur_year, cur_month, cur_day;
+var cur_year, cur_month, cur_day, cur_arg4;
 
-const TimelineDropDown = ({ onTimeChange }) =>{
+const TimelineDropDown = ({ onTimeChange, layer }) =>{
 
     const [month, setMonth] = useState([])
     const [day, setDay] = useState([])
     const [arg4, setArg4] = useState([])
 
+    console.log(layer)
     //changes or updates month dropdown value
     const yearHandler = (e) =>{
         cur_year = e.target.value
+        setDay([])
+        setArg4([])
         if(e.target.value === 'Select Year'){
             setMonth([])
         }else{
@@ -24,8 +27,10 @@ const TimelineDropDown = ({ onTimeChange }) =>{
         }
     }
 
+    //changes or updates day
     const monthHandler = (e) =>{
         cur_month = e.target.value;
+        setArg4([])
         if(cur_month === 'Select Month'){
             setDay([])
         }else{
@@ -33,12 +38,28 @@ const TimelineDropDown = ({ onTimeChange }) =>{
         }
     }
 
+    //changes or updates 4th argument
     const dayHandler = (e) =>{
         cur_day = e.target.value
         if(cur_day === 'Select Day'){
             setArg4([])
         }else{
             setArg4(get_arg4(cur_year, cur_month, cur_day))
+        }
+    }
+
+    const arg4Handler = (e) =>{
+        cur_arg4 = e.target.value
+        if(cur_arg4 === 'Select'){
+
+        }else{
+            cur_arg4 = e.target.value;
+            onTimeChange({
+                year:cur_year,
+                month:cur_month,
+                day:cur_day,
+                time:cur_arg4
+            })
         }
     }
 
@@ -51,23 +72,23 @@ const TimelineDropDown = ({ onTimeChange }) =>{
                         <option key={element}>{element}</option>
                     ))}
                 </Year>
-                <Month name="month" id="month" onChange={monthHandler}>
+                <Month name="month" id="month" onChange={monthHandler} disabled={(month.length === 0)}>
                     <option>Select Month</option>
                     {month.map((element)=>(
                         <option key={element}>{element}</option>
                     ))}
                 </Month>
-                <Day name="day" id="day" onChange={dayHandler}>
+                <Day name="day" id="day" onChange={dayHandler} disabled={(day.length === 0)}>
                     <option>Select Day</option>
                     {day.map((element)=>(
                         <option key={element}>{element}</option>
                     ))}
                 </Day>
-                {/* {!day && <Time name="time" id="time" disabled={!day}>
+                {(arg4.length === 0) && <Time name="time" id="time" disabled={(arg4.length === 0)}>
                     <option>Select Time</option>
-                </Time>} */}
-                {day && <Time name="time" id="time" disabled={!day}>
-                    <option>Select Time</option>
+                </Time>}
+                {(arg4.length !== 0) && <Time name="time" id="time" disabled={(arg4.length === 0)} onChange={arg4Handler}>
+                    <option>Select</option>
                     {arg4.map((element)=>(
                         <option key={element}>{element}</option>
                     ))}
