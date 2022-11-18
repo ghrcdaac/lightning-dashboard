@@ -3,17 +3,18 @@ import React, {useState} from "react";
 import { Container, Inner_Container, Year, Month, Day, Time } from "./DropDownStyles";
 import { get_arg1, get_arg2, get_arg3, get_arg4 } from "../../../data/isslis";
 
-const year = get_arg1();
+var year;
 
 var cur_year, cur_month, cur_day, cur_arg4;
 
 const TimelineDropDown = ({ onTimeChange, layer }) =>{
-
+    
+    console.log(layer)
+    year = get_arg1(layer.dataset_type);
     const [month, setMonth] = useState([])
     const [day, setDay] = useState([])
     const [arg4, setArg4] = useState([])
 
-    console.log(layer)
     //changes or updates month dropdown value
     const yearHandler = (e) =>{
         cur_year = e.target.value
@@ -23,7 +24,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
             setMonth([])
         }else{
             console.log(e.target.value)
-            setMonth(get_arg2(e.target.value))
+            setMonth(get_arg2(layer.dataset_type,cur_year))
         }
     }
 
@@ -34,7 +35,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
         if(cur_month === 'Select Month'){
             setDay([])
         }else{
-            setDay(get_arg3(cur_year, cur_month))
+            setDay(get_arg3(layer.dataset_type,cur_year, cur_month))
         }
     }
 
@@ -44,7 +45,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
         if(cur_day === 'Select Day'){
             setArg4([])
         }else{
-            setArg4(get_arg4(cur_year, cur_month, cur_day))
+            setArg4(get_arg4(layer.dataset_type,cur_year, cur_month, cur_day))
         }
     }
 

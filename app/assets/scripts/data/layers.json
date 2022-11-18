@@ -434,7 +434,7 @@
             "name":"HS3",
             "paint":null,
             "source":{
-                "tiles":["HS3/20120914/Nadine/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.05]"],
+                "tiles":["HS3/{date}/{time}/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.05]"],
                 "type":"raster"
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},

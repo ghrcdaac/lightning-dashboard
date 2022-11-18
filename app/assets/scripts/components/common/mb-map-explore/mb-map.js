@@ -6,39 +6,24 @@ import CompareMbGL from 'mapbox-gl-compare';
 import ReactDOM from 'react-dom';
 import find from 'lodash.find';
 import { connect } from 'react-redux';
-// import { NavLink } from 'react-router-dom';
 import { FiExternalLink } from '../../../../../../node_modules/react-icons/fi';
 
 import { createMbMarker } from './mb-popover/utils';
 import geoJson2 from './chicago-parks2.json'
-// import HotSpotJSON from '../../../data/HotSpot'
-// import data2 from './data2.json';
-// //import Marker from '../../../utils/Marker';
-// import HotSpot from '../../global/panelComponents/HotSpot';
-// import MarkerButton from '../../../utils/MarkerButton';
-// import CalendarTag from '../../../utils/CalendarTag';
 import CalendarTag from '../../MiniComponents/BaselineLayer/CalendarTag';
-import {date_to_string, baseline_link, get_layer, HotSpotDate} from '../../../utils/HelperMethods'
-// import { replaceRasterTiles } from '../layers/types';
-// import { data } from '../../../data/HotSpotData';
-// import CustomMarker from '../../global/panelComponents/CustomMarker';
-//import DataIndex from '../../../data/DataIndex';
+import {date_to_string, baseline_link, get_layer, HotSpotDate} from '../../../utils/HelperMethods';
 import {HotSpotData} from '../../../data/HotSpot2.0';
 import HotSpotBody from '../../MiniComponents/HotSpot/HotSpotBody'
-//import HotSpotBody from '../../global/panelComponents/HotSpotBody';
-// import BarChart from '../bar-chart/chart';
 
 import config from '../../../config';
 import { layerTypes } from '../layers/types';
 import Button from '../../../styles/button/button';
 import { glsp } from '../../../styles/utils/theme-values';
 import { round } from '../../../utils/format';
-// import MapboxControl from '../mapbox-react-control';
 
 import ReactPopoverGl from './mb-popover';
 
 import { changeBaselineDate } from '../../../redux/action/BaselineAction';
-// import Pop from '../../../utils/Pop';
 
 const { center, zoom: defaultZoom, minZoom, maxZoom} = config.map;
 var {styleUrl} = config.map
