@@ -136,16 +136,6 @@ class MbMap extends React.Component {
       }
     }
 
-    // if(this.props.activeLayers[0] == 'Spring 2022'){
-    //   const layerInfo = this.props.layers.find((l) => l.id === 'Spring 2022');
-    //   const fns = layerTypes[layerInfo.type];
-    //   if(fns.update){
-    //     //const comparingLayer = find(this.props.layers, 'comparing');
-    //     const layer = get_layer(this.props.BASELINE_ID, this.props.layers)
-    //     fns.update(this, layerInfo, prevProps, layer, this.props.PREV_BASELINE_ID);
-    //   }
-    // }
-
     // Manually trigger render of detached react components.
 
     this.overlayDropdownControl &&

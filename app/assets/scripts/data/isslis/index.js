@@ -13,8 +13,6 @@ export const get_arg1 = (id) =>{
     }else if(id === 'HS3'){
         json_data = hs3
     }
-    console.log(id)
-    console.log(json_data)
     const year = []
     json_data.map((element)=>{
         year.push(element.year)
@@ -33,7 +31,6 @@ export const get_arg2 = (id,arg1) =>{
     
     const data = json_data.filter(element=>element.year === arg1)
     const month = []
-    console.log(data)
     data[0].data.map((element)=>{
         month.push(element.month)
     })
@@ -72,10 +69,6 @@ export const get_arg4 = (id,arg1, arg2, arg3) =>{
     const day_data = month_data[0].day_indices[arg3]
 
     const data_list = []
-
-    console.log(year_data)
-    console.log(month_data)
-    console.log(day_data)
 
     if(id === 'ISS LIS'){
         for(var i = day_data[0];i<=day_data[1];i++){

@@ -8,8 +8,7 @@ var year;
 var cur_year, cur_month, cur_day, cur_arg4;
 
 const TimelineDropDown = ({ onTimeChange, layer }) =>{
-    
-    console.log(layer)
+
     year = get_arg1(layer.dataset_type);
     const [month, setMonth] = useState([])
     const [day, setDay] = useState([])
@@ -51,6 +50,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
 
     const arg4Handler = (e) =>{
         cur_arg4 = e.target.value
+        console.log('im in 4th handler', cur_arg4)
         if(cur_arg4 === 'Select'){
 
         }else{
