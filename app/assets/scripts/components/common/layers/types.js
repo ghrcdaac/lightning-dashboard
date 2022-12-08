@@ -48,8 +48,6 @@ const prepGammaSource = (source, knobPos) => {
 
 const prepSource = (layerInfo, source, date, knobPos, ctx) => {
 
-  console.log('im in layers/types -- prepsource')
-  console.log(ctx)
   if(layerInfo.timeline_type === 'non-regular' && ctx){
     source = prepDateSource_nonRegular(source, `${ctx.props.time.year}${ctx.props.time.month}${ctx.props.time.day}`)
     source = prepTimeSource_nonRegular(source, `${ctx.props.time.time}`)
@@ -95,15 +93,12 @@ export const layerTypes = {
         }
 
         if(ctx && ctx.props && ctx.props.time){
-          console.log(ctx)
-          console.log("here in update")
           const tiles = prepSource(layerInfo, source, date, knobPos, ctx).tiles;
           replaceRasterTiles(mbMap, id, tiles);
         }
         return;
       }
 
-      console.log("here after upate")
       mbMap.setPaintProperty(
         id,
         'raster-opacity',

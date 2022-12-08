@@ -1,5 +1,5 @@
 import { min } from "lodash";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Container, Inner_Container, Year, Month, Day, Time } from "./DropDownStyles";
 import { get_arg1, get_arg2, get_arg3, get_arg4 } from "../../../data/isslis";
 
@@ -19,10 +19,10 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
         cur_year = e.target.value
         setDay([])
         setArg4([])
+        setMonth([])
         if(e.target.value === 'Select Year'){
             setMonth([])
         }else{
-            console.log(e.target.value)
             setMonth(get_arg2(layer.dataset_type,cur_year))
         }
     }
@@ -50,7 +50,6 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
 
     const arg4Handler = (e) =>{
         cur_arg4 = e.target.value
-        console.log('im in 4th handler', cur_arg4)
         if(cur_arg4 === 'Select'){
 
         }else{

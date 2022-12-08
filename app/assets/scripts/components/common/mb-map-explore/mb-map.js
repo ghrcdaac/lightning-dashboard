@@ -351,8 +351,6 @@ class MbMap extends React.Component {
 
     const tile = baseline_link(this.props.layers, this.props.comparingId, dateString)
 
-    console.log(">>>>>>>", tile)
-    console.log("++++++++", this.props.comparingId)
     if(this.mbMapComparing.getSource(this.props.comparingId)){
       this.mbMapComparing.getSource(this.props.comparingId).tiles = tile
       this.mbMapComparing.style.sourceCaches[this.props.comparingId].clearTiles();

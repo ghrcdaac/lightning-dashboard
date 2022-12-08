@@ -361,7 +361,6 @@ class GlobalExplore extends React.Component {
   }
 
   onTimeChange(data){
-    console.log('im in global/index.js --onTimeChange')
     this.setState({
       time:data
     })
