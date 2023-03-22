@@ -3,76 +3,20 @@ import styled, { withTheme, ThemeProvider } from 'styled-components';
 import {themeVal} from '../../../styles/utils/general'
 import { visuallyHidden, truncated } from '../../../styles/helpers';
 
-export const LayerSwatch = styled.span`
-  position: absolute;
-  height:70px;
-  top: 22.7rem;
-  left: 0.125rem;
-  bottom: 0.125rem;
-  width: 0.25rem;
-  //width:10rem;
-  //background: grey;
-  background: ${({ swatch }) => swatch || themeVal('color.primary')};
-  border-radius: ${themeVal('shape.rounded')};
 
-  > * {
-    ${visuallyHidden()}
-  }
-`;
-
-export const LayerTitle = styled.h1`
-  ${truncated()}
-  font-size: 1rem;
-  line-height: 1.25rem;
-  margin: 0;
-  margin-top:8px;
-  margin-left:16px;
-  sub {
-    bottom: 0;
-  }
-`;
-
-
-export const MainContainer = styled.div`
-display:flex;
-height:168px;
-width:100%;
-//background-color:blue;
-`
-export const Swatch = styled.div`
-position:absolute;
-height:160px;
-margin-left:2px;
-margin-top:2px;
-border-radius: 25px;
-width:3.8px;
-z-index:999999;
-background-color:#C0C0C0;
-`
-export const Main = styled.div`
-height:100%;
-width:100%;
-`
-
-export const BodyContainer = styled.body`
-display:flex;
-margin-left:20px;
-margin-top:10px;
-width: 80%;
+export const Body = styled.body`
+margin: 0; padding: 0; height: 100vh; display: flex; justify-content: center; align-items: center; background-color: blue;
 ` 
 
 export const Middle = styled.div`
-position: relative; width: 60%; max-width: 500px; margin-left:2px;
+position: relative; width: 80%; max-width: 500px;;
 ` 
 
-export const Slider = styled.div.attrs(props=>({
-    left: `${props.left_value}%`,
-    right: `${100 - props.right_value}%`
-}))`
+export const Slider = styled.div`
 position: relative;
 z-index: 1;
 height: 6px;
-margin: 0 5px;
+margin: 0 15px;
 margin-top:10px;
 
 > .track {
@@ -89,8 +33,8 @@ margin-top:10px;
 > .range {
 	position: absolute;
 	z-index: 2;
-    left: ${props => props.left};
-    right: ${props => props.right};
+	left: ${(props)=>props.left_value}%;
+	right: ${(props)=>100-props.right_value}%;
 	top: 0;
 	bottom: 0;
 	border-radius: 5px;
@@ -109,12 +53,12 @@ margin-top:10px;
 	transition: box-shadow .3s ease-in-out;
 
 	&.left {
-        left: ${props => props.left};
+		left: ${(props)=>props.left_value}%;
 		transform: translate(-15px, -10px);
 	}
 
 	&.right {
-        right: ${props => props.right};
+		right: ${(props)=>100-props.right_value}%;
 		transform: translate(15px, -10px);
 	}
 
@@ -126,8 +70,7 @@ margin-top:10px;
 		box-shadow: 0 0 0 40px rgba(98,0,238,.2);
 	}
 }
-`;
-
+`
 export const RangeInput = styled.input.attrs({ type: 'range' })`
 position: absolute;
 pointer-events: none;
@@ -147,3 +90,5 @@ opacity: 0;
 	-webkit-appearance: none;
 }
 `
+
+
