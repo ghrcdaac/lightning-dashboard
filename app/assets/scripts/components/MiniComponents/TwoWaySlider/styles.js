@@ -32,7 +32,6 @@ export const LayerTitle = styled.h1`
   }
 `;
 
-
 export const MainContainer = styled.div`
 display:flex;
 height:168px;

@@ -100,6 +100,7 @@ class MbMap extends React.Component {
     this.spotlightMarkersList = [];
     this.marker = []
     this.hotspotMarkers = []
+    this.metadata = []
     this.markerState = false;
     this.comparingId = this.props.comparingId;
     this.activeSpotlight = []
@@ -111,6 +112,7 @@ class MbMap extends React.Component {
     this.addLayer = this.addLayer.bind(this);
     this.removeLayer = this.removeLayer.bind(this);
     this.addHotSpot = this.addHotSpot.bind(this);
+    this.renderPointVisualization = this.renderPointVisualization.bind(this);
   }
 
   componentDidMount () {
@@ -452,6 +454,32 @@ class MbMap extends React.Component {
   markerBackground(url){
   }
 
+  renderPointVisualization(){
+    //url: https://yzdj35prj7.execute-api.us-east-2.amazonaws.com/test/metadata?file_path=OTD/HRFC_COM_FR/HRFC_COM_FR.txt&lat_min=-2&lat_max=2&lon_min=-2&lon_max=2
+    console.log("LINE: 457. RenderPointVisualization")
+    const datas = data(layer, date);
+    datas[0].data.forEach((feature) => {
+        // Create a React ref
+        const ref = React.createRef();
+        // Create a new DOM node and save it to the React ref
+        ref.current = document.createElement('div');
+        // Render a Marker Component on our new DOM node
+
+        ReactDOM.render(
+          // <Marker feature={feature} background={arr[i++]} onClick={this.markerBackground}/>,
+          <HotSpot feature={feature}/>,
+          ref.current
+        );
+  
+        // Create a Mapbox Marker at our new DOM node
+        var mark = new mapboxgl.Marker(ref.current)
+          .setLngLat([feature.lat, feature.lng])
+          .addTo(this.mbMap);
+  
+        this.metadata.push(mark);
+    })
+  }
+
   initMap (passLayer) {
     const { lng, lat, zoom } = this.props.position || {
       lng: center[0],
@@ -512,6 +540,41 @@ class MbMap extends React.Component {
         top,
         left
       } = this.mbMap.getContainer().getBoundingClientRect();
+
+      console.log("Here adding Source")
+      //testing code for adding point on MAP
+      this.mbMap.addSource('places', {
+        'type': 'geojson',
+        'data': {
+        'type': 'FeatureCollection',
+          'features': [
+            {
+              'type': 'Feature',
+              'properties': {
+              'description':
+              '<strong>Make it Mount Pleasant</strong><p>Make it Mount Pleasant is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>'
+              },
+              'geometry': {
+              'type': 'Point',
+              'coordinates': [-77.038659, 38.931567]
+              }
+            }
+          ]}
+      })
+      
+
+      console.log("Here adding layer")
+      this.mbMap.addLayer({
+        'id': 'places',
+        'type': 'circle',
+        'source': 'places',
+        'paint': {
+        'circle-color': '#4264fb',
+        'circle-radius': 20,
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#ffffff'
+        }
+        });
     });
 
     this.mbMap.on('moveend', (e) => {
