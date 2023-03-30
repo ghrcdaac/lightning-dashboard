@@ -118,3 +118,18 @@ export function HotSpotDate(id, date){
 export function dateSlice(date){
     
 }
+
+export function metadata_format(data){
+   const formatted_data = []
+   data.data.forEach((element)=>{
+    if(element.Data !== 'nan'){
+        formatted_data.push({
+            "flashes":element.Data,
+            'lat':element.Latitude,
+            'lng':element.Longitude
+        })
+    }
+   })
+
+   return formatted_data
+}

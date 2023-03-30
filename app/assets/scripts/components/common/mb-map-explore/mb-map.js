@@ -11,9 +11,10 @@ import { FiExternalLink } from '../../../../../../node_modules/react-icons/fi';
 import { createMbMarker } from './mb-popover/utils';
 import geoJson2 from './chicago-parks2.json'
 import CalendarTag from '../../MiniComponents/BaselineLayer/CalendarTag';
-import {date_to_string, baseline_link, get_layer, HotSpotDate} from '../../../utils/HelperMethods';
+import {date_to_string, baseline_link, get_layer, HotSpotDate, metadata_format} from '../../../utils/HelperMethods';
 import {HotSpotData} from '../../../data/HotSpot2.0';
 import HotSpotBody from '../../MiniComponents/HotSpot/HotSpotBody'
+import HotSpot from '../../MiniComponents/HotSpot/HotSpot'
 
 import config from '../../../config';
 import { layerTypes } from '../layers/types';
@@ -457,8 +458,47 @@ class MbMap extends React.Component {
   renderPointVisualization(){
     //url: https://yzdj35prj7.execute-api.us-east-2.amazonaws.com/test/metadata?file_path=OTD/HRFC_COM_FR/HRFC_COM_FR.txt&lat_min=-2&lat_max=2&lon_min=-2&lon_max=2
     console.log("LINE: 457. RenderPointVisualization")
-    const datas = data(layer, date);
-    datas[0].data.forEach((feature) => {
+    // const datas = data(layer, date);
+    // datas[0].data.forEach((feature) => {
+    //     // Create a React ref
+    //     const ref = React.createRef();
+    //     // Create a new DOM node and save it to the React ref
+    //     ref.current = document.createElement('div');
+    //     // Render a Marker Component on our new DOM node
+
+    //     ReactDOM.render(
+    //       // <Marker feature={feature} background={arr[i++]} onClick={this.markerBackground}/>,
+    //       <HotSpot feature={feature}/>,
+    //       ref.current
+    //     );
+  
+    //     // Create a Mapbox Marker at our new DOM node
+    //     var mark = new mapboxgl.Marker(ref.current)
+    //       .setLngLat([feature.lat, feature.lng])
+    //       .addTo(this.mbMap);
+  
+    //     this.metadata.push(mark);
+    // })
+
+    let url = "https://yzdj35prj7.execute-api.us-east-2.amazonaws.com/test/metadata"
+
+    fetch(url,{
+      method:"POST",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        lat_min:'-5',
+        lat_max:'20',
+        lon_min:'-2',
+        lon_max:'10',
+        file_path:'OTD/HRFC_COM_FR/HRFC_COM_FR.txt'
+      })
+    }).then((response)=>response.json())
+    .then((data)=>{
+      const datas = metadata_format(data)
+      console.log(datas)
+      datas.forEach((feature) => {
         // Create a React ref
         const ref = React.createRef();
         // Create a new DOM node and save it to the React ref
@@ -466,7 +506,6 @@ class MbMap extends React.Component {
         // Render a Marker Component on our new DOM node
 
         ReactDOM.render(
-          // <Marker feature={feature} background={arr[i++]} onClick={this.markerBackground}/>,
           <HotSpot feature={feature}/>,
           ref.current
         );
@@ -477,7 +516,9 @@ class MbMap extends React.Component {
           .addTo(this.mbMap);
   
         this.metadata.push(mark);
+      })
     })
+
   }
 
   initMap (passLayer) {
@@ -541,6 +582,7 @@ class MbMap extends React.Component {
         left
       } = this.mbMap.getContainer().getBoundingClientRect();
 
+      this.renderPointVisualization()
       console.log("Here adding Source")
       //testing code for adding point on MAP
       this.mbMap.addSource('places', {
