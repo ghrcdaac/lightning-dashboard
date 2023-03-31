@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 import { add, sub, format, isSameMonth, isSameDay } from 'date-fns';
+import { string } from 'prop-types';
 
 export function date_to_string(date, layer){
 
@@ -132,4 +133,34 @@ export function metadata_format(data){
    })
 
    return formatted_data
+}
+
+export function data_for_mapbox_data_driven_property(data){
+    const ethnicity = ["Asian", "Hispanic", "Black", "White"]
+    const formatted_data = []
+    console.log("Here")
+    data.data.forEach((element)=>{
+        const desc = `Lat: ${element.Latitude}<br>Lon: ${element.Longitude}<br>FSD: ${element.Data}`
+        if(element.Data !== 'nan'){            
+            formatted_data.push({
+                "type": "Feature",
+                "properties": {
+                  "ethnicity": ethnicity[Math.floor(Math.random() * 4)],
+                  "frd":parseFloat(element.Data/5),
+                  'description':desc
+                },
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [ parseFloat(element.Longitude), parseFloat(element.Latitude) ]
+                }
+            })
+        }
+    })
+    return {
+        'type':'geojson',
+        'data':{
+            'type':'FeatureCollection',
+            'features':formatted_data
+        }
+    }
 }
