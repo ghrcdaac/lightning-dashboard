@@ -69,7 +69,7 @@ z-index:5;
 const HotSpot = ({ children, feature}) => {
 
     const [display, setDisplay]  = useState(false)
-    const size = (feature.flashes/5) + 'px';
+    const size = (feature.flashes/7) + 'px';
     const _onClick = (e) => {
     };
   

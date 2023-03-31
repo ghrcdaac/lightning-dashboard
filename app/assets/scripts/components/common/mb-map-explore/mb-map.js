@@ -474,7 +474,6 @@ class MbMap extends React.Component {
       })
     }).then((response)=>response.json())
     .then((data)=>{
-      const datas = metadata_format(data)
 
       this.mbMap.addSource('ethnicity', data_for_mapbox_data_driven_property(data))
       this.mbMap.addLayer({
@@ -482,7 +481,15 @@ class MbMap extends React.Component {
         'type': 'circle',
         'source': 'ethnicity',
         'paint': {
-          'circle-radius': ['get', 'frd'],
+          'circle-radius': [
+            "interpolate", ["linear"], ["zoom"],
+            // when zoom is 0, set each feature's circle radius to the value of its "rating" property
+            5, ["get", "frd"],
+            // when zoom is 10, set each feature's circle radius to 10 times the value of its "frd" property
+            10, ["*", 10, ["get", "frd"]],
+            // when zoom is 20, set each feature's circle radius to 10 times the value of its "frd" property
+            20, ["*", 20, ["get", "frd"]]
+        ],
           'circle-color': '#FDD023'
         }
       });
@@ -491,28 +498,28 @@ class MbMap extends React.Component {
         closeOnClick: false
       });
       this.mbMap.on('mouseenter', 'ethnicity', (e) => {
-        // Change the cursor style as a UI indicator.
-        this.mbMap.getCanvas().style.cursor = 'pointer';
-         
-        // Copy coordinates array.
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        const description = e.features[0].properties.description;
-         
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-         
-        // Populate the popup and set its coordinates
-        // based on the feature found.
-        popup.setLngLat(coordinates).setHTML(description).addTo(this.mbMap);
+          // Change the cursor style as a UI indicator.
+          this.mbMap.getCanvas().style.cursor = 'pointer';
+          
+          // Copy coordinates array.
+          const coordinates = e.features[0].geometry.coordinates.slice();
+          const description = e.features[0].properties.description;
+          
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+          
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup.setLngLat(coordinates).setHTML(description).addTo(this.mbMap);
         });
          
         this.mbMap.on('mouseleave', 'ethnicity', () => {
-        this.mbMap.getCanvas().style.cursor = '';
-        popup.remove();
+          this.mbMap.getCanvas().style.cursor = '';
+          popup.remove();
         });
     })
   }
@@ -579,40 +586,6 @@ class MbMap extends React.Component {
       } = this.mbMap.getContainer().getBoundingClientRect();
 
       this.renderPointVisualization()
-      console.log("Here adding Source")
-      //testing code for adding point on MAP
-      // this.mbMap.addSource('ethnicity', {
-      //   'type': 'geojson',
-      //   'data': {
-      //   'type': 'FeatureCollection',
-      //     'features': [
-      //       {
-      //         'type': 'Feature',
-      //         'properties': {
-      //         'description':
-      //         '<strong>Make it Mount Pleasant</strong><p>Make it Mount Pleasant is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>'
-      //         },
-      //         'geometry': {
-      //         'type': 'Point',
-      //         'coordinates': [-77.038659, 38.931567]
-      //         }
-      //       }
-      //     ]}
-      // })
-      
-
-      // console.log("Here adding layer")
-      // this.mbMap.addLayer({
-      //   'id': 'ethnicity',
-      //   'type': 'circle',
-      //   'source': 'ethnicity',
-      //   'paint': {
-      //   'circle-color': '#4264fb',
-      //   'circle-radius': 20,
-      //   'circle-stroke-width': 2,
-      //   'circle-stroke-color': '#ffffff'
-      //   }
-      //   });
     });
 
     this.mbMap.on('moveend', (e) => {

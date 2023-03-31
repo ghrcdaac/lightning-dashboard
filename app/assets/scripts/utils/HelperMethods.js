@@ -146,7 +146,7 @@ export function data_for_mapbox_data_driven_property(data){
                 "type": "Feature",
                 "properties": {
                   "ethnicity": ethnicity[Math.floor(Math.random() * 4)],
-                  "frd":parseFloat(element.Data/5),
+                  "frd":parseFloat(element.Data/20),
                   'description':desc
                 },
                 "geometry": {
