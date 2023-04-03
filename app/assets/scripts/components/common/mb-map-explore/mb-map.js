@@ -470,6 +470,15 @@ class MbMap extends React.Component {
       return
     }
 
+    if(this.props.activeLayers[0].substring(0,2) === "TR"){
+      if(this.props.META_LAT[0] < -37 || this.props.META_LAT[0] > 37){
+        alert("For TRMM LIS Datasets, Latitude needs to be between -37 < Latitude < 37")
+        return
+      }else{
+        alert("Request Sent. Please wait around 30 seconds for the response.")
+      }
+    }
+
     const sourceName = 'ethnicity'
     const file_path = get_metadata_api_file_path(layer_name, date)
 
@@ -497,8 +506,6 @@ class MbMap extends React.Component {
       })
     }).then((response)=>response.json())
     .then((data)=>{
-      var times = 10
-      
 
       this.mbMap.addSource('ethnicity', data_for_mapbox_data_driven_property(data))
       this.mbMap.addLayer({
