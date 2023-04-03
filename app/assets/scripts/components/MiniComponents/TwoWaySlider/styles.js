@@ -53,7 +53,7 @@ height:100%;
 width:100%;
 `
 
-export const BodyContainer = styled.body`
+export const BodyContainer = styled.div`
 display:flex;
 margin-left:20px;
 margin-top:10px;
@@ -145,4 +145,9 @@ opacity: 0;
 	background-color: red;
 	-webkit-appearance: none;
 }
+`
+
+export const HeadComponent = styled.div`
+display:flex;
+justify-content:space-evenly;
 `

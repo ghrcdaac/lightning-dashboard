@@ -14,7 +14,7 @@ import CalendarTag from '../../MiniComponents/BaselineLayer/CalendarTag';
 import {date_to_string, baseline_link, get_layer, HotSpotDate, metadata_format} from '../../../utils/HelperMethods';
 import {HotSpotData} from '../../../data/HotSpot2.0';
 import HotSpotBody from '../../MiniComponents/HotSpot/HotSpotBody'
-import HotSpot from '../../MiniComponents/HotSpot/HotSpot'
+// import HotSpot from '../../MiniComponents/HotSpot/HotSpot'
 
 import config from '../../../config';
 import { layerTypes } from '../layers/types';
@@ -26,6 +26,8 @@ import ReactPopoverGl from './mb-popover';
 
 import { changeBaselineDate } from '../../../redux/action/BaselineAction';
 import { data_for_mapbox_data_driven_property } from '../../../utils/HelperMethods';
+import { changeMetadata } from '../../../redux/action/MetadataAction';
+import { get_metadata_api_file_path } from '../../../utils/HelperMethods';
 
 const { center, zoom: defaultZoom, minZoom, maxZoom} = config.map;
 var {styleUrl} = config.map
@@ -140,6 +142,11 @@ class MbMap extends React.Component {
       }
     }
 
+    console.log(this.props.META_LAT)
+    console.log(this.props.META_LON)
+    if(prevProps.METADATA !== this.props.METADATA){
+      this.renderPointVisualization(this.props.activeLayers, this.props.date)
+    }
     // Manually trigger render of detached react components.
 
     this.overlayDropdownControl &&
@@ -456,8 +463,24 @@ class MbMap extends React.Component {
   markerBackground(url){
   }
 
-  renderPointVisualization(){
+  renderPointVisualization(layer_name, date){
+
+    if(this.props.activeLayers.length === 0){
+      alert("Layer should be active for MetaData feature to work.")
+      return
+    }
+
+    const sourceName = 'ethnicity'
+    const file_path = get_metadata_api_file_path(layer_name, date)
+
+    if(typeof this.mbMap.getSource(sourceName) !== 'undefined'){
+      console.log(this.mbMap.getSource(sourceName))
+      this.mbMap.removeLayer(sourceName)
+      this.mbMap.removeSource(sourceName)
+    }
+
     console.log("LINE: 457. RenderPointVisualization")
+    console.log("FilePath: ", file_path)
 
     let url = "https://yzdj35prj7.execute-api.us-east-2.amazonaws.com/test/metadata"
     fetch(url,{
@@ -466,14 +489,16 @@ class MbMap extends React.Component {
         'Content-Type': 'application/json'
       },
       body:JSON.stringify({
-        lat_min:'-20',
-        lat_max:'20',
-        lon_min:'-50',
-        lon_max:'50',
-        file_path:'OTD/HRFC_COM_FR/HRFC_COM_FR.txt'
+        lat_min:this.props.META_LAT[0],
+        lat_max:this.props.META_LAT[1],
+        lon_min:this.props.META_LON[0],
+        lon_max:this.props.META_LON[1],
+        file_path:file_path
       })
     }).then((response)=>response.json())
     .then((data)=>{
+      var times = 10
+      
 
       this.mbMap.addSource('ethnicity', data_for_mapbox_data_driven_property(data))
       this.mbMap.addLayer({
@@ -490,7 +515,7 @@ class MbMap extends React.Component {
             // when zoom is 20, set each feature's circle radius to 10 times the value of its "frd" property
             20, ["*", 20, ["get", "frd"]]
         ],
-          'circle-color': '#FDD023'
+          'circle-color': '#EE4B2B'
         }
       });
       const popup = new mapboxgl.Popup({
@@ -521,6 +546,8 @@ class MbMap extends React.Component {
           this.mbMap.getCanvas().style.cursor = '';
           popup.remove();
         });
+    }).catch((error)=>{
+      alert("Error. Unable to process Data. Please decrease the Latitude, Longitude Range.")
     })
   }
 
@@ -585,7 +612,6 @@ class MbMap extends React.Component {
         left
       } = this.mbMap.getContainer().getBoundingClientRect();
 
-      this.renderPointVisualization()
     });
 
     this.mbMap.on('moveend', (e) => {
@@ -704,12 +730,16 @@ function mapStateToProps (state, props) {
     BASELINE_DATE_I:state.BASELINE_REDUCER.BASELINE_DATE_I,
     CALENDAR_ACTIVE:state.BASELINE_REDUCER.CALENDAR_ACTIVE,
     HOTSPOT:state.HOTSPOT_REDUCER.HOTSPOT,
+    METADATA:state.METADATA_REDUCER.METADATA,
+    META_LAT:state.METADATA_REDUCER.LAT_DATA,
+    META_LON:state.METADATA_REDUCER.LON_DATA
   };
 }
 
 const mapDispatchToProps = () =>{
   return{
-    changeBaselineDate:changeBaselineDate
+    changeBaselineDate:changeBaselineDate,
+    changeMetadata:changeMetadata
   }
 }
 

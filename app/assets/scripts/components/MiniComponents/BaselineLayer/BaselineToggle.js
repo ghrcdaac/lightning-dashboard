@@ -100,6 +100,7 @@ const BaselineToggle = (props) =>{
     }
 
     const calendarIcon = (e) =>{
+        console.log("Hereeeeeeeeeeeeeeeeeeeeeee in CalendarICON")
         dispatch(changeCalendarActive())
     }
 

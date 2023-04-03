@@ -136,7 +136,17 @@ export function metadata_format(data){
 }
 
 export function data_for_mapbox_data_driven_property(data){
-    const ethnicity = ["Asian", "Hispanic", "Black", "White"]
+
+    console.log(data)
+    var average = 0
+    for(var i = 0;i<(data.length);i++){
+        if(data.data[i].Data !== 'nan'){
+            average = average + parseFloat(data.data[i].Data)
+        }
+    }
+    average = average / (data.length)
+    console.log("AVERAGE: ",average)
+    const times = 5.5 / average
     const formatted_data = []
     console.log("Here")
     data.data.forEach((element)=>{
@@ -145,8 +155,7 @@ export function data_for_mapbox_data_driven_property(data){
             formatted_data.push({
                 "type": "Feature",
                 "properties": {
-                  "ethnicity": ethnicity[Math.floor(Math.random() * 4)],
-                  "frd":parseFloat(element.Data/20),
+                  "frd":parseFloat(element.Data/20 * times),
                   'description':desc
                 },
                 "geometry": {
@@ -156,11 +165,92 @@ export function data_for_mapbox_data_driven_property(data){
             })
         }
     })
+    console.log("HelperMethods.js Line 159. Formatted Data: ")
+    console.log(formatted_data)
     return {
         'type':'geojson',
         'data':{
             'type':'FeatureCollection',
             'features':formatted_data
         }
+    }
+}
+
+export function get_metadata_api_file_path(layer_name, date){
+    console.log(layer_name, date)
+    const layer_len = layer_name[0].length
+    if(layer_name[0].substring(0,2) === "TR"){
+        const layer_type = layer_name[0].substring(9, layer_len)
+        console.log("##",layer_type)
+        if(layer_type === 'Full'){
+            return 'TRMM-LIS/VHRFC_LIS_FRD/VHRFC_LIS_FRD.txt'
+        }else if(layer_type === 'Monthly'){
+            var month = date.getMonth()
+            month = month + 1
+            return `TRMM-LIS/VHRMC_LIS_FRD/${month}.0.txt` 
+        }else if(layer_type === 'Seasonal'){
+            var month = date.getMonth()
+            if(month === 2){
+                return `TRMM-LIS/VHRSC_LIS_FRD/1.0.txt`
+            }else if(month === 6){
+                return `TRMM-LIS/VHRSC_LIS_FRD/2.0.txt`
+            }else if(month === 9){
+                return `TRMM-LIS/VHRSC_LIS_FRD/3.0.txt`
+            }else{
+                return `TRMM-LIS/VHRSC_LIS_FRD/4.0.txt`
+            }
+        }else if(layer_type === 'Diurnal'){
+            var month = date.getMonth() * 2
+            var day = date.getDate()
+            if(day === 15){
+                month = month + 1
+            }
+            const path = `TRMM-LIS/VHRDC_LIS_FRD/${month}.0.txt`
+            return path 
+        }else if(layer_type === 'Daily'){
+            const calendar = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+            var month = date.getMonth()
+            var start = 0;
+            for(var i = 0;i<month;i++){
+                start += calendar[i]
+            }
+            var day = date.getDate()
+            start += day
+            var path = `TRMM-LIS/VHRAC_LIS_FRD/${start}.0.txt`
+            return path
+        }
+    }else if(layer_name[0].substring(0,2) === "OT"){
+        const layer_type = layer_name[0].substring(4, layer_len)
+        console.log("##",layer_type)
+        if(layer_type === 'Full'){
+            return 'OTD/HRFC_COM_FR/HRFC_COM_FR.txt'
+        }else if(layer_type === 'Monthly'){
+            var month = date.getMonth()
+            month = month + 1
+            return `OTD/HRMC_COM_FR/${month}.0.txt` 
+        }else if(layer_type === 'Diurnal'){
+            var month = date.getMonth() * 2
+            var day = date.getDate()
+            if(day === 15){
+                month = month + 1
+            }
+            const path = `OTD/LRDC_COM_FR/${month}.5.txt`
+            return path 
+        }else if(layer_type === 'Daily'){
+            const calendar = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+            var month = date.getMonth()
+            var start = 0;
+            for(var i = 0;i<month;i++){
+                start += calendar[i]
+            }
+            var day = date.getDate()
+            start += day - 1
+            var path = `OTD/LRAC_COM_FR/${start}.5.txt`
+            return path
+        }
+    }else if(layer_name[0].substring(0,2) === "IS"){
+        
+    }else if(layer_name[0].substring(0,2) === 'HS'){
+
     }
 }
