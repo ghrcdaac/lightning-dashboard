@@ -103,11 +103,13 @@
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
     "@d3fc/d3fc-axis": "^3.0.0",
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@mapbox/mapbox-gl-draw": "^1.1.2",
     "@mapbox/mapbox-gl-geocoder": "^4.5.1",
     "@mapbox/mapbox-gl-sync-move": "^0.3.0",
+    "@mui/material": "^5.11.15",
+    "@mui/styled-engine-sc": "^5.11.11",
     "@turf/area": "^6.0.1",
     "@turf/bbox": "^6.0.1",
     "clipboard": "^2.0.6",
@@ -128,12 +130,12 @@
     "polished": "^3.4.1",
     "prop-types": "^15.7.2",
     "qs": "^6.9.4",
-    "react": "^16.9.0",
+    "react": "^18.2.0",
     "react-calendar": "^3.7.0",
     "react-compare-image": "^2.0.4",
     "react-custom-scrollbars": "^4.2.1",
     "react-datepicker": "^2.14.1",
-    "react-dom": "^16.9.0",
+    "react-dom": "^18.2.0",
     "react-ga": "^2.7.0",
     "react-helmet": "^6.0.0",
     "react-icons": "^4.4.0",
@@ -149,6 +151,6 @@
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.3.9"
   }
 }

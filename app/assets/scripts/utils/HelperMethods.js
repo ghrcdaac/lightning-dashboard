@@ -137,7 +137,6 @@ export function metadata_format(data){
 
 export function data_for_mapbox_data_driven_property(data){
 
-    console.log(data)
     var average = 0
     for(var i = 0;i<(data.length);i++){
         if(data.data[i].Data !== 'nan'){
@@ -148,7 +147,6 @@ export function data_for_mapbox_data_driven_property(data){
     console.log("AVERAGE: ",average)
     const times = 5.5 / average
     const formatted_data = []
-    console.log("Here")
     data.data.forEach((element)=>{
         const desc = `Lat: ${element.Latitude}<br>Lon: ${element.Longitude}<br>FSD: ${element.Data}`
         if(element.Data !== 'nan'){            
@@ -165,8 +163,6 @@ export function data_for_mapbox_data_driven_property(data){
             })
         }
     })
-    console.log("HelperMethods.js Line 159. Formatted Data: ")
-    console.log(formatted_data)
     return {
         'type':'geojson',
         'data':{
@@ -177,11 +173,9 @@ export function data_for_mapbox_data_driven_property(data){
 }
 
 export function get_metadata_api_file_path(layer_name, date){
-    console.log(layer_name, date)
     const layer_len = layer_name[0].length
     if(layer_name[0].substring(0,2) === "TR"){
         const layer_type = layer_name[0].substring(9, layer_len)
-        console.log("##",layer_type)
         if(layer_type === 'Full'){
             return 'TRMM-LIS/VHRFC_LIS_FRD/VHRFC_LIS_FRD.txt'
         }else if(layer_type === 'Monthly'){
@@ -221,7 +215,6 @@ export function get_metadata_api_file_path(layer_name, date){
         }
     }else if(layer_name[0].substring(0,2) === "OT"){
         const layer_type = layer_name[0].substring(4, layer_len)
-        console.log("##",layer_type)
         if(layer_type === 'Full'){
             return 'OTD/HRFC_COM_FR/HRFC_COM_FR.txt'
         }else if(layer_type === 'Monthly'){

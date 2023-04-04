@@ -117,6 +117,7 @@ class MbMap extends React.Component {
     this.removeLayer = this.removeLayer.bind(this);
     this.addHotSpot = this.addHotSpot.bind(this);
     this.renderPointVisualization = this.renderPointVisualization.bind(this);
+    this.removePointVisualization = this.removePointVisualization.bind(this);
   }
 
   componentDidMount () {
@@ -142,10 +143,19 @@ class MbMap extends React.Component {
       }
     }
 
-    console.log(this.props.META_LAT)
-    console.log(this.props.META_LON)
+    //metadata controls
+    if(prevProps.REMOVE_METADATA !== this.props.REMOVE_METADATA){
+      this.removePointVisualization()
+    }
     if(prevProps.METADATA !== this.props.METADATA){
       this.renderPointVisualization(this.props.activeLayers, this.props.date)
+    }
+    if(prevProps.activeLayers[0] !== this.props.activeLayers[0]){
+      this.removePointVisualization()
+    }else{
+      if(prevProps.date !== this.props.date){
+        this.removePointVisualization()
+      }
     }
     // Manually trigger render of detached react components.
 
@@ -463,6 +473,14 @@ class MbMap extends React.Component {
   markerBackground(url){
   }
 
+  removePointVisualization(){
+    const sourceName = 'ethnicity'
+    if(typeof this.mbMap.getSource(sourceName) !== 'undefined'){
+      this.mbMap.removeLayer(sourceName)
+      this.mbMap.removeSource(sourceName)
+    }
+  }
+
   renderPointVisualization(layer_name, date){
 
     if(this.props.activeLayers.length === 0){
@@ -482,11 +500,7 @@ class MbMap extends React.Component {
     const sourceName = 'ethnicity'
     const file_path = get_metadata_api_file_path(layer_name, date)
 
-    if(typeof this.mbMap.getSource(sourceName) !== 'undefined'){
-      console.log(this.mbMap.getSource(sourceName))
-      this.mbMap.removeLayer(sourceName)
-      this.mbMap.removeSource(sourceName)
-    }
+    this.removePointVisualization()
 
     console.log("LINE: 457. RenderPointVisualization")
     console.log("FilePath: ", file_path)
@@ -739,7 +753,8 @@ function mapStateToProps (state, props) {
     HOTSPOT:state.HOTSPOT_REDUCER.HOTSPOT,
     METADATA:state.METADATA_REDUCER.METADATA,
     META_LAT:state.METADATA_REDUCER.LAT_DATA,
-    META_LON:state.METADATA_REDUCER.LON_DATA
+    META_LON:state.METADATA_REDUCER.LON_DATA,
+    REMOVE_METADATA:state.METADATA_REDUCER.REMOVE_METADATA
   };
 }
 
