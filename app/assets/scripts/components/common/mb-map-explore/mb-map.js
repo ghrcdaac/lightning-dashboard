@@ -118,6 +118,7 @@ class MbMap extends React.Component {
     this.addHotSpot = this.addHotSpot.bind(this);
     this.renderPointVisualization = this.renderPointVisualization.bind(this);
     this.removePointVisualization = this.removePointVisualization.bind(this);
+    this._render_Points = this._render_Points.bind(this);
   }
 
   componentDidMount () {
@@ -482,6 +483,15 @@ class MbMap extends React.Component {
   }
 
   renderPointVisualization(layer_name, date){
+    // var urll = 'https://innovation-netcdfs.s3.us-west-2.amazonaws.com/sampletxt.txt'
+    // urll = 'https://innovation-netcdfs.s3.us-west-2.amazonaws.com/1.0.txt'
+    // fetch(urll)
+    // .then ((response) => response.text())
+    // .then (data => {
+    //   console.log(data)
+    // });
+
+    // return
 
     if(this.props.activeLayers.length === 0){
       alert("Layer should be active for MetaData feature to work.")
@@ -520,56 +530,67 @@ class MbMap extends React.Component {
       })
     }).then((response)=>response.json())
     .then((data)=>{
-
-      this.mbMap.addSource('ethnicity', data_for_mapbox_data_driven_property(data))
-      this.mbMap.addLayer({
-        'id': 'ethnicity',
-        'type': 'circle',
-        'source': 'ethnicity',
-        'paint': {
-          'circle-radius': [
-            "interpolate", ["linear"], ["zoom"],
-            // when zoom is 0, set each feature's circle radius to the value of its "rating" property
-            5, ["get", "frd"],
-            // when zoom is 10, set each feature's circle radius to 10 times the value of its "frd" property
-            10, ["*", 10, ["get", "frd"]],
-            // when zoom is 20, set each feature's circle radius to 10 times the value of its "frd" property
-            20, ["*", 20, ["get", "frd"]]
-        ],
-          'circle-color': '#EE4B2B'
-        }
+      //console.log(data)
+      var urll = 'https://innovation-netcdfs.s3.us-west-2.amazonaws.com/test-file.json'
+      fetch(urll)
+      .then ((response) => response.json())
+      .then (data => {
+        console.log(data)
+        this._render_Points(data)
       });
-      const popup = new mapboxgl.Popup({
-        closeButton: false,
-        closeOnClick: false
-      });
-      this.mbMap.on('mouseenter', 'ethnicity', (e) => {
-          // Change the cursor style as a UI indicator.
-          this.mbMap.getCanvas().style.cursor = 'pointer';
-          
-          // Copy coordinates array.
-          const coordinates = e.features[0].geometry.coordinates.slice();
-          const description = e.features[0].properties.description;
-          
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-          
-          // Populate the popup and set its coordinates
-          // based on the feature found.
-          popup.setLngLat(coordinates).setHTML(description).addTo(this.mbMap);
-        });
-         
-        this.mbMap.on('mouseleave', 'ethnicity', () => {
-          this.mbMap.getCanvas().style.cursor = '';
-          popup.remove();
-        });
     }).catch((error)=>{
       alert("Error. Unable to process Data. Please decrease the Latitude, Longitude Range.")
     })
+  }
+
+
+  _render_Points(data){
+    this.mbMap.addSource('ethnicity', data_for_mapbox_data_driven_property(data))
+    this.mbMap.addLayer({
+      'id': 'ethnicity',
+      'type': 'circle',
+      'source': 'ethnicity',
+      'paint': {
+        'circle-radius': [
+          "interpolate", ["linear"], ["zoom"],
+          // when zoom is 0, set each feature's circle radius to the value of its "rating" property
+          5, ["get", "frd"],
+          // when zoom is 10, set each feature's circle radius to 10 times the value of its "frd" property
+          10, ["*", 10, ["get", "frd"]],
+          // when zoom is 20, set each feature's circle radius to 10 times the value of its "frd" property
+          20, ["*", 20, ["get", "frd"]]
+      ],
+        'circle-color': '#EE4B2B'
+      }
+    });
+    const popup = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: false
+    });
+    this.mbMap.on('mouseenter', 'ethnicity', (e) => {
+        // Change the cursor style as a UI indicator.
+        this.mbMap.getCanvas().style.cursor = 'pointer';
+        
+        // Copy coordinates array.
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const description = e.features[0].properties.description;
+        
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+        
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(coordinates).setHTML(description).addTo(this.mbMap);
+      });
+       
+      this.mbMap.on('mouseleave', 'ethnicity', () => {
+        this.mbMap.getCanvas().style.cursor = '';
+        popup.remove();
+      });
   }
 
   initMap (passLayer) {

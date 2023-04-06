@@ -66,7 +66,6 @@ const Filter = (props) =>{
                 <Swatch/>
                 <HeadComponent>
                     <LayerTitle title={'MetaData Filter'}>MetaData Filter</LayerTitle>
-                    {/* <button onClick={metaClickHandler}>Click Me</button> */}
                     <Button onClick={renderHandler} variation='primary-raised-dark' size={'small'} style={{marginTop:'4px'}}>Render</Button>
                     <Button onClick={removeHandler} variation='primary-raised-dark' size={'small'} style={{marginTop:'4px'}}>Remove</Button>
                 </HeadComponent>

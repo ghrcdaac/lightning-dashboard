@@ -135,19 +135,56 @@ export function metadata_format(data){
    return formatted_data
 }
 
+// export function data_for_mapbox_data_driven_property(data){
+
+//     var average = 0
+//     for(var i = 0;i<(data.length);i++){
+//         if(data.data[i].Data !== 'nan'){
+//             average = average + parseFloat(data.data[i].Data)
+//         }
+//     }
+//     average = average / (data.length)
+//     console.log("AVERAGE: ",average)
+//     const times = 5.5 / average
+//     const formatted_data = []
+//     data.data.forEach((element)=>{
+//         const desc = `Lat: ${element.Latitude}<br>Lon: ${element.Longitude}<br>FSD: ${element.Data}`
+//         if(element.Data !== 'nan'){            
+//             formatted_data.push({
+//                 "type": "Feature",
+//                 "properties": {
+//                   "frd":parseFloat(element.Data/20 * times),
+//                   'description':desc
+//                 },
+//                 "geometry": {
+//                   "type": "Point",
+//                   "coordinates": [ parseFloat(element.Longitude), parseFloat(element.Latitude) ]
+//                 }
+//             })
+//         }
+//     })
+//     return {
+//         'type':'geojson',
+//         'data':{
+//             'type':'FeatureCollection',
+//             'features':formatted_data
+//         }
+//     }
+// }
+
 export function data_for_mapbox_data_driven_property(data){
 
     var average = 0
     for(var i = 0;i<(data.length);i++){
-        if(data.data[i].Data !== 'nan'){
-            average = average + parseFloat(data.data[i].Data)
+        if(data[i].Data !== 'nan'){
+            average = average + parseFloat(data[i].Data)
         }
     }
     average = average / (data.length)
     console.log("AVERAGE: ",average)
     const times = 5.5 / average
     const formatted_data = []
-    data.data.forEach((element)=>{
+    data.forEach((element)=>{
         const desc = `Lat: ${element.Latitude}<br>Lon: ${element.Longitude}<br>FSD: ${element.Data}`
         if(element.Data !== 'nan'){            
             formatted_data.push({
@@ -177,7 +214,8 @@ export function get_metadata_api_file_path(layer_name, date){
     if(layer_name[0].substring(0,2) === "TR"){
         const layer_type = layer_name[0].substring(9, layer_len)
         if(layer_type === 'Full'){
-            return 'TRMM-LIS/VHRFC_LIS_FRD/VHRFC_LIS_FRD.txt'
+            //return 'TRMM-LIS/VHRFC_LIS_FRD/VHRFC_LIS_FRD.txt'
+            return 'TRMM-LIS_trimmed/VHRFC_LIS_FRD.txt'
         }else if(layer_type === 'Monthly'){
             var month = date.getMonth()
             month = month + 1
@@ -199,7 +237,8 @@ export function get_metadata_api_file_path(layer_name, date){
             if(day === 15){
                 month = month + 1
             }
-            const path = `TRMM-LIS/VHRDC_LIS_FRD/${month}.0.txt`
+            //const path = `TRMM-LIS/VHRDC_LIS_FRD/${month}.0.txt`
+            const path = `TRMM-LIS_trimmed/VHRDC_LIS_FRD/${month}.0.txt`
             return path 
         }else if(layer_type === 'Daily'){
             const calendar = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -210,7 +249,8 @@ export function get_metadata_api_file_path(layer_name, date){
             }
             var day = date.getDate()
             start += day
-            var path = `TRMM-LIS/VHRAC_LIS_FRD/${start}.0.txt`
+            //var path = `TRMM-LIS/VHRAC_LIS_FRD/${start}.0.txt`
+            var path = `TRMM-LIS_trimmed/VHRAC_LIS_FRD/${start}.0.txt`
             return path
         }
     }else if(layer_name[0].substring(0,2) === "OT"){
