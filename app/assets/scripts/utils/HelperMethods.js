@@ -136,7 +136,6 @@ export function metadata_format(data){
 }
 
 // export function data_for_mapbox_data_driven_property(data){
-
 //     var average = 0
 //     for(var i = 0;i<(data.length);i++){
 //         if(data.data[i].Data !== 'nan'){
@@ -185,7 +184,7 @@ export function data_for_mapbox_data_driven_property(data){
     const times = 5.5 / average
     const formatted_data = []
     data.forEach((element)=>{
-        const desc = `Lat: ${element.Latitude}<br>Lon: ${element.Longitude}<br>FSD: ${element.Data}`
+        const desc = `Lat: ${element.Latitude}<br>Lon: ${element.Longitude}<br>FRD: ${element.Data}`
         if(element.Data !== 'nan'){            
             formatted_data.push({
                 "type": "Feature",
@@ -215,21 +214,22 @@ export function get_metadata_api_file_path(layer_name, date){
         const layer_type = layer_name[0].substring(9, layer_len)
         if(layer_type === 'Full'){
             //return 'TRMM-LIS/VHRFC_LIS_FRD/VHRFC_LIS_FRD.txt'
-            return 'TRMM-LIS_trimmed/VHRFC_LIS_FRD.txt'
+            return 'TRMM-LIS_trimmed/VHRFC_LIS_FRD/VHRFC_LIS_FRD.txt'
         }else if(layer_type === 'Monthly'){
             var month = date.getMonth()
             month = month + 1
-            return `TRMM-LIS/VHRMC_LIS_FRD/${month}.0.txt` 
+            return `TRMM-LIS_trimmed/VHRMC_LIS_FRD/${month}.0.txt` 
         }else if(layer_type === 'Seasonal'){
+            const base_path = 'TRMM-LIS_trimmed/VHRMC_LIS_FRD'
             var month = date.getMonth()
             if(month === 2){
-                return `TRMM-LIS/VHRSC_LIS_FRD/1.0.txt`
+                return `${base_path}/1.0.txt`
             }else if(month === 6){
-                return `TRMM-LIS/VHRSC_LIS_FRD/2.0.txt`
+                return `${base_path}/2.0.txt`
             }else if(month === 9){
-                return `TRMM-LIS/VHRSC_LIS_FRD/3.0.txt`
+                return `${base_path}/3.0.txt`
             }else{
-                return `TRMM-LIS/VHRSC_LIS_FRD/4.0.txt`
+                return `${base_path}/4.0.txt`
             }
         }else if(layer_type === 'Diurnal'){
             var month = date.getMonth() * 2

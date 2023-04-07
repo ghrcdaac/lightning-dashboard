@@ -475,7 +475,7 @@ class MbMap extends React.Component {
   }
 
   removePointVisualization(){
-    const sourceName = 'ethnicity'
+    const sourceName = 'metadata'
     if(typeof this.mbMap.getSource(sourceName) !== 'undefined'){
       this.mbMap.removeLayer(sourceName)
       this.mbMap.removeSource(sourceName)
@@ -483,15 +483,6 @@ class MbMap extends React.Component {
   }
 
   renderPointVisualization(layer_name, date){
-    // var urll = 'https://innovation-netcdfs.s3.us-west-2.amazonaws.com/sampletxt.txt'
-    // urll = 'https://innovation-netcdfs.s3.us-west-2.amazonaws.com/1.0.txt'
-    // fetch(urll)
-    // .then ((response) => response.text())
-    // .then (data => {
-    //   console.log(data)
-    // });
-
-    // return
 
     if(this.props.activeLayers.length === 0){
       alert("Layer should be active for MetaData feature to work.")
@@ -507,7 +498,6 @@ class MbMap extends React.Component {
       }
     }
 
-    const sourceName = 'ethnicity'
     const file_path = get_metadata_api_file_path(layer_name, date)
 
     this.removePointVisualization()
@@ -531,11 +521,10 @@ class MbMap extends React.Component {
     }).then((response)=>response.json())
     .then((data)=>{
       //console.log(data)
-      var urll = 'https://innovation-netcdfs.s3.us-west-2.amazonaws.com/test-file.json'
+      var urll = 'https://innovation-netcdfs.s3.us-west-2.amazonaws.com/tmp_data_metadata.json'
       fetch(urll)
       .then ((response) => response.json())
       .then (data => {
-        console.log(data)
         this._render_Points(data)
       });
     }).catch((error)=>{
@@ -543,13 +532,13 @@ class MbMap extends React.Component {
     })
   }
 
-
   _render_Points(data){
-    this.mbMap.addSource('ethnicity', data_for_mapbox_data_driven_property(data))
+    const sourceName = 'metadata'
+    this.mbMap.addSource(sourceName, data_for_mapbox_data_driven_property(data))
     this.mbMap.addLayer({
-      'id': 'ethnicity',
+      'id': sourceName,
       'type': 'circle',
-      'source': 'ethnicity',
+      'source': sourceName,
       'paint': {
         'circle-radius': [
           "interpolate", ["linear"], ["zoom"],
@@ -558,7 +547,7 @@ class MbMap extends React.Component {
           // when zoom is 10, set each feature's circle radius to 10 times the value of its "frd" property
           10, ["*", 10, ["get", "frd"]],
           // when zoom is 20, set each feature's circle radius to 10 times the value of its "frd" property
-          20, ["*", 20, ["get", "frd"]]
+          20, ["*", 15, ["get", "frd"]]
       ],
         'circle-color': '#EE4B2B'
       }
@@ -567,7 +556,7 @@ class MbMap extends React.Component {
       closeButton: false,
       closeOnClick: false
     });
-    this.mbMap.on('mouseenter', 'ethnicity', (e) => {
+    this.mbMap.on('mouseenter', sourceName, (e) => {
         // Change the cursor style as a UI indicator.
         this.mbMap.getCanvas().style.cursor = 'pointer';
         
@@ -587,7 +576,7 @@ class MbMap extends React.Component {
         popup.setLngLat(coordinates).setHTML(description).addTo(this.mbMap);
       });
        
-      this.mbMap.on('mouseleave', 'ethnicity', () => {
+      this.mbMap.on('mouseleave', sourceName, () => {
         this.mbMap.getCanvas().style.cursor = '';
         popup.remove();
       });
