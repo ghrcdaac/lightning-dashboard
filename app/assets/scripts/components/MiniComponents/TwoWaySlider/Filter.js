@@ -4,7 +4,7 @@ import {themeVal} from '../../../styles/utils/general'
 import { visuallyHidden, truncated } from '../../../styles/helpers';
 import { Main, MainContainer, Swatch, Middle, RangeInput, BodyContainer, LayerTitle, HeadComponent } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
-import { changeMetadata, changeLAT, changeLON, removeMetadata } from "../../../redux/action/MetadataAction";
+import { changeMetadata, changeLAT, changeLON, removeMetadata, changeFRD } from "../../../redux/action/MetadataAction";
 import Button from "../../../styles/button/button"
 import { Slider } from "@mui/material";
 
@@ -47,13 +47,17 @@ const Filter = (props) =>{
         set_lon_Value(newValue);
     };
     
+
+    const [frd_value, set_frd_value] = React.useState([0,22]);
+    const handle_frd_Change = (event, newValue) =>{
+        set_frd_value(newValue)
+    }
+
     const renderHandler = () =>{
-        // dispatch(changeMetadata())
-        // dispatch(changeLAT([(180*(left_value_lat/100)+(-90)).toFixed(0), (180*(right_value_lat/100)+(-90)).toFixed(0)]))
-        // dispatch(changeLON([(360*(left_value_lon/100)+(-180)).toFixed(0), (360*(right_value_lon/100)+(-180)).toFixed(0)]))
         dispatch(changeMetadata())
         dispatch(changeLAT(lat_value))
         dispatch(changeLON(lon_value))
+        dispatch(changeFRD(frd_value))
     }
 
     const removeHandler = () =>{
@@ -84,6 +88,14 @@ const Filter = (props) =>{
                             <Slider value={lon_value} onChange={handle_lon_Change} min={-180} max={180}/>
                         </Middle>
                     <div style={{width:"30px", marginLeft:'15px'}}>{lon_value[1]}</div>
+                </BodyContainer>
+                <h4 style={{marginLeft: '100px', marginTop:'10px'}}>FRD</h4>
+                <BodyContainer>
+                    <div style={{width:"20px", marginRight:'15px'}}>{frd_value[0]}</div>
+                        <Middle>
+                            <Slider value={frd_value} onChange={handle_frd_Change} min={0} max={100} step={0.05}/>
+                        </Middle>
+                    <div style={{width:"30px", marginLeft:'15px'}}>{frd_value[1]}</div>
                 </BodyContainer>
             </Main>
         </MainContainer>

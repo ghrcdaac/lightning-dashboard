@@ -1,4 +1,4 @@
-import { METADATA, LAT_DATA, LON_DATA, REMOVE_METADATA } from "../constants/MetadataConstant";
+import { METADATA, LAT_DATA, LON_DATA, REMOVE_METADATA, FRD_DATA } from "../constants/MetadataConstant";
 
 export const changeMetadata = (payload) =>{
     return{
@@ -17,6 +17,13 @@ export const changeLAT = (payload) =>{
 export const changeLON = (payload) =>{
     return {
         type: LON_DATA,
+        payload:payload
+    }
+}
+
+export const changeFRD = (payload) =>{
+    return {
+        type:FRD_DATA,
         payload:payload
     }
 }

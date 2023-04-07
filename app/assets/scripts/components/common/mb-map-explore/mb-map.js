@@ -516,6 +516,8 @@ class MbMap extends React.Component {
         lat_max:this.props.META_LAT[1],
         lon_min:this.props.META_LON[0],
         lon_max:this.props.META_LON[1],
+        frd_min:this.props.META_FRD[0],
+        frd_max:this.props.META_FRD[1],
         file_path:file_path
       })
     }).then((response)=>response.json())
@@ -764,6 +766,7 @@ function mapStateToProps (state, props) {
     METADATA:state.METADATA_REDUCER.METADATA,
     META_LAT:state.METADATA_REDUCER.LAT_DATA,
     META_LON:state.METADATA_REDUCER.LON_DATA,
+    META_FRD:state.METADATA_REDUCER.FRD_DATA,
     REMOVE_METADATA:state.METADATA_REDUCER.REMOVE_METADATA
   };
 }

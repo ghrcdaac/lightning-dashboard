@@ -1,9 +1,10 @@
-import { METADATA, LAT_DATA, LON_DATA, REMOVE_METADATA } from "../constants/MetadataConstant";
+import { METADATA, LAT_DATA, LON_DATA, REMOVE_METADATA, FRD_DATA } from "../constants/MetadataConstant";
 
 const InitState = {
     METADATA:false,
     LAT_DATA:[],
     LON_DATA:[],
+    FRD_DATA:[],
     REMOVE_METADATA:false
 }
 
@@ -28,7 +29,13 @@ const METADATA_REDUCER = (state=InitState, action) =>{
             ...state,
             REMOVE_METADATA: !state.REMOVE_METADATA
         }
-    }else{
+    }else if(action.type === FRD_DATA){
+        return {
+            ...state,
+            FRD_DATA: action.payload
+        }
+    }
+    else{
         return state
     }
 }

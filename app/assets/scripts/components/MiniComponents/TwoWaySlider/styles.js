@@ -34,13 +34,13 @@ export const LayerTitle = styled.h1`
 
 export const MainContainer = styled.div`
 display:flex;
-height:188px;
+height:268px;
 width:100%;
 //background-color:blue;
 `
 export const Swatch = styled.div`
 position:absolute;
-height:185px;
+height:265px;
 margin-left:2px;
 margin-top:2px;
 border-radius: 25px;
