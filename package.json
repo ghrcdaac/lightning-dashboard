@@ -127,6 +127,7 @@
     "mapbox-gl-compare": "^0.4.0",
     "mapbox-gl-draw-rectangle-mode": "^1.0.4",
     "number-to-words": "^1.2.4",
+    "plotly.js-dist-min": "^2.20.0",
     "polished": "^3.4.1",
     "prop-types": "^15.7.2",
     "qs": "^6.9.4",

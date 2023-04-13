@@ -475,14 +475,16 @@ class GlobalExplore extends React.Component {
                   onTimeChange={this.onTimeChange}
                 />
               </ExploreCarto>
-              {/* {this.state.activeLayers.length > 0 &&  <ExpMapSecPanel
+              {this.state.activeLayers.length > 0 &&  <ExpMapSecPanel
                 onAction={this.onPanelAction}
                 activeLayer={this.state.activeLayers[0]}
                 onPanelChange={({ revealed }) => {
                   this.resizeMap();
                   this.onPanelChange('panelSec', revealed);
                 }}
-              />} */}
+                activeLayers={this.state.activeLayers}
+                date={this.state.timelineDate}
+              />}
             </ExploreCanvas>
           </InpageBody>
         </Inpage>

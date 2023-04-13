@@ -287,3 +287,19 @@ export function get_metadata_api_file_path(layer_name, date){
 
     }
 }
+
+export function txt_to_json(txt){
+    const json_data = []
+    const separated_by_newline = txt.split("\n");
+    separated_by_newline.forEach((element)=>{
+        const data = element.split(",");
+        if(data[0]!== "Latitude" && data[2] !== 'nan'){
+            json_data.push({
+                "Latitude":data[0],
+                "Longitude":data[1],
+                "Data":data[2]
+            })
+        }
+    })
+    return json_data
+}
