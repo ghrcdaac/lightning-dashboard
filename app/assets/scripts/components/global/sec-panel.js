@@ -49,6 +49,11 @@ const Descriptions = styled.div`
 display:flex;
 justify-content:center;
 `
+const Loading_Screen = styled.div`
+margin-left:14rem;
+margin-top:5rem; 
+`
+
 const InsightsBlock = styled.div`
   padding: ${glsp()};
   display: flex;
@@ -70,7 +75,8 @@ class ExpMapSecPanel extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      renderPlot:false
+      renderPlot:false,
+      render_button_clicked:false
     }
     this.plotly_address = null
     this.visualizeCharts = this.visualizeCharts.bind(this);
@@ -100,6 +106,7 @@ class ExpMapSecPanel extends React.Component {
   }
 
   visualizeCharts(){
+    this.setState({render_button_clicked:true})
     const TITLE = this.props.activeLayers[0]
     //console.log(TITLE)
     var url = 'https://innovation-netcdfs.s3.us-west-2.amazonaws.com/tmp_data_metadata.json'
@@ -183,13 +190,12 @@ class ExpMapSecPanel extends React.Component {
         }
       };
       this.plotly_address = Plotly.newPlot('renderChart',data_for_plotly,layout)
-      this.setState({renderPlot:true})
+      this.setState({renderPlot:true, render_button_clicked:false})
     })
   }
 
-
   render () {
-    
+    const img_src = "https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif"
     return (
       <PanelSelf
         collapsible
@@ -209,6 +215,9 @@ class ExpMapSecPanel extends React.Component {
               <Button onClick={this.removeHandler} variation='primary-raised-dark' size={'small'} style={{marginTop:'4px'}}>Remove Chart</Button>
             </Button_Div>
             <div id="renderChart" style={{marginLeft:"-1rem"}}></div>
+            {!this.state.renderPlot && this.state.render_button_clicked && <Loading_Screen>
+              <img src={img_src} alt="Loading" width="15%"/>
+            </Loading_Screen>}
             {this.state.renderPlot && <Descriptions>
               <ul style={{listStyleType:'square'}}>
                 <li>Scroll to Zoom In/Zoom Out</li>
