@@ -5,8 +5,10 @@ import { visuallyHidden, truncated } from '../../../styles/helpers';
 import { Main, MainContainer, Swatch, Middle, RangeInput, BodyContainer, LayerTitle, HeadComponent } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import { changeMetadata, changeLAT, changeLON, removeMetadata, changeFRD } from "../../../redux/action/MetadataAction";
-import Button from "../../../styles/button/button"
+// import Button from "../../../styles/button/button"
 import { Slider } from "@mui/material";
+import { ButtonGroup } from '@mui/material';
+import { Button } from '@mui/material';
 
 const Filter = (props) =>{
 
@@ -69,9 +71,17 @@ const Filter = (props) =>{
             <Main>
                 <Swatch/>
                 <HeadComponent>
-                    <LayerTitle title={'MetaData Filter'}>MetaData Filter</LayerTitle>
-                    <Button onClick={renderHandler} variation='primary-raised-dark' size={'small'} style={{marginTop:'4px'}}>Render</Button>
-                    <Button onClick={removeHandler} variation='primary-raised-dark' size={'small'} style={{marginTop:'4px'}}>Remove</Button>
+                    <div>
+                        <div>
+                            <LayerTitle title={'MetaData Filter'}>MetaData Filter</LayerTitle>
+                        </div>
+                        <div>
+                        <ButtonGroup size="small" aria-label="small button group">
+                            <Button onClick={renderHandler}>Render</Button>
+                            <Button onClick={removeHandler}>Remove</Button>
+                        </ButtonGroup>
+                        </div>
+                    </div>
                 </HeadComponent>
                 <h4 style={{marginLeft: '105px', marginTop:'10px'}}>Latitude</h4>
                 <BodyContainer>
