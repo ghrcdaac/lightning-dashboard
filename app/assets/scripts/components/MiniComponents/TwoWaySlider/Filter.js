@@ -75,12 +75,6 @@ const Filter = (props) =>{
                         <div>
                             <LayerTitle title={'MetaData Filter'}>MetaData Filter</LayerTitle>
                         </div>
-                        <div>
-                        <ButtonGroup size="small" aria-label="small button group">
-                            <Button onClick={renderHandler}>Render</Button>
-                            <Button onClick={removeHandler}>Remove</Button>
-                        </ButtonGroup>
-                        </div>
                     </div>
                 </HeadComponent>
                 <h4 style={{marginLeft: '105px', marginTop:'10px'}}>Latitude</h4>
@@ -107,6 +101,12 @@ const Filter = (props) =>{
                         </Middle>
                     <div style={{width:"30px", marginLeft:'15px'}}>{frd_value[1]}</div>
                 </BodyContainer>
+                <div style={{marginLeft:'15%'}}>
+                    <ButtonGroup size="small" aria-label="small button group">
+                        <Button onClick={renderHandler}>Render</Button>
+                        <Button onClick={removeHandler}>Remove</Button>
+                    </ButtonGroup>
+                </div>
             </Main>
         </MainContainer>
     )

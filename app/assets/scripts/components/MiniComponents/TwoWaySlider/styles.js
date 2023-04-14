@@ -34,13 +34,14 @@ export const LayerTitle = styled.h1`
 
 export const MainContainer = styled.div`
 display:flex;
-height:268px;
+height:22rem;
+//height:298px;
 width:100%;
 //background-color:blue;
 `
 export const Swatch = styled.div`
 position:absolute;
-height:265px;
+height:21.8rem;
 margin-left:2px;
 margin-top:2px;
 border-radius: 25px;
@@ -56,12 +57,13 @@ width:100%;
 export const BodyContainer = styled.div`
 display:flex;
 margin-left:20px;
-margin-top:10px;
+margin-top:0.8em;
 width: 80%;
 ` 
 
 export const Middle = styled.div`
 position: relative; width: 60%; max-width: 500px; margin-left:2px;
+height:50px;
 ` 
 
 export const Slider = styled.div.attrs(props=>({
