@@ -405,6 +405,9 @@ class GlobalExplore extends React.Component {
     const isComparing = !!comparingLayer;
     ++this.count
 
+    const renderChart = (this.state.activeLayers.length > 0) &&
+                        this.state.activeLayers[0] !== 'Spring 2022' && this.state.activeLayers[0] !== 'HS3'
+
     return (
       <App hideFooter>
         <Inpage isMapCentric>
@@ -475,7 +478,7 @@ class GlobalExplore extends React.Component {
                   onTimeChange={this.onTimeChange}
                 />
               </ExploreCarto>
-              {this.state.activeLayers.length > 0 &&  <ExpMapSecPanel
+              {renderChart &&  <ExpMapSecPanel
                 onAction={this.onPanelAction}
                 activeLayer={this.state.activeLayers[0]}
                 onPanelChange={({ revealed }) => {

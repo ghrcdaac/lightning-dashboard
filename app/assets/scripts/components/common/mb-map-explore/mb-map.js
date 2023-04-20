@@ -490,12 +490,13 @@ class MbMap extends React.Component {
     }
 
     if(this.props.activeLayers[0].substring(0,2) === "TR"){
-      if(this.props.META_LAT[0] < -37 || this.props.META_LAT[0] > 37){
-        alert("For TRMM LIS Datasets, Latitude needs to be between -37 < Latitude < 37")
-        return
-      }else{
-        alert("Request Sent. Please wait around 30 seconds for the response.")
-      }
+      // if(this.props.META_LAT[0] < -37 || this.props.META_LAT[0] > 37){
+      //   alert("For TRMM LIS Datasets, Latitude needs to be between -37 < Latitude < 37")
+      //   return
+      // }else{
+      //   alert("Request Sent. Please wait around 30 seconds for the response.")
+      // }
+      alert("Request Sent. Please wait around 30 seconds for the response.")
     }
 
     const file_path = get_metadata_api_file_path(layer_name, date)
