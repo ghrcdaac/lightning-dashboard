@@ -26,7 +26,7 @@ import ReactPopoverGl from './mb-popover';
 
 import { changeBaselineDate } from '../../../redux/action/BaselineAction';
 import { data_for_mapbox_data_driven_property } from '../../../utils/HelperMethods';
-import { changeMetadata } from '../../../redux/action/MetadataAction';
+import { changeMetadata, changeSpinner } from '../../../redux/action/MetadataAction';
 import { get_metadata_api_file_path } from '../../../utils/HelperMethods';
 
 import configs from '../../../configuration.json'
@@ -502,7 +502,8 @@ class MbMap extends React.Component {
       icon: 'success',
       text:"Data Request Sent."
     })
-
+    this.props.changeSpinner();
+    
     console.log("LINE: 457. RenderPointVisualization")
     console.log("FilePath: ", file_path)
     let randomString = makeid(10);
@@ -779,13 +780,15 @@ function mapStateToProps (state, props) {
   };
 }
 
-const mapDispatchToProps = () =>{
+const mapDispatchToProps = (dispatch) =>{
   return{
-    changeBaselineDate:changeBaselineDate,
-    changeMetadata:changeMetadata
+    // changeBaselineDate:changeBaselineDate,
+    // changeMetadata:changeMetadata
+    changeMetadata: () => dispatch(changeMetadata()),
+    changeSpinner: () => dispatch(changeSpinner())
   }
 }
 
-export default connect(mapStateToProps,{}, null,{
+export default connect(mapStateToProps,mapDispatchToProps, null,{
   forwardRef:true
 })(withTheme(MbMap));

@@ -70,6 +70,7 @@ const Filter = (props) =>{
         dispatch(removeMetadata())
     }
 
+    const img_src = "https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif"
     return (
         <MainContainer>
             <Main>
@@ -105,11 +106,14 @@ const Filter = (props) =>{
                         </Middle>
                     <div style={{width:"30px", marginLeft:'15px'}}>{frd_value[1]}</div>
                 </BodyContainer>
-                <div style={{marginLeft:'15%'}}>
+                <div style={{marginLeft:'15%', display:'flex'}}>
                     <ButtonGroup size="small" aria-label="small button group">
                         <Button onClick={renderHandler}>Render</Button>
                         <Button onClick={removeHandler}>Remove</Button>
                     </ButtonGroup>
+                    <div style={{marginLeft:'10px', marginTop:'3px'}}>
+                        <img src={img_src} alt="Loading" width="25%"/>
+                    </div>
                 </div>
             </Main>
         </MainContainer>
