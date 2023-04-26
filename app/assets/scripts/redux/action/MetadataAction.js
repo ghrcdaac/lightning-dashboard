@@ -1,4 +1,4 @@
-import { METADATA, LAT_DATA, LON_DATA, REMOVE_METADATA, FRD_DATA } from "../constants/MetadataConstant";
+import { METADATA, LAT_DATA, LON_DATA, REMOVE_METADATA, FRD_DATA, ISSLIS_PATH, HS3_PATH } from "../constants/MetadataConstant";
 
 export const changeMetadata = (payload) =>{
     return{
@@ -31,6 +31,20 @@ export const changeFRD = (payload) =>{
 export const removeMetadata = (payload) =>{
     return {
         type:REMOVE_METADATA,
+        payload:payload
+    }
+}
+
+export const changeIsslisPath = (payload) =>{
+    return {
+        type:ISSLIS_PATH, 
+        payload:payload
+    }
+}
+
+export const changeHs3Path = (payload) =>{
+    return {
+        type:HS3_PATH,
         payload:payload
     }
 }

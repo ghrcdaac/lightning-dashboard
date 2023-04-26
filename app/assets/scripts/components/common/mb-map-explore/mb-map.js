@@ -11,7 +11,7 @@ import { FiExternalLink } from '../../../../../../node_modules/react-icons/fi';
 import { createMbMarker } from './mb-popover/utils';
 import geoJson2 from './chicago-parks2.json'
 import CalendarTag from '../../MiniComponents/BaselineLayer/CalendarTag';
-import {date_to_string, baseline_link, get_layer, HotSpotDate, metadata_format} from '../../../utils/HelperMethods';
+import {date_to_string, baseline_link, get_layer, HotSpotDate, metadata_format, makeid} from '../../../utils/HelperMethods';
 import {HotSpotData} from '../../../data/HotSpot2.0';
 import HotSpotBody from '../../MiniComponents/HotSpot/HotSpotBody'
 // import HotSpot from '../../MiniComponents/HotSpot/HotSpot'
@@ -28,6 +28,8 @@ import { changeBaselineDate } from '../../../redux/action/BaselineAction';
 import { data_for_mapbox_data_driven_property } from '../../../utils/HelperMethods';
 import { changeMetadata } from '../../../redux/action/MetadataAction';
 import { get_metadata_api_file_path } from '../../../utils/HelperMethods';
+
+import configs from '../../../configuration.json'
 
 const { center, zoom: defaultZoom, minZoom, maxZoom} = config.map;
 var {styleUrl} = config.map
@@ -505,8 +507,8 @@ class MbMap extends React.Component {
 
     console.log("LINE: 457. RenderPointVisualization")
     console.log("FilePath: ", file_path)
-
-    let url = "https://yzdj35prj7.execute-api.us-east-2.amazonaws.com/test/metadata"
+    let randomString = makeid(10);
+    let url = `${configs.api_gateway_url}test/metadata-test`
     fetch(url,{
       method:"POST",
       headers:{
@@ -519,12 +521,13 @@ class MbMap extends React.Component {
         lon_max:this.props.META_LON[1],
         frd_min:this.props.META_FRD[0],
         frd_max:this.props.META_FRD[1],
-        file_path:file_path
+        file_path:file_path,
+        id:randomString
       })
     }).then((response)=>response.json())
     .then((data)=>{
       //console.log(data)
-      var urll = 'https://innovation-netcdfs.s3.us-west-2.amazonaws.com/tmp_data_metadata.json'
+      var urll = `${configs['lightning_dash_temp-cloudfront_url']}${randomString}.json`
       fetch(urll)
       .then ((response) => response.json())
       .then (data => {
@@ -711,7 +714,6 @@ class MbMap extends React.Component {
   }
 
   render () {
-
     return (
       <>
         {this.mbMap && this.renderPopover()}

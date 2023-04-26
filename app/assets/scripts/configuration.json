@@ -4,5 +4,7 @@
     "api":"https://wug8w3fg42.execute-api.us-west-2.amazonaws.com/development/singleband/",
     "NODE_ENV":"production",
     "BASEURL":null,
-    "APP_VERSION":null
+    "APP_VERSION":null,
+    "lightning_dash_temp-cloudfront_url":"https://d1fv1iak2e0me4.cloudfront.net/",
+    "api_gateway_url":"https://yzdj35prj7.execute-api.us-east-2.amazonaws.com/"
 }
