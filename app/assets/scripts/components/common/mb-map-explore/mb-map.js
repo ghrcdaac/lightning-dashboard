@@ -30,6 +30,7 @@ import { changeMetadata } from '../../../redux/action/MetadataAction';
 import { get_metadata_api_file_path } from '../../../utils/HelperMethods';
 
 import configs from '../../../configuration.json'
+var Swal = require('sweetalert2')
 
 const { center, zoom: defaultZoom, minZoom, maxZoom} = config.map;
 var {styleUrl} = config.map
@@ -487,23 +488,20 @@ class MbMap extends React.Component {
   renderPointVisualization(layer_name, date){
 
     if(this.props.activeLayers.length === 0){
-      alert("Layer should be active for MetaData feature to work.")
+      Swal.fire({
+        icon: 'error',
+        text:"One of the layers should be active for this feature to work."
+      })
       return
     }
 
-    if(this.props.activeLayers[0].substring(0,2) === "TR"){
-      // if(this.props.META_LAT[0] < -37 || this.props.META_LAT[0] > 37){
-      //   alert("For TRMM LIS Datasets, Latitude needs to be between -37 < Latitude < 37")
-      //   return
-      // }else{
-      //   alert("Request Sent. Please wait around 30 seconds for the response.")
-      // }
-      alert("Request Sent. Please wait around 30 seconds for the response.")
-    }
-
     const file_path = get_metadata_api_file_path(layer_name, date)
-
     this.removePointVisualization()
+
+    Swal.fire({
+      icon: 'success',
+      text:"Data Request Sent."
+    })
 
     console.log("LINE: 457. RenderPointVisualization")
     console.log("FilePath: ", file_path)
@@ -531,10 +529,17 @@ class MbMap extends React.Component {
       fetch(urll)
       .then ((response) => response.json())
       .then (data => {
+        Swal.fire({
+          icon: 'info',
+          text:"Data Received. Points will soon begin rendering onto the map."
+        })
         this._render_Points(data)
       });
     }).catch((error)=>{
-      alert("Error. Unable to process Data. Please decrease the Latitude, Longitude Range.")
+      Swal.fire({
+        icon: 'error',
+        text:`Error. ${error}`
+      })
     })
   }
 

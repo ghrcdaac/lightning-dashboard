@@ -1,4 +1,4 @@
-import { METADATA, LAT_DATA, LON_DATA, REMOVE_METADATA, FRD_DATA, ISSLIS_PATH, HS3_PATH } from "../constants/MetadataConstant";
+import { METADATA, LAT_DATA, LON_DATA, REMOVE_METADATA, FRD_DATA, ISSLIS_PATH, HS3_PATH, SPINNER } from "../constants/MetadataConstant";
 
 const InitState = {
     METADATA:false,
@@ -7,7 +7,8 @@ const InitState = {
     FRD_DATA:[],
     REMOVE_METADATA:false,
     ISSLIS_PATH:'',
-    HS3_PATH:''
+    HS3_PATH:'',
+    SPINNER: false
 }
 
 const METADATA_REDUCER = (state=InitState, action) =>{
@@ -45,6 +46,11 @@ const METADATA_REDUCER = (state=InitState, action) =>{
         return {
             ...state,
             HS3_PATH: action.payload
+        }
+    }else if(action.type === SPINNER){
+        return {
+            ...state,
+            SPINNER: !state.SPINNER
         }
     }
     else{

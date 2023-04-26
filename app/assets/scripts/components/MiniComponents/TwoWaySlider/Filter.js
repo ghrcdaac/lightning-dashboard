@@ -9,6 +9,7 @@ import { changeMetadata, changeLAT, changeLON, removeMetadata, changeFRD } from 
 import { Slider } from "@mui/material";
 import { ButtonGroup } from '@mui/material';
 import { Button } from '@mui/material';
+var Swal = require('sweetalert2')
 
 const Filter = (props) =>{
 
@@ -24,9 +25,20 @@ const Filter = (props) =>{
         return 2
     }
 
+    const renderPopup = (status) =>{
+        if(status === 'success'){
+
+        }else{
+            Swal.fire({
+                title: 'Error!',
+                text: 'Do you want to continue',
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            })
+        }
+    }
 
     useEffect(()=>{
-        //setUpdateSlider(Math.floor(Math.random() * 200));
         set_frd_value([0,frd_max()])
     }, [props])
 
@@ -51,6 +63,7 @@ const Filter = (props) =>{
         dispatch(changeLAT(lat_value))
         dispatch(changeLON(lon_value))
         dispatch(changeFRD(frd_value))
+        //renderPopup()
     }
 
     const removeHandler = () =>{
