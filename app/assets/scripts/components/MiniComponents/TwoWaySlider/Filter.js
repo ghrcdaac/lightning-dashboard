@@ -13,32 +13,23 @@ import { Button } from '@mui/material';
 const Filter = (props) =>{
 
     //-----------------------------------------------------------------------------------
-
-    const [left_value_lat, setLeftValueLat] = useState(25)
-    const [right_value_lat, setRightValueLat] = useState(75)
     const dispatch = useDispatch();
-
-    const left_handler_lat = (e) =>{
-        setLeftValueLat(e.target.value)
+    const frd_max = () =>{
+        if (typeof props.activeLayers === 'undefined') {
+            return 2
+        }
+        if(props.activeLayers[0] === 'TRMM LIS Full' || props.activeLayers[0] === 'OTD Full'){
+            return 100
+        }
+        return 2
     }
 
-    const right_handler_lat = (e) =>{
-        setRightValueLat(e.target.value)
-    }
 
-    const [left_value_lon, setLeftValueLon] = useState(25)
-    const [right_value_lon, setRightValueLon] = useState(75)
+    useEffect(()=>{
+        //setUpdateSlider(Math.floor(Math.random() * 200));
+        set_frd_value([0,frd_max()])
+    }, [props])
 
-    const left_handler_lon = (e) =>{
-        setLeftValueLon(e.target.value)
-    }
-
-    const right_handler_lon = (e) =>{
-        setRightValueLon(e.target.value)
-    }
-
-    
-    
     const [lat_value, set_lat_Value] = React.useState([-45, 45]);
     const handle_lat_Change = (event, newValue) => {
         set_lat_Value(newValue);
@@ -50,7 +41,7 @@ const Filter = (props) =>{
     };
     
 
-    const [frd_value, set_frd_value] = React.useState([0,22]);
+    const [frd_value, set_frd_value] = React.useState([0,frd_max()]);
     const handle_frd_Change = (event, newValue) =>{
         set_frd_value(newValue)
     }
@@ -97,7 +88,7 @@ const Filter = (props) =>{
                 <BodyContainer>
                     <div style={{width:"20px", marginRight:'15px'}}>{frd_value[0]}</div>
                         <Middle>
-                            <Slider value={frd_value} onChange={handle_frd_Change} min={0} max={100} step={0.05}/>
+                            <Slider value={frd_value} onChange={handle_frd_Change} min={0} max={frd_max()} step={0.05}/>
                         </Middle>
                     <div style={{width:"30px", marginLeft:'15px'}}>{frd_value[1]}</div>
                 </BodyContainer>

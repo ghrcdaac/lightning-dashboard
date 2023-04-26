@@ -171,7 +171,7 @@ class DataLayersBlock extends React.Component {
                 ))}
                 {/* <PanelTitle>Features</PanelTitle> */}
                 <Slider slideHandler={tileOpacity}/>
-                <Filter />
+                <Filter activeLayers={activeLayers}/>
                 <BaselineToggle 
                 calendarStatus={calendarStatus} 
                 layers={layers} 
