@@ -25,6 +25,8 @@ import Button from "../../styles/button/button"
 import { connect } from 'react-redux';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 
+import metadata_url from '../../configuration.json'
+
 const PanelSelf = styled(Panel)`
   // ${media.largeUp`
   //   width: 30rem;
@@ -107,18 +109,7 @@ class ExpMapSecPanel extends React.Component {
 
   visualizeCharts(){
     this.setState({render_button_clicked:true})
-    const TITLE = this.props.activeLayers[0]
-    //console.log(TITLE)
-    var url = 'https://innovation-netcdfs.s3.us-west-2.amazonaws.com/tmp_data_metadata.json'
-    const fetch_link = `https://lightning-dashboard-metadata.s3.us-west-2.amazonaws.com/${get_metadata_api_file_path(this.props.activeLayers, this.props.date)}`
-    //console.log(fetch_link)
-
-    // fetch(fetch_link)
-    // .then(response=>response.text())
-    // .then((dataa)=>{
-    //   const data = txt_to_json(dataa);
-    //   console.log(data)
-    // })
+    const fetch_link = `${metadata_url['lightning_dashboard-cloudfront_url']}${get_metadata_api_file_path(this.props.activeLayers, this.props.date)}`
 
     fetch(fetch_link)
     .then(response=>response.text())

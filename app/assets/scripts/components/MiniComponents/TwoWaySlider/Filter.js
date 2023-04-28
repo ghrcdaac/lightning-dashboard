@@ -15,6 +15,8 @@ const Filter = (props) =>{
 
     //-----------------------------------------------------------------------------------
     const dispatch = useDispatch();
+    const spinner = useSelector(state=>state.METADATA_REDUCER.SPINNER)
+
     const frd_max = () =>{
         if (typeof props.activeLayers === 'undefined') {
             return 2
@@ -111,9 +113,9 @@ const Filter = (props) =>{
                         <Button onClick={renderHandler}>Render</Button>
                         <Button onClick={removeHandler}>Remove</Button>
                     </ButtonGroup>
-                    <div style={{marginLeft:'10px', marginTop:'3px'}}>
+                    {spinner && <div style={{marginLeft:'10px', marginTop:'3px'}}>
                         <img src={img_src} alt="Loading" width="25%"/>
-                    </div>
+                    </div>}
                 </div>
             </Main>
         </MainContainer>

@@ -503,11 +503,11 @@ class MbMap extends React.Component {
       text:"Data Request Sent."
     })
     this.props.changeSpinner();
-    
+
     console.log("LINE: 457. RenderPointVisualization")
     console.log("FilePath: ", file_path)
     let randomString = makeid(10);
-    let url = `${configs.api_gateway_url}test/metadata-test`
+    let url = `${configs.api_gateway_url}test/metadata`
     fetch(url,{
       method:"POST",
       headers:{
@@ -535,6 +535,7 @@ class MbMap extends React.Component {
           text:"Data Received. Points will soon begin rendering onto the map."
         })
         this._render_Points(data)
+        this.props.changeSpinner();
       });
     }).catch((error)=>{
       Swal.fire({
@@ -543,8 +544,9 @@ class MbMap extends React.Component {
       })
     })
   }
-
+  
   _render_Points(data){
+    //console.log(this.props.SPINNER)
     const sourceName = 'metadata'
     this.mbMap.addSource(sourceName, data_for_mapbox_data_driven_property(data))
     this.mbMap.addLayer({
@@ -776,7 +778,8 @@ function mapStateToProps (state, props) {
     META_LAT:state.METADATA_REDUCER.LAT_DATA,
     META_LON:state.METADATA_REDUCER.LON_DATA,
     META_FRD:state.METADATA_REDUCER.FRD_DATA,
-    REMOVE_METADATA:state.METADATA_REDUCER.REMOVE_METADATA
+    REMOVE_METADATA:state.METADATA_REDUCER.REMOVE_METADATA,
+    SPINNER:state.METADATA_REDUCER.SPINNER
   };
 }
 

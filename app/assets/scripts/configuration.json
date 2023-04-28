@@ -6,5 +6,6 @@
     "BASEURL":null,
     "APP_VERSION":null,
     "lightning_dash_temp-cloudfront_url":"https://d1fv1iak2e0me4.cloudfront.net/",
+    "lightning_dashboard-cloudfront_url":"https://d28nwgwmztwuhj.cloudfront.net/",
     "api_gateway_url":"https://yzdj35prj7.execute-api.us-east-2.amazonaws.com/"
 }
