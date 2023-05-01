@@ -2,6 +2,8 @@ import { min } from "lodash";
 import React, {useState, useEffect} from "react";
 import { Container, Inner_Container, Year, Month, Day, Time } from "./DropDownStyles";
 import { get_arg1, get_arg2, get_arg3, get_arg4 } from "../../../data/isslis";
+import { useSelector, useDispatch } from "react-redux";
+import { changeMetadataPath } from "../../../redux/action/MetadataAction";
 
 var year;
 
@@ -14,9 +16,14 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
     const [day, setDay] = useState([])
     const [arg4, setArg4] = useState([])
 
+    //redux variable
+    const dispatch = useDispatch();
+    const path = useSelector(state=>state.METADATA_REDUCER.PATH)
+
     //changes or updates month dropdown value
     const yearHandler = (e) =>{
         cur_year = e.target.value
+        //console.log(typeof(cur_year), cur_year)
         setDay([])
         setArg4([])
         setMonth([])
@@ -24,32 +31,38 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
             setMonth([])
         }else{
             setMonth(get_arg2(layer.dataset_type,cur_year))
+            dispatch(changeMetadataPath(''));
         }
     }
 
     //changes or updates day
     const monthHandler = (e) =>{
         cur_month = e.target.value;
+        //console.log(typeof(cur_month), cur_month)
         setArg4([])
         if(cur_month === 'Select Month'){
             setDay([])
         }else{
             setDay(get_arg3(layer.dataset_type,cur_year, cur_month))
+            dispatch(changeMetadataPath(''));
         }
     }
 
     //changes or updates 4th argument
     const dayHandler = (e) =>{
         cur_day = e.target.value
+        //console.log(typeof(cur_day), cur_day)
         if(cur_day === 'Select Day'){
             setArg4([])
         }else{
             setArg4(get_arg4(layer.dataset_type,cur_year, cur_month, cur_day))
+            dispatch(changeMetadataPath(''));
         }
     }
 
     const arg4Handler = (e) =>{
         cur_arg4 = e.target.value
+        //console.log(typeof(cur_arg4), cur_arg4)
         if(cur_arg4 === 'Select'){
 
         }else{
@@ -60,6 +73,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
                 day:cur_day,
                 time:cur_arg4
             })
+            dispatch(changeMetadataPath(cur_year+cur_month+cur_day+".txt"+"#"+cur_arg4));
         }
     }
 

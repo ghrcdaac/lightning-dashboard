@@ -135,43 +135,7 @@ export function metadata_format(data){
    return formatted_data
 }
 
-// export function data_for_mapbox_data_driven_property(data){
-//     var average = 0
-//     for(var i = 0;i<(data.length);i++){
-//         if(data.data[i].Data !== 'nan'){
-//             average = average + parseFloat(data.data[i].Data)
-//         }
-//     }
-//     average = average / (data.length)
-//     console.log("AVERAGE: ",average)
-//     const times = 5.5 / average
-//     const formatted_data = []
-//     data.data.forEach((element)=>{
-//         const desc = `Lat: ${element.Latitude}<br>Lon: ${element.Longitude}<br>FSD: ${element.Data}`
-//         if(element.Data !== 'nan'){            
-//             formatted_data.push({
-//                 "type": "Feature",
-//                 "properties": {
-//                   "frd":parseFloat(element.Data/20 * times),
-//                   'description':desc
-//                 },
-//                 "geometry": {
-//                   "type": "Point",
-//                   "coordinates": [ parseFloat(element.Longitude), parseFloat(element.Latitude) ]
-//                 }
-//             })
-//         }
-//     })
-//     return {
-//         'type':'geojson',
-//         'data':{
-//             'type':'FeatureCollection',
-//             'features':formatted_data
-//         }
-//     }
-// }
-
-export function data_for_mapbox_data_driven_property(data){
+export function data_for_mapbox_data_driven_property(data, activeLayers){
 
     var average = 0
     for(var i = 0;i<(data.length);i++){
@@ -185,11 +149,18 @@ export function data_for_mapbox_data_driven_property(data){
     const formatted_data = []
     data.forEach((element)=>{
         const desc = `Lat: ${element.Latitude}<br>Lon: ${element.Longitude}<br>FRD: ${element.Data}`
+        var frd
+        if(activeLayers[0] === 'Spring 2022'){
+            frd = parseFloat(element.Data * times)
+        }else{
+            frd = parseFloat(element.Data/20 * times)
+        }
+        
         if(element.Data !== 'nan'){            
             formatted_data.push({
                 "type": "Feature",
                 "properties": {
-                  "frd":parseFloat(element.Data/20 * times),
+                  "frd":frd,
                   'description':desc
                 },
                 "geometry": {

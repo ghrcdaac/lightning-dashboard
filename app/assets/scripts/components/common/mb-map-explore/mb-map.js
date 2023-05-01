@@ -494,9 +494,31 @@ class MbMap extends React.Component {
       })
       return
     }
-
-    const file_path = get_metadata_api_file_path(layer_name, date)
     this.removePointVisualization()
+    
+    var file_path;
+    var time = null;
+    if(this.props.activeLayers[0] === 'Spring 2022' || this.props.activeLayers[0] === 'HS3'){
+      if(this.props.PATH === ''){
+        Swal.fire({
+          icon: 'error',
+          text:"Please select all dropdowns in timeline."
+        })
+        return
+      }
+
+      const timeline_information = this.props.PATH.split("#")
+      const filename = timeline_information[0]
+      const directory_or_time = timeline_information[1]
+      if(this.props.activeLayers[0] === 'Spring 2022'){
+        file_path = "ISS-LIS/"+filename
+        time = directory_or_time[0] + directory_or_time[1]
+      }else{ // if this is hs3 data
+        file_path = "HS3/"+ directory_or_time + '/' + filename
+      }
+    }else{
+      file_path = get_metadata_api_file_path(layer_name, date)
+    }
 
     Swal.fire({
       icon: 'success',
@@ -521,6 +543,7 @@ class MbMap extends React.Component {
         frd_min:this.props.META_FRD[0],
         frd_max:this.props.META_FRD[1],
         file_path:file_path,
+        time_hour:time,
         id:randomString
       })
     }).then((response)=>response.json())
@@ -542,13 +565,17 @@ class MbMap extends React.Component {
         icon: 'error',
         text:`Error. ${error}`
       })
+      this.props.changeSpinner();
     })
   }
   
   _render_Points(data){
     //console.log(this.props.SPINNER)
+    //console.log('MbMap::LINE-574::here in render points', data)
     const sourceName = 'metadata'
-    this.mbMap.addSource(sourceName, data_for_mapbox_data_driven_property(data))
+    const filtered_data = data_for_mapbox_data_driven_property(data, this.props.activeLayers)
+    //console.log(filtered_data)
+    this.mbMap.addSource(sourceName, filtered_data)
     this.mbMap.addLayer({
       'id': sourceName,
       'type': 'circle',
@@ -722,6 +749,7 @@ class MbMap extends React.Component {
   }
 
   render () {
+    //console.log(this.props.activeLayers)
     return (
       <>
         {this.mbMap && this.renderPopover()}
@@ -779,7 +807,8 @@ function mapStateToProps (state, props) {
     META_LON:state.METADATA_REDUCER.LON_DATA,
     META_FRD:state.METADATA_REDUCER.FRD_DATA,
     REMOVE_METADATA:state.METADATA_REDUCER.REMOVE_METADATA,
-    SPINNER:state.METADATA_REDUCER.SPINNER
+    SPINNER:state.METADATA_REDUCER.SPINNER,
+    PATH:state.METADATA_REDUCER.PATH
   };
 }
 
