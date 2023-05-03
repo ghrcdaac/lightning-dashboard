@@ -13,7 +13,7 @@ import {
   PanelBlockScroll
 } from './panel-block';
 import Layer from './layer';
-import { Accordion } from './accordion';
+import { Accordionn } from './accordion';
 import {AccordionContainer, AccordionTitle, AccordionBody, TitleWrapper, BottomLineAccordion, DatasetSwatch, PanelTitle} from './AccordionLayer';
 import { TitleBlock, TitleName, LayerTitle, LinkTitle, BottomLine, LinkContainer, Link, LayerBody, LinkBody, MainBody } from './LayerLink';
 
@@ -24,6 +24,12 @@ import HotSpotToggle from '../MiniComponents/HotSpot/HotSpotToggle'
 import {FiExternalLink} from '../../../../../node_modules/react-icons/fi'
 import {FiPlua, FiMinus} from '../../../../../node_modules/react-icons/fi'
 import {RiArrowDropDownLine, RiArrowDropUpLine} from '../../../../../node_modules/react-icons/ri'
+
+import Accordion from '@mui/material';
+import AccordionSummary from '@mui/material';
+import AccordionDetails from '@mui/material';
+import Typography from '@mui/material';
+//import ExpandMoreIcon from '@mui/icons-material';
 
 import LINK_DATA from '../../data/links';
 
@@ -123,52 +129,62 @@ class DataLayersBlock extends React.Component {
           <PanelBlockScroll>
             <MainBody left={this.state.leftBody} animation={this.state.animationBody}>
               <LayerBody>
-                {two_dim_layers.map((layerArray)=>(
-                  <AccordionContainer key={layerArray[0].dataset_type}>
-                    <DatasetSwatch/>
-                    <TitleWrapper onClick={()=>this.dropdownHandler(layerArray[0].dataset_type)}>
-                      <AccordionTitle>{layerArray[0].dataset_type}</AccordionTitle>
-                      {this.state.dropdown === layerArray[0].dataset_type && <RiArrowDropUpLine size={40}/>}
-                      {this.state.dropdown !== layerArray[0].dataset_type && <RiArrowDropDownLine size={40}/>}
-                    </TitleWrapper>
-                    <BottomLineAccordion/>
-                    {this.state.dropdown === layerArray[0].dataset_type && 
-                      <AccordionBody>
-                        <Accordion>
-                          {({ checkExpanded, setExpanded }) => (
-                            <ol>
-                              {layerArray.map((l, idx) => (
-                                <li key={l.id}>
-                                  <Layer
-                                    id={l.id}
-                                    label={l.name}
-                                    disabled={!mapLoaded}
-                                    type={l.type}
-                                    active={l.visible}
-                                    swatchColor={get(l, 'swatch.color')}
-                                    swatchName={get(l, 'swatch.name')}
-                                    dataOrder={l.dataOrder}
-                                    info={l.info}
-                                    legend={l.legend}
-                                    isExpanded={checkExpanded(idx)}
-                                    setExpanded={v => setExpanded(idx, v)}
-                                    onToggleClick={() => onAction('layer.toggle', l)}
-                                    onLegendKnobChange={(payload) => onAction('layer.legend-knob', { id: l.id, ...payload })}
-                                    knobPos={l.knobPos}
-                                    compareEnabled={!!l.compare}
-                                    compareActive={l.comparing}
-                                    compareHelp={get(l, 'compare.help')}
-                                    onCompareClick={() => onAction('layer.compare', l)}
-                                  />
-                                </li>
-                              ))}
-                            </ol>
-                          )}
-                        </Accordion>
-                      </AccordionBody>
-                    }
-                  </AccordionContainer>
-                ))}
+                <AccordionContainer>
+                  <DatasetSwatch/>
+                  <TitleWrapper>
+                    <AccordionTitle>Datasets</AccordionTitle>
+                  </TitleWrapper>
+                  <BottomLineAccordion/>
+                  <AccordionBody>
+                    
+                  </AccordionBody>
+                  {two_dim_layers.map((layerArray)=>(
+                    <AccordionContainer key={layerArray[0].dataset_type}>
+                      <DatasetSwatch/>
+                      <TitleWrapper onClick={()=>this.dropdownHandler(layerArray[0].dataset_type)}>
+                        <AccordionTitle>{layerArray[0].dataset_type}</AccordionTitle>
+                        {this.state.dropdown === layerArray[0].dataset_type && <RiArrowDropUpLine size={40}/>}
+                        {this.state.dropdown !== layerArray[0].dataset_type && <RiArrowDropDownLine size={40}/>}
+                      </TitleWrapper>
+                      <BottomLineAccordion/>
+                      {this.state.dropdown === layerArray[0].dataset_type && 
+                        <AccordionBody>
+                          <Accordionn>
+                            {({ checkExpanded, setExpanded }) => (
+                              <ol>
+                                {layerArray.map((l, idx) => (
+                                  <li key={l.id}>
+                                    <Layer
+                                      id={l.id}
+                                      label={l.name}
+                                      disabled={!mapLoaded}
+                                      type={l.type}
+                                      active={l.visible}
+                                      swatchColor={get(l, 'swatch.color')}
+                                      swatchName={get(l, 'swatch.name')}
+                                      dataOrder={l.dataOrder}
+                                      info={l.info}
+                                      legend={l.legend}
+                                      isExpanded={checkExpanded(idx)}
+                                      setExpanded={v => setExpanded(idx, v)}
+                                      onToggleClick={() => onAction('layer.toggle', l)}
+                                      onLegendKnobChange={(payload) => onAction('layer.legend-knob', { id: l.id, ...payload })}
+                                      knobPos={l.knobPos}
+                                      compareEnabled={!!l.compare}
+                                      compareActive={l.comparing}
+                                      compareHelp={get(l, 'compare.help')}
+                                      onCompareClick={() => onAction('layer.compare', l)}
+                                    />
+                                  </li>
+                                ))}
+                              </ol>
+                            )}
+                          </Accordionn>
+                        </AccordionBody>
+                      }
+                    </AccordionContainer>
+                  ))}
+                </AccordionContainer>
                 {/* <PanelTitle>Features</PanelTitle> */}
                 <Slider slideHandler={tileOpacity}/>
                 <Filter activeLayers={activeLayers}/>
