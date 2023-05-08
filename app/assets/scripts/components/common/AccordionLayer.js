@@ -51,28 +51,31 @@ position:relative;
 -o-animation: slideDown-body 0.10s; 
 animation: slideDown-body 0.10s; 
 
+
+
+//good one
 @keyframes slideDown-body {
-    0%      {top:-400px}
-    12.5%   {top:-350px}
-    25%     {top:-300px}
-    37.5%   {top:-250px}
-    50%     {top:-200px}
-    62.5%   {top:-150px}
-    75%     {top:-100px}
-    87.5%   {top:-50px}
+    0%      {top:-40px}
+    12.5%   {top:-35px}
+    25%     {top:-30px}
+    37.5%   {top:-25px}
+    50%     {top:-20px}
+    62.5%   {top:-15px}
+    75%     {top:-10px}
+    87.5%   {top:-5px}
     100%    {top:0px}
 }
 
 @keyframes slideUp-body {
     0%      {top:0px}
-    12.5%   {top:-50px}
-    25%     {top:-100px}
-    37.5%   {top:-150px}
-    50%     {top:-200px}
-    62.5%   {top:-250px}
-    75%     {top:-300px}
-    87.5%   {top:-350px}
-    100%    {top:400px}
+    12.5%   {top:-5px}
+    25%     {top:-10px}
+    37.5%   {top:-15px}
+    50%     {top:-20px}
+    62.5%   {top:-25px}
+    75%     {top:-30px}
+    87.5%   {top:-35px}
+    100%    {top:40px}
 }
 
 z-index:5;
