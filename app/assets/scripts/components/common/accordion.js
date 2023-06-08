@@ -74,7 +74,7 @@ const expandedState = (initialState, foldCount = 0, allowMultiple = false, allow
  *                  at the same time.
  * @param {array<bool>} initialState Initial state for the folds.
  */
-export function Accordion ({
+export function Accordionn ({
   children,
   foldCount,
   allowMultiple,
@@ -96,7 +96,7 @@ export function Accordion ({
   });
 }
 
-Accordion.propTypes = {
+Accordionn.propTypes = {
   children: T.func,
   foldCount: T.number,
   allowMultiple: T.bool,
