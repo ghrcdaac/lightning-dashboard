@@ -1,12 +1,6 @@
 import React from 'react';
 import T from 'prop-types';
-import * as d3 from 'd3';
 
-import BarChartPanel from '../MiniComponents/Histogram/BarChartPanel';
-// import { BarChartIndex } from '../../data/DataIndex';
-import Heading from '../../styles/type/heading';
-// import SimpleLineChart from '../common/simple-line-chart/chart';
-import BarChart from '../common/bar-chart/chart';
 import Panel, {
   PanelHeadline,
   PanelTitle
