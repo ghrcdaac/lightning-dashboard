@@ -110,8 +110,11 @@ const Filter = (props) =>{
                 </BodyContainer>
                 <div style={{marginLeft:'15%', display:'flex'}}>
                     <ButtonGroup size="small" aria-label="small button group">
-                        <Button onClick={renderHandler}>Render</Button>
-                        <Button onClick={removeHandler}>Remove</Button>
+                        <Button sx={ { borderRadius: 20 } } onClick={renderHandler}>Render</Button>         
+                    </ButtonGroup>
+                    &nbsp;&nbsp;&nbsp;
+                    <ButtonGroup size="small" aria-label="small button group">
+                        <Button sx={ { borderRadius: 20 } } onClick={removeHandler}>Remove</Button>
                     </ButtonGroup>
                     {spinner && <div style={{marginLeft:'10px', marginTop:'3px'}}>
                         <img src={img_src} alt="Loading" width="25%"/>
