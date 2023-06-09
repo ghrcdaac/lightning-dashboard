@@ -1,6 +1,6 @@
 // this is the main initial page shown
 
-import React, {useRef, useEffect} from 'react';
+import React from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -53,8 +53,6 @@ import QsState from '../../utils/qs-state';
 import { round } from '../../utils/format';
 
 import { changeBaselineId, changeBaselineDate, resetBaseline } from '../../redux/action/BaselineAction';
-import BASELINE_REDUCER from '../../redux/reducers/BaselineReducer';
-import dataHighlightBandsLayer from '../common/common-chart-utils/data-highlight-bands.layer';
 
 /**
  * Returns a feature with a polygon geometry made of the provided bounds.

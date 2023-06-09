@@ -7,7 +7,6 @@ import { date_to_string } from '../../../utils/HelperMethods';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeBaselineDate, changeBaselineDateInformal } from '../../../redux/action/BaselineAction';
 import { get_layer } from '../../../utils/HelperMethods';
-// import './Calendar.css'
 
 const Outer_container = styled.div`
 //position:absolute;

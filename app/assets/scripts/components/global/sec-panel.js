@@ -8,16 +8,12 @@ import Panel, {
 import ShadowScrollbar from '../common/shadow-scrollbar';
 
 import { glsp } from '../../styles/utils/theme-values';
-import { utcDate } from '../../utils/utils';
 import media, { isLargeViewport } from '../../styles/utils/media-queries';
-// import DatePicker from '../common/date-picker';
-import { differenceInMonths, differenceInDays } from 'date-fns';
 
-import SummaryExpandable from '../common/summary-expandable';
-import { data_for_mapbox_data_driven_property, get_metadata_api_file_path, txt_to_json } from '../../utils/HelperMethods';
+import {get_metadata_api_file_path, txt_to_json } from '../../utils/HelperMethods';
 import Button from "../../styles/button/button"
 import { connect } from 'react-redux';
-import styled, { withTheme, ThemeProvider } from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 
 import metadata_url from '../../configuration.json'
 
