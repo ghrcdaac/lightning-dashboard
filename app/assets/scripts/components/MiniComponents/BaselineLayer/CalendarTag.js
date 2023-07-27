@@ -1,15 +1,11 @@
-import React,{useState, useEffect} from 'react';
-import styled, { withTheme, ThemeProvider } from 'styled-components';
-import Button from '../../../styles/button/button';
+import React,{useState} from 'react';
+import styled  from 'styled-components';
 import Calendar from 'react-calendar';
 import find from 'lodash.find';
 import CustomCalendar from './CustomCalendar';
 import { date_to_string } from '../../../utils/HelperMethods';
-import ReactDOM from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { changeBaselineDate, changeBaselineDateInformal } from '../../../redux/action/BaselineAction';
-import BaselineJSON from '../../../data/Baseline'
-import { getBaselineData } from '../../../data/DataIndex';
 import { get_layer } from '../../../utils/HelperMethods';
 
 const Outer_container = styled.div`

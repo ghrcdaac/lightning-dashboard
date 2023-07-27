@@ -1,6 +1,5 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
-import { data } from '../../../data/HotSpotData';
 
 const OuterContainer = styled.div`
 height:10px;

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import T from 'prop-types';
 import styled, { css } from 'styled-components';
 import { add, sub, format, isSameMonth, isSameDay } from 'date-fns';

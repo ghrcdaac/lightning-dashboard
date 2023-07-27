@@ -9,12 +9,10 @@ import { connect } from 'react-redux';
 import { FiExternalLink } from '../../../../../../node_modules/react-icons/fi';
 
 import { createMbMarker } from './mb-popover/utils';
-import geoJson2 from './chicago-parks2.json'
 import CalendarTag from '../../MiniComponents/BaselineLayer/CalendarTag';
 import {date_to_string, baseline_link, get_layer, HotSpotDate, metadata_format, makeid} from '../../../utils/HelperMethods';
 import {HotSpotData} from '../../../data/HotSpot2.0';
 import HotSpotBody from '../../MiniComponents/HotSpot/HotSpotBody'
-// import HotSpot from '../../MiniComponents/HotSpot/HotSpot'
 
 import config from '../../../config';
 import { layerTypes } from '../layers/types';
@@ -34,7 +32,7 @@ var Swal = require('sweetalert2')
 
 const { center, zoom: defaultZoom, minZoom, maxZoom} = config.map;
 var {styleUrl} = config.map
-var activeLayers;
+
 // Set mapbox token.
 mapboxgl.accessToken = config.mbToken;
 localStorage.setItem('MapboxAccessToken', config.mbToken);

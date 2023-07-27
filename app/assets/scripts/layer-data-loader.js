@@ -1,7 +1,7 @@
 // mainly used to getch the layer-loder (agriculture, no2, co2) --> in our case will be NALMA and ISSLIS
 
 import '@babel/polyfill';
-import React,{useState} from 'react';
+import React from 'react';
 import T from 'prop-types';
 
 import { storeSpotlightLayers } from './components/common/layers';

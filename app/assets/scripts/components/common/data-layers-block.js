@@ -18,7 +18,7 @@ import {AccordionContainer, AccordionTitle, AccordionBody, TitleWrapper, BottomL
 import { TitleBlock, TitleName, LayerTitle, LinkTitle, BottomLine, LinkContainer, Link, LayerBody, LinkBody, MainBody } from './LayerLink';
 
 import Slider from '../MiniComponents/Single/Slider';
-import Filter from '../MiniComponents/TwoWaySlider/Filter';
+import Filter from '../MiniComponents/MetaDataFilter/Filter';
 import BaselineToggle from '../MiniComponents/BaselineLayer/BaselineToggle';
 import HotSpotToggle from '../MiniComponents/HotSpot/HotSpotToggle'
 import {FiExternalLink} from '../../../../../node_modules/react-icons/fi'

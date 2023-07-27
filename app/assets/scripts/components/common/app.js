@@ -3,16 +3,12 @@ import T from 'prop-types';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 
-// import MetaTags from './meta-tags'; --> not sure of its functionality 
 import PageHeader from './page-header';
-// import PageFooter from './page-footer'; --> again not used
 import { reveal } from '../../styles/animation';
 
 import config from '../../config';
 import SizeAwareElement from './size-aware-element';
 import { mediaRanges } from '../../styles/theme/theme';
-
-const { appTitle, appDescription } = config;
 
 const Page = styled.div`
   display: grid;
