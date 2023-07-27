@@ -1,5 +1,6 @@
 import isslis from './Spring2022.json'
 import hs3 from '../HS3/HS3.json'
+import nalma from '../NALMA/NALMA.json'
 
 export const connector = (layer_name, )=>{
 
@@ -12,6 +13,8 @@ export const get_arg1 = (id) =>{
         json_data = isslis
     }else if(id === 'HS3'){
         json_data = hs3
+    }else if(id === 'NALMA'){
+        json_data = nalma
     }
     const year = []
     json_data.map((element)=>{
@@ -27,6 +30,8 @@ export const get_arg2 = (id,arg1) =>{
         json_data = isslis
     }else if(id === 'HS3'){
         json_data = hs3
+    }else if(id === 'NALMA'){
+        json_data = nalma
     }
     
     const data = json_data.filter(element=>element.year === arg1)
@@ -45,6 +50,8 @@ export const get_arg3 = (id,arg1,arg2) =>{
         json_data = isslis
     }else if(id === 'HS3'){
         json_data = hs3
+    }else if(id === 'NALMA'){
+        json_data = nalma
     }
     
     //arg1 => year
@@ -63,7 +70,10 @@ export const get_arg4 = (id,arg1, arg2, arg3) =>{
         json_data = isslis
     }else if(id === 'HS3'){
         json_data = hs3
+    }else if(id === 'NALMA'){
+        json_data = nalma
     }
+
     const year_data = json_data.filter(element=>element.year === arg1)
     const month_data = year_data[0].data.filter(element=>element.month === arg2)
     const day_data = month_data[0].day_indices[arg3]
@@ -80,6 +90,14 @@ export const get_arg4 = (id,arg1, arg2, arg3) =>{
             const mid = month_data[0].file[i].length - f1 - f3
             data_list.push(month_data[0].file[i].substring(f1,f1+mid))
         }
+    }else if(id === 'NALMA'){
+        console.log(day_data)
+        console.log(month_data)
+        console.log(year_data)
+        for(var i = day_data[0];i<=day_data[1];i++){
+
+        }
     }
+
     return data_list
 }

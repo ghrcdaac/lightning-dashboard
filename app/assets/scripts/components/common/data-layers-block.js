@@ -13,7 +13,7 @@ import {
   PanelBlockScroll
 } from './panel-block';
 import Layer from './layer';
-import { Accordionn } from './accordion';
+import { Accordion } from './accordion';
 import {AccordionContainer, AccordionTitle, AccordionBody, TitleWrapper, BottomLineAccordion, DatasetSwatch, PanelTitle} from './AccordionLayer';
 import { TitleBlock, TitleName, LayerTitle, LinkTitle, BottomLine, LinkContainer, Link, LayerBody, LinkBody, MainBody } from './LayerLink';
 
@@ -21,10 +21,9 @@ import Slider from '../MiniComponents/Single/Slider';
 import Filter from '../MiniComponents/TwoWaySlider/Filter';
 import BaselineToggle from '../MiniComponents/BaselineLayer/BaselineToggle';
 import HotSpotToggle from '../MiniComponents/HotSpot/HotSpotToggle'
-import {FiExternalLink, FiSettings} from '../../../../../node_modules/react-icons/fi'
+import {FiExternalLink} from '../../../../../node_modules/react-icons/fi'
+import {FiPlua, FiMinus} from '../../../../../node_modules/react-icons/fi'
 import {RiArrowDropDownLine, RiArrowDropUpLine} from '../../../../../node_modules/react-icons/ri'
-import {AiFillSetting, AiFillDatabase} from '../../../../../node_modules/react-icons/ai'
-//import ExpandMoreIcon from '@mui/icons-material';
 
 import LINK_DATA from '../../data/links';
 
@@ -125,103 +124,66 @@ class DataLayersBlock extends React.Component {
         <PanelBlockBody>
           <PanelBlockScroll>
             <MainBody left={this.state.leftBody} animation={this.state.animationBody}>
-              <LayerBody>
-                <AccordionContainer>
-                  <DatasetSwatch/>
-                  <TitleWrapper onClick={()=>this.setState({datasets: !this.state.datasets})}>
-                    <div style={{display:'flex', alignItems:'center', textAlign:'center', marginLeft:'27%'}}>
-                      <AiFillDatabase />
-                      <AccordionTitle style={{marginLeft:"5px"}}>Datasets</AccordionTitle>
-                    </div>
-                    {this.state.datasets && <RiArrowDropUpLine size={40}/>}
-                    {!this.state.datasets && <RiArrowDropDownLine size={40}/>}
-                  </TitleWrapper>
-                  <BottomLineAccordion/>
-                  {this.state.datasets && <AccordionBody>                    
-                    {two_dim_layers.map((layerArray)=>(
-                      <AccordionContainer key={layerArray[0].dataset_type}>
-                        <DatasetSwatch/>
-                        <TitleWrapper onClick={()=>this.dropdownHandler(layerArray[0].dataset_type)}>
-                          <AccordionTitle>{layerArray[0].dataset_type}</AccordionTitle>
-                          {this.state.dropdown === layerArray[0].dataset_type && <RiArrowDropUpLine size={40}/>}
-                          {this.state.dropdown !== layerArray[0].dataset_type && <RiArrowDropDownLine size={40}/>}
-                        </TitleWrapper>
-                        <BottomLineAccordion/>
-                        {this.state.dropdown === layerArray[0].dataset_type && 
-                          <AccordionBody>
-                            <Accordionn>
-                              {({ checkExpanded, setExpanded }) => (
-                                <ol>
-                                  {layerArray.map((l, idx) => (
-                                    <li key={l.id}>
-                                      <Layer
-                                        id={l.id}
-                                        label={l.name}
-                                        disabled={!mapLoaded}
-                                        type={l.type}
-                                        active={l.visible}
-                                        swatchColor={get(l, 'swatch.color')}
-                                        swatchName={get(l, 'swatch.name')}
-                                        dataOrder={l.dataOrder}
-                                        info={l.info}
-                                        legend={l.legend}
-                                        isExpanded={checkExpanded(idx)}
-                                        setExpanded={v => setExpanded(idx, v)}
-                                        onToggleClick={() => onAction('layer.toggle', l)}
-                                        onLegendKnobChange={(payload) => onAction('layer.legend-knob', { id: l.id, ...payload })}
-                                        knobPos={l.knobPos}
-                                        compareEnabled={!!l.compare}
-                                        compareActive={l.comparing}
-                                        compareHelp={get(l, 'compare.help')}
-                                        onCompareClick={() => onAction('layer.compare', l)}
-                                      />
-                                    </li>
-                                  ))}
-                                </ol>
-                              )}
-                            </Accordionn>
-                          </AccordionBody>
-                        }
-                      </AccordionContainer>
-                    ))}
-                  </AccordionBody>}
-                </AccordionContainer>
-                <AccordionContainer>
-                  <DatasetSwatch/>
-                  <TitleWrapper onClick={()=>this.setState({settings: !this.state.settings})}>
-                    <div style={{display:'flex', alignItems:'center', textAlign:'center', marginLeft:'27%'}}>
-                      <AiFillSetting />
-                      <AccordionTitle style={{marginLeft:'5px'}}>Settings</AccordionTitle>
-                    </div>
-                    {this.state.settings && <RiArrowDropUpLine size={40}/>}
-                    {!this.state.settings && <RiArrowDropDownLine size={40}/>}
-                  </TitleWrapper>
-                  <BottomLineAccordion/>
-                  {this.state.settings && <AccordionBody>
-                    <Slider slideHandler={tileOpacity}/>
-                    <Filter activeLayers={activeLayers}/>
-                    <BaselineToggle 
-                    calendarStatus={calendarStatus} 
-                    layers={layers} 
-                    activeLayers={activeLayers} 
-                    comparing={comparing} 
-                    baselineHandler={baselineHandler} 
-                    comparingId={comparingId} 
-                    baselineId={baselineId}/>
-                    <HotSpotToggle activeLayers={activeLayers}/>
-                  </AccordionBody>}
-                </AccordionContainer>
+            <LayerBody>
+                {two_dim_layers.map((layerArray)=>(
+                  <AccordionContainer key={layerArray[0].dataset_type}>
+                    <DatasetSwatch/>
+                    <TitleWrapper onClick={()=>this.dropdownHandler(layerArray[0].dataset_type)}>
+                      <AccordionTitle>{layerArray[0].dataset_type}</AccordionTitle>
+                      {this.state.dropdown === layerArray[0].dataset_type && <RiArrowDropUpLine size={40}/>}
+                      {this.state.dropdown !== layerArray[0].dataset_type && <RiArrowDropDownLine size={40}/>}
+                    </TitleWrapper>
+                    <BottomLineAccordion/>
+                    {this.state.dropdown === layerArray[0].dataset_type && 
+                      <AccordionBody>
+                        <Accordion>
+                          {({ checkExpanded, setExpanded }) => (
+                            <ol>
+                              {layerArray.map((l, idx) => (
+                                <li key={l.id}>
+                                  <Layer
+                                    id={l.id}
+                                    label={l.name}
+                                    disabled={!mapLoaded}
+                                    type={l.type}
+                                    active={l.visible}
+                                    swatchColor={get(l, 'swatch.color')}
+                                    swatchName={get(l, 'swatch.name')}
+                                    dataOrder={l.dataOrder}
+                                    info={l.info}
+                                    legend={l.legend}
+                                    isExpanded={checkExpanded(idx)}
+                                    setExpanded={v => setExpanded(idx, v)}
+                                    onToggleClick={() => onAction('layer.toggle', l)}
+                                    onLegendKnobChange={(payload) => onAction('layer.legend-knob', { id: l.id, ...payload })}
+                                    knobPos={l.knobPos}
+                                    compareEnabled={!!l.compare}
+                                    compareActive={l.comparing}
+                                    compareHelp={get(l, 'compare.help')}
+                                    onCompareClick={() => onAction('layer.compare', l)}
+                                  />
+                                </li>
+                              ))}
+                            </ol>
+                          )}
+                        </Accordion>
+                      </AccordionBody>
+                    }
+                  </AccordionContainer>
+                ))}
+                {/* <PanelTitle>Features</PanelTitle> */}
+                <Slider slideHandler={tileOpacity}/>
+                <Filter activeLayers={activeLayers}/>
+                <BaselineToggle 
+                calendarStatus={calendarStatus} 
+                layers={layers} 
+                activeLayers={activeLayers} 
+                comparing={comparing} 
+                baselineHandler={baselineHandler} 
+                comparingId={comparingId} 
+                baselineId={baselineId}/>
+                <HotSpotToggle activeLayers={activeLayers}/>
               </LayerBody>
-              <LinkBody>
-                <LinkContainer>
-                  {LINK_DATA.links.map((link)=>(
-                  <Link key={link.name}>
-                    <FiExternalLink/>
-                    <a style={{marginLeft:'10px'}} href={link.link} target="_blank">{link.name}</a>
-                  </Link>
-                  ))}
-                </LinkContainer>
-              </LinkBody>
             </MainBody>
           </PanelBlockScroll>
         </PanelBlockBody>
