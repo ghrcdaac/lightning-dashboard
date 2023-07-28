@@ -94,8 +94,12 @@ export const get_arg4 = (id,arg1, arg2, arg3) =>{
         console.log(day_data)
         console.log(month_data)
         console.log(year_data)
+        
+        const pattern = /(\d+)\.tif$/;
         for(var i = day_data[0];i<=day_data[1];i++){
-
+            const match = month_data[0].file[i].match(pattern)
+            const time = month_data[0].file[i].substring(15,21) + '_' + match[1].toString();
+            data_list.push(time)
         }
     }
 
