@@ -359,6 +359,7 @@ class GlobalExplore extends React.Component {
   }
 
   onTimeChange(data){
+    console.log(data)
     this.setState({
       time:data
     })

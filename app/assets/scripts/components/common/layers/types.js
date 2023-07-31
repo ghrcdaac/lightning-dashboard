@@ -33,6 +33,13 @@ const prepTimeSource_nonRegular = (source, time) =>{
   };
 }
 
+const prepBandSource_nonRegular = (source, time) =>{
+  return{
+    ...source,
+    tiles:source.tiles.map((t)=> t.replace('{band}', time))
+  };
+}
+
 const prepGammaSource = (source, knobPos) => {
   // Gamma is calculated with the following scale:
   // domain: 0-100  range: 2-0.1
@@ -51,6 +58,9 @@ const prepSource = (layerInfo, source, date, knobPos, ctx) => {
   if(layerInfo.timeline_type === 'non-regular' && ctx){
     source = prepDateSource_nonRegular(source, `${ctx.props.time.year}${ctx.props.time.month}${ctx.props.time.day}`)
     source = prepTimeSource_nonRegular(source, `${ctx.props.time.time}`)
+    if (ctx.props.time.band !== null){
+      source = prepBandSource_nonRegular(source, `${ctx.props.time.band}`)
+    }
     return source;
   }
   if (layerInfo.legend.type === 'gradient-adjustable') {
@@ -89,7 +99,8 @@ export const layerTypes = {
           if((prevProps.time.year === ctx.props.time.year) &&
           (prevProps.time.month === ctx.props.time.month) &&
           (prevProps.time.day === ctx.props.time.day) &&
-          (prevProps.time.time === ctx.props.time.time)) return;
+          (prevProps.time.time === ctx.props.time.time) &&
+          (prevProps.time.band === ctx.props.time.band)) return;
         }
 
         if(ctx && ctx.props && ctx.props.time){

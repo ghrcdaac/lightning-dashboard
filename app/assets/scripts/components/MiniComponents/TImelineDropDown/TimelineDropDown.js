@@ -62,16 +62,27 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
 
     const arg4Handler = (e) =>{
         cur_arg4 = e.target.value
-        //console.log(typeof(cur_arg4), cur_arg4)
+        console.log("Here in arg4 handler")
         if(cur_arg4 === 'Select'){
 
         }else{
             cur_arg4 = e.target.value;
+            var time = null
+            var band = null
+            console.log(time, band)
+            if(cur_arg4.includes('_')){
+                const split = cur_arg4.split("_")
+                time = split[0]
+                band = split[1]
+            }else{
+                time = cur_arg4
+            }
             onTimeChange({
                 year:cur_year,
                 month:cur_month,
                 day:cur_day,
-                time:cur_arg4
+                time:time, 
+                band:band
             })
             dispatch(changeMetadataPath(cur_year+cur_month+cur_day+".txt"+"#"+cur_arg4));
         }

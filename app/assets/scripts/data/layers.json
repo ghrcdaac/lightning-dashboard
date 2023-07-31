@@ -472,7 +472,7 @@
             "name":"NALMA",
             "paint":null,
             "source":{
-                "tiles":["HS3/{date}/{time}/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.1]"],
+                "tiles":["NALMA_{time}/{date}/{band}/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,1]"],
                 "type":"raster"
             },
             "swatch":{"color": "#C0C0C0", "name": "Grey"},
