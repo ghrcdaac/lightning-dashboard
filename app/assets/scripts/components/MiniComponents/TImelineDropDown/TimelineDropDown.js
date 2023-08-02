@@ -35,6 +35,9 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
         if(e.target.value === 'Select Year'){
             setMonth([])
         }else{
+            setDay([])
+            setMonth([])
+            setArg4([])
             setMonth(get_arg2(layer.dataset_type,cur_year))
             dispatch(changeMetadataPath(''));
         }
@@ -48,6 +51,8 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
         if(cur_month === 'Select Month'){
             setDay([])
         }else{
+            setDay([])
+            setArg4([])
             setDay(get_arg3(layer.dataset_type,cur_year, cur_month))
             dispatch(changeMetadataPath(''));
         }
@@ -95,57 +100,64 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
 
     return(
         <Container>
-            <Inner_Container>
-                <Year name="year" id="year" onChange={yearHandler}>
-                    <option>Select Year</option>
-                    {year.map((element)=>(
-                        <option key={element}>{element}</option>
-                    ))}
-                </Year>
-                <Month name="month" id="month" onChange={monthHandler} disabled={(month.length === 0)}>
-                    <option>Select Month</option>
-                    {month.map((element)=>(
-                        <option key={element}>{element}</option>
-                    ))}
-                </Month>
-                <Day name="day" id="day" onChange={dayHandler} disabled={(day.length === 0)}>
-                    <option>Select Day</option>
-                    {day.map((element)=>(
-                        <option key={element}>{element}</option>
-                    ))}
-                </Day>
-                {(arg4.length === 0) && <Time name="time" id="time" disabled={(arg4.length === 0)}>
-                    <option>Select Time</option>
-                </Time>}
-                {(arg4.length !== 0) && <Time name="time" id="time" disabled={(arg4.length === 0)} onChange={arg4Handler}>
-                    <option>Select</option>
-                    {arg4.map((element)=>(
-                        <option key={element}>{element}</option>
-                    ))}
-                </Time>}
-            </Inner_Container>
+            <FormControl sx={{ m: 1, minWidth: 200 }} size="small" disabled={false}>
+                <InputLabel id="demo-select-small-label">Select Year</InputLabel>
+                <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                value={element}
+                label="Age"
+                onChange={yearHandler}
+                >
+                {year.map((element)=>(
+                    <MenuItem value={element}>{element}</MenuItem>
+                ))}
+                </Select>
+            </FormControl>
+            <FormControl sx={{ m: 1, minWidth: 200 }} size="small" disabled={(month.length === 0)}>
+                <InputLabel id="demo-select-small-label2">Select Month</InputLabel>
+                <Select
+                labelId="demo-select-small-label2"
+                id="demo-select-small"
+                value={element}
+                label="Age"
+                onChange={monthHandler}
+                >
+                {month.map((element)=>(
+                    <MenuItem value={element}>{element}</MenuItem>
+                ))}
+                </Select>
+            </FormControl>
+            <FormControl sx={{ m: 1, minWidth: 200 }} size="small" disabled={(day.length === 0)}>
+                <InputLabel id="demo-select-small-label3">Select Day</InputLabel>
+                <Select
+                labelId="demo-select-small-label3"
+                id="demo-select-small"
+                value={element}
+                label="Age"
+                onChange={dayHandler}
+                >
+                {day.map((element)=>(
+                    <MenuItem value={element}>{element}</MenuItem>
+                ))}
+                </Select>
+            </FormControl>
+            <FormControl sx={{ m: 1, minWidth: 200 }} size="small" disabled={(arg4.length === 0)}>
+                <InputLabel id="demo-select-small-label4">Select Time/Instrument</InputLabel>
+                <Select
+                labelId="demo-select-small-label4"
+                id="demo-select-small"
+                value={element}
+                label="Age"
+                onChange={arg4Handler}
+                >
+                {arg4.map((element)=>(
+                    <MenuItem value={element}>{element}</MenuItem>
+                ))}
+                </Select>
+            </FormControl>
         </Container>
     )
-
-    // return(
-    //     <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-    //     <InputLabel id="demo-select-small-label">Age</InputLabel>
-    //     <Select
-    //       labelId="demo-select-small-label"
-    //       id="demo-select-small"
-    //       value={10}
-    //       label="Age"
-    //       onChange={monthHandler}
-    //     >
-    //       <MenuItem value="">
-    //         <em>None</em>
-    //       </MenuItem>
-    //       <MenuItem value={10}>Ten</MenuItem>
-    //       <MenuItem value={20}>Twenty</MenuItem>
-    //       <MenuItem value={30}>Thirty</MenuItem>
-    //     </Select>
-    //   </FormControl>
-    // )
 
 }
 
