@@ -5,6 +5,11 @@ import { get_arg1, get_arg2, get_arg3, get_arg4 } from "../../../data/isslis";
 import { useSelector, useDispatch } from "react-redux";
 import { changeMetadataPath } from "../../../redux/action/MetadataAction";
 
+import { InputLabel } from "@mui/material";
+import { MenuItem } from "@mui/material";
+import { FormControl } from "@mui/material";
+import { SelectChangeEvent, Select } from '@mui/material';
+
 var year;
 
 var cur_year, cur_month, cur_day, cur_arg4;
@@ -69,7 +74,6 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
             cur_arg4 = e.target.value;
             var time = null
             var band = null
-            console.log(time, band)
             if(cur_arg4.includes('_')){
                 const split = cur_arg4.split("_")
                 time = split[0]
@@ -77,6 +81,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
             }else{
                 time = cur_arg4
             }
+            console.log(time, band)
             onTimeChange({
                 year:cur_year,
                 month:cur_month,
@@ -121,6 +126,27 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
             </Inner_Container>
         </Container>
     )
+
+    // return(
+    //     <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+    //     <InputLabel id="demo-select-small-label">Age</InputLabel>
+    //     <Select
+    //       labelId="demo-select-small-label"
+    //       id="demo-select-small"
+    //       value={10}
+    //       label="Age"
+    //       onChange={monthHandler}
+    //     >
+    //       <MenuItem value="">
+    //         <em>None</em>
+    //       </MenuItem>
+    //       <MenuItem value={10}>Ten</MenuItem>
+    //       <MenuItem value={20}>Twenty</MenuItem>
+    //       <MenuItem value={30}>Thirty</MenuItem>
+    //     </Select>
+    //   </FormControl>
+    // )
+
 }
 
 export default TimelineDropDown

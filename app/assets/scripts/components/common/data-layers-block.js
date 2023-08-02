@@ -184,6 +184,16 @@ class DataLayersBlock extends React.Component {
                 baselineId={baselineId}/>
                 <HotSpotToggle activeLayers={activeLayers}/>
               </LayerBody>
+              <LinkBody>
+                <LinkContainer>
+                  {LINK_DATA.links.map((link)=>(
+                  <Link key={link.name}>
+                    <FiExternalLink/>
+                    <a style={{marginLeft:'10px'}} href={link.link} target="_blank">{link.name}</a>
+                  </Link>
+                  ))}
+                </LinkContainer>
+              </LinkBody>
             </MainBody>
           </PanelBlockScroll>
         </PanelBlockBody>
