@@ -99,8 +99,9 @@ class ExpMapSecPanel extends React.Component {
 
   visualizeCharts(){
     this.setState({render_button_clicked:true})
-    const fetch_link = `${metadata_url['lightning_dashboard-cloudfront_url']}${get_metadata_api_file_path(this.props.activeLayers, this.props.date)}`
 
+    const fetch_link = `${metadata_url['lightning_dashboard-cloudfront_url']}${get_metadata_api_file_path(this.props.activeLayers, this.props.date, this.props.PATH)}`
+    console.log(fetch_link)
     fetch(fetch_link)
     .then(response=>response.text())
     .then((dataa)=>{
@@ -222,7 +223,7 @@ class ExpMapSecPanel extends React.Component {
 
 function mapStateToProps (state, props) {
   return {
-
+    PATH:state.METADATA_REDUCER.PATH
   };
 }
 
