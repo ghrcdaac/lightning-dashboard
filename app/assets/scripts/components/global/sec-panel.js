@@ -183,7 +183,7 @@ class ExpMapSecPanel extends React.Component {
         collapsible
         direction='right'
         onPanelChange={this.props.onPanelChange}
-        initialState={isLargeViewport()}
+        initialState={false}
         headerContent={
           <PanelHeadline>
             <PanelTitle>Charts</PanelTitle>
