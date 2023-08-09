@@ -44,10 +44,42 @@ width:3.8px;
 z-index:999999;
 background-color:#C0C0C0;
 `
+
 const Scroll = styled.div`
-height:${(props)=>props.height}rem;
-overflow-y:auto;
-`
+  height: ${(props) => props.height}rem;
+  overflow-y: auto;
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #ccc transparent; /* For Firefox */
+
+  &::-webkit-scrollbar {
+    width: 8px; /* Adjust as needed */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background-color: #888;
+    }
+  }
+
+  &:not(:hover) {
+    &::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+    }
+  }
+`;
 
 class DataLayersBlock extends React.Component {
   constructor (props) {
