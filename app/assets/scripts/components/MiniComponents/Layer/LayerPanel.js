@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 import LayerCard from './LayerCard';
-import { layer } from '../../../data/layers.json';
+// import { layer } from '../../../data/layers.json';
 
 const Container = styled.div`
 width:90%;
@@ -11,30 +11,28 @@ position: absolute;
 display:flex;
 flex-direction:row;
 overflow-x:auto;
-bottom:20px;
+bottom:${(props)=>props.bottom};
 margin-left:100px;
 `
 
 //TODO: add arrow sliders on left and right
-const LayerPanel = ({ onAction }) =>{
+const LayerPanel = ({ onAction, layers, activeLayer }) =>{
 
-    const [activeLayer, setactiveLayer] = useState({"name":"null"})
+    var bottom = '20px'
+    if(activeLayer.length !== 0) {
+        bottom = '150px'
+    }
 
     const clickHandler = (layer) => {
-        setactiveLayer(layer)
         onAction('layer.toggle', layer)
     }
 
-    const setActive = (layer) => {
-        setactiveLayer(layer)
-    }
-
     return (
-        <Container>
-            {layer.map(( single_layer )=>(
+        <Container bottom={bottom}>
+            {layers.map(( layer )=>(
                 <LayerCard 
                 clicked={clickHandler}
-                layer={single_layer}
+                layer={layer}
                 activeLayer={activeLayer}
                 />
             ))}

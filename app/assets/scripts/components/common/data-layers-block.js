@@ -149,7 +149,7 @@ class DataLayersBlock extends React.Component {
           <PanelBlockTitle>
             <TitleBlock>
               <LayerTitle>
-                <TitleName onClick={this.layerHandler} color={this.state.layerTitleColor}>Layers</TitleName>
+                <TitleName onClick={this.layerHandler} color={this.state.layerTitleColor}>Filters</TitleName>
                 <BottomLine animation={this.state.animationTitle} left={this.state.leftTitle}></BottomLine>
               </LayerTitle>
               <LinkTitle>
@@ -162,84 +162,17 @@ class DataLayersBlock extends React.Component {
           <PanelBlockScroll>
             <MainBody left={this.state.leftBody} animation={this.state.animationBody}>
               <LayerBody>
-                <DatasetSwatch/>
-                <TitleWrapper>
-                  <div style={{display:'flex', alignItems:'center', textAlign:'center', marginLeft:'27%'}}>
-                    <AiFillDatabase />
-                    <AccordionTitle style={{marginLeft:"5px"}}>Datasets</AccordionTitle>
-                  </div>
-                </TitleWrapper>
-                <BottomLineAccordion />
-                <Scroll height="15">
-                  {two_dim_layers.map((layerArray)=>(
-                    <AccordionContainer key={layerArray[0].dataset_type}>
-                      <DatasetSwatch/>
-                      <TitleWrapper onClick={()=>this.dropdownHandler(layerArray[0].dataset_type)}>
-                        <AccordionTitle>{layerArray[0].dataset_type}</AccordionTitle>
-                        {this.state.dropdown === layerArray[0].dataset_type && <RiArrowDropUpLine size={40}/>}
-                        {this.state.dropdown !== layerArray[0].dataset_type && <RiArrowDropDownLine size={40}/>}
-                      </TitleWrapper>
-                      <BottomLineAccordion />
-                      {this.state.dropdown === layerArray[0].dataset_type && 
-                        <AccordionBody>
-                          <Accordion>
-                              {({ checkExpanded, setExpanded }) => (
-                                <ol>
-                                  {layerArray.map((l, idx) => (
-                                    <li key={l.id}>
-                                      <Layer
-                                        id={l.id}
-                                        label={l.name}
-                                        disabled={!mapLoaded}
-                                        type={l.type}
-                                        active={l.visible}
-                                        swatchColor={get(l, 'swatch.color')}
-                                        swatchName={get(l, 'swatch.name')}
-                                        dataOrder={l.dataOrder}
-                                        info={l.info}
-                                        legend={l.legend}
-                                        isExpanded={checkExpanded(idx)}
-                                        setExpanded={v => setExpanded(idx, v)}
-                                        onToggleClick={() => onAction('layer.toggle', l)}
-                                        onLegendKnobChange={(payload) => onAction('layer.legend-knob', { id: l.id, ...payload })}
-                                        knobPos={l.knobPos}
-                                        compareEnabled={!!l.compare}
-                                        compareActive={l.comparing}
-                                        compareHelp={get(l, 'compare.help')}
-                                        onCompareClick={() => onAction('layer.compare', l)}
-                                      />
-                                    </li>
-                                  ))}
-                                </ol>
-                              )}
-                          </Accordion>
-                        </AccordionBody>
-                        }
-                    </AccordionContainer>
-                  ))}
-                  </Scroll >
-                  <br></br>
-                  <DatasetSwatch/>
-                  <TitleWrapper>
-                    <div style={{display:'flex', alignItems:'center', textAlign:'center', marginLeft:'27%'}}>
-                      <AiFillSetting />
-                      <AccordionTitle style={{marginLeft:"5px"}}>Settings</AccordionTitle>
-                    </div>
-                  </TitleWrapper>
-                  <BottomLineAccordion />
-                  <Scroll height="27">
-                    <Slider slideHandler={tileOpacity}/>
-                    <Filter activeLayers={activeLayers}/>
-                    <BaselineToggle 
-                    calendarStatus={calendarStatus} 
-                    layers={layers} 
-                    activeLayers={activeLayers} 
-                    comparing={comparing} 
-                    baselineHandler={baselineHandler} 
-                    comparingId={comparingId} 
-                    baselineId={baselineId}/>
-                    <HotSpotToggle activeLayers={activeLayers}/>
-                  </Scroll>
+                  <Slider slideHandler={tileOpacity}/>
+                  <Filter activeLayers={activeLayers}/>
+                  <BaselineToggle 
+                  calendarStatus={calendarStatus} 
+                  layers={layers} 
+                  activeLayers={activeLayers} 
+                  comparing={comparing} 
+                  baselineHandler={baselineHandler} 
+                  comparingId={comparingId} 
+                  baselineId={baselineId}/>
+                  <HotSpotToggle activeLayers={activeLayers}/>
               </LayerBody>
               <LinkBody>
                 <LinkContainer>

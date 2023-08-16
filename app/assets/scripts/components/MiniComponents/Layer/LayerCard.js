@@ -41,7 +41,7 @@ font-size: 12px;
 const LayerCard = ({ layer, clicked, activeLayer }) =>{
     
     return (
-        <Container onClick={()=>clicked(layer)} isActive={activeLayer.name === layer.name}>
+        <Container onClick={()=>clicked(layer)} isActive={activeLayer[0] === layer.name}>
             <ImageContainer />
             <TextContainer>
                 {layer.name}
