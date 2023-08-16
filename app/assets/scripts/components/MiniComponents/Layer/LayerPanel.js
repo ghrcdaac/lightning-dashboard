@@ -13,6 +13,40 @@ flex-direction:row;
 overflow-x:auto;
 bottom:${(props)=>props.bottom};
 margin-left:100px;
+
+overflow-y: auto;
+scrollbar-width: thin; /* For Firefox */
+scrollbar-color: #ccc transparent; /* For Firefox */
+
+&::-webkit-scrollbar {
+  width: 8px; /* Adjust as needed */
+  height:8px;
+}
+
+&::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+&::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+&::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+}
+
+&:hover {
+  &::-webkit-scrollbar-thumb {
+    background-color: #888;
+  }
+}
+
+&:not(:hover) {
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+  }
+}
 `
 
 //TODO: add arrow sliders on left and right
