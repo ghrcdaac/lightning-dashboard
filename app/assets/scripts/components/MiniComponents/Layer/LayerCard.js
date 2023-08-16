@@ -2,11 +2,12 @@ import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 
 const Container = styled.div`
+width: 151px;
+min-width: 151px;
 display: flex;
 flex-direction: column;
 border-radius: 6px;
-width: 111px; /* Set the width */
-height: 101px; /* Set the height */
+height: 101px;
 margin-right:40px;
 background-color:white;
 &:hover,
@@ -39,12 +40,9 @@ font-size: 12px;
 
 const LayerCard = ({ layer, clicked, activeLayer }) =>{
     
-
-
     return (
         <Container onClick={()=>clicked(layer)} isActive={activeLayer.name === layer.name}>
-            <ImageContainer>
-            </ImageContainer>
+            <ImageContainer />
             <TextContainer>
                 {layer.name}
             </TextContainer>
