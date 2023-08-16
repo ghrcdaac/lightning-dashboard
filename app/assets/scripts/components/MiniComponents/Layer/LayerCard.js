@@ -13,9 +13,9 @@ background-color:white;
 &:focus {
   /* Blue glow effect on hover or focus */
   box-shadow: 0 0 10px rgba(29, 161, 242, 0.5);
-  background-color: rgba(29, 161, 242, 1);
   cursor:pointer;
 }
+background-color: ${props => props.isActive ? 'rgba(29, 161, 242, 1)' : 'white'}
 `
 const ImageContainer = styled.div`
 width:100%;
@@ -37,14 +37,16 @@ font-weight: bold;
 font-size: 12px;
 `
 
-const LayerCard = () =>{
+const LayerCard = ({ layer, clicked, activeLayer }) =>{
+    
+
 
     return (
-        <Container>
+        <Container onClick={()=>clicked(layer)} isActive={activeLayer.name === layer.name}>
             <ImageContainer>
             </ImageContainer>
             <TextContainer>
-                TRMM LIS FULL
+                {layer.name}
             </TextContainer>
         </Container>
     )
