@@ -26,6 +26,7 @@
                 "type": "categorical" 
             },
             "name":"TRMM LIS Full",
+            "image":"https://ghrc.nsstc.nasa.gov/pub/lis/climatology/LIS/VHRFC/browse/lis_vhrfc_1998_2013_v01.png",
             "paint":null,
             "source":{
                 "tiles":["VHRFC/201301/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.325,23.426]"],
@@ -64,6 +65,7 @@
                 "type": "categorical" 
             },
             "name":"TRMM LIS Seasonal",
+            "image":"https://ghrc.nsstc.nasa.gov/pub/lis/climatology/LIS/VHRSC/browse/lis_vhrsc_1998_2013_v01.png",
             "paint":null,
             "source":{
                 "tiles":["VHRSC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
@@ -102,6 +104,7 @@
                 "type": "categorical" 
             },
             "name":"TRMM LIS Monthly",
+            "image":"https://i.ytimg.com/vi/jvYg2TI2Lls/sddefault.jpg",
             "paint":null,
             "source":{
                 "tiles":["VHRMC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
@@ -153,6 +156,7 @@
                 "type": "categorical" 
             },
             "name":"TRMM LIS Diurnal",
+            "image":"https://ghrc.nsstc.nasa.gov/pub/browse_sample/ghrc/lis/lisvhrc/VHRDC/lisvhrdc_hourly_09.JPG",
             "paint":null,
             "source":{
                 "tiles":["VHRDC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.002]"],
@@ -191,6 +195,7 @@
                 "type": "categorical" 
             },
             "name":"TRMM LIS Daily",
+            "image":"https://i.ytimg.com/vi/IG8H-FexSG8/mqdefault.jpg",
             "paint":null,
             "source":{
                 "tiles":["VHRAC/{date}/LIS/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
@@ -229,6 +234,7 @@
                 "type": "categorical" 
             },
             "name":"OTD Full",
+            "image":"https://ghrc.nsstc.nasa.gov/pub/lis/climatology/LIS-OTD/HRFC/browse/HRFC_COM_FR_V2.3.2015.png",
             "paint":null,
             "source":{
                 "tiles":["HRFC/201301/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.325,55.426]"],
@@ -267,6 +273,7 @@
                 "type": "categorical" 
             },
             "name":"OTD Monthly",
+            "image":"https://i.ytimg.com/vi/s93R4-CU0y8/maxresdefault.jpg",
             "paint":null,
             "source":{
                 "tiles":["HRMC/{date}/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.2]"],
@@ -318,6 +325,7 @@
                 "type": "categorical" 
             },
             "name":"OTD Diurnal",
+            "image":"https://i.ytimg.com/vi/yNUi2pagAdw/maxresdefault.jpg",
             "paint":null,
             "source":{
                 "tiles":["LRDC/{date}/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.002]"],
@@ -356,6 +364,7 @@
                 "type": "categorical" 
             },
             "name":"OTD Daily",
+            "image":"https://i.ytimg.com/vi/DjWQiJZ6wLM/sddefault.jpg",
             "paint":null,
             "source":{
                 "tiles":["HRAC/{date}/OTD/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0.00010455249866936356,0.06766455620527267]"],
@@ -393,7 +402,8 @@
                 ],
                 "type": "categorical" 
             },
-            "name":"Spring 2022",
+            "name":"ISSLIS Spring 2022",
+            "image":"https://www.eoportal.org/ftp/satellite-missions/iss/ISS-LIS_110122/ISS-LIS_Auto9.jpeg",
             "paint":null,
             "source":{
                 "tiles":["ISS_LIS/{date}/{time}/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0]"],
@@ -432,6 +442,7 @@
                 "type": "categorical" 
             },
             "name":"HS3",
+            "image":"",
             "paint":null,
             "source":{
                 "tiles":["HS3/{date}/{time}/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,0.1]"],
@@ -470,6 +481,7 @@
                 "type": "categorical" 
             },
             "name":"NALMA",
+            "image":"https://ghrc.nsstc.nasa.gov/lightning/images/data/data_nalma.png",
             "paint":null,
             "source":{
                 "tiles":["NALMA_{time}/{date}/{band}/{z}/{x}/{y}.png?colormap=terrain&stretch_range=[0,1]"],

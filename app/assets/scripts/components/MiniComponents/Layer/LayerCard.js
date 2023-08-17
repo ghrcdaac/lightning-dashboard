@@ -9,23 +9,27 @@ flex-direction: column;
 border-radius: 6px;
 height: 101px;
 margin-right:40px;
-background-color:white;
+color:white;
 &:hover,
 &:focus {
   /* Blue glow effect on hover or focus */
-  box-shadow: 0 0 10px rgba(29, 161, 242, 0.5);
+  box-shadow: 2px 2px 10px #0036B1;
+//   border: 3px solid #0036B1;
+  background-color: rgba(29, 161, 242, 1);
   cursor:pointer;
 }
-background-color: ${props => props.isActive ? 'rgba(29, 161, 242, 1)' : 'white'}
+background-color: ${props => props.isActive ? 'rgba(29, 161, 242, 1)' : '#373943'}
 `
 const ImageContainer = styled.div`
 width:100%;
 height:65%;
-background-image: url('https://www.distancecme.com/wp-content/uploads/2018/05/Lightening-scaled.jpg'); /* Replace with your image URL */
+// background-image: url('https://www.distancecme.com/wp-content/uploads/2018/05/Lightening-scaled.jpg'); /* Replace with your image URL */
+background-image: url('${(props)=>props.link}');
 background-size: cover;
 background-position: center;
 border-radius: 4px 4px 0px 0px;
 border:0px;
+background-color:black;
 `
 const TextContainer = styled.div`
 width:100%;
@@ -42,7 +46,7 @@ const LayerCard = ({ layer, clicked, activeLayer }) =>{
     
     return (
         <Container onClick={()=>clicked(layer)} isActive={activeLayer[0] === layer.name}>
-            <ImageContainer />
+            <ImageContainer link={layer.image}/>
             <TextContainer>
                 {layer.name}
             </TextContainer>
