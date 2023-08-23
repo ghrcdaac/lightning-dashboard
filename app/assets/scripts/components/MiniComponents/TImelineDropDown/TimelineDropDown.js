@@ -1,5 +1,5 @@
 import { min } from "lodash";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { Container, Inner_Container, Year, Month, Day, Time } from "./DropDownStyles";
 import { get_arg1, get_arg2, get_arg3, get_arg4 } from "../../../data/isslis";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,7 +15,22 @@ var year;
 var cur_year, cur_month, cur_day, cur_arg4;
 
 const TimelineDropDown = ({ onTimeChange, layer }) =>{
+    
+    const prevLayer = useRef(layer)
+    useEffect(()=>{
+        prevLayer.current = layer;
+    }, [layer])
 
+    const [seed, setSeed] = useState(1);
+    const reset = () => {
+         setSeed(Math.random());
+    }
+
+    console.log(`prevLayer: ${prevLayer}`)
+    console.log(prevLayer)
+    console.log(`layer: ${layer}`)
+    console.log(layer)
+    
     year = get_arg1(layer.dataset_type);
     const [month, setMonth] = useState([])
     const [day, setDay] = useState([])
@@ -110,32 +125,34 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
                 onChange={yearHandler}
                 >
                 {year.map((element)=>(
-                    <MenuItem value={element}>{element}</MenuItem>
+                    <MenuItem value={element} key={element}>{element}</MenuItem>
                 ))}
                 </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 200 }} size="small" disabled={(month.length === 0)}>
-                <InputLabel id="demo-select-small-label2">Select Month</InputLabel>
+                <InputLabel id="demo-select-small-label2" autoComplete='off'>Select Month</InputLabel>
                 <Select
                 labelId="demo-select-small-label2"
                 id="demo-select-small"
                 value={element}
                 label="Age"
                 onChange={monthHandler}
+                autoComplete="off"
                 >
                 {month.map((element)=>(
-                    <MenuItem value={element}>{element}</MenuItem>
+                    <MenuItem value={element} key={element}>{element}</MenuItem>
                 ))}
                 </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 200 }} size="small" disabled={(day.length === 0)}>
-                <InputLabel id="demo-select-small-label3">Select Day</InputLabel>
+                <InputLabel id="demo-select-small-label3" autoComplete="off">Select Day</InputLabel>
                 <Select
                 labelId="demo-select-small-label3"
                 id="demo-select-small"
                 value={element}
                 label="Age"
                 onChange={dayHandler}
+                autoComplete="off"
                 >
                 {day.map((element)=>(
                     <MenuItem value={element}>{element}</MenuItem>
