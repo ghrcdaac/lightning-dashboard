@@ -170,7 +170,6 @@ const LayerPanel = ({ onAction, layers, activeLayer }) => {
       }, 1);
     }
   };
-  
 
   return (
     <OuterContainer bottom={bottom}>

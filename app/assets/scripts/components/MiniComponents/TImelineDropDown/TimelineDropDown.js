@@ -11,26 +11,19 @@ import { FormControl } from "@mui/material";
 import { SelectChangeEvent, Select } from '@mui/material';
 
 var year;
-
 var cur_year, cur_month, cur_day, cur_arg4;
 
 const TimelineDropDown = ({ onTimeChange, layer }) =>{
     
-    const prevLayer = useRef(layer)
     useEffect(()=>{
-        prevLayer.current = layer;
+        set_resetAll(Math.random());
     }, [layer])
 
-    const [seed, setSeed] = useState(1);
-    const reset = () => {
-         setSeed(Math.random());
-    }
+    const [reset_all, set_resetAll] = useState(1);
+    const [resetMonth, set_resetMonth] = useState(1);
+    const [resetDay, set_resetDay] = useState(1);
+    const [resetArg4, set_resetArg4] = useState(1);
 
-    console.log(`prevLayer: ${prevLayer}`)
-    console.log(prevLayer)
-    console.log(`layer: ${layer}`)
-    console.log(layer)
-    
     year = get_arg1(layer.dataset_type);
     const [month, setMonth] = useState([])
     const [day, setDay] = useState([])
@@ -43,46 +36,33 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
     //changes or updates month dropdown value
     const yearHandler = (e) =>{
         cur_year = e.target.value
-        //console.log(typeof(cur_year), cur_year)
         setDay([])
         setArg4([])
-        setMonth([])
-        if(e.target.value === 'Select Year'){
-            setMonth([])
-        }else{
-            setDay([])
-            setMonth([])
-            setArg4([])
-            setMonth(get_arg2(layer.dataset_type,cur_year))
-            dispatch(changeMetadataPath(''));
-        }
+        setMonth(get_arg2(layer.dataset_type,cur_year))
+        set_resetMonth(Math.random())
+        set_resetDay(Math.random())
+        set_resetArg4(Math.random())
+        dispatch(changeMetadataPath(''));
     }
 
     //changes or updates day
     const monthHandler = (e) =>{
         cur_month = e.target.value;
-        //console.log(typeof(cur_month), cur_month)
+        setDay([])
         setArg4([])
-        if(cur_month === 'Select Month'){
-            setDay([])
-        }else{
-            setDay([])
-            setArg4([])
-            setDay(get_arg3(layer.dataset_type,cur_year, cur_month))
-            dispatch(changeMetadataPath(''));
-        }
+        setDay(get_arg3(layer.dataset_type,cur_year, cur_month))
+        set_resetDay(Math.random())
+        set_resetArg4(Math.random())
+        dispatch(changeMetadataPath(''));
     }
 
     //changes or updates 4th argument
     const dayHandler = (e) =>{
         cur_day = e.target.value
-        //console.log(typeof(cur_day), cur_day)
-        if(cur_day === 'Select Day'){
-            setArg4([])
-        }else{
-            setArg4(get_arg4(layer.dataset_type,cur_year, cur_month, cur_day))
-            dispatch(changeMetadataPath(''));
-        }
+
+        setArg4(get_arg4(layer.dataset_type,cur_year, cur_month, cur_day))
+        set_resetArg4(Math.random())
+        dispatch(changeMetadataPath(''));
     }
 
     const arg4Handler = (e) =>{
@@ -114,7 +94,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
     }
 
     return(
-        <Container>
+        <Container key={reset_all}>
             <FormControl sx={{ m: 1, minWidth: 200 }} size="small" disabled={false}>
                 <InputLabel id="demo-select-small-label">Select Year</InputLabel>
                 <Select
@@ -138,6 +118,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
                 label="Age"
                 onChange={monthHandler}
                 autoComplete="off"
+                key={resetMonth}
                 >
                 {month.map((element)=>(
                     <MenuItem value={element} key={element}>{element}</MenuItem>
@@ -153,6 +134,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
                 label="Age"
                 onChange={dayHandler}
                 autoComplete="off"
+                key={resetDay}
                 >
                 {day.map((element)=>(
                     <MenuItem value={element}>{element}</MenuItem>
@@ -167,6 +149,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
                 value={element}
                 label="Age"
                 onChange={arg4Handler}
+                key={resetArg4}
                 >
                 {arg4.map((element)=>(
                     <MenuItem value={element}>{element}</MenuItem>
