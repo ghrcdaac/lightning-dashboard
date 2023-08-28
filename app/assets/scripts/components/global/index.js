@@ -286,7 +286,7 @@ class GlobalExplore extends React.Component {
   componentDidUpdate(prevProps){
     if(prevProps.BASELINE_ID !== this.props.BASELINE_ID){
 
-      if(this.props.BASELINE_ID === 'Datasets'){
+      if(this.props.BASELINE_ID === 'None'){
         toggleLayerCompare.call(this, get_layer(prevProps.BASELINE_ID, getGlobalLayers()));
       }else{
         toggleLayerCompare.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()));

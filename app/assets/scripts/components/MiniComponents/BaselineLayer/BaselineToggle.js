@@ -60,6 +60,7 @@ const BaselineToggle = (props) =>{
     }
 
     const titleHandler = (e) =>{
+        console.log("Here in titleHandler")
         if(e.target.value !== 'None'){
             dispatch(changeBaselineId(e.target.value))
             dispatch(changeCalendarIcon(true))
@@ -93,6 +94,7 @@ const BaselineToggle = (props) =>{
                             label="Datasets"
                             onChange={titleHandler}
                             >
+                            <MenuItem value={"None"} key={"None"}>{"None"}</MenuItem>
                             {props.layers.map((layer)=>(
                                 <MenuItem value={layer.id} key={layer.id}>{layer.id}</MenuItem>
                             ))}

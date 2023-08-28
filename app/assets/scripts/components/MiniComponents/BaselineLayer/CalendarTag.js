@@ -79,7 +79,7 @@ const CalendarTag = (props) =>{
     //     if(baseline_id === 'TRMM LIS Monthly' || baseline_id === 'OTD Monthly') view = 'year';
     // }
 
-    if(typeof baseline_id !== 'undefined' && baseline_id !== null && baseline_id !== 'Datasets'){
+    if(typeof baseline_id !== 'undefined' && baseline_id !== null && baseline_id !== 'None'){
         calendarType = layer.baseline[0]
         view = layer.baseline[1]
     }
