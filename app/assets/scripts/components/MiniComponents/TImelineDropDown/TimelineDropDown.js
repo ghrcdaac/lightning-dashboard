@@ -67,7 +67,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
 
     const arg4Handler = (e) =>{
         cur_arg4 = e.target.value
-        console.log("Here in arg4 handler")
+        //console.log("Here in arg4 handler")
         if(cur_arg4 === 'Select'){
 
         }else{
@@ -81,7 +81,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
             }else{
                 time = cur_arg4
             }
-            console.log(time, band)
+            //console.log(time, band)
             onTimeChange({
                 year:cur_year,
                 month:cur_month,

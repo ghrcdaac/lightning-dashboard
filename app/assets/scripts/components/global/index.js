@@ -361,7 +361,7 @@ class GlobalExplore extends React.Component {
   }
 
   onTimeChange(data){
-    console.log(data)
+    //console.log(data)
     this.setState({
       time:data
     })
@@ -407,7 +407,7 @@ class GlobalExplore extends React.Component {
     ++this.count
 
     const renderChart = (this.state.activeLayers.length > 0) &&
-                        this.state.activeLayers[0] !== 'Spring 2022' && this.state.activeLayers[0] !== 'HS3'
+                        this.state.activeLayers[0] !== 'Spring 2022'
 
     return (
       <App hideFooter>

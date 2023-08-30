@@ -124,14 +124,14 @@ class ExpMapSecPanel extends React.Component {
       const grid_len = lat.length
       const zData = []
       var pointer = 0;
-      console.log(`starting...data_length:${data.length}`)
+      //console.log(`starting...data_length:${data.length}`)
       for(i=0;i<data.length;i+=parseInt(data.length/divide_by)){
         var a = Array.apply(null, Array(grid_len)).map(Number.prototype.valueOf,0);
         a[pointer] = data[i].Data
         pointer = pointer + 1
         zData.push(a)
       }
-      console.log("Complete")
+      //console.log("Complete")
       //console.log(zData)
       var data_for_plotly = [{
         z: zData,

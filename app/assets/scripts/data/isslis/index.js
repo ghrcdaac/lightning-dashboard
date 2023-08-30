@@ -91,9 +91,9 @@ export const get_arg4 = (id,arg1, arg2, arg3) =>{
             data_list.push(month_data[0].file[i].substring(f1,f1+mid))
         }
     }else if(id === 'NALMA'){
-        console.log(day_data)
-        console.log(month_data)
-        console.log(year_data)
+        // console.log(day_data)
+        // console.log(month_data)
+        // console.log(year_data)
         
         const pattern = /(\d+)\.tif$/;
         for(var i = day_data[0];i<=day_data[1];i++){

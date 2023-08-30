@@ -21,7 +21,7 @@ class LayerDataLoader extends React.Component {
     dataset.map((layer)=>{
       layer.source.tiles = [api + layer.source.tiles]
     })
-    console.log('v14')
+    console.log('v20')
     storeSpotlightLayers('global', dataset);
     this.props.onReady();
   }

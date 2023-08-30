@@ -60,7 +60,7 @@ const BaselineToggle = (props) =>{
     }
 
     const titleHandler = (e) =>{
-        console.log("Here in titleHandler")
+        //console.log("Here in titleHandler")
         if(e.target.value !== 'None'){
             dispatch(changeBaselineId(e.target.value))
             dispatch(changeCalendarIcon(true))
@@ -96,7 +96,7 @@ const BaselineToggle = (props) =>{
                             >
                             <MenuItem value={"None"} key={"None"}>{"None"}</MenuItem>
                             {props.layers.map((layer)=>(
-                                <MenuItem value={layer.id} key={layer.id}>{layer.id}</MenuItem>
+                                layer.timeline_type !== 'non-regular' && <MenuItem value={layer.id} key={layer.id}>{layer.id}</MenuItem>
                             ))}
                             </Select>
                         </FormControl>

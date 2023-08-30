@@ -144,7 +144,7 @@ export function data_for_mapbox_data_driven_property(data, activeLayers){
         }
     }
     average = average / (data.length)
-    console.log("AVERAGE: ",average)
+    // console.log("AVERAGE: ",average)
     const times = 5.5 / average
     const formatted_data = []
     data.forEach((element)=>{
@@ -181,6 +181,8 @@ export function data_for_mapbox_data_driven_property(data, activeLayers){
 
 export function get_metadata_api_file_path(layer_name, date, PATH){
     const layer_len = layer_name[0].length
+    console.log(layer_name, date, PATH)
+    console.log("----....----....----....----")
     if(layer_name[0].substring(0,2) === "TR"){
         const layer_type = layer_name[0].substring(9, layer_len)
         if(layer_type === 'Full'){
@@ -253,12 +255,17 @@ export function get_metadata_api_file_path(layer_name, date, PATH){
             return path
         }
     }else if(layer_name[0].substring(0,2) === "IS"){
-        
-    }else if(layer_name[0].substring(0,2) === 'HS'){
 
+    }else if(layer_name[0].substring(0,2) === 'HS'){
+        if (PATH.length > 2){
+            const data = PATH.split("#")
+            console.log(`HS3/${data[1]}/${data[0]}.txt`)
+            return `HS3/${data[1]}/${data[0]}`
+        }
+        return ""
     }else if(layer_name[0].substring(0,2) === 'NA'){
         if (PATH.length > 2){
-            console.log(PATH)
+            // console.log(PATH)
             return `NALMA/NALMA_${PATH.substring(0,8)}_${PATH.substring(13,19)}/NALMA_${PATH.substring(0,8)}_${PATH.substring(13,19)}_600_10src_0.0109deg-dx_flash_extent.nc_time_${PATH[PATH.length-1]}.txt`
         }
         return ""

@@ -524,8 +524,8 @@ class MbMap extends React.Component {
     })
     this.props.changeSpinner();
 
-    console.log("LINE: 457. RenderPointVisualization")
-    console.log("FilePath: ", file_path)
+    //console.log("LINE: 457. RenderPointVisualization")
+    //console.log("FilePath: ", file_path)
     let randomString = makeid(10);
     let url = `${configs.api_gateway_url}test/metadata`
     fetch(url,{
