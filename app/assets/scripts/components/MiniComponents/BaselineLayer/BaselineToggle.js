@@ -101,7 +101,7 @@ const BaselineToggle = (props) =>{
                             </Select>
                         </FormControl>
                     }
-                    {(props.activeLayers.length !== 0) && (baseline_id !== 'Datasets') &&
+                    {(props.activeLayers.length !== 0) && (baseline_id !== 'None') &&
                     <div style={{marginLeft:'10px', marginTop:'10px'}}>
                         <button style={{backgroundColor:'transparent', border:'none', cursor:'pointer'}} onClick={calendarIcon}><VscCalendar size="30px"/></button>
                     </div>}

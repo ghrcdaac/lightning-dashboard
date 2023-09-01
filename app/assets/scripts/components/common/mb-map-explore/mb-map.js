@@ -140,7 +140,7 @@ class MbMap extends React.Component {
     }
 
     if(prevProps.BASELINE_ID !== this.props.BASELINE_ID){
-      if(prevProps.BASELINE_ID !== null && prevProps.BASELINE_ID !== 'Datasets'){
+      if(prevProps.BASELINE_ID !== null && prevProps.BASELINE_ID !== 'None'){
         this.removeLayer(prevProps.BASELINE_ID)
       }
     }
@@ -349,6 +349,20 @@ class MbMap extends React.Component {
       this.mbMap,
       '#container'
     );
+    const target_width = document.getElementById("container").offsetWidth/2
+    var current_slider_position = 0
+
+    this.compareControl.setSlider(current_slider_position)
+    setTimeout(()=>{
+      const interval = setInterval(()=>{
+        if(current_slider_position < target_width){
+          current_slider_position += 10
+          this.compareControl.setSlider(current_slider_position)
+        }else{
+          clearInterval(interval)
+        }
+      }, 1)
+    },300)
   }
 
   updateTime(data){
