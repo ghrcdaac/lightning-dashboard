@@ -689,15 +689,28 @@ class MbMap extends React.Component {
         this.props.updateToggleLayer(passLayer);
       }
       this.setState({maploaded:true})
-      const {
-        width,
-        height,
-        top,
-        left
-      } = this.mbMap.getContainer().getBoundingClientRect();
-
+      // const {
+      //   width,
+      //   height,
+      //   top,
+      //   left
+      // } = this.mbMap.getContainer().getBoundingClientRect();
+    });
+    this.mbMap.addSource('country-borders', {
+      type: 'vector',
+      url: 'mapbox://mapbox.country-boundaries-v1',
     });
 
+    this.mbMap.addLayer({
+      id: 'country-borders-layer',
+      type: 'line',
+      source: 'country-borders',
+      'source-layer': 'country_boundaries',
+      paint: {
+        'line-color': 'blue', // Adjust the border color as desired
+        'line-width': 1, // Adjust the border width as desired
+      },
+    });
     this.mbMap.on('moveend', (e) => {
       this.props.onAction('map.move', {
         // The existence of originalEvent indicates that it was not caused by

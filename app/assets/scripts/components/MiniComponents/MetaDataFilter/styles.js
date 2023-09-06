@@ -37,7 +37,7 @@ display:flex;
 height:22rem;
 //height:298px;
 width:100%;
-//background-color:blue;
+border-bottom: 0.1px solid #E8E8E8;
 `
 export const Swatch = styled.div`
 position:absolute;

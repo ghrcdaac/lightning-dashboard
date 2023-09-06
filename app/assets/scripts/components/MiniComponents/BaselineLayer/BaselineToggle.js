@@ -33,7 +33,7 @@ const Container = styled.div`
 display:flex;
 height:auto;
 width:100%;
-
+border-bottom: 0.1px solid #E8E8E8;
 `
 const Body = styled.div`
 height:auto;

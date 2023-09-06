@@ -176,7 +176,7 @@ const LayerPanel = ({ onAction, layers, activeLayer }) => {
       <LeftScrollBtn onClick={scrollContainerLeft}><MdOutlineKeyboardArrowLeft size={25}/></LeftScrollBtn>
       <Container id="layer-container">
         {layers.map((layer) => (
-          <LayerCard clicked={clickHandler} layer={layer} activeLayer={activeLayer} />
+          <LayerCard clicked={clickHandler} layer={layer} activeLayer={activeLayer} key={layer.name}/>
         ))}
       </Container>
       <RightScrollBtn onClick={scrollContainerRight}><MdOutlineKeyboardArrowRight size={25}/> </RightScrollBtn>

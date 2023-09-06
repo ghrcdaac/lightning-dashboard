@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import styled, { withTheme } from 'styled-components';
 
 import metadata_url from '../../configuration.json'
+var Swal = require('sweetalert2')
 
 const PanelSelf = styled(Panel)`
   // ${media.largeUp`
@@ -98,10 +99,16 @@ class ExpMapSecPanel extends React.Component {
   }
 
   visualizeCharts(){
-    this.setState({render_button_clicked:true})
-
     const fetch_link = `${metadata_url['lightning_dashboard-cloudfront_url']}${get_metadata_api_file_path(this.props.activeLayers, this.props.date, this.props.PATH)}`
-    console.log(fetch_link)
+    if(fetch_link.length === 0 || fetch_link === 'https://d28nwgwmztwuhj.cloudfront.net/'){
+      Swal.fire({
+        icon: 'error',
+        text:"Please provide input data path from timeline."
+      })
+      return
+    }
+
+    this.setState({render_button_clicked:true})
     fetch(fetch_link)
     .then(response=>response.text())
     .then((dataa)=>{
