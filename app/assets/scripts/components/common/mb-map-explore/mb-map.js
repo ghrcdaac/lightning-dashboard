@@ -710,7 +710,7 @@ class MbMap extends React.Component {
         'line-color': 'blue', // Adjust the border color as desired
         'line-width': 1, // Adjust the border width as desired
       },
-    });
+    });0
     this.mbMap.on('moveend', (e) => {
       this.props.onAction('map.move', {
         // The existence of originalEvent indicates that it was not caused by
