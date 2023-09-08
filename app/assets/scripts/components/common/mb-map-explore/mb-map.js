@@ -7,12 +7,15 @@ import ReactDOM from 'react-dom';
 import find from 'lodash.find';
 import { connect } from 'react-redux';
 import { FiExternalLink } from '../../../../../../node_modules/react-icons/fi';
+import {toast} from 'react-toastify';
 
 import { createMbMarker } from './mb-popover/utils';
 import CalendarTag from '../../MiniComponents/BaselineLayer/CalendarTag';
 import {date_to_string, baseline_link, get_layer, HotSpotDate, metadata_format, makeid} from '../../../utils/HelperMethods';
 import {HotSpotData} from '../../../data/HotSpot2.0';
 import HotSpotBody from '../../MiniComponents/HotSpot/HotSpotBody'
+import PopupButton from '../../MiniComponents/PopUp/PopupButton';
+import ToastWrapper from '../../MiniComponents/toast/toastWrapper';
 
 import config from '../../../config';
 import { layerTypes } from '../layers/types';
@@ -774,7 +777,29 @@ class MbMap extends React.Component {
   }
 
   render () {
-    //console.log(this.props.activeLayers)
+    toast.configure()
+    const popupHandler = () =>{
+      toast.info('Hey, Welcome to Lightning Dashboard', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      toast.info('Click on the following datasets.', {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
     return (
       <>
         {this.mbMap && this.renderPopover()}
@@ -790,7 +815,10 @@ class MbMap extends React.Component {
             }}
           />
         </MapsContainer>
-        {/* {this.state.maploaded && <Pop mbMap={this.mbMap}/>} */}
+        {/* <div onClick={popupHandler}>
+          <PopupButton /> 
+        </div> */}
+        <ToastWrapper />
         {(this.props.activeLayers.length !== 0) && this.props.CALENDAR_ACTIVE && <CalendarTag layers={this.props.layers} onClick={this.calendarHandler} comparingId={this.props.comparingId}/>}
       </>
     );
