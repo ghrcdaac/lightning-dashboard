@@ -128,6 +128,7 @@ const LayerPanel = ({ onAction, layers, activeLayer }) => {
   }
 
   const clickHandler = (layer) => {
+    localStorage.setItem('dataset_selected', true)
     onAction('layer.toggle', layer);
   };
 

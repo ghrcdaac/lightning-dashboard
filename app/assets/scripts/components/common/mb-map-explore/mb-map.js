@@ -818,7 +818,7 @@ class MbMap extends React.Component {
         {/* <div onClick={popupHandler}>
           <PopupButton /> 
         </div> */}
-        <ToastWrapper />
+        {/* <ToastWrapper /> */}
         {(this.props.activeLayers.length !== 0) && this.props.CALENDAR_ACTIVE && <CalendarTag layers={this.props.layers} onClick={this.calendarHandler} comparingId={this.props.comparingId}/>}
       </>
     );

@@ -4,38 +4,50 @@ import {toast, ToastContainer} from 'react-toastify';
 import { css } from 'glamor'
 
 const Container = styled.div`
+// color: white;
 position: absolute;
-top:5000;
-left: 500;
-height:auto;
-width:auto;
+right: 50;
+top: 50;
+width: 300px;
+height: 300px;
+// background: red;
 `
 const containerStyle = css({
     position: "relative"
 });
 
+var Swal = require('sweetalert2')
+
 const ToastWrapper = ({ top, bottom, left, right, text }) =>{
     toast.configure()
     const toastHandler = () =>{
-        toast("helllllllloo")
+        toast("Hey, Welcome to Lightning Dashboard.", {
+            position: "top-center",
+            autoClose: 1800,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        })
+        setTimeout(()=>{
+            toast("Select one of the datasets from the bottom.", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            })
+        }, 3000)
     }
     return(
         <Container>
             <button onClick={toastHandler}>Notify!</button>
-            <ToastContainer className={containerStyle} />
-            <ToastContainer
-        className={containerStyle}
-        position="top-center"
-        autoClose={10000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
+            <ToastContainer/>
         </Container>
     )
 }
