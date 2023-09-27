@@ -10,7 +10,7 @@ import ShadowScrollbar from '../common/shadow-scrollbar';
 import { glsp } from '../../styles/utils/theme-values';
 import media, { isLargeViewport } from '../../styles/utils/media-queries';
 
-import {get_metadata_api_file_path, txt_to_json } from '../../utils/HelperMethods';
+import {get_metadata_api_file_path, txt_to_json, get_layer } from '../../utils/HelperMethods';
 import Button from "../../styles/button/button"
 import { connect } from 'react-redux';
 import styled, { withTheme } from 'styled-components';
@@ -185,6 +185,7 @@ class ExpMapSecPanel extends React.Component {
 
   render () {
     const img_src = "https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif"
+    const current_layer = get_layer(this.props.activeLayers[0], this.props.layers)
     return (
       <PanelSelf
         collapsible
@@ -208,7 +209,8 @@ class ExpMapSecPanel extends React.Component {
               <img src={img_src} alt="Loading" width="15%"/>
             </Loading_Screen>}
             {this.state.renderPlot && <Descriptions>
-              <ul style={{listStyleType:'square'}}>
+              <ul style={{listStyleType:'square', width: '80%'}}>
+                <li>LayerInfo: {current_layer.info}</li>
                 <li>Scroll to Zoom In/Zoom Out</li>
                 <li>Spin the Plot to see from different angles</li>
                 <li>
