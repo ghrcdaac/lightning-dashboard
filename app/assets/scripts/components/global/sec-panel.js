@@ -42,6 +42,11 @@ const Descriptions = styled.div`
 display:flex;
 justify-content:center;
 `
+const LayerInfo = styled.div`
+width:80%;
+margin-left:2rem;
+`
+
 const Loading_Screen = styled.div`
 margin-left:14rem;
 margin-top:5rem; 
@@ -107,7 +112,7 @@ class ExpMapSecPanel extends React.Component {
       })
       return
     }
-
+    console.log(this.props.layers)
     this.setState({render_button_clicked:true})
     fetch(fetch_link)
     .then(response=>response.text())
@@ -207,20 +212,30 @@ class ExpMapSecPanel extends React.Component {
             {!this.state.renderPlot && this.state.render_button_clicked && <Loading_Screen>
               <img src={img_src} alt="Loading" width="15%"/>
             </Loading_Screen>}
-            {this.state.renderPlot && <Descriptions>
-              <ul style={{listStyleType:'square'}}>
-                <li>Scroll to Zoom In/Zoom Out</li>
-                <li>Spin the Plot to see from different angles</li>
-                <li>
-                  Hover over plot for specific data, where
-                  <ul style={{listStyleType:'disc', marginLeft:"20px"}}>
-                    <li>x: Latitude</li>
-                    <li>y: Longitude</li>
-                    <li>z: FRD</li>
-                  </ul>
-                </li>
-              </ul>
-            </Descriptions>}
+            {this.state.renderPlot && <div>
+              <div style={{textAlign:'center'}}>
+                <h4>Layer Information</h4>
+                <LayerInfo>{this.props.layers[0].info}</LayerInfo>
+              </div>
+              <br></br>
+              <div style={{textAlign:'center'}}>
+                <h4>Histogram Features</h4>
+              </div>
+              <Descriptions>
+                <ul style={{listStyleType:'square'}}>
+                  <li>Scroll to Zoom In/Zoom Out</li>
+                  <li>Spin the Plot to see from different angles</li>
+                  <li>
+                    Hover over plot for specific data, where
+                    <ul style={{listStyleType:'disc', marginLeft:"20px"}}>
+                      <li>x: Latitude</li>
+                      <li>y: Longitude</li>
+                      <li>z: Flash Rate Density</li>
+                    </ul>
+                  </li>
+                </ul>
+              </Descriptions>
+            </div>}
           </BodyScroll>
         }
       />

@@ -469,7 +469,7 @@ class GlobalExplore extends React.Component {
                 {this.count === 2 && !localStorage.getItem(popup_lr) && < Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-center'} timer={2000} whichPop={popup_lr}/>}
                 {this.count === 2 && !localStorage.getItem(popup_lr) && <Popups value={['Select one of the following datasets. Scroll to see more.']} place={'bottom-center'} timer={5000}/>}
                 {/* {!!activeTimeseriesLayers.length && this.count === 2 && !localStorage.getItem(popup_tline) && <Popups value={['This is Timeline. Scroll to render layers based on different dates.']} place={'bottom-left'} timer={4000} whichPop={popup_tline}/>} */}
-                {this.count === 2 && localStorage.getItem("dataset_selected") && <Popups value={["Left nav bar"]} place={'left-center'} timer={5000} whichPop={'dataset_selected'} />}
+                {/* {this.count === 2 && localStorage.getItem("dataset_selected") && <Popups value={["Left nav bar"]} place={'left-center'} timer={5000} whichPop={'dataset_selected'} />} */}
                 <LayerPanel onAction={this.onPanelAction} layers={layers} activeLayer={this.state.activeLayers}/>
                 <Timeline
                   ref={this.timelineRef}
@@ -490,6 +490,7 @@ class GlobalExplore extends React.Component {
                 }}
                 activeLayers={this.state.activeLayers}
                 date={this.state.timelineDate}
+                layers={activeTimeseriesLayers}
               />}
             </ExploreCanvas>
           </InpageBody>

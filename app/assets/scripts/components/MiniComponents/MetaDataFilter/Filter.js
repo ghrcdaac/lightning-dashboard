@@ -80,7 +80,7 @@ const Filter = (props) =>{
                 <HeadComponent>
                     <div>
                         <div>
-                            <LayerTitle title={'MetaData Filter'}>MetaData Filter</LayerTitle>
+                            <LayerTitle title={'MetaData Filter'}>Metadata Filter</LayerTitle>
                         </div>
                     </div>
                 </HeadComponent>
