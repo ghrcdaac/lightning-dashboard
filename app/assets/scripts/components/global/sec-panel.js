@@ -10,7 +10,7 @@ import ShadowScrollbar from '../common/shadow-scrollbar';
 import { glsp } from '../../styles/utils/theme-values';
 import media, { isLargeViewport } from '../../styles/utils/media-queries';
 
-import {get_metadata_api_file_path, txt_to_json } from '../../utils/HelperMethods';
+import {get_metadata_api_file_path, txt_to_json, get_layer } from '../../utils/HelperMethods';
 import Button from "../../styles/button/button"
 import { connect } from 'react-redux';
 import styled, { withTheme } from 'styled-components';
@@ -190,6 +190,7 @@ class ExpMapSecPanel extends React.Component {
 
   render () {
     const img_src = "https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif"
+    const current_layer = get_layer(this.props.activeLayers[0], this.props.layers)
     return (
       <PanelSelf
         collapsible
