@@ -29,6 +29,24 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
     const [day, setDay] = useState([])
     const [arg4, setArg4] = useState([])
 
+    // Use a ref to store the selected index in the arg4 list
+    const selectedArg4Index = useRef(0);
+
+    useEffect(() => {
+        // Automatically change the selected arg4 value every 5 seconds
+        const interval = setInterval(() => {
+            if (arg4.length > 0) {
+            // Increment the selected index, and loop back to 0 if necessary
+            selectedArg4Index.current = (selectedArg4Index.current + 1) % arg4.length;
+
+            // Update the selected value in the dropdown
+            arg4Handler({ target: { value: arg4[selectedArg4Index.current] } });
+            }
+        }, 1000); // 5000 milliseconds = 5 seconds
+
+        return () => clearInterval(interval); // Clean up the interval on unmount
+    }, [arg4]);
+
     //redux variable
     const dispatch = useDispatch();
     const path = useSelector(state=>state.METADATA_REDUCER.PATH)
@@ -63,6 +81,8 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
         setArg4(get_arg4(layer.dataset_type,cur_year, cur_month, cur_day))
         set_resetArg4(Math.random())
         dispatch(changeMetadataPath(''));
+
+
     }
 
     const arg4Handler = (e) =>{
@@ -141,12 +161,12 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
                 ))}
                 </Select>
             </FormControl>
-            <FormControl sx={{ m: 1, minWidth: 200 }} size="small" disabled={(arg4.length === 0)}>
-                <InputLabel id="demo-select-small-label4">Select Time/Instrument</InputLabel>
+            <FormControl sx={{ m: 1, minWidth: 200 }} size="small" disabled={true}>
+                <InputLabel id="demo-select-small-label4">Time/Instrument</InputLabel>
                 <Select
                 labelId="demo-select-small-label4"
                 id="demo-select-small"
-                value={element}
+                value={arg4[selectedArg4Index.current]}
                 label="Age"
                 onChange={arg4Handler}
                 key={resetArg4}
