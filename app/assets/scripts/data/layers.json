@@ -37,7 +37,12 @@
             "type":"raster-timeseries",
             "dataset_type":"TRMM LIS",
             "baseline":["custom", "full"],
-            "timeline_type":"regular"
+            "timeline_type":"regular",
+            "map_coords":{
+                "lat":"0",
+                "lon":"0",
+                "zoom":"2"
+            }
         },
         {
             "compare":{
@@ -76,7 +81,12 @@
             "type":"raster-timeseries",
             "dataset_type":"TRMM LIS",
             "baseline":["custom", "seasonal"],
-            "timeline_type":"regular"
+            "timeline_type":"regular",
+            "map_coords":{
+                "lat":"0",
+                "lon":"0",
+                "zoom":"2"
+            }
         },
         {
             "compare":{
@@ -115,7 +125,12 @@
             "type":"raster-timeseries",
             "dataset_type":"TRMM LIS",
             "baseline":["non-custom", "year"],
-            "timeline_type":"regular"
+            "timeline_type":"regular",
+            "map_coords":{
+                "lat":"0",
+                "lon":"0",
+                "zoom":"2"
+            }
         },
         {
             "compare":{
@@ -167,7 +182,12 @@
             "type":"raster-timeseries",
             "dataset_type":"TRMM LIS",
             "baseline":["custom", "diurnal"],
-            "timeline_type":"regular"
+            "timeline_type":"regular",
+            "map_coords":{
+                "lat":"0",
+                "lon":"0",
+                "zoom":"2"
+            }
         },
         {
             "compare":{
@@ -206,7 +226,12 @@
             "type":"raster-timeseries",
             "dataset_type":"TRMM LIS",
             "baseline":["non-custom", "month"],
-            "timeline_type":"regular"
+            "timeline_type":"regular",
+            "map_coords":{
+                "lat":"0",
+                "lon":"0",
+                "zoom":"2"
+            }
         },
         {
             "compare":{
@@ -245,7 +270,12 @@
             "type":"raster-timeseries",
             "dataset_type":"OTD",
             "baseline":["custom", "full"],
-            "timeline_type":"regular"
+            "timeline_type":"regular",
+            "map_coords":{
+                "lat":"0",
+                "lon":"0",
+                "zoom":"2"
+            }
         },
         {
             "compare":{
@@ -284,7 +314,12 @@
             "type":"raster-timeseries",
             "dataset_type":"OTD",
             "baseline":["non-custom", "year"],
-            "timeline_type":"regular"
+            "timeline_type":"regular",
+            "map_coords":{
+                "lat":"0",
+                "lon":"0",
+                "zoom":"2"
+            }
         },
         {
             "compare":{
@@ -336,7 +371,12 @@
             "type":"raster-timeseries",
             "dataset_type":"OTD",
             "baseline":["custom", "diurnal"],
-            "timeline_type":"regular"
+            "timeline_type":"regular",
+            "map_coords":{
+                "lat":"0",
+                "lon":"0",
+                "zoom":"2"
+            }
         },
         {
             "compare":{
@@ -375,7 +415,12 @@
             "type":"raster-timeseries",
             "dataset_type":"OTD",
             "baseline":["non-custom", "month"],
-            "timeline_type":"regular"
+            "timeline_type":"regular",
+            "map_coords":{
+                "lat":"0",
+                "lon":"0",
+                "zoom":"2"
+            }
         },
         {
             "compare":{
@@ -414,7 +459,12 @@
             "type":"raster-timeseries",
             "dataset_type":"ISS LIS",
             "baseline":["non-custom", "month"],
-            "timeline_type":"non-regular"
+            "timeline_type":"non-regular",
+            "map_coords":{
+                "lat":"0",
+                "lon":"0",
+                "zoom":"2"
+            }
         },
         {
             "compare":{
@@ -453,7 +503,12 @@
             "type":"raster-timeseries",
             "dataset_type":"HS3",
             "baseline":["non-custom", "month"],
-            "timeline_type":"non-regular"
+            "timeline_type":"non-regular",
+            "map_coords":{
+                "lat":"0",
+                "lon":"0",
+                "zoom":"2"
+            }
         },
         {
             "compare":{
@@ -492,7 +547,12 @@
             "type":"raster-timeseries",
             "dataset_type":"NALMA",
             "baseline":["non-custom", "month"],
-            "timeline_type":"non-regular"
+            "timeline_type":"non-regular",
+            "map_coords":{
+                "lat":"33.5206608",
+                "lon":"-86.8024900",
+                "zoom":"7"
+            }
         }
     ]
 }

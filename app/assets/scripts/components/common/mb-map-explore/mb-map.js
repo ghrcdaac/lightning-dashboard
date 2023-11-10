@@ -157,6 +157,18 @@ class MbMap extends React.Component {
     }
     if(prevProps.activeLayers[0] !== this.props.activeLayers[0]){
       this.removePointVisualization()
+
+      //change map zoom and center level also for each change in dataset
+      const layerForCoords = get_layer(this.props.activeLayers[0], this.props.layers)
+      if(layerForCoords){      
+        // Change the center
+        const newCenter = [layerForCoords.map_coords.lon, layerForCoords.map_coords.lat];
+        this.mbMap.setCenter(newCenter);
+    
+        // Change the zoom level
+        const newZoom = layerForCoords.map_coords.zoom;
+        this.mbMap.setZoom(newZoom);
+      }
     }else{
       if(prevProps.date !== this.props.date){
         this.removePointVisualization()
@@ -186,6 +198,7 @@ class MbMap extends React.Component {
         }
       }
     }
+
     // Technical debt: The activeLayers and layers prop depend on eachother,
     // but they get updated at different times.
     // This leads to problems when finding a given layer in the layers array.
