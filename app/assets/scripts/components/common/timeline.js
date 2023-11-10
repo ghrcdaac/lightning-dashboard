@@ -180,7 +180,9 @@ class Timeline extends React.Component {
       }
     }else if(action === 'layer-toggle'){
       //this.clickPause();
-      this.timerRef.current.clickPauseHandler();
+      if(this.props.layers[0].timeline_type === 'regular'){
+        this.timerRef.current.clickPauseHandler();
+      }
     }
 
   }
@@ -221,38 +223,42 @@ class Timeline extends React.Component {
               </TimelineExpanderButton>
             </ExploreDataBrowserTitle>
           </ExploreDataBrowserHeadline>
-          <ExploreDataBrowserActions>
-            {<TimelineTimer nextDate={this.nextDate} nextDisabled={this.state.nextDisabled} ref={this.timerRef}/>}
-            <CurrentDate>
-              {date ? formatDate(date, timeUnit) : 'Select date'}
-            </CurrentDate>
-            <ButtonGroup orientation='horizontal'>
-              <Button
-                disabled={!date || checkSameDate(date, dateDomain[0], timeUnit)}
-                variation='base-plain'
-                size='small'
-                useIcon='chevron-left--small'
-                title='Previous entry'
-                hideText
-                onClick={() =>
-                  onAction('date.set', { date: getPrevDate(dateDomain, date, timeUnit) })}
-              >
-                Previous entry
-              </Button>
-              <Button
-                disabled={!date || checkSameDate(date, dateDomain[dateDomain.length - 1], timeUnit)}
-                variation='base-plain'
-                size='small'
-                useIcon='chevron-right--small'
-                title='Next entry'
-                hideText
-                onClick={() =>
-                  onAction('date.set', { date: getNextDate(dateDomain, date, timeUnit) })}
-              >
-                Next entry
-              </Button>
-            </ButtonGroup>
-          </ExploreDataBrowserActions>
+            <ExploreDataBrowserActions>
+            {(layers[0].timeline_type === 'regular') &&
+              <TimelineTimer nextDate={this.nextDate} nextDisabled={this.state.nextDisabled} ref={this.timerRef}/>}
+              {(layers[0].timeline_type === 'regular') &&
+              <CurrentDate>
+                {date ? formatDate(date, timeUnit) : 'Select date'}
+              </CurrentDate>}
+              {(layers[0].timeline_type === 'regular') &&
+              <ButtonGroup orientation='horizontal'>
+                <Button
+                  disabled={!date || checkSameDate(date, dateDomain[0], timeUnit)}
+                  variation='base-plain'
+                  size='small'
+                  useIcon='chevron-left--small'
+                  title='Previous entry'
+                  hideText
+                  onClick={() =>
+                    onAction('date.set', { date: getPrevDate(dateDomain, date, timeUnit) })}
+                >
+                  Previous entry
+                </Button>
+                <Button
+                  disabled={!date || checkSameDate(date, dateDomain[dateDomain.length - 1], timeUnit)}
+                  variation='base-plain'
+                  size='small'
+                  useIcon='chevron-right--small'
+                  title='Next entry'
+                  hideText
+                  onClick={() =>
+                    onAction('date.set', { date: getNextDate(dateDomain, date, timeUnit) })}
+                >
+                  Next entry
+                </Button>
+              </ButtonGroup>
+          }
+            </ExploreDataBrowserActions>
         </ExploreDataBrowserHeader>
         <ExploreDataBrowserBody isExpanded={this.state.isExpanded}>
           {(layers[0].timeline_type === 'regular') ?
