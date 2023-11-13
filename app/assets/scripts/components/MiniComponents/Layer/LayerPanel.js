@@ -142,7 +142,7 @@ const LayerPanel = ({ onAction, layers, activeLayer }) => {
       const scrollInterval = setInterval(() => {
   
         if (scrollAmount > targetScrollAmount) {
-          scrollAmount += -13; // Decrement by -1 or a smaller value for smoother scrolling
+          scrollAmount += -25; // Decrement by -1 or a smaller value for smoother scrolling
           container.scrollLeft = scrollAmount;
         } else {
           clearInterval(scrollInterval); // Stop the interval once target is reached
@@ -151,7 +151,6 @@ const LayerPanel = ({ onAction, layers, activeLayer }) => {
     }
   };
   
-
   const scrollContainerRight = () => {
     const container = document.getElementById('layer-container');
     if (container) {
@@ -163,7 +162,7 @@ const LayerPanel = ({ onAction, layers, activeLayer }) => {
       const scrollInterval = setInterval(() => {
   
         if (scrollAmount < targetScrollAmount) {
-          scrollAmount += 13; // Increment by 1 or a smaller value for smoother scrolling
+          scrollAmount += 25; // Increment by 1 or a smaller value for smoother scrolling
           container.scrollLeft = scrollAmount;
         } else {
           clearInterval(scrollInterval); // Stop the interval once target is reached
