@@ -4,6 +4,7 @@ import { Container, Inner_Container, Year, Month, Day, Time } from "./DropDownSt
 import { get_arg1, get_arg2, get_arg3, get_arg4 } from "../../../data/isslis";
 import { useSelector, useDispatch } from "react-redux";
 import { changeMetadataPath } from "../../../redux/action/MetadataAction";
+import MapMessage from "../../common/map-message";
 
 import { InputLabel } from "@mui/material";
 import { MenuItem } from "@mui/material";
@@ -42,7 +43,7 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
             // Update the selected value in the dropdown
             arg4Handler({ target: { value: arg4[selectedArg4Index.current] } });
             }
-        }, 1000); // 5000 milliseconds = 5 seconds
+        }, 2000); // 5000 milliseconds = 5 seconds
 
         return () => clearInterval(interval); // Clean up the interval on unmount
     }, [arg4]);
