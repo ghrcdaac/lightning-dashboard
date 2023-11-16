@@ -18,11 +18,13 @@ import {AccordionContainer, AccordionTitle, AccordionBody, TitleWrapper, BottomL
 import { TitleBlock, TitleName, LayerTitle, LinkTitle, BottomLine, LinkContainer, Link, LayerBody, LinkBody, MainBody } from './LayerLink';
 
 import Slider from '../MiniComponents/Single/Slider';
+import Filter from '../MiniComponents/MetaDataFilter/Filter';
 import BaselineToggle from '../MiniComponents/BaselineLayer/BaselineToggle';
 import HotSpotToggle from '../MiniComponents/HotSpot/HotSpotToggle'
 import {FiExternalLink} from '../../../../../node_modules/react-icons/fi'
 import {FiPlua, FiMinus} from '../../../../../node_modules/react-icons/fi'
 import {RiArrowDropDownLine, RiArrowDropUpLine} from '../../../../../node_modules/react-icons/ri'
+import {AiFillSetting, AiFillDatabase} from '../../../../../node_modules/react-icons/ai'
 
 import LINK_DATA from '../../data/links';
 
@@ -31,17 +33,6 @@ const COLOR = '#2276AC';
 const PanelBlockLayer = styled(PanelBlock)`
   flex: 2;
 `;
-
-const Swatch = styled.div`
-position:absolute;
-height:49px;
-margin-left:2px;
-margin-top:1.3px;
-border-radius: 25px;
-width:3.8px;
-z-index:999999;
-background-color:#C0C0C0;
-`
 
 class DataLayersBlock extends React.Component {
   constructor (props) {
@@ -58,7 +49,9 @@ class DataLayersBlock extends React.Component {
       leftBody:'0px',
 
       //for layerDropDown
-      dropdown: 'TRMM LIS'
+      dropdown: 'TRMM LIS',
+      datasets: false,
+      settings: false
     };  
     
     this.layerHandler = this.layerHandler.bind(this);
@@ -109,7 +102,7 @@ class DataLayersBlock extends React.Component {
           <PanelBlockTitle>
             <TitleBlock>
               <LayerTitle>
-                <TitleName onClick={this.layerHandler} color={this.state.layerTitleColor}>Layers</TitleName>
+                <TitleName onClick={this.layerHandler} color={this.state.layerTitleColor}>Filters</TitleName>
                 <BottomLine animation={this.state.animationTitle} left={this.state.leftTitle}></BottomLine>
               </LayerTitle>
               <LinkTitle>
@@ -122,63 +115,17 @@ class DataLayersBlock extends React.Component {
           <PanelBlockScroll>
             <MainBody left={this.state.leftBody} animation={this.state.animationBody}>
               <LayerBody>
-                {two_dim_layers.map((layerArray)=>(
-                  <AccordionContainer key={layerArray[0].dataset_type}>
-                    <DatasetSwatch/>
-                    <TitleWrapper onClick={()=>this.dropdownHandler(layerArray[0].dataset_type)}>
-                      <AccordionTitle>{layerArray[0].dataset_type}</AccordionTitle>
-                      {this.state.dropdown === layerArray[0].dataset_type && <RiArrowDropUpLine size={40}/>}
-                      {this.state.dropdown !== layerArray[0].dataset_type && <RiArrowDropDownLine size={40}/>}
-                    </TitleWrapper>
-                    <BottomLineAccordion/>
-                    {this.state.dropdown === layerArray[0].dataset_type && 
-                      <AccordionBody>
-                        <Accordion>
-                          {({ checkExpanded, setExpanded }) => (
-                            <ol>
-                              {layerArray.map((l, idx) => (
-                                <li key={l.id}>
-                                  <Layer
-                                    id={l.id}
-                                    label={l.name}
-                                    disabled={!mapLoaded}
-                                    type={l.type}
-                                    active={l.visible}
-                                    swatchColor={get(l, 'swatch.color')}
-                                    swatchName={get(l, 'swatch.name')}
-                                    dataOrder={l.dataOrder}
-                                    info={l.info}
-                                    legend={l.legend}
-                                    isExpanded={checkExpanded(idx)}
-                                    setExpanded={v => setExpanded(idx, v)}
-                                    onToggleClick={() => onAction('layer.toggle', l)}
-                                    onLegendKnobChange={(payload) => onAction('layer.legend-knob', { id: l.id, ...payload })}
-                                    knobPos={l.knobPos}
-                                    compareEnabled={!!l.compare}
-                                    compareActive={l.comparing}
-                                    compareHelp={get(l, 'compare.help')}
-                                    onCompareClick={() => onAction('layer.compare', l)}
-                                  />
-                                </li>
-                              ))}
-                            </ol>
-                          )}
-                        </Accordion>
-                      </AccordionBody>
-                    }
-                  </AccordionContainer>
-                ))}
-                {/* <PanelTitle>Features</PanelTitle> */}
-                <Slider slideHandler={tileOpacity}/>
-                <BaselineToggle 
-                calendarStatus={calendarStatus} 
-                layers={layers} 
-                activeLayers={activeLayers} 
-                comparing={comparing} 
-                baselineHandler={baselineHandler} 
-                comparingId={comparingId} 
-                baselineId={baselineId}/>
-                <HotSpotToggle activeLayers={activeLayers}/>
+                  <Slider slideHandler={tileOpacity}/>
+                  <Filter activeLayers={activeLayers}/>
+                  <BaselineToggle 
+                  calendarStatus={calendarStatus} 
+                  layers={layers} 
+                  activeLayers={activeLayers} 
+                  comparing={comparing} 
+                  baselineHandler={baselineHandler} 
+                  comparingId={comparingId} 
+                  baselineId={baselineId}/>
+                  <HotSpotToggle activeLayers={activeLayers}/>
               </LayerBody>
               <LinkBody>
                 <LinkContainer>

@@ -52,9 +52,9 @@ const PopupButton = () =>{
                     <span>Info</span>
                 </Button>
             </Outer_container>
-            {active && < Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={3000}/>}
-            {active && <Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={5000}/>}
-            {active && <Popups value={['Timeline section (Toggle Layers to activate). Select different dates to render different COG.']} place={'bottom-left'} timer={10000}/>}
+            {active && <Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-center'} timer={3000}/>}
+            {active && <Popups value={['Select one of the following datasets. Scroll to see more.']} place={'bottom-center'} timer={5000}/>}
+            {/* {active && <Popups value={['Timeline section (Toggle Layers to activate). Select different dates to render different COG.']} place={'bottom-left'} timer={10000}/>} */}
         </>
 
     )

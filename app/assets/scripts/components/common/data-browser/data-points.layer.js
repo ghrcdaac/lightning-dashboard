@@ -71,6 +71,6 @@ export default {
       .attr('cx', d => xScale(utcDate(d.date)))
       .attr('cy', d => yScale(d.value));
     
-    console.log(dataSeries, line, lines, points)
+    //console.log(dataSeries, line, lines, points)
   }
 };

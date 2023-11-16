@@ -1,6 +1,6 @@
 // this is the main initial page shown
 
-import React, {useRef, useEffect} from 'react';
+import React from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -53,7 +53,8 @@ import QsState from '../../utils/qs-state';
 import { round } from '../../utils/format';
 
 import { changeBaselineId, changeBaselineDate, resetBaseline } from '../../redux/action/BaselineAction';
-import BASELINE_REDUCER from '../../redux/reducers/BaselineReducer';
+import LayerCard from '../MiniComponents/Layer/LayerCard';
+import LayerPanel from '../MiniComponents/Layer/LayerPanel';
 
 /**
  * Returns a feature with a polygon geometry made of the provided bounds.
@@ -208,6 +209,7 @@ class GlobalExplore extends React.Component {
     this.baselineDate = this.baselineDate.bind(this);
     this.baselineId = this.baselineId.bind(this);
     this.calendarStatus = this.calendarStatus.bind(this);
+    this.onTimeChange = this.onTimeChange.bind(this);
     this.count = 0;
     //this.comparingId = 'TRMM LIS Full';
     //this.tileOpacity = 100;
@@ -273,6 +275,7 @@ class GlobalExplore extends React.Component {
       mapStyle:'mapbox://styles/covid-nasa/ckb01h6f10bn81iqg98ne0i2y',
       panelPrime: false,
       panelSec: false,
+      time:null
     };
   }
 
@@ -283,7 +286,7 @@ class GlobalExplore extends React.Component {
   componentDidUpdate(prevProps){
     if(prevProps.BASELINE_ID !== this.props.BASELINE_ID){
 
-      if(this.props.BASELINE_ID === 'Datasets'){
+      if(this.props.BASELINE_ID === 'None'){
         toggleLayerCompare.call(this, get_layer(prevProps.BASELINE_ID, getGlobalLayers()));
       }else{
         toggleLayerCompare.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()));
@@ -357,8 +360,14 @@ class GlobalExplore extends React.Component {
     handlePanelAction.call(this, action, payload);
   }
 
-  baselineDate(date, id){
+  onTimeChange(data){
+    //console.log(data)
+    this.setState({
+      time:data
+    })
+  }
 
+  baselineDate(date, id){
     const dateString = dateFormat(date, 'month-day-year', id)
     this.setState({
       baselineDate:dateString
@@ -366,33 +375,9 @@ class GlobalExplore extends React.Component {
   }
 
   calendarStatus(action){
-    // this.setState({
-    //   calendarStatus:!this.state.calendarStatus,
-    //   baselineDate:'null'
-    // })
-    // console.log(action)
-    // if(this.state.comparingId !== null && action === 'Datasets') toggleLayerCompare.call(this, get_layer(this.state.comparingId, getGlobalLayers()));
   }
 
   baselineId(id){
-    // if(this.state.comparingId !== null) this.mbMapRef.current.removeLayer(this.state.comparingId);
-    
-    // this.setState({
-    //   prevComparingId:this.state.comparingId,
-    //   comparingId:id,
-    //   baselineDate:'null'
-    // })
-    
-    // toggleLayerCompare.call(this,get_layer(id, getGlobalLayers()));
-
-    // if(this.props.PREV_BASELINE_ID !== null){
-    //   this.mbMapRef.current.removeLayer(this.props.PREV_BASELINE_ID)
-    // }
-
-    // console.log(this.props.BASELINE_ID)
-    // console.log(get_layer(this.props.BASELINE_ID, getGlobalLayers()))
-    // toggleLayerCommon.call(this, get_layer(this.props.BASELINE_ID, getGlobalLayers()))
-
   }
 
   async onMapAction (action, payload) {
@@ -420,6 +405,9 @@ class GlobalExplore extends React.Component {
     const comparingLayer = find(layers, 'comparing');
     const isComparing = !!comparingLayer;
     ++this.count
+
+    const renderChart = (this.state.activeLayers.length > 0) &&
+                        this.state.activeLayers[0] !== 'Spring 2022'
 
     return (
       <App hideFooter>
@@ -475,11 +463,14 @@ class GlobalExplore extends React.Component {
                   prevComparingId={this.props.PREV_BASELINE_ID}
                   calendarStatus={this.state.calendarStatus}
                   baselineHandler={this.baselineDate}
+                  time={this.state.time}
                 /> 
                 <PopupButton /> 
-                {this.count === 2 && !localStorage.getItem(popup_lr) && < Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-right'} timer={2000} whichPop={popup_lr}/>}
-                {this.count === 2 && !localStorage.getItem(popup_lr) && <Popups value={['Here in the left nav bar you can toggle  to activate layers']} place={'top-left'} timer={3000} whichPop={popup_lr}/>}
-                {!!activeTimeseriesLayers.length && this.count === 2 && !localStorage.getItem(popup_tline) && <Popups value={['This is Timeline. Scroll to render layers based on different dates.']} place={'bottom-left'} timer={4000} whichPop={popup_tline}/>}
+                {this.count === 2 && !localStorage.getItem(popup_lr) && < Popups value={['Hey, Welcome to Lightning Dashboard']} place={'top-center'} timer={2000} whichPop={popup_lr}/>}
+                {this.count === 2 && !localStorage.getItem(popup_lr) && <Popups value={['Select one of the following datasets. Scroll to see more.']} place={'bottom-center'} timer={5000}/>}
+                {/* {!!activeTimeseriesLayers.length && this.count === 2 && !localStorage.getItem(popup_tline) && <Popups value={['This is Timeline. Scroll to render layers based on different dates.']} place={'bottom-left'} timer={4000} whichPop={popup_tline}/>} */}
+                {/* {this.count === 2 && localStorage.getItem("dataset_selected") && <Popups value={["Left nav bar"]} place={'left-center'} timer={5000} whichPop={'dataset_selected'} />} */}
+                <LayerPanel onAction={this.onPanelAction} layers={layers} activeLayer={this.state.activeLayers}/>
                 <Timeline
                   ref={this.timelineRef}
                   isActive={!!activeTimeseriesLayers.length}
@@ -487,16 +478,20 @@ class GlobalExplore extends React.Component {
                   date={this.state.timelineDate}
                   onAction={this.onPanelAction}
                   onSizeChange={this.resizeMap}
+                  onTimeChange={this.onTimeChange}
                 />
               </ExploreCarto>
-              {/* {this.state.activeLayers.length > 0 &&  <ExpMapSecPanel
+              {renderChart &&  <ExpMapSecPanel
                 onAction={this.onPanelAction}
                 activeLayer={this.state.activeLayers[0]}
                 onPanelChange={({ revealed }) => {
                   this.resizeMap();
                   this.onPanelChange('panelSec', revealed);
                 }}
-              />} */}
+                activeLayers={this.state.activeLayers}
+                date={this.state.timelineDate}
+                layers={activeTimeseriesLayers}
+              />}
             </ExploreCanvas>
           </InpageBody>
         </Inpage>

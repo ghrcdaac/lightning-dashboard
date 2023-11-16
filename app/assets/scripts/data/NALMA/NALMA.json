@@ -1,0 +1,77 @@
+[
+    {
+        "year": "2020",
+        "data": [
+            {
+                "month": "03",
+                "init_day": "05",
+                "end_day": "05",
+                "length": 56,
+                "day_indices": {
+                    "05": [
+                        0,
+                        55
+                    ]
+                },
+                "file": [
+                    "NALMA_20200305_041000_600_10src_0.0109deg-dx_flash_extent.nc_time_0.tif",
+                    "NALMA_20200305_041000_600_10src_0.0109deg-dx_flash_extent.nc_time_1.tif",
+                    "NALMA_20200305_041000_600_10src_0.0109deg-dx_flash_extent.nc_time_2.tif",
+                    "NALMA_20200305_041000_600_10src_0.0109deg-dx_flash_extent.nc_time_3.tif",
+                    "NALMA_20200305_041000_600_10src_0.0109deg-dx_flash_extent.nc_time_4.tif",
+                    "NALMA_20200305_041000_600_10src_0.0109deg-dx_flash_extent.nc_time_5.tif",
+                    "NALMA_20200305_041000_600_10src_0.0109deg-dx_flash_extent.nc_time_6.tif",
+                    "NALMA_20200305_041000_600_10src_0.0109deg-dx_flash_extent.nc_time_7.tif",
+                    "NALMA_20200305_041000_600_10src_0.0109deg-dx_flash_extent.nc_time_8.tif",
+                    "NALMA_20200305_041000_600_10src_0.0109deg-dx_flash_extent.nc_time_9.tif",
+                    "NALMA_20200305_042000_600_10src_0.0109deg-dx_flash_extent.nc_time_0.tif",
+                    "NALMA_20200305_042000_600_10src_0.0109deg-dx_flash_extent.nc_time_1.tif",
+                    "NALMA_20200305_042000_600_10src_0.0109deg-dx_flash_extent.nc_time_2.tif",
+                    "NALMA_20200305_042000_600_10src_0.0109deg-dx_flash_extent.nc_time_4.tif",
+                    "NALMA_20200305_042000_600_10src_0.0109deg-dx_flash_extent.nc_time_5.tif",
+                    "NALMA_20200305_042000_600_10src_0.0109deg-dx_flash_extent.nc_time_6.tif",
+                    "NALMA_20200305_042000_600_10src_0.0109deg-dx_flash_extent.nc_time_7.tif",
+                    "NALMA_20200305_042000_600_10src_0.0109deg-dx_flash_extent.nc_time_8.tif",
+                    "NALMA_20200305_042000_600_10src_0.0109deg-dx_flash_extent.nc_time_9.tif",
+                    "NALMA_20200305_043000_600_10src_0.0109deg-dx_flash_extent.nc_time_0.tif",
+                    "NALMA_20200305_043000_600_10src_0.0109deg-dx_flash_extent.nc_time_1.tif",
+                    "NALMA_20200305_043000_600_10src_0.0109deg-dx_flash_extent.nc_time_2.tif",
+                    "NALMA_20200305_043000_600_10src_0.0109deg-dx_flash_extent.nc_time_3.tif",
+                    "NALMA_20200305_043000_600_10src_0.0109deg-dx_flash_extent.nc_time_4.tif",
+                    "NALMA_20200305_043000_600_10src_0.0109deg-dx_flash_extent.nc_time_5.tif",
+                    "NALMA_20200305_043000_600_10src_0.0109deg-dx_flash_extent.nc_time_6.tif",
+                    "NALMA_20200305_043000_600_10src_0.0109deg-dx_flash_extent.nc_time_7.tif",
+                    "NALMA_20200305_043000_600_10src_0.0109deg-dx_flash_extent.nc_time_8.tif",
+                    "NALMA_20200305_043000_600_10src_0.0109deg-dx_flash_extent.nc_time_9.tif",
+                    "NALMA_20200305_044000_600_10src_0.0109deg-dx_flash_extent.nc_time_0.tif",
+                    "NALMA_20200305_044000_600_10src_0.0109deg-dx_flash_extent.nc_time_1.tif",
+                    "NALMA_20200305_044000_600_10src_0.0109deg-dx_flash_extent.nc_time_2.tif",
+                    "NALMA_20200305_044000_600_10src_0.0109deg-dx_flash_extent.nc_time_3.tif",
+                    "NALMA_20200305_044000_600_10src_0.0109deg-dx_flash_extent.nc_time_4.tif",
+                    "NALMA_20200305_044000_600_10src_0.0109deg-dx_flash_extent.nc_time_5.tif",
+                    "NALMA_20200305_044000_600_10src_0.0109deg-dx_flash_extent.nc_time_6.tif",
+                    "NALMA_20200305_044000_600_10src_0.0109deg-dx_flash_extent.nc_time_7.tif",
+                    "NALMA_20200305_044000_600_10src_0.0109deg-dx_flash_extent.nc_time_8.tif",
+                    "NALMA_20200305_044000_600_10src_0.0109deg-dx_flash_extent.nc_time_9.tif",
+                    "NALMA_20200305_045000_600_10src_0.0109deg-dx_flash_extent.nc_time_0.tif",
+                    "NALMA_20200305_045000_600_10src_0.0109deg-dx_flash_extent.nc_time_1.tif",
+                    "NALMA_20200305_045000_600_10src_0.0109deg-dx_flash_extent.nc_time_2.tif",
+                    "NALMA_20200305_045000_600_10src_0.0109deg-dx_flash_extent.nc_time_3.tif",
+                    "NALMA_20200305_045000_600_10src_0.0109deg-dx_flash_extent.nc_time_4.tif",
+                    "NALMA_20200305_045000_600_10src_0.0109deg-dx_flash_extent.nc_time_5.tif",
+                    "NALMA_20200305_045000_600_10src_0.0109deg-dx_flash_extent.nc_time_6.tif",
+                    "NALMA_20200305_045000_600_10src_0.0109deg-dx_flash_extent.nc_time_8.tif",
+                    "NALMA_20200305_045000_600_10src_0.0109deg-dx_flash_extent.nc_time_9.tif",
+                    "NALMA_20200305_051000_600_10src_0.0109deg-dx_flash_extent.nc_time_0.tif",
+                    "NALMA_20200305_051000_600_10src_0.0109deg-dx_flash_extent.nc_time_3.tif",
+                    "NALMA_20200305_051000_600_10src_0.0109deg-dx_flash_extent.nc_time_8.tif",
+                    "NALMA_20200305_052000_600_10src_0.0109deg-dx_flash_extent.nc_time_0.tif",
+                    "NALMA_20200305_052000_600_10src_0.0109deg-dx_flash_extent.nc_time_2.tif",
+                    "NALMA_20200305_052000_600_10src_0.0109deg-dx_flash_extent.nc_time_4.tif",
+                    "NALMA_20200305_052000_600_10src_0.0109deg-dx_flash_extent.nc_time_7.tif",
+                    "NALMA_20200305_052000_600_10src_0.0109deg-dx_flash_extent.nc_time_9.tif"
+                ]
+            }
+        ]
+    }
+]

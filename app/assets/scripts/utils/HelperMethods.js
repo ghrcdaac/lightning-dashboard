@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 import { add, sub, format, isSameMonth, isSameDay } from 'date-fns';
+import { string } from 'prop-types';
 
 export function date_to_string(date, layer){
 
@@ -117,4 +118,184 @@ export function HotSpotDate(id, date){
 
 export function dateSlice(date){
     
+}
+
+export function metadata_format(data){
+   const formatted_data = []
+   data.data.forEach((element)=>{
+    if(element.Data !== 'nan'){
+        formatted_data.push({
+            "flashes":element.Data,
+            'lat':element.Latitude,
+            'lng':element.Longitude
+        })
+    }
+   })
+
+   return formatted_data
+}
+
+export function data_for_mapbox_data_driven_property(data, activeLayers){
+
+    var average = 0
+    for(var i = 0;i<(data.length);i++){
+        if(data[i].Data !== 'nan'){
+            average = average + parseFloat(data[i].Data)
+        }
+    }
+    average = average / (data.length)
+    // console.log("AVERAGE: ",average)
+    const times = 5.5 / average
+    const formatted_data = []
+    data.forEach((element)=>{
+        const desc = `Lat: ${element.Latitude}<br>Lon: ${element.Longitude}<br>FRD: ${element.Data}`
+        var frd
+        if(activeLayers[0] === 'Spring 2022'){
+            frd = parseFloat(element.Data * times)
+        }else{
+            frd = parseFloat(element.Data/20 * times)
+        }
+        
+        if(element.Data !== 'nan'){            
+            formatted_data.push({
+                "type": "Feature",
+                "properties": {
+                  "frd":frd,
+                  'description':desc
+                },
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [ parseFloat(element.Longitude), parseFloat(element.Latitude) ]
+                }
+            })
+        }
+    })
+    return {
+        'type':'geojson',
+        'data':{
+            'type':'FeatureCollection',
+            'features':formatted_data
+        }
+    }
+}
+
+export function get_metadata_api_file_path(layer_name, date, PATH){
+    const layer_len = layer_name[0].length
+    console.log(layer_name, date, PATH)
+    console.log("----....----....----....----")
+    if(layer_name[0].substring(0,2) === "TR"){
+        const layer_type = layer_name[0].substring(9, layer_len)
+        if(layer_type === 'Full'){
+            //return 'TRMM-LIS/VHRFC_LIS_FRD/VHRFC_LIS_FRD.txt'
+            return 'TRMM-LIS_trimmed/VHRFC_LIS_FRD/VHRFC_LIS_FRD.txt'
+        }else if(layer_type === 'Monthly'){
+            var month = date.getMonth()
+            month = month + 1
+            return `TRMM-LIS_trimmed/VHRMC_LIS_FRD/${month}.0.txt` 
+        }else if(layer_type === 'Seasonal'){
+            const base_path = 'TRMM-LIS_trimmed/VHRMC_LIS_FRD'
+            var month = date.getMonth()
+            if(month === 2){
+                return `${base_path}/1.0.txt`
+            }else if(month === 6){
+                return `${base_path}/2.0.txt`
+            }else if(month === 9){
+                return `${base_path}/3.0.txt`
+            }else{
+                return `${base_path}/4.0.txt`
+            }
+        }else if(layer_type === 'Diurnal'){
+            var month = date.getMonth() * 2
+            var day = date.getDate()
+            if(day === 15){
+                month = month + 1
+            }
+            //const path = `TRMM-LIS/VHRDC_LIS_FRD/${month}.0.txt`
+            const path = `TRMM-LIS_trimmed/VHRDC_LIS_FRD/${month}.0.txt`
+            return path 
+        }else if(layer_type === 'Daily'){
+            const calendar = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+            var month = date.getMonth()
+            var start = 0;
+            for(var i = 0;i<month;i++){
+                start += calendar[i]
+            }
+            var day = date.getDate()
+            start += day
+            //var path = `TRMM-LIS/VHRAC_LIS_FRD/${start}.0.txt`
+            var path = `TRMM-LIS_trimmed/VHRAC_LIS_FRD/${start}.0.txt`
+            return path
+        }
+    }else if(layer_name[0].substring(0,2) === "OT"){
+        const layer_type = layer_name[0].substring(4, layer_len)
+        if(layer_type === 'Full'){
+            return 'OTD/HRFC_COM_FR/HRFC_COM_FR.txt'
+        }else if(layer_type === 'Monthly'){
+            var month = date.getMonth()
+            month = month + 1
+            return `OTD/HRMC_COM_FR/${month}.0.txt` 
+        }else if(layer_type === 'Diurnal'){
+            var month = date.getMonth() * 2
+            var day = date.getDate()
+            if(day === 15){
+                month = month + 1
+            }
+            const path = `OTD/LRDC_COM_FR/${month}.5.txt`
+            return path 
+        }else if(layer_type === 'Daily'){
+            const calendar = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+            var month = date.getMonth()
+            var start = 0;
+            for(var i = 0;i<month;i++){
+                start += calendar[i]
+            }
+            var day = date.getDate()
+            start += day - 1
+            var path = `OTD/LRAC_COM_FR/${start}.5.txt`
+            return path
+        }
+    }else if(layer_name[0].substring(0,2) === "IS"){
+
+    }else if(layer_name[0].substring(0,2) === 'HS'){
+        if (PATH.length > 2){
+            const data = PATH.split("#")
+            console.log(`HS3/${data[1]}/${data[0]}.txt`)
+            return `HS3/${data[1]}/${data[0]}`
+        }
+        return ""
+    }else if(layer_name[0].substring(0,2) === 'NA'){
+        if (PATH.length > 2){
+            // console.log(PATH)
+            return `NALMA/NALMA_${PATH.substring(0,8)}_${PATH.substring(13,19)}/NALMA_${PATH.substring(0,8)}_${PATH.substring(13,19)}_600_10src_0.0109deg-dx_flash_extent.nc_time_${PATH[PATH.length-1]}.txt`
+        }
+        return ""
+    }
+}
+
+export function txt_to_json(txt){
+    const json_data = []
+    const separated_by_newline = txt.split("\n");
+    separated_by_newline.forEach((element)=>{
+        const data = element.split(",");
+        if(data[0]!== "Latitude" && data[2] !== 'nan'){
+            json_data.push({
+                "Latitude":data[0],
+                "Longitude":data[1],
+                "Data":data[2]
+            })
+        }
+    })
+    return json_data
+}
+
+export function makeid(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
 }

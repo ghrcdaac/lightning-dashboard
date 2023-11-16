@@ -6,43 +6,36 @@ import CompareMbGL from 'mapbox-gl-compare';
 import ReactDOM from 'react-dom';
 import find from 'lodash.find';
 import { connect } from 'react-redux';
-// import { NavLink } from 'react-router-dom';
 import { FiExternalLink } from '../../../../../../node_modules/react-icons/fi';
+import {toast} from 'react-toastify';
 
 import { createMbMarker } from './mb-popover/utils';
-import geoJson2 from './chicago-parks2.json'
-// import HotSpotJSON from '../../../data/HotSpot'
-// import data2 from './data2.json';
-// //import Marker from '../../../utils/Marker';
-// import HotSpot from '../../global/panelComponents/HotSpot';
-// import MarkerButton from '../../../utils/MarkerButton';
-// import CalendarTag from '../../../utils/CalendarTag';
 import CalendarTag from '../../MiniComponents/BaselineLayer/CalendarTag';
-import {date_to_string, baseline_link, get_layer, HotSpotDate} from '../../../utils/HelperMethods'
-// import { replaceRasterTiles } from '../layers/types';
-// import { data } from '../../../data/HotSpotData';
-// import CustomMarker from '../../global/panelComponents/CustomMarker';
-//import DataIndex from '../../../data/DataIndex';
+import {date_to_string, baseline_link, get_layer, HotSpotDate, metadata_format, makeid} from '../../../utils/HelperMethods';
 import {HotSpotData} from '../../../data/HotSpot2.0';
 import HotSpotBody from '../../MiniComponents/HotSpot/HotSpotBody'
-//import HotSpotBody from '../../global/panelComponents/HotSpotBody';
-// import BarChart from '../bar-chart/chart';
+import PopupButton from '../../MiniComponents/PopUp/PopupButton';
+import ToastWrapper from '../../MiniComponents/toast/toastWrapper';
 
 import config from '../../../config';
 import { layerTypes } from '../layers/types';
 import Button from '../../../styles/button/button';
 import { glsp } from '../../../styles/utils/theme-values';
 import { round } from '../../../utils/format';
-// import MapboxControl from '../mapbox-react-control';
 
 import ReactPopoverGl from './mb-popover';
 
 import { changeBaselineDate } from '../../../redux/action/BaselineAction';
-// import Pop from '../../../utils/Pop';
+import { data_for_mapbox_data_driven_property } from '../../../utils/HelperMethods';
+import { changeMetadata, changeSpinner } from '../../../redux/action/MetadataAction';
+import { get_metadata_api_file_path } from '../../../utils/HelperMethods';
+
+import configs from '../../../configuration.json'
+var Swal = require('sweetalert2')
 
 const { center, zoom: defaultZoom, minZoom, maxZoom} = config.map;
 var {styleUrl} = config.map
-var activeLayers;
+
 // Set mapbox token.
 mapboxgl.accessToken = config.mbToken;
 localStorage.setItem('MapboxAccessToken', config.mbToken);
@@ -107,13 +100,15 @@ class MbMap extends React.Component {
       markers:[],
       modalStatus:false,
       modalBackground:null,
-      maploaded:false
+      maploaded:false,
+      time:null
     };
 
     // Store markers to be able to remove them.
     this.spotlightMarkersList = [];
     this.marker = []
     this.hotspotMarkers = []
+    this.metadata = []
     this.markerState = false;
     this.comparingId = this.props.comparingId;
     this.activeSpotlight = []
@@ -125,6 +120,9 @@ class MbMap extends React.Component {
     this.addLayer = this.addLayer.bind(this);
     this.removeLayer = this.removeLayer.bind(this);
     this.addHotSpot = this.addHotSpot.bind(this);
+    this.renderPointVisualization = this.renderPointVisualization.bind(this);
+    this.removePointVisualization = this.removePointVisualization.bind(this);
+    this._render_Points = this._render_Points.bind(this);
   }
 
   componentDidMount () {
@@ -144,44 +142,38 @@ class MbMap extends React.Component {
       }
     }
 
-    // if(this.props.HOTSPOT === true && prevProps.HOTSPOT !== this.props.HOTSPOT){
-    //   if(this.props.activeLayers.length > 0){
-    //   }
-    // }
-
     if(prevProps.BASELINE_ID !== this.props.BASELINE_ID){
-      if(prevProps.BASELINE_ID !== null && prevProps.BASELINE_ID !== 'Datasets'){
+      if(prevProps.BASELINE_ID !== null && prevProps.BASELINE_ID !== 'None'){
         this.removeLayer(prevProps.BASELINE_ID)
       }
     }
 
-    // if(this.props.HOTSPOT === true){
-    //   if(prevProps.activeLayers[0] !== this.props.activeLayers[0]){
-    //     if(typeof prevProps.activeLayers[0] === 'undefined'){
-    //       this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));
-    //     }else if(this.props.activeLayers.length === 0){
-    //       this.removeHotSpot()
-    //     }else{    
-    //       this.removeHotSpot();
-    //       this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));
-    //     }
-    //   }else{
-    //     if(prevProps.date !== this.props.date){
-    //       this.removeHotSpot();
-    //       this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));    
-    //     }
-    //   }
-  
-    // }
+    //metadata controls
+    if(prevProps.REMOVE_METADATA !== this.props.REMOVE_METADATA){
+      this.removePointVisualization()
+    }
+    if(prevProps.METADATA !== this.props.METADATA){
+      this.renderPointVisualization(this.props.activeLayers, this.props.date)
+    }
+    if(prevProps.activeLayers[0] !== this.props.activeLayers[0]){
+      this.removePointVisualization()
 
-    // if(prevProps.HOTSPOT !== this.props.HOTSPOT){
-    //   if(this.props.HOTSPOT === true){
-    //     this.addHotSpot(this.props.activeLayers[0], HotSpotDate(this.props.activeLayers[0], this.props.date));
-    //   }else{
-    //     this.removeHotSpot();
-    //   }
-    // }
-
+      //change map zoom and center level also for each change in dataset
+      const layerForCoords = get_layer(this.props.activeLayers[0], this.props.layers)
+      if(layerForCoords){      
+        // Change the center
+        const newCenter = [layerForCoords.map_coords.lon, layerForCoords.map_coords.lat];
+        this.mbMap.setCenter(newCenter);
+    
+        // Change the zoom level
+        const newZoom = layerForCoords.map_coords.zoom;
+        this.mbMap.setZoom(newZoom);
+      }
+    }else{
+      if(prevProps.date !== this.props.date){
+        this.removePointVisualization()
+      }
+    }
     // Manually trigger render of detached react components.
 
     this.overlayDropdownControl &&
@@ -206,6 +198,7 @@ class MbMap extends React.Component {
         }
       }
     }
+
     // Technical debt: The activeLayers and layers prop depend on eachother,
     // but they get updated at different times.
     // This leads to problems when finding a given layer in the layers array.
@@ -300,35 +293,6 @@ class MbMap extends React.Component {
     // Check if spotlights are available
     //const { spotlightList } = this.props;
     const spotlights = HotSpotData(this.props.activeLayers[0]);
-    //if (!spotlightList || !spotlightList.isReady()) return;
-
-    // Get spotlights from API data
-    // const data = spotlightList.getData();
-    // console.log(data)
-    
-    // const spotlights = []
-    // const spot = data.forEach((element)=>{
-    //   spotlights.push({
-    //     center:element.center,
-    //     id:element.id,
-    //     indicators:element.indicators,
-    //     label:element.label
-    //   })
-    // })
-
-
-    // Define a common function to add markers
-    // const addMarker = (spotlight, map) => {
-    //   return createMbMarker(map, { color: this.props.theme.color.primary })
-    //     .setLngLat(spotlight.center, console.log(spotlight))
-    //     .addTo(map)
-    //     .onClick((coords) => {
-    //       this.activeSpotlight = []
-    //       this.activeSpotlight.push(spotlight)
-    //       this.setState({ popover: { coords, spotlightId: spotlight.id } });
-    //     });
-    // };
-
     const addMarker = (spotlight, map) => {
       return createMbMarker(map, { color: this.props.theme.color.primary })
         .setLngLat([spotlight.Lon, spotlight.Lat])
@@ -381,18 +345,6 @@ class MbMap extends React.Component {
 
     // Remove compass.
     document.querySelector('.mapboxgl-ctrl .mapboxgl-ctrl-compass').remove();
-    // if (this.props.enableLocateUser) {
-    //   this.mbMapComparing.addControl(
-    //     new mapboxgl.GeolocateControl({
-    //       positionOptions: {
-    //         enableHighAccuracy: true
-    //       },
-    //       trackUserLocation: true
-    //     }),
-    //     'top-left'
-    //   );
-    // }
-
     // Style attribution.
     this.mbMapComparing.addControl(
       new mapboxgl.AttributionControl({ compact: true })
@@ -413,6 +365,24 @@ class MbMap extends React.Component {
       this.mbMap,
       '#container'
     );
+    const target_width = document.getElementById("container").offsetWidth/2
+    var current_slider_position = 0
+
+    this.compareControl.setSlider(current_slider_position)
+    setTimeout(()=>{
+      const interval = setInterval(()=>{
+        if(current_slider_position < target_width){
+          current_slider_position += 10
+          this.compareControl.setSlider(current_slider_position)
+        }else{
+          clearInterval(interval)
+        }
+      }, 1)
+    },300)
+  }
+
+  updateTime(data){
+
   }
 
   updateActiveLayers (prevProps) {
@@ -496,40 +466,6 @@ class MbMap extends React.Component {
   }
 
   addHotSpot(layer, date){
-    // const datas = data(layer, date);
-    // datas[0].data.forEach((feature) => {
-    //     // Create a React ref
-    //     // const ref = React.createRef();
-    //     // // Create a new DOM node and save it to the React ref
-    //     // ref.current = document.createElement('div');
-    //     // ref.current.style.backgroundColor = 'red';
-    //     // // ref.current.setAttribute(
-    //     // //   'style',
-    //     // //   'background-color: red;',
-    //     // // );
-    //     // // Render a Marker Component on our new DOM node
-
-    //     // ReactDOM.render(
-    //     //   // <Marker feature={feature} background={arr[i++]} onClick={this.markerBackground}/>,
-    //     //   <HotSpot feature={feature}/>,
-    //     //   ref.current
-    //     // );
-  
-    //     // // Create a Mapbox Marker at our new DOM node
-    //     // var mark = new mapboxgl.Marker(ref.current)
-    //     //   .setLngLat([feature.lat, feature.lng])
-    //     //   .addTo(this.mbMap);
-  
-    //     // this.hotspotMarkers.push(mark);
-
-    //     const marker = new mapboxgl.Marker().setLngLat([feature.lat, feature.lng]).addTo(this.mbMap);
-    //     marker.getElement().addEventListener('click',()=>{
-    //       console.log('click')
-    //       // this.renderPopover([[feature.lat, feature.lng]])
-    //       //this.setState({popover:{coords:[feature.lat, feature.lng]}})
-    //       this.renderPop();
-    //     })
-    // })
   }
 
   removeHotSpot(){
@@ -567,6 +503,152 @@ class MbMap extends React.Component {
   }
 
   markerBackground(url){
+  }
+
+  removePointVisualization(){
+    const sourceName = 'metadata'
+    if(typeof this.mbMap.getSource(sourceName) !== 'undefined'){
+      this.mbMap.removeLayer(sourceName)
+      this.mbMap.removeSource(sourceName)
+    }
+  }
+
+  renderPointVisualization(layer_name, date){
+
+    if(this.props.activeLayers.length === 0){
+      Swal.fire({
+        icon: 'error',
+        text:"One of the layers should be active for this feature to work."
+      })
+      return
+    }
+    this.removePointVisualization()
+    
+    var file_path;
+    var time = null;
+    if(this.props.activeLayers[0] === 'Spring 2022' || this.props.activeLayers[0] === 'HS3'){
+      if(this.props.PATH === ''){
+        Swal.fire({
+          icon: 'error',
+          text:"Please select all dropdowns in timeline."
+        })
+        return
+      }
+
+      const timeline_information = this.props.PATH.split("#")
+      const filename = timeline_information[0]
+      const directory_or_time = timeline_information[1]
+      if(this.props.activeLayers[0] === 'Spring 2022'){
+        file_path = "ISS-LIS/"+filename
+        time = directory_or_time[0] + directory_or_time[1]
+      }else{ // if this is hs3 data
+        file_path = "HS3/"+ directory_or_time + '/' + filename
+      }
+    }else{
+      file_path = get_metadata_api_file_path(layer_name, date)
+    }
+
+    Swal.fire({
+      icon: 'success',
+      text:"Data Request Sent."
+    })
+    this.props.changeSpinner();
+
+    //console.log("LINE: 457. RenderPointVisualization")
+    //console.log("FilePath: ", file_path)
+    let randomString = makeid(10);
+    let url = `${configs.api_gateway_url}test/metadata`
+    fetch(url,{
+      method:"POST",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        lat_min:this.props.META_LAT[0],
+        lat_max:this.props.META_LAT[1],
+        lon_min:this.props.META_LON[0],
+        lon_max:this.props.META_LON[1],
+        frd_min:this.props.META_FRD[0],
+        frd_max:this.props.META_FRD[1],
+        file_path:file_path,
+        time_hour:time,
+        id:randomString
+      })
+    }).then((response)=>response.json())
+    .then((data)=>{
+      //console.log(data)
+      var urll = `${configs['lightning_dash_temp-cloudfront_url']}${randomString}.json`
+      fetch(urll)
+      .then ((response) => response.json())
+      .then (data => {
+        Swal.fire({
+          icon: 'info',
+          text:"Data Received. Points will soon begin rendering onto the map."
+        })
+        this._render_Points(data)
+        this.props.changeSpinner();
+      });
+    }).catch((error)=>{
+      Swal.fire({
+        icon: 'error',
+        text:`Error. ${error}`
+      })
+      this.props.changeSpinner();
+    })
+  }
+  
+  _render_Points(data){
+    //console.log(this.props.SPINNER)
+    //console.log('MbMap::LINE-574::here in render points', data)
+    const sourceName = 'metadata'
+    const filtered_data = data_for_mapbox_data_driven_property(data, this.props.activeLayers)
+    //console.log(filtered_data)
+    this.mbMap.addSource(sourceName, filtered_data)
+    this.mbMap.addLayer({
+      'id': sourceName,
+      'type': 'circle',
+      'source': sourceName,
+      'paint': {
+        'circle-radius': [
+          "interpolate", ["linear"], ["zoom"],
+          // when zoom is 0, set each feature's circle radius to the value of its "rating" property
+          5, ["get", "frd"],
+          // when zoom is 10, set each feature's circle radius to 10 times the value of its "frd" property
+          10, ["*", 10, ["get", "frd"]],
+          // when zoom is 20, set each feature's circle radius to 10 times the value of its "frd" property
+          20, ["*", 15, ["get", "frd"]]
+      ],
+        'circle-color': '#EE4B2B'
+      }
+    });
+    const popup = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: false
+    });
+    this.mbMap.on('mouseenter', sourceName, (e) => {
+        // Change the cursor style as a UI indicator.
+        this.mbMap.getCanvas().style.cursor = 'pointer';
+        
+        // Copy coordinates array.
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const description = e.features[0].properties.description;
+        
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+        
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(coordinates).setHTML(description).addTo(this.mbMap);
+      });
+       
+      this.mbMap.on('mouseleave', sourceName, () => {
+        this.mbMap.getCanvas().style.cursor = '';
+        popup.remove();
+      });
   }
 
   initMap (passLayer) {
@@ -623,14 +705,28 @@ class MbMap extends React.Component {
         this.props.updateToggleLayer(passLayer);
       }
       this.setState({maploaded:true})
-      const {
-        width,
-        height,
-        top,
-        left
-      } = this.mbMap.getContainer().getBoundingClientRect();
+      // const {
+      //   width,
+      //   height,
+      //   top,
+      //   left
+      // } = this.mbMap.getContainer().getBoundingClientRect();
+    });
+    this.mbMap.addSource('country-borders', {
+      type: 'vector',
+      url: 'mapbox://mapbox.country-boundaries-v1',
     });
 
+    this.mbMap.addLayer({
+      id: 'country-borders-layer',
+      type: 'line',
+      source: 'country-borders',
+      'source-layer': 'country_boundaries',
+      paint: {
+        'line-color': 'blue', // Adjust the border color as desired
+        'line-width': 1, // Adjust the border width as desired
+      },
+    });0
     this.mbMap.on('moveend', (e) => {
       this.props.onAction('map.move', {
         // The existence of originalEvent indicates that it was not caused by
@@ -694,7 +790,29 @@ class MbMap extends React.Component {
   }
 
   render () {
-
+    toast.configure()
+    const popupHandler = () =>{
+      toast.info('Hey, Welcome to Lightning Dashboard', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      toast.info('Click on the following datasets.', {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
     return (
       <>
         {this.mbMap && this.renderPopover()}
@@ -710,7 +828,10 @@ class MbMap extends React.Component {
             }}
           />
         </MapsContainer>
-        {/* {this.state.maploaded && <Pop mbMap={this.mbMap}/>} */}
+        {/* <div onClick={popupHandler}>
+          <PopupButton /> 
+        </div> */}
+        {/* <ToastWrapper /> */}
         {(this.props.activeLayers.length !== 0) && this.props.CALENDAR_ACTIVE && <CalendarTag layers={this.props.layers} onClick={this.calendarHandler} comparingId={this.props.comparingId}/>}
       </>
     );
@@ -747,15 +868,25 @@ function mapStateToProps (state, props) {
     BASELINE_DATE_I:state.BASELINE_REDUCER.BASELINE_DATE_I,
     CALENDAR_ACTIVE:state.BASELINE_REDUCER.CALENDAR_ACTIVE,
     HOTSPOT:state.HOTSPOT_REDUCER.HOTSPOT,
+    METADATA:state.METADATA_REDUCER.METADATA,
+    META_LAT:state.METADATA_REDUCER.LAT_DATA,
+    META_LON:state.METADATA_REDUCER.LON_DATA,
+    META_FRD:state.METADATA_REDUCER.FRD_DATA,
+    REMOVE_METADATA:state.METADATA_REDUCER.REMOVE_METADATA,
+    SPINNER:state.METADATA_REDUCER.SPINNER,
+    PATH:state.METADATA_REDUCER.PATH
   };
 }
 
-const mapDispatchToProps = () =>{
+const mapDispatchToProps = (dispatch) =>{
   return{
-    changeBaselineDate:changeBaselineDate
+    // changeBaselineDate:changeBaselineDate,
+    // changeMetadata:changeMetadata
+    changeMetadata: () => dispatch(changeMetadata()),
+    changeSpinner: () => dispatch(changeSpinner())
   }
 }
 
-export default connect(mapStateToProps,{}, null,{
+export default connect(mapStateToProps,mapDispatchToProps, null,{
   forwardRef:true
 })(withTheme(MbMap));

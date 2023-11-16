@@ -5,8 +5,20 @@
             "link":"https://dx.doi.org/10.5067/LIS/LIS/DATA304"
         },
         {
+            "name":"OTD (DOI)",
+            "link":"https://cmr.earthdata.nasa.gov/search/concepts/C1979889849-GHRC_DAAC.html"
+        },
+        {
+            "name":"ISSLIS (DOI)",
+            "link":"https://cmr.earthdata.nasa.gov/search/concepts/C2136543423-GHRC_DAAC.html"
+        },
+        {
+            "name":"HS3 (DOI)",
+            "link":"https://cmr.earthdata.nasa.gov/search/concepts/C1983208537-GHRC_DAAC.html"
+        },
+        {
             "name":"NALMA (DOI)",
-            "link":"https://cmr.earthdata.nasa.gov/search/concepts/C2023025142-GHRC_DAAC.html"
+            "link":"https://cmr.earthdata.nasa.gov/search/concepts/C2023051981-GHRC_DAAC.html"
         }
         
     ]

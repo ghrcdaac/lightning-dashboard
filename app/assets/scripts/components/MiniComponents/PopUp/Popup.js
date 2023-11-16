@@ -88,9 +88,27 @@ const Popups = (props) =>{
             left='1rem';
             bottom='null'
             break;
+        case 'top-center':
+            top='0';
+            right='50%';
+            left='null';
+            bottom='null'
+            break;
+        case 'left-center':
+            top='null';
+            right='0';
+            left='null';
+            bottom='50%'
+            break;
         case 'bottom-right':
             top='null';
             right='0';
+            left='null';
+            bottom='10rem'
+            break;
+        case 'bottom-center':
+            top='null';
+            right='50%';
             left='null';
             bottom='10rem'
             break;
@@ -101,7 +119,6 @@ const Popups = (props) =>{
             bottom='8.5rem'
             break;
     }
-
 
     return(
         <Outer_container place={place} top={top} right={right} left={left} bottom={bottom}>

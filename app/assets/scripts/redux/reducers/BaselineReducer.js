@@ -8,7 +8,7 @@ import {
 } from "../constants/BaselineConstants"
 
 const InitState = {
-    BASELINE_ID:"Datasets",
+    BASELINE_ID:"None",
     PREV_BASELINE_ID:null,
     BASELINE_DATE_F:null,
     BASELINE_DATE_I:null,

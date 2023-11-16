@@ -1,11 +1,12 @@
 // mainly used to getch the layer-loder (agriculture, no2, co2) --> in our case will be NALMA and ISSLIS
 
 import '@babel/polyfill';
-import React,{useState} from 'react';
+import React from 'react';
 import T from 'prop-types';
 
 import { storeSpotlightLayers } from './components/common/layers';
 import LAYER_JSON from './data/layers';
+import conf from './configuration.json'
 
 class LayerDataLoader extends React.Component {
   
@@ -14,9 +15,13 @@ class LayerDataLoader extends React.Component {
   }
 
   requestData(){
+    const api = conf.api
     const dataset = []
     LAYER_JSON.layer.map((layer)=>dataset.push(layer))
-    console.log('v13')
+    dataset.map((layer)=>{
+      layer.source.tiles = [api + layer.source.tiles]
+    })
+    console.log('v20')
     storeSpotlightLayers('global', dataset);
     this.props.onReady();
   }

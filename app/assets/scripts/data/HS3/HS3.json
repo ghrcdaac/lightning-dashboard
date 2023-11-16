@@ -1,0 +1,551 @@
+[
+    {
+        "year": "2012",
+        "data": [
+            {
+                "month": "08",
+                "init_day": "28",
+                "end_day": "31",
+                "length": 4,
+                "day_indices": {
+                    "28": [
+                        0,
+                        0
+                    ],
+                    "29": [
+                        1,
+                        1
+                    ],
+                    "30": [
+                        2,
+                        2
+                    ],
+                    "31": [
+                        3,
+                        3
+                    ]
+                },
+                "file": [
+                    "AE20120828.Leslie.loc.nc.tif",
+                    "AE20120829.Leslie.loc.nc.tif",
+                    "AE20120830.Leslie.loc.nc.tif",
+                    "AE20120831.Leslie.loc.nc.tif"
+                ]
+            },
+            {
+                "month": "09",
+                "init_day": "05",
+                "end_day": "30",
+                "length": 28,
+                "day_indices": {
+                    "05": [
+                        0,
+                        0
+                    ],
+                    "06": [
+                        1,
+                        1
+                    ],
+                    "07": [
+                        2,
+                        2
+                    ],
+                    "08": [
+                        3,
+                        3
+                    ],
+                    "09": [
+                        4,
+                        4
+                    ],
+                    "10": [
+                        5,
+                        6
+                    ],
+                    "11": [
+                        7,
+                        8
+                    ],
+                    "12": [
+                        9,
+                        10
+                    ],
+                    "13": [
+                        11,
+                        11
+                    ],
+                    "14": [
+                        12,
+                        12
+                    ],
+                    "15": [
+                        13,
+                        13
+                    ],
+                    "16": [
+                        14,
+                        14
+                    ],
+                    "17": [
+                        15,
+                        15
+                    ],
+                    "18": [
+                        16,
+                        16
+                    ],
+                    "20": [
+                        17,
+                        17
+                    ],
+                    "21": [
+                        18,
+                        18
+                    ],
+                    "22": [
+                        19,
+                        19
+                    ],
+                    "23": [
+                        20,
+                        20
+                    ],
+                    "24": [
+                        21,
+                        21
+                    ],
+                    "25": [
+                        22,
+                        22
+                    ],
+                    "26": [
+                        23,
+                        23
+                    ],
+                    "27": [
+                        24,
+                        24
+                    ],
+                    "28": [
+                        25,
+                        25
+                    ],
+                    "29": [
+                        26,
+                        26
+                    ],
+                    "30": [
+                        27,
+                        27
+                    ]
+                },
+                "file": [
+                    "AE20120905.Leslie.loc.nc.tif",
+                    "AE20120906.Leslie.loc.nc.tif",
+                    "AE20120907.Leslie.loc.nc.tif",
+                    "AE20120908.Leslie.loc.nc.tif",
+                    "AE20120909.Leslie.loc.nc.tif",
+                    "AE20120910.Leslie.loc.nc.tif",
+                    "AE20120910.Nadine.loc.nc.tif",
+                    "AE20120911.Leslie.loc.nc.tif",
+                    "AE20120911.Nadine.loc.nc.tif",
+                    "AE20120912.Leslie.loc.nc.tif",
+                    "AE20120912.Nadine.loc.nc.tif",
+                    "AE20120913.Nadine.loc.nc.tif",
+                    "AE20120914.Nadine.loc.nc.tif",
+                    "AE20120915.Nadine.loc.nc.tif",
+                    "AE20120916.Nadine.loc.nc.tif",
+                    "AE20120917.Nadine.loc.nc.tif",
+                    "AE20120918.Nadine.loc.nc.tif",
+                    "AE20120920.Nadine.loc.nc.tif",
+                    "AE20120921.Nadine.loc.nc.tif",
+                    "AE20120922.Nadine.loc.nc.tif",
+                    "AE20120923.Nadine.loc.nc.tif",
+                    "AE20120924.Nadine.loc.nc.tif",
+                    "AE20120925.Nadine.loc.nc.tif",
+                    "AE20120926.Nadine.loc.nc.tif",
+                    "AE20120927.Nadine.loc.nc.tif",
+                    "AE20120928.Nadine.loc.nc.tif",
+                    "AE20120929.Nadine.loc.nc.tif",
+                    "AE20120930.Nadine.loc.nc.tif"
+                ]
+            },
+            {
+                "month": "10",
+                "init_day": "01",
+                "end_day": "04",
+                "length": 4,
+                "day_indices": {
+                    "01": [
+                        0,
+                        0
+                    ],
+                    "02": [
+                        1,
+                        1
+                    ],
+                    "03": [
+                        2,
+                        2
+                    ],
+                    "04": [
+                        3,
+                        3
+                    ]
+                },
+                "file": [
+                    "AE20121001.Nadine.loc.nc.tif",
+                    "AE20121002.Nadine.loc.nc.tif",
+                    "AE20121003.Nadine.loc.nc.tif",
+                    "AE20121004.Nadine.loc.nc.tif"
+                ]
+            }
+        ]
+    },
+    {
+        "year": "2013",
+        "data": [
+            {
+                "month": "08",
+                "init_day": "16",
+                "end_day": "31",
+                "length": 9,
+                "day_indices": {
+                    "16": [
+                        0,
+                        0
+                    ],
+                    "17": [
+                        1,
+                        1
+                    ],
+                    "18": [
+                        2,
+                        2
+                    ],
+                    "25": [
+                        3,
+                        3
+                    ],
+                    "26": [
+                        4,
+                        4
+                    ],
+                    "28": [
+                        5,
+                        5
+                    ],
+                    "29": [
+                        6,
+                        6
+                    ],
+                    "30": [
+                        7,
+                        7
+                    ],
+                    "31": [
+                        8,
+                        8
+                    ]
+                },
+                "file": [
+                    "AE20130816.Erin.loc.nc.tif",
+                    "AE20130817.Erin.loc.nc.tif",
+                    "AE20130818.Erin.loc.nc.tif",
+                    "AE20130825.Fernand.loc.nc.tif",
+                    "AE20130826.Fernand.loc.nc.tif",
+                    "AE20130828.Kiko.loc.nc.tif",
+                    "AE20130829.Kiko.loc.nc.tif",
+                    "AE20130830.Kiko.loc.nc.tif",
+                    "AE20130831.Kiko.loc.nc.tif"
+                ]
+            },
+            {
+                "month": "09",
+                "init_day": "01",
+                "end_day": "19",
+                "length": 33,
+                "day_indices": {
+                    "01": [
+                        0,
+                        0
+                    ],
+                    "04": [
+                        1,
+                        1
+                    ],
+                    "05": [
+                        2,
+                        2
+                    ],
+                    "06": [
+                        3,
+                        4
+                    ],
+                    "07": [
+                        5,
+                        6
+                    ],
+                    "08": [
+                        7,
+                        9
+                    ],
+                    "09": [
+                        10,
+                        12
+                    ],
+                    "10": [
+                        13,
+                        14
+                    ],
+                    "11": [
+                        15,
+                        16
+                    ],
+                    "12": [
+                        17,
+                        19
+                    ],
+                    "13": [
+                        20,
+                        22
+                    ],
+                    "14": [
+                        23,
+                        24
+                    ],
+                    "15": [
+                        25,
+                        26
+                    ],
+                    "16": [
+                        27,
+                        28
+                    ],
+                    "17": [
+                        29,
+                        30
+                    ],
+                    "18": [
+                        31,
+                        31
+                    ],
+                    "19": [
+                        32,
+                        32
+                    ]
+                },
+                "file": [
+                    "AE20130901.Kiko.loc.nc.tif",
+                    "AE20130904.Gabrielle.loc.nc.tif",
+                    "AE20130905.Gabrielle.loc.nc.tif",
+                    "AE20130906.Gabrielle.loc.nc.tif",
+                    "AE20130906.Lorena.loc.nc.tif",
+                    "AE20130907.Gabrielle.loc.nc.tif",
+                    "AE20130907.Lorena.loc.nc.tif",
+                    "AE20130908.Gabrielle.loc.nc.tif",
+                    "AE20130908.Humberto.loc.nc.tif",
+                    "AE20130908.Lorena.loc.nc.tif",
+                    "AE20130909.Gabrielle.loc.nc.tif",
+                    "AE20130909.Humberto.loc.nc.tif",
+                    "AE20130909.Lorena.loc.nc.tif",
+                    "AE20130910.Gabrielle.loc.nc.tif",
+                    "AE20130910.Humberto.loc.nc.tif",
+                    "AE20130911.Gabrielle.loc.nc.tif",
+                    "AE20130911.Humberto.loc.nc.tif",
+                    "AE20130912.Gabrielle.loc.nc.tif",
+                    "AE20130912.Humberto.loc.nc.tif",
+                    "AE20130912.Ingrid.loc.nc.tif",
+                    "AE20130913.Gabrielle.loc.nc.tif",
+                    "AE20130913.Humberto.loc.nc.tif",
+                    "AE20130913.Ingrid.loc.nc.tif",
+                    "AE20130914.Humberto.loc.nc.tif",
+                    "AE20130914.Ingrid.loc.nc.tif",
+                    "AE20130915.Humberto.loc.nc.tif",
+                    "AE20130915.Ingrid.loc.nc.tif",
+                    "AE20130916.Humberto.loc.nc.tif",
+                    "AE20130916.Ingrid.loc.nc.tif",
+                    "AE20130917.Humberto.loc.nc.tif",
+                    "AE20130917.Ingrid.loc.nc.tif",
+                    "AE20130918.Humberto.loc.nc.tif",
+                    "AE20130919.Humberto.loc.nc.tif"
+                ]
+            }
+        ]
+    },
+    {
+        "year": "2014",
+        "data": [
+            {
+                "month": "08",
+                "init_day": "26",
+                "end_day": "30",
+                "length": 5,
+                "day_indices": {
+                    "26": [
+                        0,
+                        0
+                    ],
+                    "27": [
+                        1,
+                        1
+                    ],
+                    "28": [
+                        2,
+                        2
+                    ],
+                    "29": [
+                        3,
+                        3
+                    ],
+                    "30": [
+                        4,
+                        4
+                    ]
+                },
+                "file": [
+                    "AE20140826.Cristobal.loc.nc.tif",
+                    "AE20140827.Cristobal.loc.nc.tif",
+                    "AE20140828.Cristobal.loc.nc.tif",
+                    "AE20140829.Cristobal.loc.nc.tif",
+                    "AE20140830.Cristobal.loc.nc.tif"
+                ]
+            },
+            {
+                "month": "09",
+                "init_day": "01",
+                "end_day": "21",
+                "length": 18,
+                "day_indices": {
+                    "01": [
+                        0,
+                        1
+                    ],
+                    "02": [
+                        2,
+                        3
+                    ],
+                    "03": [
+                        4,
+                        4
+                    ],
+                    "04": [
+                        5,
+                        5
+                    ],
+                    "10": [
+                        6,
+                        6
+                    ],
+                    "11": [
+                        7,
+                        7
+                    ],
+                    "12": [
+                        8,
+                        8
+                    ],
+                    "13": [
+                        9,
+                        9
+                    ],
+                    "14": [
+                        10,
+                        10
+                    ],
+                    "15": [
+                        11,
+                        11
+                    ],
+                    "16": [
+                        12,
+                        12
+                    ],
+                    "17": [
+                        13,
+                        13
+                    ],
+                    "18": [
+                        14,
+                        14
+                    ],
+                    "19": [
+                        15,
+                        15
+                    ],
+                    "20": [
+                        16,
+                        16
+                    ],
+                    "21": [
+                        17,
+                        17
+                    ]
+                },
+                "file": [
+                    "AE20140901.Cristobal.loc.nc.tif",
+                    "AE20140901.Dolly.loc.nc.tif",
+                    "AE20140902.Cristobal.loc.nc.tif",
+                    "AE20140902.Dolly.loc.nc.tif",
+                    "AE20140903.Dolly.loc.nc.tif",
+                    "AE20140904.Dolly.loc.nc.tif",
+                    "AE20140910.Edouard.loc.nc.tif",
+                    "AE20140911.Edouard.loc.nc.tif",
+                    "AE20140912.Edouard.loc.nc.tif",
+                    "AE20140913.Edouard.loc.nc.tif",
+                    "AE20140914.Edouard.loc.nc.tif",
+                    "AE20140915.Edouard.loc.nc.tif",
+                    "AE20140916.Edouard.loc.nc.tif",
+                    "AE20140917.Edouard.loc.nc.tif",
+                    "AE20140918.Edouard.loc.nc.tif",
+                    "AE20140919.Edouard.loc.nc.tif",
+                    "AE20140920.Edouard.loc.nc.tif",
+                    "AE20140921.Edouard.loc.nc.tif"
+                ]
+            },
+            {
+                "month": "10",
+                "init_day": "10",
+                "end_day": "15",
+                "length": 9,
+                "day_indices": {
+                    "10": [
+                        0,
+                        0
+                    ],
+                    "11": [
+                        1,
+                        2
+                    ],
+                    "12": [
+                        3,
+                        4
+                    ],
+                    "13": [
+                        5,
+                        6
+                    ],
+                    "14": [
+                        7,
+                        7
+                    ],
+                    "15": [
+                        8,
+                        8
+                    ]
+                },
+                "file": [
+                    "AE20141010.Fay.loc.nc.tif",
+                    "AE20141011.Fay.loc.nc.tif",
+                    "AE20141011.Gonzalo.loc.nc.tif",
+                    "AE20141012.Fay.loc.nc.tif",
+                    "AE20141012.Gonzalo.loc.nc.tif",
+                    "AE20141013.Fay.loc.nc.tif",
+                    "AE20141013.Gonzalo.loc.nc.tif",
+                    "AE20141014.Gonzalo.loc.nc.tif",
+                    "AE20141015.Gonzalo.loc.nc.tif"
+                ]
+            }
+        ]
+    }
+]

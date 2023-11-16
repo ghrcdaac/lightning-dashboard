@@ -1,11 +1,6 @@
 import React,{useState} from 'react';
-import styled, { withTheme, ThemeProvider } from 'styled-components';
-// import JsonData from './CustomCalendar-data.json'
-import BaselineJSON from '../../../data/Baseline'
-import Baseline2 from '../../../data/Baseline2'
-import find from 'lodash.find';
-import { checkPropTypes } from 'prop-types';
-import { getBaselineData } from '../../../data/DataIndex';
+import styled from 'styled-components';
+import { getBaselineData } from '../../../data/Baseline/DataIndex';
 
 const ButtonContainer = styled.div`
 //position:absolute;

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import T from 'prop-types';
 import styled, { css } from 'styled-components';
 import { add, sub, format, isSameMonth, isSameDay } from 'date-fns';
@@ -7,6 +7,7 @@ import Button from '../../styles/button/button';
 import ButtonGroup from '../../styles/button/group';
 import DataBrowserChart from './data-browser/chart';
 import ShadowScrollbar from './shadow-scrollbar';
+import TimelineDropDown from '../MiniComponents/TImelineDropDown/TimelineDropDown';
 
 import { panelSkin } from '../../styles/skins';
 import { glsp } from '../../styles/utils/theme-values';
@@ -99,7 +100,7 @@ const TimelineExpanderButton = styled(Button)`
 
 const ExploreDataBrowserBody = styled.div`
   display: flex;
-  height: 5rem;
+  height: 4.8rem;
   max-height: 0;
   opacity: 0;
   overflow: hidden;
@@ -179,7 +180,9 @@ class Timeline extends React.Component {
       }
     }else if(action === 'layer-toggle'){
       //this.clickPause();
-      this.timerRef.current.clickPauseHandler();
+      if(this.props.layers[0].timeline_type === 'regular'){
+        this.timerRef.current.clickPauseHandler();
+      }
     }
 
   }
@@ -220,40 +223,45 @@ class Timeline extends React.Component {
               </TimelineExpanderButton>
             </ExploreDataBrowserTitle>
           </ExploreDataBrowserHeadline>
-          <ExploreDataBrowserActions>
-            <TimelineTimer nextDate={this.nextDate} nextDisabled={this.state.nextDisabled} ref={this.timerRef}/>
-            <CurrentDate>
-              {date ? formatDate(date, timeUnit) : 'Select date'}
-            </CurrentDate>
-            <ButtonGroup orientation='horizontal'>
-              <Button
-                disabled={!date || checkSameDate(date, dateDomain[0], timeUnit)}
-                variation='base-plain'
-                size='small'
-                useIcon='chevron-left--small'
-                title='Previous entry'
-                hideText
-                onClick={() =>
-                  onAction('date.set', { date: getPrevDate(dateDomain, date, timeUnit) })}
-              >
-                Previous entry
-              </Button>
-              <Button
-                disabled={!date || checkSameDate(date, dateDomain[dateDomain.length - 1], timeUnit)}
-                variation='base-plain'
-                size='small'
-                useIcon='chevron-right--small'
-                title='Next entry'
-                hideText
-                onClick={() =>
-                  onAction('date.set', { date: getNextDate(dateDomain, date, timeUnit) })}
-              >
-                Next entry
-              </Button>
-            </ButtonGroup>
-          </ExploreDataBrowserActions>
+            <ExploreDataBrowserActions>
+            {(layers[0].timeline_type === 'regular') &&
+              <TimelineTimer nextDate={this.nextDate} nextDisabled={this.state.nextDisabled} ref={this.timerRef}/>}
+              {(layers[0].timeline_type === 'regular') &&
+              <CurrentDate>
+                {date ? formatDate(date, timeUnit) : 'Select date'}
+              </CurrentDate>}
+              {(layers[0].timeline_type === 'regular') &&
+              <ButtonGroup orientation='horizontal'>
+                <Button
+                  disabled={!date || checkSameDate(date, dateDomain[0], timeUnit)}
+                  variation='base-plain'
+                  size='small'
+                  useIcon='chevron-left--small'
+                  title='Previous entry'
+                  hideText
+                  onClick={() =>
+                    onAction('date.set', { date: getPrevDate(dateDomain, date, timeUnit) })}
+                >
+                  Previous entry
+                </Button>
+                <Button
+                  disabled={!date || checkSameDate(date, dateDomain[dateDomain.length - 1], timeUnit)}
+                  variation='base-plain'
+                  size='small'
+                  useIcon='chevron-right--small'
+                  title='Next entry'
+                  hideText
+                  onClick={() =>
+                    onAction('date.set', { date: getNextDate(dateDomain, date, timeUnit) })}
+                >
+                  Next entry
+                </Button>
+              </ButtonGroup>
+          }
+            </ExploreDataBrowserActions>
         </ExploreDataBrowserHeader>
         <ExploreDataBrowserBody isExpanded={this.state.isExpanded}>
+          {(layers[0].timeline_type === 'regular') ?
           <DataBrowserBodyScroll>
             <DataBrowserChart
               selectedDate={date}
@@ -263,7 +271,9 @@ class Timeline extends React.Component {
               swatch={swatch}
               id={id}
             />
-          </DataBrowserBodyScroll>
+          </DataBrowserBodyScroll> :
+          <TimelineDropDown onTimeChange={(data)=>this.props.onTimeChange(data)} layer={layers[0]}/>
+          }
         </ExploreDataBrowserBody>
       </ExploreDataBrowser>
     );
