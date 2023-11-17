@@ -433,7 +433,7 @@
             },
             "domain":["2013-01-01T00:00:00Z","2013-12-01T00:00:00Z"],
             "exclusiveWith":[],
-            "id":"Spring 2022",
+            "id":"ISSLIS",
             "info":"Shows the daily mean flash rate density for 2022.",
             "legend":{
                 "max": null,
@@ -447,7 +447,7 @@
                 ],
                 "type": "categorical" 
             },
-            "name":"ISSLIS Spring 2022",
+            "name":"ISSLIS",
             "image":"https://www.eoportal.org/ftp/satellite-missions/iss/ISS-LIS_110122/ISS-LIS_Auto9.jpeg",
             "paint":null,
             "source":{

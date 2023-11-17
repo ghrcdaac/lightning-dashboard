@@ -63,6 +63,22 @@ export function get_layer(id, layers){
     return layer;
 }
 
+export function get_timeline_type(activelayers, layers){
+    var layer = get_layer(activelayers[0], layers)
+    return layer.timeline_type
+}
+
+export function format_date_time(time){
+    var year = time.year
+    var month = time.month
+    var day = time.day
+    var time2 = time.time
+    var band = time.band
+
+    var data = "Date:"+ year + "_" + month + "_" + day + " <__> Time:" + time2 + " <__> Band:" + band
+    return data
+}
+
 export function dateFormat(date, interval, id){
 
     const month = ["Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"];
@@ -150,7 +166,7 @@ export function data_for_mapbox_data_driven_property(data, activeLayers){
     data.forEach((element)=>{
         const desc = `Lat: ${element.Latitude}<br>Lon: ${element.Longitude}<br>FRD: ${element.Data}`
         var frd
-        if(activeLayers[0] === 'Spring 2022'){
+        if(activeLayers[0] === 'ISSLIS'){
             frd = parseFloat(element.Data * times)
         }else{
             frd = parseFloat(element.Data/20 * times)

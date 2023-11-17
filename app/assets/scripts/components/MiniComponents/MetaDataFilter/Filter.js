@@ -21,7 +21,7 @@ const Filter = (props) =>{
         if (typeof props.activeLayers === 'undefined') {
             return 2
         }
-        if(props.activeLayers[0] === 'TRMM LIS Full' || props.activeLayers[0] === 'OTD Full' || props.activeLayers[0] === 'Spring 2022'){
+        if(props.activeLayers[0] === 'TRMM LIS Full' || props.activeLayers[0] === 'OTD Full' || props.activeLayers[0] === 'ISSLIS'){
             return 100
         }
         return 2

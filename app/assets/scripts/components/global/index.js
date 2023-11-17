@@ -13,7 +13,7 @@ import find from 'lodash.find';
 // import PopupButton from '../../utils/PopupButton';
 import Popups from '../MiniComponents/PopUp/Popup';
 import PopupButton from '../MiniComponents/PopUp/PopupButton';
-import { get_layer, dateFormat } from '../../utils/HelperMethods';
+import { get_layer, dateFormat, get_timeline_type, format_date_time } from '../../utils/HelperMethods';
 
 import { headingAlt } from '../../styles/type/heading';
 import { glsp } from '../../styles/utils/theme-values';
@@ -407,7 +407,7 @@ class GlobalExplore extends React.Component {
     ++this.count
 
     const renderChart = (this.state.activeLayers.length > 0) &&
-                        this.state.activeLayers[0] !== 'Spring 2022'
+                        this.state.activeLayers[0] !== 'ISSLIS'
 
     return (
       <App hideFooter>
@@ -444,6 +444,10 @@ class GlobalExplore extends React.Component {
                   <p>{this.props.BASELINE_ID + ' - ' + dateFormat(this.props.BASELINE_DATE_F, 'month-day-year', this.props.BASELINE_ID) + ' vs ' + 
                   this.state.activeLayers[0] +' - '+ dateFormat(this.state.timelineDate,'month-day-year', this.state.activeLayers[0])}</p>
                 </MapMessage>
+                {(this.state.activeLayers.length > 0) && (this.state.time) && (get_timeline_type(this.state.activeLayers, layers) === "non-regular") && 
+                <MapMessage active={true}>
+                  <p>{format_date_time(this.state.time)}</p>
+                </MapMessage>}
                 <MbMap
                   ref={this.mbMapRef}
                   position={this.state.mapPos}

@@ -526,7 +526,7 @@ class MbMap extends React.Component {
     
     var file_path;
     var time = null;
-    if(this.props.activeLayers[0] === 'Spring 2022' || this.props.activeLayers[0] === 'HS3'){
+    if(this.props.activeLayers[0] === 'ISSLIS' || this.props.activeLayers[0] === 'HS3'){
       if(this.props.PATH === ''){
         Swal.fire({
           icon: 'error',
@@ -538,7 +538,7 @@ class MbMap extends React.Component {
       const timeline_information = this.props.PATH.split("#")
       const filename = timeline_information[0]
       const directory_or_time = timeline_information[1]
-      if(this.props.activeLayers[0] === 'Spring 2022'){
+      if(this.props.activeLayers[0] === 'ISSLIS'){
         file_path = "ISS-LIS/"+filename
         time = directory_or_time[0] + directory_or_time[1]
       }else{ // if this is hs3 data

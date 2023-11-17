@@ -16,9 +16,24 @@ var cur_year, cur_month, cur_day, cur_arg4;
 
 const TimelineDropDown = ({ onTimeChange, layer }) =>{
     
+    const prevLayer = useRef();
+    const intervalRef = useRef(null);
+
     useEffect(()=>{
         set_resetAll(Math.random());
+        prevLayer.current = layer;
     }, [layer])
+
+    if (prevLayer.current && layer.id !== prevLayer.current.id){
+        onTimeChange({
+            year:"None",
+            month:"None",
+            day:"None",
+            time:"None", 
+            band:"None"
+        })
+        clearInterval(intervalRef.current)
+    }
 
     const [reset_all, set_resetAll] = useState(1);
     const [resetMonth, set_resetMonth] = useState(1);
@@ -33,9 +48,10 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
     // Use a ref to store the selected index in the arg4 list
     const selectedArg4Index = useRef(0);
 
+
     useEffect(() => {
         // Automatically change the selected arg4 value every 5 seconds
-        const interval = setInterval(() => {
+        intervalRef.current = setInterval(() => {
             if (arg4.length > 0) {
             // Increment the selected index, and loop back to 0 if necessary
             selectedArg4Index.current = (selectedArg4Index.current + 1) % arg4.length;
@@ -45,7 +61,8 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
             }
         }, 2000); // 5000 milliseconds = 5 seconds
 
-        return () => clearInterval(interval); // Clean up the interval on unmount
+
+        return () => clearInterval(intervalRef.current); // Clean up the interval on unmount
     }, [arg4]);
 
     //redux variable
@@ -88,7 +105,6 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
 
     const arg4Handler = (e) =>{
         cur_arg4 = e.target.value
-        //console.log("Here in arg4 handler")
         if(cur_arg4 === 'Select'){
 
         }else{
@@ -102,7 +118,6 @@ const TimelineDropDown = ({ onTimeChange, layer }) =>{
             }else{
                 time = cur_arg4
             }
-            //console.log(time, band)
             onTimeChange({
                 year:cur_year,
                 month:cur_month,
