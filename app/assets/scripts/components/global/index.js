@@ -444,7 +444,7 @@ class GlobalExplore extends React.Component {
                   <p>{this.props.BASELINE_ID + ' - ' + dateFormat(this.props.BASELINE_DATE_F, 'month-day-year', this.props.BASELINE_ID) + ' vs ' + 
                   this.state.activeLayers[0] +' - '+ dateFormat(this.state.timelineDate,'month-day-year', this.state.activeLayers[0])}</p>
                 </MapMessage>
-                {(this.state.activeLayers.length > 0) && (this.state.time) && (get_timeline_type(this.state.activeLayers, layers) === "non-regular") && 
+                {(this.state.activeLayers.length > 0) && (this.state.time) && this.state.time.year !== 'None' && (get_timeline_type(this.state.activeLayers, layers) === "non-regular") && 
                 <MapMessage active={true}>
                   <p>{format_date_time(this.state.time)}</p>
                 </MapMessage>}
