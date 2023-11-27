@@ -38,7 +38,7 @@ border:0px;
 background-color:black;
 `
 const TextContainer = styled.div`
-width:100%;
+width:80%;
 height:35%;
 text-align:center;
 justify-content:center;
@@ -48,9 +48,10 @@ font-weight: bold;
 font-size: 12px;
 `
 const InfoButtonWrapper = styled.div`
-display:"flex";
-justify-content:"center";
+display:flex;
+justify-content:center;
 align-items:center;
+height:100%:
 `
 
 const TextIconWrapper = styled.div`
