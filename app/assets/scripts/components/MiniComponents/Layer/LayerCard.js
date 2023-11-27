@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 import { IoIosInformationCircleOutline } from "../../../../../../node_modules/react-icons/io";
 import { IoMdClose } from "../../../../../../node_modules/react-icons/io";
@@ -86,6 +86,7 @@ width:80%;
 const LayerCard = ({ layer, clicked, activeLayer }) =>{
    
   const [modalIsOpen, setModal] = useState(false);
+  const [info, setInfo] = useState()
 
   const infoClickHandler = () =>{
     setModal(true)
@@ -104,7 +105,11 @@ const LayerCard = ({ layer, clicked, activeLayer }) =>{
     },
   };
 
-  const info = LayerInformation[0]
+  useEffect(()=>{
+    const data = LayerInformation.filter((dataLayer)=>dataLayer.id === layer.id)
+    setInfo(data[0])
+  }, [layer])
+
 
   return (
       <Container isActive={activeLayer[0] === layer.name}>
@@ -117,13 +122,14 @@ const LayerCard = ({ layer, clicked, activeLayer }) =>{
             <IoIosInformationCircleOutline size={20}/>
           </InfoButtonWrapper>
         </TextIconWrapper>
+        {modalIsOpen &&
         <Modal
         isOpen={modalIsOpen}
         style={customStyles}
         contentLabel="Example Modal"
         >
           <ModalTitle>
-            <h2 style={{width:"90%", textAlign:'center'}}>TRMM LIS FULL</h2>
+            <h2 style={{width:"90%", textAlign:'center'}}>{info.id}</h2>
             <div onClick={closeHandler} style={{cursor:'pointer'}}>
               <IoMdClose size={25} />
             </div>
@@ -166,7 +172,7 @@ const LayerCard = ({ layer, clicked, activeLayer }) =>{
               <InfoText>{info.description}</InfoText>
             </InfoWrapper>
           </div>
-        </Modal>
+        </Modal>}
       </Container>
   )
 }

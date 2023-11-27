@@ -70,7 +70,7 @@
         }
     },
     {
-        "id":"",
+        "id":"OTD Full",
         "title":"",
         "shortname":"",
         "description":"",
@@ -84,7 +84,7 @@
         }
     },
     {
-        "id":"",
+        "id":"OTD Monthly",
         "title":"",
         "shortname":"",
         "description":"",
@@ -98,7 +98,7 @@
         }
     },
     {
-        "id":"",
+        "id":"OTD Diurnal",
         "title":"",
         "shortname":"",
         "description":"",
@@ -112,7 +112,7 @@
         }
     },
     {
-        "id":"",
+        "id":"OTD Daily",
         "title":"",
         "shortname":"",
         "description":"",
@@ -126,7 +126,7 @@
         }
     },
     {
-        "id":"",
+        "id":"ISSLIS",
         "title":"",
         "shortname":"",
         "description":"",
@@ -140,7 +140,7 @@
         }
     },
     {
-        "id":"",
+        "id":"HS3",
         "title":"",
         "shortname":"",
         "description":"",
@@ -154,7 +154,7 @@
         }
     },
     {
-        "id":"",
+        "id":"NALMA",
         "title":"",
         "shortname":"",
         "description":"",
