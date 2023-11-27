@@ -82,6 +82,16 @@ width:20%;
 const InfoText = styled.p`
 width:80%;
 `
+const CloseModal = styled.div`
+cursor:pointer;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:5px;
+:hover {
+  background-color:rgb(0,0,0,0.1);
+}
+`
 
 const LayerCard = ({ layer, clicked, activeLayer }) =>{
    
@@ -100,10 +110,15 @@ const LayerCard = ({ layer, clicked, activeLayer }) =>{
     content: {
       top: '20%',
       left: '30%',
-      height:"45%",
-      width:"45%"
+      height: '45%',
+      width: '45%',
+      overflowY: 'auto', // Enable vertical scrolling
+      WebkitOverflowScrolling: 'touch', // Enable smooth scrolling on iOS devices
+      scrollbarWidth: 'thin', // Set the width of the scrollbar
+      scrollbarColor: '#4d4d4d #e0e0e0', // Set the color of the scrollbar
     },
   };
+  
 
   useEffect(()=>{
     const data = LayerInformation.filter((dataLayer)=>dataLayer.id === layer.id)
@@ -130,9 +145,9 @@ const LayerCard = ({ layer, clicked, activeLayer }) =>{
         >
           <ModalTitle>
             <h2 style={{width:"90%", textAlign:'center'}}>{info.id}</h2>
-            <div onClick={closeHandler} style={{cursor:'pointer'}}>
+            <CloseModal onClick={closeHandler}>
               <IoMdClose size={25} />
-            </div>
+            </CloseModal>
           </ModalTitle>
           <div style={{width:"100%"}}>
             <InfoWrapper>
