@@ -1,8 +1,9 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
 import { IoIosInformationCircleOutline } from "../../../../../../node_modules/react-icons/io";
+import { IoMdClose } from "../../../../../../node_modules/react-icons/io";
 import Modal from 'react-modal';
-// import LayerInformation from ""
+import LayerInformation from "../../../data/layer_info.json"
 
 Modal.setAppElement('#app-container');
 
@@ -47,18 +48,25 @@ font-weight: bold;
 font-size: 12px;
 `
 const InfoButtonWrapper = styled.div`
-background-color:red;
+display:"flex";
+justify-content:"center";
+align-items:center;
 `
 
 const TextIconWrapper = styled.div`
 display:flex;
 width:100%;
 height:35%;
-// text-align:center;
-justify-content:space-around;
+text-align:center;
+justify-content:center;
 align-items:center;
 font-weight: bold;
 font-size: 12px;
+`
+const ModalTitle = styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
 `
 
 const LayerCard = ({ layer, clicked, activeLayer }) =>{
@@ -66,15 +74,19 @@ const LayerCard = ({ layer, clicked, activeLayer }) =>{
   const [modalIsOpen, setModal] = useState(false);
 
   const infoClickHandler = () =>{
-    setModal(!modalIsOpen)
+    setModal(true)
+  }
+
+  const closeHandler = () =>{
+    setModal(false)
   }
 
   const customStyles = {
     content: {
-      top: '35%',
-      left: '45%',
-      height:"25%",
-      width:"25%"
+      top: '30%',
+      left: '40%',
+      height:"35%",
+      width:"35%"
     },
   };
 
@@ -86,7 +98,7 @@ const LayerCard = ({ layer, clicked, activeLayer }) =>{
               {layer.name}
           </TextContainer>
           <InfoButtonWrapper onClick={infoClickHandler}>
-            <IoIosInformationCircleOutline size={25}/>
+            <IoIosInformationCircleOutline size={20}/>
           </InfoButtonWrapper>
         </TextIconWrapper>
         <Modal
@@ -94,7 +106,15 @@ const LayerCard = ({ layer, clicked, activeLayer }) =>{
         style={customStyles}
         contentLabel="Example Modal"
         >
-          <h2 style={{textAlign:'center'}}>TRMM LIS FULL</h2>
+          <ModalTitle>
+            <h2 style={{width:"90%", textAlign:'center'}}>TRMM LIS FULL</h2>
+            <div onClick={closeHandler} style={{cursor:'pointer'}}>
+              <IoMdClose size={25} />
+            </div>
+          </ModalTitle>
+          <div>
+
+          </div>
         </Modal>
       </Container>
   )
