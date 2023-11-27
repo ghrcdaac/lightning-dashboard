@@ -1,0 +1,29 @@
+[
+    {
+        "id":"TRMM LIS Full",
+        "title":"LIS 0.1 DEGREE VERY HIGH RESOLUTION GRIDDED LIGHTNING FULL CLIMATOLOGY (VHRFC) V1",
+        "shortname":"lisvhrfc",
+        "description":"The LIS 0.1 Degree Very High Resolution Gridded Lightning Full Climatology (VHRFC) dataset consists of gridded full climatologies of total lightning flash rates seen by the Lightning Imaging Sensor (LIS) from January 1, 1998 through December 31, 2013. LIS is an instrument on the Tropical Rainfall Measurement Mission satellite (TRMM) used to detect the distribution and variability of total lightning occurring in the Earth's tropical and subtropical regions. This information can be used for severe storm detection and analysis, and also for lightning-atmosphere interaction studies. The gridded climatologies include annual mean flash rate, mean diurnal cycle of flash rate with 24 hour resolution, and mean annual cycle of flash rate with daily, monthly, or seasonal resolution. All datasets are in 0.1 degree spatial resolution. The mean annual cycle of flash rate datasets (i.e., daily, monthly or seasonal) have both 49-day and 1 degree boxcar moving averages to remove diurnal cycle and smooth regions with low flash rate, making the results more robust.",
+        "overview":{
+            "platforms":"TRMM",
+            "instruments":"LIS",
+            "data_formats":"Distribution: netCDF-4",
+            "data_centers":"NASA/MSFC/GHRC",
+            "temporal_extent":"1998-01-01 to 2013-12-31",
+            "spatial_extent":"Bounding Box: (38.0°, 180.0°), (-38.0°, -180.0°)"
+        }
+    },
+    {
+        "id":"",
+        "title":"",
+        "description":"",
+        "overview":{
+            "platforms":"",
+            "instruments":"",
+            "data_formats":"",
+            "data_centers":"",
+            "temporal_extent":"",
+            "spatial_extent":""
+        }
+    }
+]

@@ -1,5 +1,10 @@
 import React,{useState} from 'react';
 import styled, { withTheme, ThemeProvider } from 'styled-components';
+import { IoIosInformationCircleOutline } from "../../../../../../node_modules/react-icons/io";
+import Modal from 'react-modal';
+// import LayerInformation from ""
+
+Modal.setAppElement('#app-container');
 
 const Container = styled.div`
 width: 151px;
@@ -41,17 +46,58 @@ display:flex;
 font-weight: bold;
 font-size: 12px;
 `
+const InfoButtonWrapper = styled.div`
+background-color:red;
+`
+
+const TextIconWrapper = styled.div`
+display:flex;
+width:100%;
+height:35%;
+// text-align:center;
+justify-content:space-around;
+align-items:center;
+font-weight: bold;
+font-size: 12px;
+`
 
 const LayerCard = ({ layer, clicked, activeLayer }) =>{
-    
-    return (
-        <Container onClick={()=>clicked(layer)} isActive={activeLayer[0] === layer.name}>
-            <ImageContainer link={layer.image}/>
-            <TextContainer>
-                {layer.name}
-            </TextContainer>
-        </Container>
-    )
+   
+  const [modalIsOpen, setModal] = useState(false);
+
+  const infoClickHandler = () =>{
+    setModal(!modalIsOpen)
+  }
+
+  const customStyles = {
+    content: {
+      top: '35%',
+      left: '45%',
+      height:"25%",
+      width:"25%"
+    },
+  };
+
+  return (
+      <Container isActive={activeLayer[0] === layer.name}>
+        <ImageContainer link={layer.image} onClick={()=>clicked(layer)}/>
+        <TextIconWrapper>
+          <TextContainer onClick={()=>clicked(layer)}>
+              {layer.name}
+          </TextContainer>
+          <InfoButtonWrapper onClick={infoClickHandler}>
+            <IoIosInformationCircleOutline size={25}/>
+          </InfoButtonWrapper>
+        </TextIconWrapper>
+        <Modal
+        isOpen={modalIsOpen}
+        style={customStyles}
+        contentLabel="Example Modal"
+        >
+          <h2 style={{textAlign:'center'}}>TRMM LIS FULL</h2>
+        </Modal>
+      </Container>
+  )
 }
 
 export default LayerCard
