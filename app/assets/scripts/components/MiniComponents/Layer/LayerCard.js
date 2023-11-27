@@ -68,6 +68,19 @@ const ModalTitle = styled.div`
 display:flex;
 align-items:center;
 justify-content:center;
+margin-bottom:10px;
+`
+
+const InfoWrapper = styled.div`
+display:flex;
+width:100%
+margin-bottom:200px;
+`
+const InfoTitle = styled.h5`
+width:20%;
+`
+const InfoText = styled.p`
+width:80%;
 `
 
 const LayerCard = ({ layer, clicked, activeLayer }) =>{
@@ -84,12 +97,14 @@ const LayerCard = ({ layer, clicked, activeLayer }) =>{
 
   const customStyles = {
     content: {
-      top: '30%',
-      left: '40%',
-      height:"35%",
-      width:"35%"
+      top: '20%',
+      left: '30%',
+      height:"45%",
+      width:"45%"
     },
   };
+
+  const info = LayerInformation[0]
 
   return (
       <Container isActive={activeLayer[0] === layer.name}>
@@ -113,8 +128,43 @@ const LayerCard = ({ layer, clicked, activeLayer }) =>{
               <IoMdClose size={25} />
             </div>
           </ModalTitle>
-          <div>
-
+          <div style={{width:"100%"}}>
+            <InfoWrapper>
+              <InfoTitle>Full Name:</InfoTitle>
+              <InfoText>{info.title}</InfoText>
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>Short Name:</InfoTitle>
+              <InfoText>{info.shortname}</InfoText>
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>Platforms:</InfoTitle>
+              <InfoText>{info.overview.platforms}</InfoText>
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>Instruments:</InfoTitle>
+              <InfoText>{info.overview.instruments}</InfoText>
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>Data Formats:</InfoTitle>
+              <InfoText>{info.overview.data_formats}</InfoText>
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>Data Centers:</InfoTitle>
+              <InfoText>{info.overview.data_centers}</InfoText>
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>Temporal Extent:</InfoTitle>
+              <InfoText>{info.overview.temporal_extent}</InfoText>
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>Spatial Extent:</InfoTitle>
+              <InfoText>{info.overview.spatial_extent}</InfoText>
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>Description:</InfoTitle>
+              <InfoText>{info.description}</InfoText>
+            </InfoWrapper>
           </div>
         </Modal>
       </Container>
