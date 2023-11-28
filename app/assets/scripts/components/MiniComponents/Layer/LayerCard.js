@@ -118,13 +118,11 @@ const LayerCard = ({ layer, clicked, activeLayer }) =>{
       scrollbarColor: '#4d4d4d #e0e0e0', // Set the color of the scrollbar
     },
   };
-  
 
   useEffect(()=>{
     const data = LayerInformation.filter((dataLayer)=>dataLayer.id === layer.id)
     setInfo(data[0])
   }, [layer])
-
 
   return (
       <Container isActive={activeLayer[0] === layer.name}>

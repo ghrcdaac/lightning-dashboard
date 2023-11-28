@@ -71,100 +71,100 @@
     },
     {
         "id":"OTD Full",
-        "title":"",
-        "shortname":"",
-        "description":"",
+        "title":"LIS/OTD 0.5 Degree High Resolution Full Climatology (HRFC) V2.3.2015",
+        "shortname":"lohrfc",
+        "description":"The LIS/OTD 0.5 Degree High Resolution Full Climatology (HRFC) contains a variety of gridded climatologies of total lightning flash rates obtained from two lightning detection sensors - the spaceborne Optical Transient Detector (OTD) on Orbview-1 and the Lightning Imaging Sensor (LIS) onboard the Tropical Rainfall Measuring Mission (TRMM) satellite.The long LIS (equatorward of about 38 degree) record makes the merged climatology most robust in the tropics and subtropics, while the high latitude data is entirely from OTD. The HRFC dataset include flash rate climatology data including raw and scaled flash on a 0.5 degree grid in HDF and netCDF-4 format.",
         "overview":{
-            "platforms":"",
-            "instruments":"",
-            "data_formats":"",
-            "data_centers":"",
-            "temporal_extent":"",
-            "spatial_extent":""
+            "platforms":"OrbView-1, TRMM",
+            "instruments":"OTD, LIS",
+            "data_formats":"Distribution: HDF4 - netCDF-4",
+            "data_centers":"NASA/MSFC/GHRC",
+            "temporal_extent":"1995-05-04 to 2014-12-31",
+            "spatial_extent":"Bounding Box: (89.75°, 179.75°), (-89.75°, -179.75°)"
         }
     },
     {
         "id":"OTD Monthly",
-        "title":"",
-        "shortname":"",
-        "description":"",
+        "title":"LIS/OTD 0.5 Degree High Resolution Monthly Climatology (HRMC) V2.3.2015",
+        "shortname":"lohrmc",
+        "description":"The LIS/OTD 0.5 Degree High Resolution Monthly Climatology (HRMC) contains a variety of gridded climatologies of total lightning flash rates obtained from two lightning detection sensors - the spaceborne Optical Transient Detector (OTD) on Orbview-1 and the Lightning Imaging Sensor (LIS) onboard the Tropical Rainfall Measuring Mission (TRMM) satellite. The long LIS (equatorward of about 38 degree) record makes the merged climatology most robust in the tropics and subtropics, while the high latitude data is entirely from OTD. The HRMC dataset include monthly flash rate climatology and flash rate seasonal climatology data on a 0.5 degree grid in HDF and netCDF-4 format.",
         "overview":{
-            "platforms":"",
-            "instruments":"",
-            "data_formats":"",
-            "data_centers":"",
-            "temporal_extent":"",
-            "spatial_extent":""
+            "platforms":"OrbView-1, TRMM",
+            "instruments":"OTD, LIS",
+            "data_formats":"Distribution: HDF4 - netCDF-4",
+            "data_centers":"NASA/MSFC/GHRC",
+            "temporal_extent":"1995-05-04 to 2014-12-31",
+            "spatial_extent":"Bounding Box: (89.75°, 179.75°), (-89.75°, -179.75°)"
         }
     },
     {
         "id":"OTD Diurnal",
-        "title":"",
-        "shortname":"",
-        "description":"",
+        "title":"LIS/OTD 2.5 Degree Low Resolution Diurnal Climatology (LRDC) V2.3.2015",
+        "shortname":"lolrdc",
+        "description":"The LIS/OTD 2.5 Degree Low Resolution Diurnal Climatology (LRDC) contains a variety of gridded climatologies of total lightning flash rates obtained from two lightning detection sensors - the spaceborne Optical Transient Detector (OTD) on Orbview-1 and the Lightning Imaging Sensor (LIS) onboard the Tropical Rainfall Measuring Mission (TRMM) satellite. The long LIS (equatorward of about 38 degree) record makes the merged climatology most robust in the tropics and subtropics, while the high latitude data is entirely from OTD. The LRDC dataset include diurnal flash rate climatology data including raw and scaled flashes on a 2.5 degree grid in HDF and netCDF-4 format.",
         "overview":{
-            "platforms":"",
-            "instruments":"",
-            "data_formats":"",
-            "data_centers":"",
-            "temporal_extent":"",
-            "spatial_extent":""
+            "platforms":"OrbView-1, TRMM",
+            "instruments":"OTD, LIS",
+            "data_formats":"Distribution: HDF4 - netCDF-4",
+            "data_centers":"NASA/MSFC/GHRC",
+            "temporal_extent":"1995-05-04 to 2014-12-31",
+            "spatial_extent":"Bounding Box: (88.75°, 178.75°), (-88.75°, -178.75°)"
         }
     },
     {
         "id":"OTD Daily",
-        "title":"",
-        "shortname":"",
-        "description":"",
+        "title":"LIS/OTD 0.5 Degree High Resolution Annual Climatology (HRAC) V2.3.2015",
+        "shortname":"lohrac",
+        "description":"The LIS/OTD 0.5 Degree High Resolution Annual Climatology (HRAC) contains a variety of gridded climatologies of total lightning flash rates obtained from two lightning detection sensors - the spaceborne Optical Transient Detector (OTD) on Orbview-1 and the Lightning Imaging Sensor (LIS) onboard the Tropical Rainfall Measuring Mission (TRMM) satellite. The long LIS (equatorward of about 38 degree) record makes the merged climatology most robust in the tropics and subtropics, while the high latitude data is entirely from OTD. The HRAC dataset includes annual flash rate climatology data on a 0.5 degree grid in HDF and netCDF-4 format.",
         "overview":{
-            "platforms":"",
-            "instruments":"",
-            "data_formats":"",
-            "data_centers":"",
-            "temporal_extent":"",
-            "spatial_extent":""
+            "platforms":"OrbView-1, TRMM",
+            "instruments":"OTD, LIS",
+            "data_formats":"Distribution: HDF4 - netCDF-4",
+            "data_centers":"NASA/MSFC/GHRC",
+            "temporal_extent":"1995-05-04 to 2014-12-31",
+            "spatial_extent":"Bounding Box: (89.75°, 179.75°), (-89.75°, -179.75°)"
         }
     },
     {
         "id":"ISSLIS",
-        "title":"",
-        "shortname":"",
-        "description":"",
+        "title":"Quality Controlled Lightning Imaging Sensor (LIS) on International Space Station (ISS) Backgrounds V2",
+        "shortname":"isslisg_v2_fin",
+        "description":"The Quality Controlled Lightning Imaging Sensor (LIS) on International Space Station (ISS) Backgrounds dataset was collected by the LIS instrument mounted on the ISS and are used to detect the distribution and variability of total lightning occurring in the Earth’s tropical and subtropical regions. This dataset consists of quality controlled science data. This data collection can be used for severe storm detection and analysis, as well as for lightning-atmosphere interaction studies. The LIS instrument makes measurements during both day and night with high detection efficiency. The data are available in both HDF-4 and netCDF-4 formats.",
         "overview":{
-            "platforms":"",
-            "instruments":"",
-            "data_formats":"",
-            "data_centers":"",
-            "temporal_extent":"",
-            "spatial_extent":""
+            "platforms":"ISS",
+            "instruments":"LIS",
+            "data_formats":"Distribution: HDF4 - netCDF-4",
+            "data_centers":"NASA/MSFC/GHRC",
+            "temporal_extent":"2017-03-01 ongoing",
+            "spatial_extent":"Bounding Box: (55.0°, 180.0°), (-55.0°, -180.0°)"
         }
     },
     {
         "id":"HS3",
-        "title":"",
-        "shortname":"",
-        "description":"",
+        "title":"HURRICANE AND SEVERE STORM SENTINEL (HS3) WORLD WIDE LIGHTNING LOCATION NETWORK (WWLLN) STORMS V1",
+        "shortname":"hs3wwlln",
+        "description":"The World Wide Lightning Location Network (WWLLN) is a global, ground-based lightning sensor network operated by the University of Washington in Seattle. This network monitors and maps global lightning activity. WWLLN has generated quality controlled global lightning data for storms studied during the 2012-2014 Hurricane and Severe Storm Sentinel (HS3) campaign to track and analyze lightning activity.",
         "overview":{
-            "platforms":"",
-            "instruments":"",
-            "data_formats":"",
-            "data_centers":"",
-            "temporal_extent":"",
-            "spatial_extent":""
+            "platforms":"WWLLN",
+            "instruments":"GPS, RF Antenna, VLF RECEIVERS",
+            "data_formats":"Distribution: netCDF-4 - ASCII",
+            "data_centers":"NASA/MSFC/GHRC",
+            "temporal_extent":"2012-08-28 to 2014-10-20",
+            "spatial_extent":"Bounding Box: (68.994°, -15.001°), (12.9°, -116.595°)"
         }
     },
     {
         "id":"NALMA",
-        "title":"",
-        "shortname":"",
-        "description":"",
+        "title":"North Alabama Lightning Mapping Array (LMA) Raw Data V1",
+        "shortname":"nalmaraw",
+        "description":"The North Alabama Lightning Mapping Array (LMA) Raw Data are used to validate the Lightning Imaging Sensor (LIS) on the International Space Station (ISS), the Geostationary Lightning Mapper (GLM) instrument, and other current and future lightning measurements. These data are also used in convective storm process studies, including but not limited to validation of convection-resolving models that predict lightning. These NALMA data files are available from December 17, 2019 and are ongoing in ASCII format.",
         "overview":{
-            "platforms":"",
-            "instruments":"",
-            "data_formats":"",
-            "data_centers":"",
-            "temporal_extent":"",
-            "spatial_extent":""
+            "platforms":"GROUND STATIONS",
+            "instruments":"LMA",
+            "data_formats":"Distribution: ASCII",
+            "data_centers":"NASA/MSFC/GHRC",
+            "temporal_extent":"2018-12-17 ongoing",
+            "spatial_extent":"Bounding Box: (36.7246°, -84.6453°), (32.7246°, -88.6453°)"
         }
     }
 ]
