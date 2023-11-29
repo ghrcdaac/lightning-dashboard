@@ -552,6 +552,17 @@ class PageHeader extends React.Component {
                       Home
                     </Button>
                   </li>
+                  <li>
+                    <Button
+                      variation="achromic-plain"
+                      title="JupyterLab"
+                      onClick={()=>{
+                        window.open('https://openscapes.2i2c.cloud/user/alan1321/lab/tree/LD/LDVisualization.ipynb')
+                      }}
+                    >
+                      JupyterLab
+                    </Button>
+                  </li>
                   <ShareLi>
                     <Button
                       element='a'
