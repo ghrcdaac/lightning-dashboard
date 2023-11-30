@@ -553,15 +553,45 @@ class PageHeader extends React.Component {
                     </Button>
                   </li>
                   <li>
-                    <Button
-                      variation="achromic-plain"
-                      title="JupyterLab"
-                      onClick={()=>{
-                        window.open('https://openscapes.2i2c.cloud/user/alan1321/lab/tree/LD/LDVisualization.ipynb')
-                      }}
-                    >
-                      JupyterLab
-                    </Button>
+                      <Button
+                          // element={NavLinkFilter}
+                          to='/indicators'
+                          exact
+                          variation='achromic-plain'
+                          title='View the Indicators page'
+                          useIcon={
+                            isMediumDown ? null : ['chevron-down--small', 'after']
+                          }
+                      >
+                        Notebooks
+                      </Button>
+                      <PrimeMenuBlock>
+                      <PrimeMenuBlockTitle>JupyterLab Notebooks</PrimeMenuBlockTitle>
+                      <PrimeSubmenu aria-label='submenu'>
+                        <Button
+                          variation={
+                            isMediumDown
+                              ? 'achromic-plain'
+                              : 'primary-plain'
+                          }
+                          title=''
+                          onClick={()=>window.open('https://openscapes.2i2c.cloud/user/alan1321/lab/tree/LD/LDVisualization.ipynb')}
+                        >
+                          LDVisualization
+                        </Button>
+                        <Button
+                          variation={
+                            isMediumDown
+                              ? 'achromic-plain'
+                              : 'primary-plain'
+                          }
+                          title=''
+                          onClick={()=>window.open('https://openscapes.2i2c.cloud/user/alan1321/lab/workspaces/auto-l/tree/LD/isslis_recipe.ipynb')}
+                        >
+                          ISSLIS Pathways
+                        </Button>
+                      </PrimeSubmenu>
+                    </PrimeMenuBlock>
                   </li>
                   <ShareLi>
                     <Button
