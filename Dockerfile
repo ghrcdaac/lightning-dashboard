@@ -1,11 +1,11 @@
 # Use an official Node runtime as a base image
-FROM node:14-alpine
+FROM node:18-alpine
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
 # Copy package.json and yarn.lock to the working directory
-COPY package.json yarn.lock ./
+COPY . .
 
 # Install dependencies
 RUN yarn install
@@ -14,8 +14,11 @@ RUN yarn install
 COPY . .
 
 # Expose the port that the app will run on (adjust as needed)
-EXPOSE 8080
+EXPOSE 9000
 
 # Define the command to run your app
 CMD ["yarn", "serve"]
+
+#TO START DO
+# docker build -t test2 . && docker run -p 9000:9000 test2
 
