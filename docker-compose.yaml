@@ -1,0 +1,9 @@
+version : '3'
+services:
+  deploy-frontend:
+    build: .
+    ports:
+    - "9000:9000"
+    - "8080:9000"
+    - "8081:9000"
+    - "9001:9000"

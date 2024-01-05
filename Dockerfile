@@ -4,14 +4,11 @@ FROM node:18-alpine
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy package.json and yarn.lock to the working directory
+# Copy the rest of the application code to the working directory
 COPY . .
 
 # Install dependencies
 RUN yarn install
-
-# Copy the rest of the application code to the working directory
-COPY . .
 
 # Expose the port that the app will run on (adjust as needed)
 EXPOSE 9000
@@ -21,4 +18,3 @@ CMD ["yarn", "serve"]
 
 #TO START DO
 # docker build -t test2 . && docker run -p 9000:9000 test2
-
