@@ -2,7 +2,7 @@
 FROM node:18-alpine
 
 # Set the working directory in the container
-WORKDIR /usr/src/app
+WORKDIR /usr/src
 
 # Copy the rest of the application code to the working directory
 COPY . .

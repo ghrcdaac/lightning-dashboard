@@ -3,3 +3,5 @@ yarn.lock
 .git
 .gitignore
 .dockerignore
+Dockerfile
+docker-compose.yaml

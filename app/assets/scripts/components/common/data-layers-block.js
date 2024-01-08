@@ -95,7 +95,7 @@ class DataLayersBlock extends React.Component {
       }
     })
     two_dim_layers.push(layer_array)
-
+ 
     return (
       <PanelBlockLayer>
         <PanelBlockHeader>
